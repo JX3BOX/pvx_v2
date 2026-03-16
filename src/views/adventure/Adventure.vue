@@ -2,7 +2,7 @@
     <div class="p-adventure">
         <CommonHeader></CommonHeader>
         <Nav @statusChange="statusChange"></Nav>
-        <Main :class="navStatusClass" :withoutRight="true">
+        <Main :class="navStatusClass" :withoutRight="true" :withoutLeft="true">
             <div class="m-main">
                 <keep-alive include="adventureList">
                     <router-view></router-view>

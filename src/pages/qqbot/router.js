@@ -1,4 +1,3 @@
-import { createPageRouter } from "@/bootstrap/router";
 
 const qqbot = () => import("@/views/qqbot/Detail.vue");
 

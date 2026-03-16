@@ -1,4 +1,3 @@
-import { createPageRouter } from "@/bootstrap/router";
 
 const Index = () => import("@/views/reputation/Index.vue");
 const Single = () => import("@/views/reputation/Single.vue");

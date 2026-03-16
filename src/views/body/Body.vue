@@ -2,7 +2,7 @@
     <div id="app">
         <CommonHeader></CommonHeader>
         <Nav @statusChange="statusChange"></Nav>
-        <Main :class="navStatusClass" :withoutRight="true">
+        <Main :class="navStatusClass" :withoutRight="true" :withoutLeft="true">
             <div class="m-main"><router-view></router-view></div>
         </Main>
     </div>

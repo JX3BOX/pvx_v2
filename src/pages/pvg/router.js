@@ -1,4 +1,3 @@
-import { createPageRouter } from "@/bootstrap/router";
 import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
 
 const routes = [

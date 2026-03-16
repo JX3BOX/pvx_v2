@@ -78,9 +78,9 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 // 6.3 Tailwind
 import "@/assets/css/tailwind.css";
 
-// 7. 其它扩展
-import { installClipboardDirective } from "@/bootstrap/clipboard";
-installClipboardDirective(app);
+// 7. TODO:其它扩展
+// import { installClipboardDirective } from "@/bootstrap/clipboard";
+// installClipboardDirective(app);
 
 // Final.Mount DOM
 app.mount("#app");
