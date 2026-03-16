@@ -1,7 +1,7 @@
 const pages = {
     index: {
         title: "休闲栏目",
-        entry: "src/pages/index/index.js",
+        entry: "src/main.js",
         template: "public/index.html",
         filename: "index.html",
     },
@@ -11,75 +11,76 @@ const pages = {
         template: "public/index.html",
         filename: "adventure/index.html",
     },
-    pvg: {
-        title: "商贾奇才 - JX3BOX",
-        entry: "src/pages/pvg/index.js",
-        template: "public/index.html",
-        filename: "pvg/index.html",
-    },
-    reputation: {
-        title: "声望大全",
-        entry: "src/pages/reputation/index.js",
-        template: "public/index.html",
-        filename: "reputation/index.html",
-    },
-    book: {
-        title: "书籍大全 - JX3BOX",
-        entry: "src/pages/book/index.js",
-        template: "public/index.html",
-        filename: "book/index.html",
-    },
-    exam: {
-        title: "剑三考试 - JX3BOX",
-        entry: "src/pages/exam/index.js",
-        template: "public/index.html",
-        filename: "exam/index.html",
-    },
-    face: {
-        title: "捏脸数据",
-        entry: "src/pages/face/index.js",
-        template: "public/index.html",
-        filename: "face/index.html",
-    },
-    body: {
-        title: "体型数据",
-        entry: "src/pages/body/index.js",
-        template: "public/index.html",
-        filename: "body/index.html",
-    },
-    pet: {
-        title: "宠物大全 - JX3BOX",
-        entry: "src/pages/pet/index.js",
-        template: "public/index.html",
-        filename: "pet/index.html",
-    },
-    furniture: {
-        title: "家具大全 - JX3BOX",
-        entry: "src/pages/furniture/index.js",
-        template: "public/index.html",
-        filename: "furniture/index.html",
-    },
-    horse: {
-        title: "坐骑大全 - JX3BOX",
-        entry: "src/pages/horse/index.js",
-        template: "public/index.html",
-        filename: "horse/index.html",
-    },
-    homeland: {
-        title: "家园蓝图 - JX3BOX",
-        entry: "src/pages/homeland/index.js",
-        template: "public/index.html",
-        filename: "homeland/index.html",
-    },
-    qqbot: {
-        title: "QQRobot - JX3BOX",
-        entry: "src/pages/qqbot/index.js",
-        template: "public/index.html",
-        filename: "qqbot/index.html",
-    },
+    // pvg: {
+    //     title: "商贾奇才 - JX3BOX",
+    //     entry: "src/pages/pvg/index.js",
+    //     template: "public/index.html",
+    //     filename: "pvg/index.html",
+    // },
+    // reputation: {
+    //     title: "声望大全",
+    //     entry: "src/pages/reputation/index.js",
+    //     template: "public/index.html",
+    //     filename: "reputation/index.html",
+    // },
+    // book: {
+    //     title: "书籍大全 - JX3BOX",
+    //     entry: "src/pages/book/index.js",
+    //     template: "public/index.html",
+    //     filename: "book/index.html",
+    // },
+    // exam: {
+    //     title: "剑三考试 - JX3BOX",
+    //     entry: "src/pages/exam/index.js",
+    //     template: "public/index.html",
+    //     filename: "exam/index.html",
+    // },
+    // face: {
+    //     title: "捏脸数据",
+    //     entry: "src/pages/face/index.js",
+    //     template: "public/index.html",
+    //     filename: "face/index.html",
+    // },
+    // body: {
+    //     title: "体型数据",
+    //     entry: "src/pages/body/index.js",
+    //     template: "public/index.html",
+    //     filename: "body/index.html",
+    // },
+    // pet: {
+    //     title: "宠物大全 - JX3BOX",
+    //     entry: "src/pages/pet/index.js",
+    //     template: "public/index.html",
+    //     filename: "pet/index.html",
+    // },
+    // furniture: {
+    //     title: "家具大全 - JX3BOX",
+    //     entry: "src/pages/furniture/index.js",
+    //     template: "public/index.html",
+    //     filename: "furniture/index.html",
+    // },
+    // horse: {
+    //     title: "坐骑大全 - JX3BOX",
+    //     entry: "src/pages/horse/index.js",
+    //     template: "public/index.html",
+    //     filename: "horse/index.html",
+    // },
+    // homeland: {
+    //     title: "家园蓝图 - JX3BOX",
+    //     entry: "src/pages/homeland/index.js",
+    //     template: "public/index.html",
+    //     filename: "homeland/index.html",
+    // },
+    // qqbot: {
+    //     title: "QQRobot - JX3BOX",
+    //     entry: "src/pages/qqbot/index.js",
+    //     template: "public/index.html",
+    //     filename: "qqbot/index.html",
+    // },
 }
 
 const path = require("path");
+const fs = require("fs");
 const webpack = require("webpack");
 const commonDomains = require("@jx3box/jx3box-common/data/jx3box.json");
 
@@ -124,6 +125,12 @@ module.exports = {
         stats: {
             warningsFilter: [/node_modules[\\\\/]+@jx3box[\\\\/]+jx3box-common[\\\\/]+/],
         },
+        plugins: [
+            new webpack.DefinePlugin({
+                // 全局注入，用于 JS 或其他代码中
+                __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+            }),
+        ],
     },
 
     //❤️ Webpack configuration
@@ -165,28 +172,20 @@ module.exports = {
         }
     },
 
-    configureWebpack: {
-        plugins: [
-            new webpack.DefinePlugin({
-                // 全局注入，用于 JS 或其他代码中
-                __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
-            }),
-        ],
-    },
 };
 
 // 注入全局样式资源（变量、mixin 等）
 // 本地css/var.less、mixin.less会覆盖node_modules里的同名文件，方便定制化
 // 注意此类文件都是变量和mixin函数，不要写全局样式，否则可能会被重复注入多次
 function addStyleResource(rule) {
-    var preload_styles = [];
-    preload_styles.push(
+    const preload_styles = [
         path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/var.less"),
         path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/mixin.less"),
-        path.resolve(__dirname, "./assets/css/var.less"),
-        path.resolve(__dirname, "./assets/css/mixin.less"),
+        // 本项目自定义变量/混入（路径在 src 下）
+        path.resolve(__dirname, "./src/assets/css/var.less"),
+        path.resolve(__dirname, "./src/assets/css/mixin.less"),
         path.resolve(__dirname, "./node_modules/csslab/base.less"),
-    );
+    ].filter((p) => fs.existsSync(p));
     rule.use("style-resource").loader("style-resources-loader").options({
         patterns: preload_styles,
     });

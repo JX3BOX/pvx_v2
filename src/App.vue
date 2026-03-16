@@ -1,5 +1,5 @@
 <template>
-    <div class="p-index">
+    <div class="p-index p-index--pvx">
         <div class="m-index-category" v-for="(menu, index) in menus" :key="index" :class="'index' + index">
             <div class="u-index-category-title">
                 {{ menu.label }}

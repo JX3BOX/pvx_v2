@@ -1,14 +1,13 @@
 <template>
-    <div id="app">
-        <CommonHeader></CommonHeader>
-        <Nav @statusChange="statusChange"></Nav>
-        <Main :class="navStatusClass" :withoutRight="true">
-            <div class="m-main">
-                <router-view></router-view>
-            </div>
-            <PvxBacktop color="#fff" bgColor="#324148"></PvxBacktop>
-        </Main>
-    </div>
+    <CommonHeader></CommonHeader>
+    <Nav @statusChange="statusChange"></Nav>
+    <Main :class="navStatusClass" :withoutRight="true">
+        <div class="m-main">
+            <router-view></router-view>
+        </div>
+        <PvxBacktop color="#fff" bgColor="#324148"></PvxBacktop>
+    </Main>
+    <CommonFooter></CommonFooter>
 </template>
 
 <script>
