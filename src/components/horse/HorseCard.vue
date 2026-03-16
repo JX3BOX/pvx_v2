@@ -1,9 +1,11 @@
 <template>
     <a class="m-horse-card" :class="`u-quality-bg--` + item.Quality" :href="getLink(item)" target="_blank">
         <el-image v-if="item.SubType === 15" :src="getImgSrc(item)" class="u-image">
-            <div slot="error" class="image-slot">
-                <img :src="getImgSrc(item, true)" @error="replaceByDefault" />
-            </div>
+            <template #error>
+                <div class="image-slot">
+                    <img :src="getImgSrc(item, true)" @error="replaceByDefault" />
+                </div>
+            </template>
         </el-image>
         <item-icon v-else :item_id="String(item.ItemID)" :isLink="false" :size="160" :onlyIcon="true"></item-icon>
 
@@ -11,12 +13,14 @@
         <div class="u-desc">ID: {{ item.ID }}</div>
         <div class="u-img">
             <el-tooltip trigger="hover" placement="top" v-for="(data, index) in MagicAttributes" :key="index">
-                <div class="u-attr-pop" slot="content">
-                    <div class="u-attr-name" v-if="data.name">
-                        {{ (data.name || "") + (Number(data.level) ? data.level + "级" : "") }}
+                <template #content>
+                    <div class="u-attr-pop">
+                        <div class="u-attr-name" v-if="data.name">
+                            {{ (data.name || "") + (Number(data.level) ? data.level + "级" : "") }}
+                        </div>
+                        <div class="u-attr-desc">{{ data.desc }}</div>
                     </div>
-                    <div class="u-attr-desc">{{ data.desc }}</div>
-                </div>
+                </template>
                 <img class="u-attr-icon" :src="data.iconUrl" :alt="data.name" />
             </el-tooltip>
             <span class="u-more" v-if="count">+{{ count }}</span>

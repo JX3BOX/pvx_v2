@@ -1,16 +1,14 @@
+import { createRouter, createWebHistory } from "vue-router";
 import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
-
-const List = () => import("@/views/pet/PetList.vue");
-const Single = () => import("@/views/pet/PetSingle.vue");
-const ListMobile = () => import("@/views/pet/mobile/PetList.vue");
-const SingleMobile = () => import("@/views/pet/mobile/PetSingle.vue");
-const Search = () => import("@/views/pet/mobile/PetSearch.vue");
 
 const routes = [
     {
         name: "list",
         path: "/",
-        component: isMiniProgram() || isApp() ? ListMobile : List,
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/pet/mobile/PetList.vue")
+                : () => import("@/views/pet/PetList.vue"),
         meta: {
             i18n: {
                 title: "pages.pet.title",
@@ -22,7 +20,10 @@ const routes = [
     {
         name: "single",
         path: "/:id(\\d+)",
-        component: isMiniProgram() || isApp() ? SingleMobile : Single,
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/pet/mobile/PetSingle.vue")
+                : () => import("@/views/pet/PetSingle.vue"),
         meta: {
             i18n: {
                 title: "pages.pet.single.title",
@@ -34,7 +35,7 @@ const routes = [
     {
         name: "search",
         path: "/search",
-        component: Search,
+        component: () => import("@/views/pet/mobile/PetSearch.vue"),
         meta: {
             i18n: {
                 title: "pages.pet.search.title",
@@ -45,4 +46,9 @@ const routes = [
     },
 ];
 
-export default createPageRouter("/pet", routes);
+const router = createRouter({
+    history: createWebHistory('/pet/'),
+    routes,
+});
+
+export default router;

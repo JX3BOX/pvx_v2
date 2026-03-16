@@ -4,7 +4,7 @@
             <div class="u-title">走势速览</div>
             <div class="u-servers">
                 <el-select v-model="server" placeholder="请选择" :default-first-option="true" @change="serverChange">
-                    <div slot="prefix">区服价格</div>
+                    <template #prefix><div>区服价格</div></template>
                     <el-option v-for="server in serverList" :key="server" :label="server" :value="server"> </el-option>
                 </el-select>
             </div>

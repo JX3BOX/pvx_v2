@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="设置关注清单" :visible.sync="dialogVisible" width="50%" @close="$emit('close')">
+    <el-dialog title="设置关注清单" v-model:visible="dialogVisible" width="50%" @close="$emit('close')">
         <div class="m-price-goods-mygoods" v-loading="loading">
             <template v-if="myPlanList.length">
                 <div
@@ -17,10 +17,12 @@
             </div>
         </div>
 
-        <span slot="footer" class="dialog-footer">
-            <el-button @click="$emit('close')">取 消</el-button>
-            <el-button type="primary" @click="setMyFollowList">确 定</el-button>
-        </span>
+        <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="$emit('close')">取 消</el-button>
+                <el-button type="primary" @click="setMyFollowList">确 定</el-button>
+            </span>
+        </template>
     </el-dialog>
 </template>
 <script>
@@ -47,7 +49,7 @@ export default {
                 this.loading = false;
                 this.myPlanList = res.reverse() || [];
                 this.myPlanList.forEach((item) => {
-                    this.$set(item, "checked", this.followIdList.includes(item.id));
+                    item.checked = this.followIdList.includes(item.id);
                 });
             });
         },

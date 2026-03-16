@@ -79,7 +79,9 @@ const routes = [
     },
 ];
 
-export default createRouter({
-    history: createWebHistory("/exam/"),
+const router = createRouter({
+    history: createWebHistory('/exam/'),
     routes,
 });
+
+export default router;

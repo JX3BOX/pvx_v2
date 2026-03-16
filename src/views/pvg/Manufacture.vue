@@ -8,7 +8,7 @@
                 <div class="m-manufacture-title">
                     <span class="u-title">{{ craftName }}</span>
                     <el-select class="m-server" v-model="server" placeholder="请选择" size="small">
-                        <span slot="prefix" class="u-prefix"> 区服价格</span>
+                        <template #prefix><span class="u-prefix">区服价格</span></template>
                         <el-option v-for="(item, i) in serverList" :key="i" :label="item" :value="item"> </el-option>
                     </el-select>
                 </div>

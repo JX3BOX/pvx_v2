@@ -5,17 +5,55 @@ const pages = {
         template: "public/index.html",
         filename: "index.html",
     },
+    qqbot: {
+        title: "QQRobot - JX3BOX",
+        entry: "src/pages/qqbot/index.js",
+        template: "public/index.html",
+        filename: "qqbot/index.html",
+    },
+
+    face: {
+        title: "捏脸数据",
+        entry: "src/pages/face/index.js",
+        template: "public/index.html",
+        filename: "face/index.html",
+    },
+    body: {
+        title: "体型数据",
+        entry: "src/pages/body/index.js",
+        template: "public/index.html",
+        filename: "body/index.html",
+    },
+    homeland: {
+        title: "家园蓝图 - JX3BOX",
+        entry: "src/pages/homeland/index.js",
+        template: "public/index.html",
+        filename: "homeland/index.html",
+    },
+
     adventure: {
         title: "奇遇大全",
         entry: "src/pages/adventure/index.js",
         template: "public/index.html",
         filename: "adventure/index.html",
     },
-    pvg: {
-        title: "商贾奇才 - JX3BOX",
-        entry: "src/pages/pvg/index.js",
+    pet: {
+        title: "宠物大全 - JX3BOX",
+        entry: "src/pages/pet/index.js",
         template: "public/index.html",
-        filename: "pvg/index.html",
+        filename: "pet/index.html",
+    },
+    horse: {
+        title: "坐骑大全 - JX3BOX",
+        entry: "src/pages/horse/index.js",
+        template: "public/index.html",
+        filename: "horse/index.html",
+    },
+    furniture: {
+        title: "家具大全 - JX3BOX",
+        entry: "src/pages/furniture/index.js",
+        template: "public/index.html",
+        filename: "furniture/index.html",
     },
     reputation: {
         title: "声望大全",
@@ -35,48 +73,14 @@ const pages = {
         template: "public/index.html",
         filename: "exam/index.html",
     },
-    face: {
-        title: "捏脸数据",
-        entry: "src/pages/face/index.js",
+
+    pvg: {
+        title: "商贾奇才 - JX3BOX",
+        entry: "src/pages/pvg/index.js",
         template: "public/index.html",
-        filename: "face/index.html",
+        filename: "pvg/index.html",
     },
-    body: {
-        title: "体型数据",
-        entry: "src/pages/body/index.js",
-        template: "public/index.html",
-        filename: "body/index.html",
-    },
-    pet: {
-        title: "宠物大全 - JX3BOX",
-        entry: "src/pages/pet/index.js",
-        template: "public/index.html",
-        filename: "pet/index.html",
-    },
-    furniture: {
-        title: "家具大全 - JX3BOX",
-        entry: "src/pages/furniture/index.js",
-        template: "public/index.html",
-        filename: "furniture/index.html",
-    },
-    horse: {
-        title: "坐骑大全 - JX3BOX",
-        entry: "src/pages/horse/index.js",
-        template: "public/index.html",
-        filename: "horse/index.html",
-    },
-    homeland: {
-        title: "家园蓝图 - JX3BOX",
-        entry: "src/pages/homeland/index.js",
-        template: "public/index.html",
-        filename: "homeland/index.html",
-    },
-    qqbot: {
-        title: "QQRobot - JX3BOX",
-        entry: "src/pages/qqbot/index.js",
-        template: "public/index.html",
-        filename: "qqbot/index.html",
-    },
+
 }
 
 const path = require("path");

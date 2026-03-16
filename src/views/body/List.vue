@@ -47,13 +47,14 @@
                 type="primary"
                 @click="appendPage"
                 :loading="loading"
-                icon="el-icon-arrow-down"
-                >加载更多</el-button
             >
-            <el-pagination
-                class="m-archive-pages"
-                background
-                layout="total, prev, pager, next, jumper"
+                <el-icon><ArrowDown /></el-icon>
+                加载更多
+	            </el-button>
+	            <el-pagination
+	                class="m-archive-pages"
+	                background
+	                layout="total, prev, pager, next, jumper"
                 :hide-on-single-page="true"
                 @current-change="changePage"
                 @prev-click="changePage"
@@ -111,9 +112,9 @@ export default {
         client() {
             return this.$store.state.client;
         },
-        params({ tabsData }) {
+        params() {
             return {
-                ...tabsData,
+                ...this.tabsData,
                 body_type: this.active,
                 pageSize: this.per,
                 client: this.client,

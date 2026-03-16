@@ -4,8 +4,8 @@
         <div class="m-archive-search m-collection-search">
             <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
             <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" class="input-with-select">
-                <span slot="prepend">关键词</span>
-                <el-button slot="append" icon="el-icon-position" @click="loadList"></el-button>
+                <template #prepend><span>关键词</span></template>
+                <template #append><el-button icon="el-icon-position" @click="loadList"></el-button></template>
             </el-input>
         </div>
         <div class="m-archive-list" v-loading="loading">
@@ -15,8 +15,8 @@
                     v-if="list.length"
                     v-show="totalPages > 1"
                     :total="total"
-                    :page.sync="query.page"
-                    :limit.sync="query.per"
+                    v-model:page="query.page"
+                    v-model:limit="query.per"
                     @pagination="loadList"
                 />
             </template>

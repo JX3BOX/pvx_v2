@@ -80,7 +80,7 @@ export default {
         border: none;
         .m-systemgoods-list {
             margin-top: 12px;
-            /deep/.el-collapse-item__header {
+            :deep(.el-collapse-item__header) {
                 border-radius: 4px;
                 background-color: @black5;
                 padding: 8px 12px;
@@ -99,7 +99,7 @@ export default {
                     color: @brand3;
                 }
             }
-            /deep/.el-collapse-item__wrap {
+            :deep(.el-collapse-item__wrap) {
                 background-color: transparent;
                 border: none;
                 .el-collapse-item__content {
@@ -147,7 +147,7 @@ export default {
     .m-systemgoods {
         .m-systemgoods-group {
             .m-systemgoods-list {
-                /deep/.el-collapse-item__header {
+                :deep(.el-collapse-item__header) {
                     background-color: @black5-dark;
                     color: @black-80-dark;
 
@@ -156,7 +156,7 @@ export default {
                         color: @brand3-dark;
                     }
                 }
-                /deep/.el-collapse-item__wrap {
+                :deep(.el-collapse-item__wrap) {
                     .el-collapse-item__content {
                         .m-systemgoods-list-item {
                             background-color: @black4-dark;

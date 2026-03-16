@@ -52,7 +52,7 @@
             </template>
         </SuspendCommon>
         <el-drawer
-            :visible.sync="showForm"
+            v-model="showForm"
             direction="btt"
             :with-header="false"
             custom-class="u-drawer"

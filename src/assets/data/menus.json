@@ -37,13 +37,6 @@
         "index": "2",
         "submenus": [
             {
-                "path": "/exterior",
-                "label": "外观大全",
-                "icon": "el-icon-download",
-                "key": "exterior",
-                "status": true
-            },
-            {
                 "path": "/adventure",
                 "label": "奇遇大全",
                 "icon": "el-icon-files",

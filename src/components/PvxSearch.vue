@@ -84,8 +84,8 @@
                                             :label="option.value"
                                             :key="option.value"
                                             :custom-label="option.label"
-                                            @mouseenter.native="labelSet($event)"
-                                            @mouseleave.native="labelRemove($event)"
+                                            @mouseenter="labelSet($event)"
+                                            @mouseleave="labelRemove($event)"
                                         >
                                             {{
                                                 customLabel === option.label
@@ -117,9 +117,11 @@
                                 </el-col>
                             </el-row>
                         </div>
-                        <div class="filter-img" :class="filterValue && 'active'" slot="reference">
-                            <img svg-inline src="@/assets/img/filter.svg" fill="#949494" />
-                        </div>
+                        <template #reference>
+                            <div class="filter-img" :class="filterValue && 'active'">
+                                <img svg-inline src="@/assets/img/filter.svg" fill="#949494" />
+                            </div>
+                        </template>
                     </el-popover>
                 </template>
                 <template v-if="item.type === 'select' && item.options.length">

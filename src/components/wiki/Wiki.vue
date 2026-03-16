@@ -2,17 +2,17 @@
     <div class="m-wiki">
         <div class="m-wiki-post-panel" v-if="wiki_post && wiki_post.post">
             <WikiPanel :wiki-post="wiki_post">
-                <template slot="head-title">
+                <template v-slot:head-title>
                     <img class="u-icon" svg-inline src="../../assets/img/achievement.svg" />
                     <span class="u-txt">{{ title }}</span>
                 </template>
-                <template slot="head-actions">
+                <template v-slot:head-actions>
                     <a class="el-button el-button--primary" :href="publish_url">
                         <i class="el-icon-edit"></i>
                         <span>完善{{ title }}</span>
                     </a>
                 </template>
-                <template slot="body">
+                <template v-slot:body>
                     <div class="m-wiki-compatible" v-if="compatible">
                         <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
                             class="s-link"

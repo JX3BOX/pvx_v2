@@ -22,7 +22,7 @@
         </SuspendCommon>
         <!--        版本筛选弹窗-->
         <el-drawer
-            :visible.sync="showForm"
+            v-model:visible="showForm"
             direction="btt"
             :with-header="false"
             custom-class="u-drawer"

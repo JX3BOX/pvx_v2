@@ -15,7 +15,7 @@
             <img :src="`${img}/tong.png`" alt="铜" />
             <el-button class="u-button" size="mini" @click="onUpdateCustomPrice">确定</el-button>
         </div>
-        <template slot="reference">
+        <template v-slot:reference>
             <div class="m-price-item">
                 <template v-if="type == 'cart'">
                     <i class="u-edit el-icon-edit" title="修改价格"></i>

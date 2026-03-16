@@ -11,7 +11,7 @@
         :close-delay="0"
         @show="show"
     >
-        <template slot="reference">
+        <template v-slot:reference>
             <div class="m-item-icon">
                 <div class="u-item-icon">
                     <div

@@ -18,13 +18,15 @@
                 v-for="pet in info.petList"
                 :key="pet.Index"
             >
-                <router-link slot="reference" class="u-fetter" :to="'/' + pet.Index">
-                    <i class="u-fetter-icon" :class="['u-quality-' + pet.Quality]">
-                        <img :src="iconLink(pet.IconID)" />
-                    </i>
-                    <span class="u-fetter-name">{{ pet.Name }}</span>
-                    <i class="u-mark" v-if="pet.Index == id">当前</i>
-                </router-link>
+                <template #reference>
+                    <router-link class="u-fetter" :to="'/' + pet.Index">
+                        <i class="u-fetter-icon" :class="['u-quality-' + pet.Quality]">
+                            <img :src="iconLink(pet.IconID)" />
+                        </i>
+                        <span class="u-fetter-name">{{ pet.Name }}</span>
+                        <i class="u-mark" v-if="pet.Index == id">当前</i>
+                    </router-link>
+                </template>
 
                 <jx3-item :item_id="`${pet.ItemTabType}_${pet.ItemTabIndex}`"></jx3-item>
             </el-popover>

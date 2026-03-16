@@ -274,7 +274,7 @@
             </SuspendCommon>
             <!--        导航弹窗-->
             <el-drawer
-                :visible.sync="showForm"
+                v-model:visible="showForm"
                 direction="btt"
                 :with-header="false"
                 custom-class="u-drawer"
@@ -407,7 +407,7 @@
             <!-- 小程序知交 -->
             <el-drawer
                 :title="`${reputation.servant && reputation.servant.szNpcName} - 声望知交`"
-                :visible.sync="servantVisible"
+                v-model:visible="servantVisible"
                 direction="btt"
                 append-to-body
                 :show-close="false"
@@ -432,7 +432,7 @@
             <!-- 小程序地图 -->
             <el-drawer
                 :title="`${reputation.szMapNames?.[0]} - ${reputation.Guides?.[0]?.npcName} - 声望商人位置`"
-                :visible.sync="mapVisible"
+                v-model:visible="mapVisible"
                 direction="btt"
                 append-to-body
                 :show-close="false"

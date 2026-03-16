@@ -13,7 +13,7 @@
         :visible-arrow="false"
         popper-class="u-item__popup"
     >
-        <template slot="reference">
+        <template v-slot:reference>
             <div class="u-item__wrapper" :class="{ background: !onlyIcon, is_vertical: vertical }">
                 <a
                     class="u-item-icon"

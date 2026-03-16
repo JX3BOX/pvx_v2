@@ -31,13 +31,13 @@
                         post.author_name
                     }}</a>
                     <span class="u-name" v-else>{{ post.author_name }}</span>
-                    <time class="u-time">{{ post.updated_at }}</time>
-                    <a class="u-edit" v-if="canEdit" :href="editLink('body', post.id)" target="_blank">
-                        <i class="el-icon-edit-outline u-edit-icon"></i>
-                        编辑
-                    </a>
-                </div>
-                <div class="u-meta">
+	                    <time class="u-time">{{ post.updated_at }}</time>
+	                    <a class="u-edit" v-if="canEdit" :href="editLink('body', post.id)" target="_blank">
+	                        <el-icon class="u-edit-icon"><EditPen /></el-icon>
+	                        编辑
+	                    </a>
+	                </div>
+	                <div class="u-meta">
                     <i class="u-mark" v-if="!!post.star">★ 编辑推荐</i>
                     <i class="u-fr" v-if="!!post.is_fr">首发</i>
                     <i class="u-original" v-if="!!post.original">原创</i>
@@ -51,13 +51,13 @@
         </div>
 
         <div class="m-face-content">
-            <div class="m-single-pics m-single-content-box" v-if="previewSrcList">
-                <!-- 动态改为当前图片 -->
-                <div v-if="previewSrcList.length === 0" class="u-no-pic">
-                    <i class="el-icon-picture-outline"></i>
-                    <span>该脸型数据暂无图片</span>
-                </div>
-                <template v-else>
+	            <div class="m-single-pics m-single-content-box" v-if="previewSrcList">
+	                <!-- 动态改为当前图片 -->
+	                <div v-if="previewSrcList.length === 0" class="u-no-pic">
+	                    <el-icon><Picture /></el-icon>
+	                    <span>该脸型数据暂无图片</span>
+	                </div>
+	                <template v-else>
                     <div class="u-bg-wrap">
                         <div class="u-bg" :style="{ backgroundImage: `url(${showPic(activePic)})` }"></div>
                     </div>
@@ -70,17 +70,18 @@
                     >
                         <el-carousel-item v-for="(item, i) in previewSrcList" :key="i">
                             <div class="m-face-pic">
-                                <el-image
-                                    ref="previewImage"
-                                    fit="contain"
-                                    :src="showPic(item)"
-                                    class="u-pic"
-                                    :preview-src-list="resolveImageArr(previewSrcList)"
-                                    @click.capture="handlePreviewImage(i)"
-                                ></el-image>
-                            </div>
-                        </el-carousel-item>
-                    </el-carousel>
+	                                <el-image
+	                                    ref="previewImage"
+	                                    fit="contain"
+	                                    :src="showPic(item)"
+	                                    class="u-pic"
+	                                    :preview-src-list="resolveImageArr(previewSrcList)"
+	                                    :initial-index="previewIndex"
+	                                    @click.capture="handlePreviewImage(i)"
+	                                ></el-image>
+	                            </div>
+	                        </el-carousel-item>
+	                    </el-carousel>
                 </template>
             </div>
 
@@ -216,7 +217,7 @@ import {
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 import Comment from "@jx3box/jx3box-ui/src/single/Comment.vue";
-import Bodydat from "@jx3box/jx3box-facedat/src/Bodydat.vue";
+import Bodydat from "@/components/body/Bodydat.vue";
 import { editLink, showAvatar, authorLink, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
 import { bodyMap } from "@jx3box/jx3box-data/data/role/body.json";
@@ -233,11 +234,11 @@ export default {
         bodyItem,
         authorItem,
     },
-    data: function () {
-        return {
-            loading: false,
-            search: "", //搜索值
-            post: {},
+	    data: function () {
+	        return {
+	            loading: false,
+	            search: "", //搜索值
+	            post: {},
             stat: {},
             has_buy: false, //是否购买
             client_map: __clients,
@@ -248,12 +249,13 @@ export default {
                 total: 0,
             },
             payBtnLoading: false,
-            randomList: [],
-            carouselActive: 0,
-            isEditor: User.isEditor(),
-            rightShow: "desc",
-            topic_info: null,
-            face: {},
+	            randomList: [],
+	            carouselActive: 0,
+	            previewIndex: 0,
+	            isEditor: User.isEditor(),
+	            rightShow: "desc",
+	            topic_info: null,
+	            face: {},
             pvxbodyList: [],
             newFaceMap: ["写意", "写实"],
         };
@@ -361,20 +363,16 @@ export default {
         showBodyTypeLabel(val) {
             return bodyMap[val];
         },
-        carouselChange(val) {
-            this.carouselActive = val;
-        },
-        handlePreviewImage(index) {
-            setTimeout(() => {
-                const imageViewerChild = this.$refs.previewImage[index].$children[0];
-                imageViewerChild && imageViewerChild.reset();
-                imageViewerChild && (imageViewerChild.index = index);
-            }, 0);
-        },
-        getData() {
-            if (this.id) {
-                this.loading = true;
-                getOneBodyInfo(this.id)
+	        carouselChange(val) {
+	            this.carouselActive = val;
+	        },
+	        handlePreviewImage(index) {
+	            this.previewIndex = index;
+	        },
+	        getData() {
+	            if (this.id) {
+	                this.loading = true;
+	                getOneBodyInfo(this.id)
                     .then((res) => {
                         this.post = this.$store.state.bodySingle = res.data.data;
                         document.title = this.post.title;

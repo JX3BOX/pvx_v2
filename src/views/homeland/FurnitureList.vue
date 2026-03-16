@@ -4,8 +4,8 @@
 
         <div class="m-furniture-search">
             <el-input placeholder="请输入搜索内容" v-model="search">
-                <span slot="prepend">关键词</span>
-                <el-button slot="append" icon="el-icon-search"></el-button>
+                <template #prepend><span>关键词</span></template>
+                <template #append><el-button icon="el-icon-search"></el-button></template>
             </el-input>
         </div>
 
@@ -61,7 +61,7 @@
                         :hide-on-single-page="true"
                         :page-size="per"
                         :total="total"
-                        :current-page.sync="page"
+                        v-model:current-page="page"
                         @current-change="changePage"
                     ></el-pagination>
                 </div>

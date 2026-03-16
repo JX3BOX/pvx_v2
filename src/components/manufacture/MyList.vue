@@ -5,13 +5,15 @@
             <el-checkbox v-model="selectMode" label="选择模式" border></el-checkbox>
             <el-dropdown trigger="click" @command="handleCommand">
                 <el-button class="u-del" plain type="info" size="mini" icon="el-icon-setting"> </el-button>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="cancel-select">取消选中</el-dropdown-item>
-                    <el-dropdown-item command="select-all">全部选中</el-dropdown-item>
-                    <el-dropdown-item command="select-yesterday">选中昨日及以前所有账单</el-dropdown-item>
-                    <el-dropdown-item command="delete-select">删除选中账单</el-dropdown-item>
-                    <el-dropdown-item command="merge-select">合并选中账单</el-dropdown-item>
-                </el-dropdown-menu>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item command="cancel-select">取消选中</el-dropdown-item>
+                        <el-dropdown-item command="select-all">全部选中</el-dropdown-item>
+                        <el-dropdown-item command="select-yesterday">选中昨日及以前所有账单</el-dropdown-item>
+                        <el-dropdown-item command="delete-select">删除选中账单</el-dropdown-item>
+                        <el-dropdown-item command="merge-select">合并选中账单</el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
             </el-dropdown>
         </div>
         <div class="m-box">

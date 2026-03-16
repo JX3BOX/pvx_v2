@@ -13,7 +13,7 @@
         <PlanListVue ref="plan-list" @go-plan="$emit('go-plan', $event)"></PlanListVue>
         <el-drawer
             :with-header="false"
-            :visible.sync="serverVisible"
+            v-model:visible="serverVisible"
             direction="btt"
             wrapper-closable
             append-to-body

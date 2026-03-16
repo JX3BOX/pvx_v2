@@ -58,7 +58,9 @@ const routes = [
     },
 ];
 
-export default createRouter({
-    history: createWebHistory("/face/"),
+const router = createRouter({
+    history: createWebHistory('/face/'),
     routes,
 });
+
+export default router;

@@ -1,16 +1,17 @@
 <template>
     <div ref="listRef" class="p-exam" v-loading="loading">
         <PvxSearch class="m-exam-search" :items="searchProps" :initValue="initValue" @search="searchEvent($event)">
-            <el-button
-                type="primary"
-                size="medium"
-                class="u-analysis"
-                slot="extra"
-                v-if="search.type == 2 || search.type == 3"
-                @click="openLink(search.type)"
-            >
-                {{ search.type === 2 ? "我要出题" : "我要出卷" }}
-            </el-button>
+            <template #extra>
+                <el-button
+                    type="primary"
+                    size="medium"
+                    class="u-analysis"
+                    v-if="search.type == 2 || search.type == 3"
+                    @click="openLink(search.type)"
+                >
+                    {{ search.type === 2 ? "我要出题" : "我要出卷" }}
+                </el-button>
+            </template>
         </PvxSearch>
         <div class="m-exam-content">
             <ImperialExamList v-if="search.type === 1" :search="search.title" :data="data"></ImperialExamList>
@@ -30,7 +31,7 @@
                 background
                 :page-size="query.pageSize"
                 :hide-on-single-page="true"
-                :current-page.sync="query.pageIndex"
+                v-model:current-page="query.pageIndex"
                 layout="total, prev, pager, next, jumper"
                 :total="totalPages"
                 @current-change="pageChange"

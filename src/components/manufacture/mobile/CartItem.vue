@@ -7,7 +7,7 @@
         modal-append-to-body
         custom-class="m-manufacture-cart-item"
         @close="$emit('close')"
-        :visible.sync="visible"
+        v-model:visible="visible"
     >
         <div class="m-manufacture-cart-item-body">
             <div class="m-recipe-price">

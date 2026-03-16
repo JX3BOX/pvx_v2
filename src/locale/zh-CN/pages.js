@@ -6,6 +6,80 @@ export default {
         description:
             "剑网3魔盒（JX3BOX）休闲栏目，围绕剑网3玩家日常休闲玩法与资料查询需求，提供奇遇大全、商贾奇才、声望大全、书籍大全、剑三考试、捏脸数据、体型数据、宠物大全、家具大全、坐骑大全、家园蓝图与 QQRobot 等丰富内容。",
     },
+
+    face: {
+        title: "捏脸数据",
+        keywords: "剑网3捏脸数据,剑三捏脸数据,JX3BOX捏脸,剑网3捏脸,剑三捏脸,捏脸数据分享,捏脸参数",
+        description:
+            "剑网3魔盒（JX3BOX）捏脸数据栏目，收录剑网3玩家分享的捏脸数据与角色外观效果，支持快速浏览、下载与分享捏脸方案。",
+
+        single: {
+            title: "捏脸详情",
+            keywords: "剑网3捏脸详情,剑三捏脸详情,JX3BOX捏脸数据,剑网3捏脸参数,剑三捏脸展示",
+            description:
+                "剑网3魔盒（JX3BOX）捏脸详情页，展示单个捏脸数据的角色效果、参数信息及下载方式，方便玩家查看与使用。",
+        },
+
+        facedata: {
+            title: "捏脸数据解析",
+            keywords: "剑网3捏脸数据解析,剑三捏脸解析,JX3BOX捏脸工具,剑网3捏脸参数解析",
+            description:
+                "剑网3魔盒（JX3BOX）捏脸数据解析工具，用于解析剑网3角色捏脸参数数据，帮助玩家查看与分析捏脸配置。",
+        },
+
+        faceDataMobile: {
+            title: "捏脸数据解析（移动版）",
+            keywords: "剑网3捏脸数据解析,剑三捏脸解析,捏脸解析移动版,JX3BOX捏脸工具",
+            description: "剑网3魔盒（JX3BOX）捏脸数据解析移动版，支持在移动设备上解析与查看剑网3捏脸参数数据。",
+        },
+    },
+    body: {
+        title: "体型数据",
+        keywords: "剑网3体型数据,剑三体型数据,JX3BOX体型数据,剑网3体型,剑三体型,体型展示,体型查询",
+        description:
+            "剑网3魔盒（JX3BOX）体型数据栏目，提供剑网3各门派与角色体型展示、体型比例数据及相关资料查询，方便玩家查看与参考不同体型效果。",
+
+        single: {
+            title: "体型详情",
+            keywords: "剑网3体型详情,剑三体型详情,JX3BOX体型数据,剑网3体型展示,体型比例",
+            description:
+                "剑网3魔盒（JX3BOX）体型详情页，展示单个体型的数据与效果，包括体型比例、展示截图及相关参考信息。",
+        },
+
+        bodydata: {
+            title: "体型数据解析",
+            keywords: "剑网3体型数据解析,剑三体型解析,JX3BOX体型数据,剑网3体型参数",
+            description:
+                "剑网3魔盒（JX3BOX）体型数据解析工具，用于解析与查看剑网3角色体型参数数据，帮助玩家了解不同体型的具体参数信息。",
+        },
+
+        bodydatMobile: {
+            title: "体型数据解析（移动版）",
+            keywords: "剑网3体型数据解析,剑三体型解析,体型数据移动版,JX3BOX体型工具",
+            description: "剑网3魔盒（JX3BOX）体型数据解析移动版，支持在移动设备上查看与解析剑网3角色体型参数数据。",
+        },
+    },
+    homeland: {
+        title: "家园蓝图",
+        keywords: "剑网3家园,剑三家园,JX3BOX家园,家园蓝图,家园地图,家园教程",
+        description: "剑网3魔盒（JX3BOX）家园栏目，提供家园蓝图、教程与地图参考。",
+        tutorial: {
+            title: "家园教程",
+            keywords: "剑网3家园教程,剑三家园教程,JX3BOX家园",
+            description: "剑网3魔盒（JX3BOX）家园教程，介绍家园搭建与使用方法。",
+        },
+        maps: {
+            title: "家园地图",
+            keywords: "剑网3家园地图,剑三家园地图,JX3BOX家园",
+            description: "剑网3魔盒（JX3BOX）家园地图参考与位置说明。",
+        },
+        flower: {
+            title: "家园花卉",
+            keywords: "剑网3家园花卉,剑三家园花卉,JX3BOX家园",
+            description: "剑网3魔盒（JX3BOX）家园花卉参考页。",
+        },
+    },
+
     adventure: {
         title: "奇遇大全",
         keywords: "剑网3奇遇大全,剑三奇遇大全,JX3BOX奇遇大全,剑网3奇遇,剑三奇遇,奇遇攻略,奇遇触发条件,奇遇奖励",
@@ -36,32 +110,58 @@ export default {
             },
         },
     },
-    body: {
-        title: "体型数据",
-        keywords: "剑网3体型数据,剑三体型数据,JX3BOX体型数据,剑网3体型,剑三体型,体型展示,体型查询",
-        description:
-            "剑网3魔盒（JX3BOX）体型数据栏目，提供剑网3各门派与角色体型展示、体型比例数据及相关资料查询，方便玩家查看与参考不同体型效果。",
-
+    pet: {
+        title: "宠物大全",
+        keywords: "剑网3宠物大全,剑三宠物大全,JX3BOX宠物大全,宠物列表,宠物获取",
+        description: "剑网3魔盒（JX3BOX）宠物大全，提供宠物信息与获取参考。",
         single: {
-            title: "体型详情",
-            keywords: "剑网3体型详情,剑三体型详情,JX3BOX体型数据,剑网3体型展示,体型比例",
-            description:
-                "剑网3魔盒（JX3BOX）体型详情页，展示单个体型的数据与效果，包括体型比例、展示截图及相关参考信息。",
+            title: "宠物详情",
+            keywords: "剑网3宠物详情,剑三宠物详情,JX3BOX宠物",
+            description: "剑网3魔盒（JX3BOX）宠物详情页，查看单个宠物的相关信息。",
         },
-
-        bodydata: {
-            title: "体型数据解析",
-            keywords: "剑网3体型数据解析,剑三体型解析,JX3BOX体型数据,剑网3体型参数",
-            description:
-                "剑网3魔盒（JX3BOX）体型数据解析工具，用于解析与查看剑网3角色体型参数数据，帮助玩家了解不同体型的具体参数信息。",
-        },
-
-        bodydatMobile: {
-            title: "体型数据解析（移动版）",
-            keywords: "剑网3体型数据解析,剑三体型解析,体型数据移动版,JX3BOX体型工具",
-            description: "剑网3魔盒（JX3BOX）体型数据解析移动版，支持在移动设备上查看与解析剑网3角色体型参数数据。",
+        search: {
+            title: "宠物搜索",
+            keywords: "剑网3宠物搜索,剑三宠物搜索,JX3BOX宠物",
+            description: "剑网3魔盒（JX3BOX）宠物搜索页，支持按名称或关键字查找宠物。",
         },
     },
+    horse: {
+        title: "坐骑大全",
+        keywords: "剑网3坐骑大全,剑三坐骑大全,JX3BOX坐骑大全,坐骑列表,坐骑获取",
+        description: "剑网3魔盒（JX3BOX）坐骑大全，提供坐骑信息与获取参考。",
+        single: {
+            title: "坐骑详情",
+            keywords: "剑网3坐骑详情,剑三坐骑详情,JX3BOX坐骑",
+            description: "剑网3魔盒（JX3BOX）坐骑详情页，查看单个坐骑的相关信息。",
+        },
+    },
+
+    furniture: {
+        title: "家具大全",
+        keywords: "剑网3家具大全,剑三家具大全,JX3BOX家具大全,剑网3家具,剑三家具,家园家具",
+        description: "剑网3魔盒（JX3BOX）家具大全，提供家具信息、获取方式与细节参考。",
+        single: {
+            title: "家具详情",
+            keywords: "剑网3家具详情,剑三家具详情,JX3BOX家具,家园家具",
+            description: "剑网3魔盒（JX3BOX）家具详情页，查看单个家具的相关信息与参考。",
+        },
+    },
+    reputation: {
+        title: "声望大全",
+        keywords: "剑网3声望大全,剑三声望大全,JX3BOX声望大全,声望列表,声望获取",
+        description: "剑网3魔盒（JX3BOX）声望大全，提供声望信息与获取参考。",
+        single: {
+            title: "声望详情",
+            keywords: "剑网3声望详情,剑三声望详情,JX3BOX声望",
+            description: "剑网3魔盒（JX3BOX）声望详情页，查看单个声望的相关信息。",
+        },
+        search: {
+            title: "声望搜索",
+            keywords: "剑网3声望搜索,剑三声望搜索,JX3BOX声望",
+            description: "剑网3魔盒（JX3BOX）声望搜索页，支持按名称或关键字查找声望。",
+        },
+    },
+
     book: {
         title: "书籍大全",
         keywords: "剑网3书籍大全,剑三书籍大全,JX3BOX书籍大全,剑网3书籍,剑三书籍,书籍收集,书籍位置,书籍资料",
@@ -116,87 +216,8 @@ export default {
                 "剑网3魔盒（JX3BOX）发布游戏题目页面，支持围绕剑网3玩法与内容提交相关题目，帮助补充与完善游戏知识题库。",
         },
     },
-    face: {
-        title: "捏脸数据",
-        keywords: "剑网3捏脸数据,剑三捏脸数据,JX3BOX捏脸,剑网3捏脸,剑三捏脸,捏脸数据分享,捏脸参数",
-        description:
-            "剑网3魔盒（JX3BOX）捏脸数据栏目，收录剑网3玩家分享的捏脸数据与角色外观效果，支持快速浏览、下载与分享捏脸方案。",
 
-        single: {
-            title: "捏脸详情",
-            keywords: "剑网3捏脸详情,剑三捏脸详情,JX3BOX捏脸数据,剑网3捏脸参数,剑三捏脸展示",
-            description:
-                "剑网3魔盒（JX3BOX）捏脸详情页，展示单个捏脸数据的角色效果、参数信息及下载方式，方便玩家查看与使用。",
-        },
 
-        facedata: {
-            title: "捏脸数据解析",
-            keywords: "剑网3捏脸数据解析,剑三捏脸解析,JX3BOX捏脸工具,剑网3捏脸参数解析",
-            description:
-                "剑网3魔盒（JX3BOX）捏脸数据解析工具，用于解析剑网3角色捏脸参数数据，帮助玩家查看与分析捏脸配置。",
-        },
-
-        faceDataMobile: {
-            title: "捏脸数据解析（移动版）",
-            keywords: "剑网3捏脸数据解析,剑三捏脸解析,捏脸解析移动版,JX3BOX捏脸工具",
-            description: "剑网3魔盒（JX3BOX）捏脸数据解析移动版，支持在移动设备上解析与查看剑网3捏脸参数数据。",
-        },
-    },
-    furniture: {
-        title: "家具大全",
-        keywords: "剑网3家具大全,剑三家具大全,JX3BOX家具大全,剑网3家具,剑三家具,家园家具",
-        description: "剑网3魔盒（JX3BOX）家具大全，提供家具信息、获取方式与细节参考。",
-        single: {
-            title: "家具详情",
-            keywords: "剑网3家具详情,剑三家具详情,JX3BOX家具,家园家具",
-            description: "剑网3魔盒（JX3BOX）家具详情页，查看单个家具的相关信息与参考。",
-        },
-    },
-    homeland: {
-        title: "家园",
-        keywords: "剑网3家园,剑三家园,JX3BOX家园,家园蓝图,家园地图,家园教程",
-        description: "剑网3魔盒（JX3BOX）家园栏目，提供家园蓝图、教程与地图参考。",
-        tutorial: {
-            title: "家园教程",
-            keywords: "剑网3家园教程,剑三家园教程,JX3BOX家园",
-            description: "剑网3魔盒（JX3BOX）家园教程，介绍家园搭建与使用方法。",
-        },
-        maps: {
-            title: "家园地图",
-            keywords: "剑网3家园地图,剑三家园地图,JX3BOX家园",
-            description: "剑网3魔盒（JX3BOX）家园地图参考与位置说明。",
-        },
-        flower: {
-            title: "家园花卉",
-            keywords: "剑网3家园花卉,剑三家园花卉,JX3BOX家园",
-            description: "剑网3魔盒（JX3BOX）家园花卉参考页。",
-        },
-    },
-    horse: {
-        title: "坐骑大全",
-        keywords: "剑网3坐骑大全,剑三坐骑大全,JX3BOX坐骑大全,坐骑列表,坐骑获取",
-        description: "剑网3魔盒（JX3BOX）坐骑大全，提供坐骑信息与获取参考。",
-        single: {
-            title: "坐骑详情",
-            keywords: "剑网3坐骑详情,剑三坐骑详情,JX3BOX坐骑",
-            description: "剑网3魔盒（JX3BOX）坐骑详情页，查看单个坐骑的相关信息。",
-        },
-    },
-    pet: {
-        title: "宠物大全",
-        keywords: "剑网3宠物大全,剑三宠物大全,JX3BOX宠物大全,宠物列表,宠物获取",
-        description: "剑网3魔盒（JX3BOX）宠物大全，提供宠物信息与获取参考。",
-        single: {
-            title: "宠物详情",
-            keywords: "剑网3宠物详情,剑三宠物详情,JX3BOX宠物",
-            description: "剑网3魔盒（JX3BOX）宠物详情页，查看单个宠物的相关信息。",
-        },
-        search: {
-            title: "宠物搜索",
-            keywords: "剑网3宠物搜索,剑三宠物搜索,JX3BOX宠物",
-            description: "剑网3魔盒（JX3BOX）宠物搜索页，支持按名称或关键字查找宠物。",
-        },
-    },
     pvg: {
         manufacture: {
             title: "技艺助手",
@@ -234,6 +255,7 @@ export default {
             },
         },
     },
+
     qqbot: {
         pvx: {
             title: "QQBot PVX",
@@ -241,19 +263,5 @@ export default {
             description: "QQBot PVX 功能详情页。",
         },
     },
-    reputation: {
-        title: "声望大全",
-        keywords: "剑网3声望大全,剑三声望大全,JX3BOX声望大全,声望列表,声望获取",
-        description: "剑网3魔盒（JX3BOX）声望大全，提供声望信息与获取参考。",
-        single: {
-            title: "声望详情",
-            keywords: "剑网3声望详情,剑三声望详情,JX3BOX声望",
-            description: "剑网3魔盒（JX3BOX）声望详情页，查看单个声望的相关信息。",
-        },
-        search: {
-            title: "声望搜索",
-            keywords: "剑网3声望搜索,剑三声望搜索,JX3BOX声望",
-            description: "剑网3魔盒（JX3BOX）声望搜索页，支持按名称或关键字查找声望。",
-        },
-    },
+
 };

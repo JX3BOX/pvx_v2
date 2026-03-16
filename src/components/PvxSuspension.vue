@@ -44,11 +44,11 @@
             </template>
             <iframe :src="iframeInfo?.url" frameborder="0" width="100%" height="100%" />
         </el-drawer> -->
-        <el-dialog :visible.sync="drawer" append-to-body custom-class="p-drawer">
+        <el-dialog v-model:visible="drawer" append-to-body custom-class="p-drawer">
             <iframe :src="iframeInfo?.url" frameborder="0" width="100%" height="100%" />
         </el-dialog>
         <!-- 长按弹出 -->
-        <el-drawer :visible.sync="drawerLong" direction="btt" custom-class="p-drawer long" size="100%" append-to-body
+        <el-drawer v-model:visible="drawerLong" direction="btt" custom-class="p-drawer long" size="100%" append-to-body
             wrapper-closable :with-header="false">
             <div class="u-drawer-top">
                 <div class="u-item">

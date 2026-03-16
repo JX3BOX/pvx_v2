@@ -8,7 +8,7 @@
             class="m-furniture-search"
             @search="searchEvent($event)"
         >
-            <template slot="default">
+            <template v-slot:default>
                 <div class="u-furniture-select" :class="version && 'is-selected'">
                     <label v-if="!isPhone">庐园广记</label>
                     <el-select v-model="version" :placeholder="isPhone ? '庐园广记' : ''">
@@ -83,7 +83,7 @@
                 :hide-on-single-page="true"
                 :page-size="per"
                 :total="total"
-                :current-page.sync="page"
+                v-model:current-page="page"
                 @current-change="changePage"
             ></el-pagination>
         </div>

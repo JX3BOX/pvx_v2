@@ -9,7 +9,7 @@
                 </template>
             </el-select>
             <el-input placeholder="请输入搜索内容" v-model="keyword" class="input-with-select">
-                <el-button slot="append" icon="el-icon-search"></el-button>
+                <template #append><el-button icon="el-icon-search"></el-button></template>
             </el-input>
         </div>
         <div class="reputation-list">

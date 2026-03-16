@@ -12,7 +12,7 @@
 			</div>
 
 		</el-popover> -->
-		<router-link v-for="(item, i) in furnitures" :key="i" class="u-item" :class="quality(item.Quality)" slot="reference" :to="`/${item.dwID}`">
+		<router-link v-for="(item, i) in furnitures" :key="i" class="u-item" :class="quality(item.Quality)" :to="`/${item.dwID}`">
 			<img class="u-pic" :src="formatImg(item.Path)" />
 			<span class="u-name">{{ item.szName }}</span>
 		</router-link>

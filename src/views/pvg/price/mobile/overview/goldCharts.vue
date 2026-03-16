@@ -96,7 +96,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .m-price-overview-gold-charts {
-    /deep/.list {
+    :deep(.list) {
         display: block;
         .item {
             margin-right: 0 !important;

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :visible.sync="visible" title="账单材料清单" width="520px">
+    <el-dialog v-model:visible="visible" title="账单材料清单" width="520px">
         <div class="m-materials-list">
             <el-table :data="data" border size="mini" max-height="480px">
                 <el-table-column prop="Name" label="物品" width="180px">
@@ -12,12 +12,13 @@
                                 trigger="click"
                             >
                                 <Item :item_id="row.id" />
-                                <img
-                                    slot="reference"
-                                    :src="iconLink(row.item.item_info.IconID, client)"
-                                    :alt="row.item.item_info.Name"
-                                    style="cursor: pointer"
-                                />
+                                <template #reference>
+                                    <img
+                                        :src="iconLink(row.item.item_info.IconID, client)"
+                                        :alt="row.item.item_info.Name"
+                                        style="cursor: pointer"
+                                    />
+                                </template>
                             </el-popover>
                             <span class="u-title">
                                 <span :class="`u-quality--${row.item.Quality}`">{{ row.item.item_info.Name }}</span>

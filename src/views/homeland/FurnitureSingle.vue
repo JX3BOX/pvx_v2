@@ -5,7 +5,7 @@
                 >返回列表</el-button
             >
             <el-input placeholder="请输入家具名字搜索" v-model="search" class="u-input" @keyup.enter="goSearch">
-                <el-button slot="append" icon="el-icon-search" @click="goSearch"></el-button>
+                <template #append><el-button icon="el-icon-search" @click="goSearch"></el-button></template>
             </el-input>
             <div class="u-links">
                 <a v-if="other_id" class="u-link u-item" :href="getLink('item', item_id)" target="_blank"

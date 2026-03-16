@@ -1,13 +1,10 @@
-
-const Index = () => import("@/views/reputation/Index.vue");
-const Single = () => import("@/views/reputation/Single.vue");
-const Search = () => import("@/views/reputation/Search.vue");
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
     {
         name: "reputation",
         path: "/",
-        component: Index,
+        component: () => import("@/views/reputation/Index.vue"),
         meta: {
             sidebar: false,
             i18n: {
@@ -20,7 +17,7 @@ const routes = [
     {
         name: "single",
         path: "/:id(\\d+)",
-        component: Single,
+        component: () => import("@/views/reputation/Single.vue"),
         meta: {
             i18n: {
                 title: "pages.reputation.single.title",
@@ -32,7 +29,7 @@ const routes = [
     {
         name: "search",
         path: "/search",
-        component: Search,
+        component: () => import("@/views/reputation/Search.vue"),
         meta: {
             i18n: {
                 title: "pages.reputation.search.title",
@@ -43,4 +40,9 @@ const routes = [
     },
 ];
 
-export default createPageRouter("/reputation", routes);
+const router = createRouter({
+    history: createWebHistory('/reputation/'),
+    routes,
+});
+
+export default router;

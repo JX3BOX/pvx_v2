@@ -1,3 +1,4 @@
+import { createRouter, createWebHistory } from "vue-router";
 import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
 
 const routes = [
@@ -104,7 +105,10 @@ const routes = [
     },
 ];
 
-const router = createPageRouter("/pvg", routes);
+const router = createRouter({
+    history: createWebHistory('/pvg/'),
+    routes,
+});
 const today = new Date();
 
 router.beforeEach((to) => {

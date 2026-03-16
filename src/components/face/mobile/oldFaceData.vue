@@ -29,7 +29,7 @@
                             class="u-range"
                             :min="bone_range[body_type][dict[key]['type']]['min']"
                             :max="bone_range[body_type][dict[key]['type']]['max']"
-                            v-model="facedata['tBone'][key]"
+                            v-model="localFacedata.tBone[key]"
                             :disabled="lock"
                         ></el-slider>
                     </li>
@@ -52,7 +52,7 @@
                             class="u-range"
                             :min="bone_range[body_type][dict[key]['type']]['min']"
                             :max="bone_range[body_type][dict[key]['type']]['max']"
-                            v-model="facedata['tBone'][key]"
+                            v-model="localFacedata.tBone[key]"
                             :disabled="lock"
                         ></el-slider>
                     </li>
@@ -75,7 +75,7 @@
                             class="u-range"
                             :min="bone_range[body_type][dict[key]['type']]['min']"
                             :max="bone_range[body_type][dict[key]['type']]['max']"
-                            v-model="facedata['tBone'][key]"
+                            v-model="localFacedata.tBone[key]"
                             :disabled="lock"
                         ></el-slider>
                     </li>
@@ -98,7 +98,7 @@
                             class="u-range"
                             :min="bone_range[body_type][dict[key]['type']]['min']"
                             :max="bone_range[body_type][dict[key]['type']]['max']"
-                            v-model="facedata['tBone'][key]"
+                            v-model="localFacedata.tBone[key]"
                             :disabled="lock"
                         ></el-slider>
                     </li>
@@ -189,6 +189,7 @@ import dict from "@jx3box/jx3box-facedat/assets/data/face/dict.json";
 import decal_group from "@jx3box/jx3box-facedat/assets/data/face/decal_group.json";
 import bone_range from "@jx3box/jx3box-facedat/assets/data/face/bone_range.json";
 import decal_default from "@jx3box/jx3box-facedat/assets/data/face/decal_default.json";
+import { cloneDeep } from "lodash";
 export default {
     name: "Jx3boxFacedatOldFace",
     props: ["facedata", "lock", "decalDb", "body_type", "clean"],
@@ -197,6 +198,10 @@ export default {
     },
     data() {
         return {
+            localFacedata: {
+                tBone: {},
+                tDecal: {},
+            },
             tab_type: "",
             active: "eye",
             tablist: [
@@ -234,10 +239,25 @@ export default {
             bone_range,
         };
     },
+    watch: {
+        facedata: {
+            immediate: true,
+            handler(val) {
+                if (val && typeof val === "object") {
+                    this.localFacedata = cloneDeep(val);
+                    return;
+                }
+                this.localFacedata = {
+                    tBone: {},
+                    tDecal: {},
+                };
+            },
+        },
+    },
     computed: {
         cleandata: function () {
             if (this.clean && this.facedata) {
-                let _cleandata = _.cloneDeep(this.facedata);
+                let _cleandata = cloneDeep(this.facedata);
                 _cleandata.nDecorationID = 0;
                 for (let key in _cleandata.tDecal) {
                     let CanUseInCreate = this.decalDb.getDecalIsFree(key, _cleandata.tDecal[key]["nShowID"]);

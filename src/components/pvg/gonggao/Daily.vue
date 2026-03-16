@@ -18,12 +18,14 @@
                     <div>{{ celebrityMap[currentCelebrity] }}</div>
                     <el-dropdown>
                         <span class="el-dropdown-link"> 切换<i class="el-icon-arrow-down el-icon--right"></i> </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item @click.native="changeCelebrity(3)">穹野卫</el-dropdown-item>
-                            <el-dropdown-item @click.native="changeCelebrity(2)">披风会</el-dropdown-item>
-                            <el-dropdown-item @click.native="changeCelebrity(1)">云从社</el-dropdown-item>
-                            <el-dropdown-item @click.native="changeCelebrity(0)">楚天社</el-dropdown-item>
-                        </el-dropdown-menu>
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item @click="changeCelebrity(3)">穹野卫</el-dropdown-item>
+                                <el-dropdown-item @click="changeCelebrity(2)">披风会</el-dropdown-item>
+                                <el-dropdown-item @click="changeCelebrity(1)">云从社</el-dropdown-item>
+                                <el-dropdown-item @click="changeCelebrity(0)">楚天社</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
                     </el-dropdown>
                 </div>
                 <SimpleCelebrity :type="currentCelebrity" class="m-daily-content"></SimpleCelebrity>

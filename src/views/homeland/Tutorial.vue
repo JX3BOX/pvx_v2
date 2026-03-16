@@ -13,10 +13,12 @@
                         popper-class="m-homeland-games-pop"
                         v-if="showGameTip(item.szTip)"
                     >
-                        <div class="u-box" slot="reference">
-                            <i class="u-pic"><img :src="showGamePic(item.nUnLockFrame)" /></i>
-                            <span class="u-name">{{ item.szName }}</span>
-                        </div>
+                        <template #reference>
+                            <div class="u-box">
+                                <i class="u-pic"><img :src="showGamePic(item.nUnLockFrame)" /></i>
+                                <span class="u-name">{{ item.szName }}</span>
+                            </div>
+                        </template>
                     </el-popover>
                     <template v-else>
                         <div class="u-box">
@@ -30,7 +32,7 @@
             <div class="m-homeland-levels">
                 <el-table :data="level_data" stripe>
                     <el-table-column align="center">
-                        <template slot="header">
+                        <template v-slot:header>
                             <h2 class="u-header"><i class="el-icon-s-home"></i> 家园升级需求</h2>
                         </template>
                         <el-table-column prop="Level" label="等级" align="center" width="100px"> </el-table-column>

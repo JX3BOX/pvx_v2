@@ -41,15 +41,17 @@
                                 <div v-if="basicAttrs.length" class="u-list">
                                     <div class="u-attr" v-for="attr in basicAttrs" :key="attr.id">
                                         <el-tooltip trigger="hover" placement="top">
-                                            <div class="u-attr-pop" slot="content">
-                                                <div class="u-attr-name" v-if="attr.name">
-                                                    {{
-                                                        (attr.name || "") +
-                                                        (Number(attr.level) ? attr.level + "级" : "")
-                                                    }}
+                                            <template #content>
+                                                <div class="u-attr-pop">
+                                                    <div class="u-attr-name" v-if="attr.name">
+                                                        {{
+                                                            (attr.name || "") +
+                                                            (Number(attr.level) ? attr.level + "级" : "")
+                                                        }}
+                                                    </div>
+                                                    <div class="u-attr-desc">{{ attr.desc }}</div>
                                                 </div>
-                                                <div class="u-attr-desc">{{ attr.desc }}</div>
-                                            </div>
+                                            </template>
                                             <img
                                                 class="u-attr-icon"
                                                 style="cursor: default"
@@ -66,15 +68,17 @@
                                 <div v-if="magicAttrs.length" class="u-list">
                                     <div class="u-attr" v-for="(attr, index) in magicAttrs" :key="index">
                                         <el-tooltip trigger="hover" placement="top">
-                                            <div class="u-attr-pop" slot="content">
-                                                <div class="u-attr-name" v-if="attr.name">
-                                                    {{
-                                                        (attr.name || "") +
-                                                        (Number(attr.level) ? attr.level + "级" : "")
-                                                    }}
+                                            <template #content>
+                                                <div class="u-attr-pop">
+                                                    <div class="u-attr-name" v-if="attr.name">
+                                                        {{
+                                                            (attr.name || "") +
+                                                            (Number(attr.level) ? attr.level + "级" : "")
+                                                        }}
+                                                    </div>
+                                                    <div class="u-attr-desc">{{ attr.desc }}</div>
                                                 </div>
-                                                <div class="u-attr-desc">{{ attr.desc }}</div>
-                                            </div>
+                                            </template>
                                             <img class="u-attr-icon" :src="attr.iconUrl" :alt="attr.name" />
                                         </el-tooltip>
                                     </div>
@@ -109,7 +113,7 @@
                             :item="item"
                             v-for="item in sameList"
                             :key="item.ItemID"
-                            @click.native="getHorse(item.ItemID)"
+                            @click="getHorse(item.ItemID)"
                         ></HorseCard>
                     </div>
                 </div>

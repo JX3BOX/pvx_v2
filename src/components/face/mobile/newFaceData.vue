@@ -22,7 +22,7 @@
                                 <slider v-if="lock" class="u-range" :min="-128" :max="128"
                                     :value="facedata['tBone'][key.BoneType]"></slider>
                                 <el-slider v-else class="u-range" :min="-128" :max="128"
-                                    v-model="facedata['tBone'][key]" :disabled="lock"></el-slider>
+                                    v-model="localFacedata.tBone[key.BoneType]" :disabled="lock"></el-slider>
                             </li>
                         </template>
                         <li v-if="subItem !== 'root'" class="u-sub-title">{{ subItem }}</li>
@@ -33,7 +33,7 @@
                                 <slider v-if="lock" class="u-range" :min="-128" :max="128"
                                     :value="facedata['tBone'][key.BoneType]"></slider>
                                 <el-slider v-else class="u-range" :min="-128" :max="128"
-                                    v-model="facedata['tBone'][key]" :disabled="lock"></el-slider>
+                                    v-model="localFacedata.tBone[key.BoneType]" :disabled="lock"></el-slider>
                             </li>
                         </template>
                     </ul>
@@ -54,7 +54,7 @@
                                 <slider v-if="lock" class="u-range" :min="-128" :max="128"
                                     :value="facedata['tBone'][key.BoneType]"></slider>
                                 <el-slider v-else class="u-range" :min="-128" :max="128"
-                                    v-model="facedata['tBone'][key]" :disabled="lock"></el-slider>
+                                    v-model="localFacedata.tBone[key.BoneType]" :disabled="lock"></el-slider>
                             </li>
                         </template>
                         <li v-if="subItem !== 'root'" class="u-sub-title">{{ subItem }}</li>
@@ -65,7 +65,7 @@
                                 <slider v-if="lock" class="u-range" :min="-128" :max="128"
                                     :value="facedata['tBone'][key.BoneType]"></slider>
                                 <el-slider v-else class="u-range" :min="-128" :max="128"
-                                    v-model="facedata['tBone'][key]" :disabled="lock"></el-slider>
+                                    v-model="localFacedata.tBone[key.BoneType]" :disabled="lock"></el-slider>
                             </li>
                         </template>
                     </ul>
@@ -85,7 +85,7 @@
                                 <slider v-if="lock" class="u-range" :min="-128" :max="128"
                                     :value="facedata['tBone'][key.BoneType]"></slider>
                                 <el-slider v-else class="u-range" :min="-128" :max="128"
-                                    v-model="facedata['tBone'][key]" :disabled="lock"></el-slider>
+                                    v-model="localFacedata.tBone[key.BoneType]" :disabled="lock"></el-slider>
                             </li>
                         </template>
                         <li v-if="subItem !== 'root'" class="u-sub-title">{{ subItem }}</li>
@@ -96,7 +96,7 @@
                                 <slider v-if="lock" class="u-range" :min="-128" :max="128"
                                     :value="facedata['tBone'][key.BoneType]"></slider>
                                 <el-slider v-else class="u-range" :min="-128" :max="128"
-                                    v-model="facedata['tBone'][key]" :disabled="lock"></el-slider>
+                                    v-model="localFacedata.tBone[key.BoneType]" :disabled="lock"></el-slider>
                             </li>
                         </template>
                     </ul>
@@ -116,7 +116,7 @@
                                 <slider v-if="lock" class="u-range" :min="-128" :max="128"
                                     :value="facedata['tBone'][key.BoneType]"></slider>
                                 <el-slider v-else class="u-range" :min="-128" :max="128"
-                                    v-model="facedata['tBone'][key]" :disabled="lock"></el-slider>
+                                    v-model="localFacedata.tBone[key.BoneType]" :disabled="lock"></el-slider>
                             </li>
                         </template>
                         <li v-if="subItem !== 'root'" class="u-sub-title">{{ subItem }}</li>
@@ -127,7 +127,7 @@
                                 <slider v-if="lock" class="u-range" :min="-128" :max="128"
                                     :value="facedata['tBone'][key.BoneType]"></slider>
                                 <el-slider v-else class="u-range" :min="-128" :max="128"
-                                    v-model="facedata['tBone'][key]" :disabled="lock"></el-slider>
+                                    v-model="localFacedata.tBone[key.BoneType]" :disabled="lock"></el-slider>
                             </li>
                         </template>
                     </ul>
@@ -147,7 +147,7 @@
                                 <slider v-if="lock" class="u-range" :min="-128" :max="128"
                                     :value="facedata['tBone'][key.BoneType]"></slider>
                                 <el-slider v-else class="u-range" :min="-128" :max="128"
-                                    v-model="facedata['tBone'][key]" :disabled="lock"></el-slider>
+                                    v-model="localFacedata.tBone[key.BoneType]" :disabled="lock"></el-slider>
                             </li>
                         </template>
                         <li v-if="subItem !== 'root'" class="u-sub-title">{{ subItem }}</li>
@@ -158,7 +158,7 @@
                                 <slider v-if="lock" class="u-range" :min="-128" :max="128"
                                     :value="facedata['tBone'][key.BoneType]"></slider>
                                 <el-slider v-else class="u-range" :min="-128" :max="128"
-                                    v-model="facedata['tBone'][key]" :disabled="lock"></el-slider>
+                                    v-model="localFacedata.tBone[key.BoneType]" :disabled="lock"></el-slider>
                             </li>
                         </template>
                     </ul>
@@ -243,6 +243,7 @@ import Slider from "@jx3box/jx3box-facedat/src/Slider.vue";
 import new_face_dict from "@jx3box/jx3box-facedat/assets/data/newface/ui.json";
 import new_decal_group from "@jx3box/jx3box-facedat/assets/data/newface/decal.json";
 import new_decal_type from "@jx3box/jx3box-facedat/assets/data/newface/decal_v2.json";
+import { cloneDeep } from "lodash";
 export default {
     name: "NewFace",
     props: ["facedata", "lock", "decalDb", "body_type", "clean"],
@@ -251,6 +252,10 @@ export default {
     },
     data() {
         return {
+            localFacedata: {
+                tBone: {},
+                tDecal: {},
+            },
             tab_type: "card",
             active: "contour",
             tablist: [
@@ -292,28 +297,24 @@ export default {
             new_decal_type,
         };
     },
+    watch: {
+        facedata: {
+            immediate: true,
+            handler(val) {
+                if (val && typeof val === "object") {
+                    this.localFacedata = cloneDeep(val);
+                    return;
+                }
+                this.localFacedata = {
+                    tBone: {},
+                    tDecal: {},
+                };
+            },
+        },
+    },
 
     mounted() {
 
-    },
-
-    computed: {
-        cleandata: function () {
-            if (this.clean && this.facedata) {
-                let _cleandata = _.cloneDeep(this.facedata);
-                _cleandata.nDecorationID = 0;
-                for (let key in _cleandata.tDecal) {
-                    let CanUseInCreate = this.decalDb.getDecalIsFree(key, _cleandata.tDecal[key]["nShowID"], true);
-
-                    if (!CanUseInCreate) {
-                        _cleandata.tDecal[key]["nShowID"] = decal_default[key]["nShowID"];
-                    }
-                }
-                return _cleandata;
-            } else {
-                return this.facedata;
-            }
-        },
     },
     methods: {},
 };

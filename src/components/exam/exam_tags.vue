@@ -59,26 +59,28 @@ import { tags } from "@/assets/data/exam.json";
 import school from "@jx3box/jx3box-data/data/xf/forceid.json";
 export default {
     name: "exam_tags",
-    props: ["tags"],
+    props: {
+        modelValue: {
+            type: Array,
+            default: () => [],
+        },
+    },
+    emits: ["update:modelValue"],
     data: function () {
         return {
             options: tags,
             school,
             inputVisible: false,
             inputValue: "",
-            list: this.tags,
+            list: this.modelValue,
         };
     },
-    model: {
-        prop: "tags",
-        event: "update",
-    },
     watch: {
-        tags: function (newval) {
+        modelValue: function (newval) {
             this.list = newval;
         },
         list: function (newval) {
-            this.$emit("update", newval);
+            this.$emit("update:modelValue", newval);
         },
     },
     methods: {

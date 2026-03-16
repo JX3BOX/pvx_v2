@@ -27,9 +27,11 @@
                             >
                                 <el-tooltip class="item" effect="dark" :content="horse" placement="top">
                                     <el-image :src="getImgSrc(horse)" class="u-image">
-                                        <div slot="error" class="image-slot">
-                                            <img :src="getImgSrc(horse, true)" @error="replaceByDefault" />
-                                        </div>
+                                        <template #error>
+                                            <div class="image-slot">
+                                                <img :src="getImgSrc(horse, true)" @error="replaceByDefault" />
+                                            </div>
+                                        </template>
                                     </el-image>
                                 </el-tooltip>
                             </a>
@@ -88,9 +90,11 @@
                             >
                                 <el-tooltip class="item" effect="dark" :content="horse" placement="top">
                                     <el-image :src="getImgSrc(horse)" class="u-image">
-                                        <div slot="error" class="image-slot">
-                                            <img :src="getImgSrc(horse, true)" @error="replaceByDefault" />
-                                        </div>
+                                        <template #error>
+                                            <div class="image-slot">
+                                                <img :src="getImgSrc(horse, true)" @error="replaceByDefault" />
+                                            </div>
+                                        </template>
                                     </el-image>
                                 </el-tooltip>
                             </a>
@@ -119,9 +123,11 @@
                         >
                             <el-tooltip class="item" effect="dark" :content="horse" placement="top">
                                 <el-image :src="getImgSrc(horse)" class="u-image">
-                                    <div slot="error" class="image-slot">
-                                        <img :src="getImgSrc(horse, true)" @error="replaceByDefault" />
-                                    </div>
+                                    <template #error>
+                                        <div class="image-slot">
+                                            <img :src="getImgSrc(horse, true)" @error="replaceByDefault" />
+                                        </div>
+                                    </template>
                                 </el-image>
                             </el-tooltip>
                         </a>
@@ -392,7 +398,7 @@ export default {
             this.getGameReporter();
         }, 30 * 1000);
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timer);
         this.timer = null;
     },

@@ -24,16 +24,16 @@
             </el-form-item>
             <el-form-item label="选项" class="m-publish-exam-options">
                 <el-input placeholder="选项1 (支持html)" v-model="primary.options[0]">
-                    <template slot="prepend">A</template>
+                    <template v-slot:prepend>A</template>
                 </el-input>
                 <el-input placeholder="选项2 (支持html)" v-model="primary.options[1]">
-                    <template slot="prepend">B</template>
+                    <template v-slot:prepend>B</template>
                 </el-input>
                 <el-input placeholder="选项3 (支持html)" v-model="primary.options[2]">
-                    <template slot="prepend">C</template>
+                    <template v-slot:prepend>C</template>
                 </el-input>
                 <el-input placeholder="选项4 (支持html)" v-model="primary.options[3]">
-                    <template slot="prepend">D</template>
+                    <template v-slot:prepend>D</template>
                 </el-input>
             </el-form-item>
             <el-form-item label="答案" class="m-publish-exam-answer">

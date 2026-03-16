@@ -1,15 +1,14 @@
+import { createRouter, createWebHistory } from "vue-router";
 import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
-
-const Index = () => import("@/views/horse/Index.vue");
-const Single = () => import("@/views/horse/HorseSingle.vue");
-const IndexMobile = () => import("@/views/horse/mobile/Index.vue");
-const SingleMobile = () => import("@/views/horse/mobile/HorseSingle.vue");
 
 const routes = [
     {
         name: "index",
         path: "/",
-        component: isMiniProgram() || isApp() ? IndexMobile : Index,
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/horse/mobile/Index.vue")
+                : () => import("@/views/horse/Index.vue"),
         meta: {
             i18n: {
                 title: "pages.horse.title",
@@ -21,7 +20,10 @@ const routes = [
     {
         name: "single",
         path: "/:id([0-9]_\\d+)",
-        component: isMiniProgram() || isApp() ? SingleMobile : Single,
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/horse/mobile/HorseSingle.vue")
+                : () => import("@/views/horse/HorseSingle.vue"),
         meta: {
             i18n: {
                 title: "pages.horse.single.title",
@@ -32,4 +34,9 @@ const routes = [
     },
 ];
 
-export default createPageRouter("/horse", routes);
+const router = createRouter({
+    history: createWebHistory('/horse/'),
+    routes,
+});
+
+export default router;

@@ -39,7 +39,7 @@
                     >
                     <div v-if="fromQuestion" class="u-star">
                         <span>难度：</span>
-                        <el-rate v-model="item.hardStar" disabled text-color="#ff9900"></el-rate>
+                        <el-rate :model-value="item.hardStar" disabled text-color="#ff9900"></el-rate>
                     </div>
                 </div>
             </div>

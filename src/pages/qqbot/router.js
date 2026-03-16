@@ -1,11 +1,10 @@
-
-const qqbot = () => import("@/views/qqbot/Detail.vue");
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
     {
         name: "qqbot-pvx-detail",
         path: "/pvx",
-        component: qqbot,
+        component: () => import("@/views/qqbot/Detail.vue"),
         meta: {
             i18n: {
                 title: "pages.qqbot.pvx.title",
@@ -16,4 +15,9 @@ const routes = [
     },
 ];
 
-export default createPageRouter("/qqbot", routes);
+const router = createRouter({
+    history: createWebHistory('/qqbot/'),
+    routes,
+});
+
+export default router;

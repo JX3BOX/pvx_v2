@@ -1,6 +1,8 @@
 <template>
-    <el-dialog custom-class="m-calendar-rank-dialog" :visible.sync="show" center :before-close="handleClose">
-        <span slot="title" class="u-rank-title"><i class="el-icon-s-data"></i> 剑三日历贡献排行榜 </span>
+    <el-dialog custom-class="m-calendar-rank-dialog" v-model:visible="show" center :before-close="handleClose">
+        <template #title>
+            <span class="u-rank-title"><i class="el-icon-s-data"></i> 剑三日历贡献排行榜 </span>
+        </template>
         <div v-loading="loading">
             <el-divider>【 {{date.start}} ~ {{date.end}} 】</el-divider>
             <ul class="m-list">

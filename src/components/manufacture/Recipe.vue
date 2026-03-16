@@ -24,7 +24,7 @@
                             size="small"
                             :min="1"
                             @input="onlyInteger"
-                            @click.stop.native
+                            @click.stop
                         ></el-input-number>
                         <el-button icon="el-icon-shopping-cart-2" size="small" @click="onAddCartItem(_list)">
                         </el-button>
@@ -32,7 +32,7 @@
                 </span>
             </span>
         </div>
-        <RecipeDetail ref="recipe-detail" v-loading="loading" :recipe="recipe" :server="server" v-on="$listeners" />
+        <RecipeDetail ref="recipe-detail" v-loading="loading" :recipe="recipe" :server="server" v-bind="$attrs" />
     </div>
 </template>
 <script>

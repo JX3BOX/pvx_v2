@@ -33,8 +33,8 @@
                     </el-option>
                 </el-select>
             </el-input> -->
-            <el-select class="u-source u-select u-margin" v-model="select" slot="prepend" placeholder="排序方式">
-                <span slot="prefix" class="u-prefix">排序方式</span>
+            <el-select class="u-source u-select u-margin" v-model="select" placeholder="排序方式">
+                <template #prefix><span class="u-prefix">排序方式</span></template>
                 <el-option label="不限制" value=""></el-option>
                 <el-option
                         v-for="item in categoryData.categoryList"
@@ -44,13 +44,13 @@
                     >
                 </el-option>
             </el-select>
-            <el-select class="u-source u-select u-margin" v-model="source" slot="prepend" placeholder="来源途径" clearable>
-                <span slot="prefix" class="u-prefix">来源途径</span>
+            <el-select class="u-source u-select u-margin" v-model="source" placeholder="来源途径" clearable>
+                <template #prefix><span class="u-prefix">来源途径</span></template>
                 <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in source_types" :key="item" :label="item" :value="item"> </el-option>
             </el-select>
-            <el-select class="u-level u-select u-margin" v-model="level" slot="prepend" placeholder="家园等级">
-                <span slot="prefix" class="u-prefix">家园等级</span>
+            <el-select class="u-level u-select u-margin" v-model="level" placeholder="家园等级">
+                <template #prefix><span class="u-prefix">家园等级</span></template>
                 <el-option
                     v-for="item in categoryData.levelList"
                     :key="item.level"
@@ -68,9 +68,9 @@
                         <div>
                             <div class="u-header">本周园宅会赛：</div>
                             <div>{{ matchProperty.content }}</div>
-                            <div>{{ matchFurniture.content | formatMatchFurniture }}</div>
+                            <div>{{ formatMatchFurniture(matchFurniture.content) }}</div>
                         </div>
-                        <i class="el-icon-info" slot="reference"></i>
+                        <template #reference><i class="el-icon-info"></i></template>
                     </el-popover>
                 </el-checkbox>
             </div>
@@ -160,7 +160,6 @@ export default {
         },
         defaultQuery() {
             this.key = "";
-            this.score = "";
             this.select = "";
             this.source = "";
             this.level = "";
@@ -213,6 +212,9 @@ export default {
         },
         setMatch(val) {
             this.match = val
+        },
+        formatMatchFurniture(val) {
+            return val.replace("+", "");
         }
     },
     watch: {
@@ -226,10 +228,5 @@ export default {
             if (val) this.defaultQuery();
         },
     },
-    filters: {
-        formatMatchFurniture(val) {
-            return val.replace('+', "");
-        },
-    }
 };
 </script>

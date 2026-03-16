@@ -1,6 +1,6 @@
 <template>
     <div class="p-price">
-        <PriceTabs :params="params" @changeTab="changeTab"></PriceTabs>
+        <PriceTabs v-model:params="params" @changeTab="changeTab"></PriceTabs>
         <overview v-if="params.currentTab == ''" />
         <gold v-if="params.currentTab == 'gold'" />
         <goods v-if="params.currentTab == 'goods'" :keywords="params.keywords" />

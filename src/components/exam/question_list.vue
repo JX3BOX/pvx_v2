@@ -1,16 +1,18 @@
 <template>
     <div class="m-question-list">
         <!-- 表格 -->
-        <el-table class="m-list" :data="list" style="width: 100%" @row-click="takeQuestion">
+            <el-table class="m-list" :data="list" style="width: 100%" @row-click="takeQuestion">
             <el-table-column prop="id" label="编号" width="56"></el-table-column>
             <el-table-column prop="title" label="标题" min-width="200">
-                <div class="u-title" slot-scope="scope">
-                    <span :class="`u-client i-client-${scope.row.client}`">{{ clients[scope.row.client] }}</span>
-                    {{ scope.row.title }}
-                </div>
+                <template #default="scope">
+                    <div class="u-title">
+                        <span :class="`u-client i-client-${scope.row.client}`">{{ clients[scope.row.client] }}</span>
+                        {{ scope.row.title }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column prop="tags" label="标签" width="180">
-                <template slot-scope="scope">
+                <template v-slot="scope">
                     <div class="u-tags">
                         <el-tag
                             class="u-tag"
@@ -25,12 +27,12 @@
                 </template>
             </el-table-column>
             <el-table-column prop="hardStar" label="难度" width="120">
-                <template slot-scope="scope">
+                <template v-slot="scope">
                     <el-rate v-model="scope.row.hardStar" disabled text-color="#ff9900"></el-rate>
                 </template>
             </el-table-column>
             <el-table-column prop="author" label="出题人" width="180">
-                <template slot-scope="scope">
+                <template v-slot="scope">
                     {{ scope.row.createUser }}
                 </template>
             </el-table-column>

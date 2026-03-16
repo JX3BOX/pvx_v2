@@ -1,15 +1,14 @@
+import { createRouter, createWebHistory } from "vue-router";
 import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
-
-const furnitureList = () => import("@/views/furniture/Index.vue");
-const furnitureSingle = () => import("@/views/furniture/Single.vue");
-const furnitureListMobile = () => import("@/views/furniture/mobile/index.vue");
-const furnitureSingleMobile = () => import("@/views/furniture/mobile/Single.vue");
 
 const routes = [
     {
         name: "furniture",
         path: "/",
-        component: isMiniProgram() || isApp() ? furnitureListMobile : furnitureList,
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/furniture/mobile/index.vue")
+                : () => import("@/views/furniture/Index.vue"),
         meta: {
             sidebar: false,
             i18n: {
@@ -22,7 +21,10 @@ const routes = [
     {
         name: "single",
         path: "/:id(\\d+)",
-        component: isMiniProgram() || isApp() ? furnitureSingleMobile : furnitureSingle,
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/furniture/mobile/Single.vue")
+                : () => import("@/views/furniture/Single.vue"),
         meta: {
             i18n: {
                 title: "pages.furniture.single.title",
@@ -33,4 +35,9 @@ const routes = [
     },
 ];
 
-export default createPageRouter("/furniture", routes);
+const router = createRouter({
+    history: createWebHistory('/furniture/'),
+    routes,
+});
+
+export default router;

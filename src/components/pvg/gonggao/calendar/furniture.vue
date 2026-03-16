@@ -1,6 +1,8 @@
 <template>
     <el-tooltip popper-class="m-next-match" v-if="furnitureCategory || furnitureProperty">
-        <div :class="{ 'u-next-match': furnitureNextMatch }" slot="content" v-html="nextMatch"></div>
+        <template #content>
+            <div :class="{ 'u-next-match': furnitureNextMatch }" v-html="nextMatch"></div>
+        </template>
         <div class="m-special-item m-furniture-item">
             <div class="u-label">园宅会赛</div>
             <div>{{ furnitureProperty && furnitureProperty.content }}</div>

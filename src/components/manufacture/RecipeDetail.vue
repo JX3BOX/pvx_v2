@@ -4,22 +4,24 @@
         <div class="m-item">
             <el-popover popper-class="u-icon-popper" placement="right" :visible-arrow="false" trigger="hover">
                 <Item :item_id="recipe.item_id" />
-                <div class="u-img" slot="reference">
-                    <span class="u-amount" v-if="recipe.CreateItemMin1 != recipe.CreateItemMax1">
-                        {{ recipe.CreateItemMin1 }}~{{ recipe.CreateItemMax1 }}
-                    </span>
-                    <span class="u-amount" v-else-if="recipe.CreateItemMin1 != 1">
-                        {{ recipe.CreateItemMin1 }}
-                    </span>
-                    <div
-                        class="u-border"
-                        :style="{
-                            backgroundImage: item_border(recipe.Quality),
-                            opacity: recipe.Quality == 5 ? 0.9 : 1,
-                        }"
-                    ></div>
-                    <img :src="iconLink(recipe.IconID, client)" :alt="recipe.Name" />
-                </div>
+                <template #reference>
+                    <div class="u-img">
+                        <span class="u-amount" v-if="recipe.CreateItemMin1 != recipe.CreateItemMax1">
+                            {{ recipe.CreateItemMin1 }}~{{ recipe.CreateItemMax1 }}
+                        </span>
+                        <span class="u-amount" v-else-if="recipe.CreateItemMin1 != 1">
+                            {{ recipe.CreateItemMin1 }}
+                        </span>
+                        <div
+                            class="u-border"
+                            :style="{
+                                backgroundImage: item_border(recipe.Quality),
+                                opacity: recipe.Quality == 5 ? 0.9 : 1,
+                            }"
+                        ></div>
+                        <img :src="iconLink(recipe.IconID, client)" :alt="recipe.Name" />
+                    </div>
+                </template>
             </el-popover>
 
             <div class="m-text">
@@ -62,16 +64,21 @@
                     trigger="hover"
                 >
                     <Item :item_id="material.item_id" />
-                    <div class="u-img" slot="reference">
-                        <div
-                            class="u-border"
-                            :style="{
-                                backgroundImage: item_border(material.item.Quality),
-                                opacity: material.item.Quality == 5 ? 0.9 : 1,
-                            }"
-                        ></div>
-                        <img :src="iconLink(material.item.item_info.IconID, client)" :alt="material.item.item_info.Name" />
-                    </div>
+                    <template #reference>
+                        <div class="u-img">
+                            <div
+                                class="u-border"
+                                :style="{
+                                    backgroundImage: item_border(material.item.Quality),
+                                    opacity: material.item.Quality == 5 ? 0.9 : 1,
+                                }"
+                            ></div>
+                            <img
+                                :src="iconLink(material.item.item_info.IconID, client)"
+                                :alt="material.item.item_info.Name"
+                            />
+                        </div>
+                    </template>
                 </el-popover>
 
                 <div class="u-info">
@@ -92,7 +99,7 @@
             </div>
         </div>
         <div class="m-add">
-            <el-input-number v-model="recipe.count" :min="1" @click.stop.native></el-input-number>
+            <el-input-number v-model="count" :min="1" @click.stop></el-input-number>
             <el-button icon="el-icon-shopping-cart-2" type="success" @click="onAddCartItem()"> </el-button>
         </div>
     </div>
@@ -113,6 +120,7 @@ export default {
     data: function () {
         return {
             childrenList: [],
+            count: 1,
         };
     },
     computed: {
@@ -126,6 +134,7 @@ export default {
         // 添加购物车
         onAddCartItem(recipe, { parent, require_count_unit } = {}) {
             recipe = recipe || this.recipe;
+            const count = this.count || 1;
             const materials = recipe.materials.map((item) => {
                 return {
                     ...item,
@@ -147,9 +156,10 @@ export default {
                 ]),
                 server: this.server,
                 materials: materials,
-                ...pick(recipe, ["item_id", "item", "count"]),
+                ...pick(recipe, ["item_id", "item"]),
+                count,
                 yield_count_unit: recipe.CreateItemMin1,
-                yield_count: recipe.CreateItemMin1 * recipe.count,
+                yield_count: recipe.CreateItemMin1 * count,
                 price_unit: price_unit || 0,
                 price_unit_origin: price_unit || 0,
                 cost_vigor: recipe.CostVigor || recipe.CostStamina,
@@ -207,6 +217,16 @@ export default {
                 default:
                     return "";
             }
+        },
+    },
+    watch: {
+        recipe: {
+            immediate: true,
+            deep: true,
+            handler(val) {
+                const next = val?.count || 1;
+                this.count = next;
+            },
         },
     },
 };

@@ -9,7 +9,8 @@
         <div class="u-search">
             <el-input
                 v-if="params.currentTab != 'gold'"
-                v-model="params.keywords"
+                :model-value="params.keywords"
+                @update:modelValue="updateKeywords"
                 placeholder="请输入"
                 suffix-icon="el-icon-search"
                 class="u-search-input"
@@ -20,8 +21,9 @@
 <script>
 export default {
     props: {
-        params: {},
+        params: { type: Object, required: true },
     },
+    emits: ["update:params", "changeTab"],
     data() {
         return {
             tabs: [
@@ -45,7 +47,7 @@ export default {
         "params.keywords": {
             handler: function (val, oldVal) {
                 if (this.params.currentTab === "") {
-                    this.params.currentTab = "goods";
+                    this.$emit("update:params", { ...this.params, currentTab: "goods" });
                 }
             },
             deep: true,
@@ -53,8 +55,11 @@ export default {
     },
     methods: {
         changeTab(tab) {
-            this.params.currentTab = tab.value;
+            this.$emit("update:params", { ...this.params, currentTab: tab.value });
             this.$emit("changeTab", tab.value);
+        },
+        updateKeywords(val) {
+            this.$emit("update:params", { ...this.params, keywords: val });
         },
     },
 };

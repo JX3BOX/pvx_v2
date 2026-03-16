@@ -63,12 +63,13 @@
                                     <div class="u-skill-name">{{ skill.Name }}</div>
                                     <div class="u-skill-desc">{{ skill.Desc }}</div>
                                 </div>
-                                <img
-                                    slot="reference"
-                                    class="u-skill-icon"
-                                    :src="iconLink(skill.IconID)"
-                                    :alt="skill.Name"
-                                />
+                                <template #reference>
+                                    <img
+                                        class="u-skill-icon"
+                                        :src="iconLink(skill.IconID)"
+                                        :alt="skill.Name"
+                                    />
+                                </template>
                             </el-popover>
                         </div>
                     </div>

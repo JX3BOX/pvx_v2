@@ -13,7 +13,7 @@
         <div class="u-game-box" v-for="(game, i) in game_data" :key="'game-' + i">
             <div class="u-game" :class="{'noactive': item.Bit !== select_game && select_game }"  v-for="(item, i2) in game" :key="'game2-' + i2" @click="showGameContent(item,i)">
                 <!--            showGameTip(item.szTip)"-->
-                <div class="u-box" slot="reference" >
+                <div class="u-box">
                     <i class="u-pic"><img :src="showGamePic(item.nUnLockFrame)" /></i> <span class="u-name">{{ item.szName }}</span>
                 </div>
             </div>

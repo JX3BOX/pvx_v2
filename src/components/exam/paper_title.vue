@@ -3,7 +3,7 @@
         <div class="m-title">
             <div class="u-star">
                 <span class="u-label">难度：</span>
-                <el-rate v-model="item.hardStar" disabled text-color="#ff9900"></el-rate>
+                <el-rate :model-value="item.hardStar" disabled text-color="#ff9900"></el-rate>
             </div>
             <div class="u-block u-title" v-if="isPaper">{{ title }}</div>
             <div class="u-block u-line"></div>

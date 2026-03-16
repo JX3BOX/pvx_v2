@@ -7,7 +7,7 @@
         modal-append-to-body
         custom-class="m-manufacture-plan-mobile"
         @close="$emit('close')"
-        :visible.sync="visible"
+        v-model:visible="visible"
     >
         <div class="m-manufacture-plan-body">
             <div class="m-manufacture-plan-list">

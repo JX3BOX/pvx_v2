@@ -35,6 +35,7 @@ export default {
     data: function () {
         return {
             myChart: null,
+            resizeHandle: null,
             colorMap: {
                 WBL: "#F8B238",
                 UU898: "#AA66FF",
@@ -68,11 +69,7 @@ export default {
             };
             // 监听resize事件
             window.addEventListener("resize", resizeHandle);
-            // 销毁实例
-            this.$once("hook:beforeDestroy", () => {
-                window.removeEventListener("resize", resizeHandle);
-                this.myChart.dispose();
-            });
+            this.resizeHandle = resizeHandle;
         },
         // 设置图表配置项
         setOption() {
@@ -119,6 +116,16 @@ export default {
                 ],
             });
         },
+    },
+    beforeUnmount() {
+        if (this.resizeHandle) {
+            window.removeEventListener("resize", this.resizeHandle);
+            this.resizeHandle = null;
+        }
+        if (this.myChart) {
+            this.myChart.dispose();
+            this.myChart = null;
+        }
     },
     created: function () {},
     mounted: function () {

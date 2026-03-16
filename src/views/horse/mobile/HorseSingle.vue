@@ -68,7 +68,9 @@
                                 </div>
                                 <div class="u-attr-desc">{{ attr.desc }}</div>
                             </div>
-                            <img class="u-attr-icon" :src="attr.iconUrl" :alt="attr.name" slot="reference" />
+                            <template #reference>
+                                <img class="u-attr-icon" :src="attr.iconUrl" :alt="attr.name" />
+                            </template>
                         </el-popover>
                     </div>
                 </div>
@@ -84,7 +86,9 @@
                                 </div>
                                 <div class="u-attr-desc">{{ attr.desc }}</div>
                             </div>
-                            <img class="u-attr-icon" :src="attr.iconUrl" :alt="attr.name" slot="reference" />
+                            <template #reference>
+                                <img class="u-attr-icon" :src="attr.iconUrl" :alt="attr.name" />
+                            </template>
                         </el-popover>
                     </div>
                 </div>

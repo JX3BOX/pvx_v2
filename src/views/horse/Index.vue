@@ -36,7 +36,7 @@
                                 </el-col>
                             </el-row>
                         </div>
-                        <template slot="reference">
+                        <template v-slot:reference>
                             <img svg-inline src="@/assets/img/filter.svg" @click="filter = true" />
                         </template>
                     </el-popover>

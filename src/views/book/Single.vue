@@ -23,30 +23,32 @@
                             <div v-if="!['其它', '碑铭'].includes(getOrigin(book))" class="u-item book-origin">
                                 来源：
                                 <el-tooltip placement="top" popper-class="book-notice-tooltip">
-                                    <div slot="content">
-                                        <template v-if="getOrigin(book).indexOf('秘境') > -1">
-                                            <div class="u-detail-item">秘境</div>
-                                            <div class="book-fb" v-html="getBossOrigin(book)"></div>
-                                        </template>
-                                        <template v-if="getOrigin(book).indexOf('商店') > -1">
-                                            <div class="u-detail-item">商店</div>
-                                            <div class="book-shop" v-html="getShopOrigin(book)"></div>
-                                        </template>
-                                        <template v-if="getOrigin(book).indexOf('任务') > -1">
-                                            <div class="u-detail-item">任务</div>
-                                            <div class="book-quest">
-                                                <div
-                                                    class="quest-item"
-                                                    v-for="item in getQuestOrigin(book)"
-                                                    :key="item.questId"
-                                                >
-                                                    <a target="_blank" :href="getLink('quest', item.questId)">
-                                                        [{{ item.questName }}]</a
+                                    <template #content>
+                                        <div>
+                                            <template v-if="getOrigin(book).indexOf('秘境') > -1">
+                                                <div class="u-detail-item">秘境</div>
+                                                <div class="book-fb" v-html="getBossOrigin(book)"></div>
+                                            </template>
+                                            <template v-if="getOrigin(book).indexOf('商店') > -1">
+                                                <div class="u-detail-item">商店</div>
+                                                <div class="book-shop" v-html="getShopOrigin(book)"></div>
+                                            </template>
+                                            <template v-if="getOrigin(book).indexOf('任务') > -1">
+                                                <div class="u-detail-item">任务</div>
+                                                <div class="book-quest">
+                                                    <div
+                                                        class="quest-item"
+                                                        v-for="item in getQuestOrigin(book)"
+                                                        :key="item.questId"
                                                     >
+                                                        <a target="_blank" :href="getLink('quest', item.questId)">
+                                                            [{{ item.questName }}]</a
+                                                        >
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </template>
-                                    </div>
+                                            </template>
+                                        </div>
+                                    </template>
                                     <span :class="getOrigin(book) !== '其它' && 'book-special'">{{
                                         getOrigin(book)
                                     }}</span>
@@ -267,7 +269,7 @@
         <!-- 碑铭信息 -->
         <el-dialog
             title="碑铭位置"
-            :visible.sync="dialogVisible"
+            v-model:visible="dialogVisible"
             :width="isPhone() ? '90%' : '38%'"
             center
             destroy-on-close

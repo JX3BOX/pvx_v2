@@ -42,7 +42,7 @@
                             <i
                                 class="u-del"
                                 :class="item.fold ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
-                                @click="$set(item, 'fold', !item.fold)"
+                                @click="item.fold = !item.fold"
                             ></i>
                             <i v-if="!item.is_material" class="el-icon-delete u-del" @click="onRemove(item)"></i>
                         </div>
@@ -66,12 +66,13 @@
                                             trigger="click"
                                         >
                                             <Item :item_id="material.item_id" />
-                                            <img
-                                                slot="reference"
-                                                :src="iconLink(material.item.item_info.IconID, client)"
-                                                :alt="material.item.item_info.Name"
-                                                style="cursor: pointer"
-                                            />
+                                            <template #reference>
+                                                <img
+                                                    :src="iconLink(material.item.item_info.IconID, client)"
+                                                    :alt="material.item.item_info.Name"
+                                                    style="cursor: pointer"
+                                                />
+                                            </template>
                                         </el-popover>
 
                                         <span>

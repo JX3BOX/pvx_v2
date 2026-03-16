@@ -18,11 +18,13 @@
                                     :key="'house-' + i"
                                     popper-class="m-house-map-pop"
                                 >
-                                    <span slot="content" class="u-house-desc">
-                                        {{ house.name }} <br />
-                                        面积：{{ house.area }} <br />
-                                        价格：<GamePrice :price="~~house.price * 10000" />
-                                    </span>
+                                    <template #content>
+                                        <span class="u-house-desc">
+                                            {{ house.name }} <br />
+                                            面积：{{ house.area }} <br />
+                                            价格：<GamePrice :price="~~house.price * 10000" />
+                                        </span>
+                                    </template>
                                     <span class="u-house-item" :class="'u-house-index-' + i" :style="buildStyle(house)">
                                         <i :class="'u-house-icon u-house-area-' + house.area"></i>
                                     </span>

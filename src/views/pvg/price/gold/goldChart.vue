@@ -48,6 +48,8 @@ export default {
                 7881: "#FF768B",
             },
             myChart: null,
+            resizeHandle: null,
+            resizeObserver: null,
         };
     },
     computed: {
@@ -95,22 +97,18 @@ export default {
             // 创建实例
             this.myChart = echarts.init(this.$refs.chart);
             const myDiv = this.$refs.chartBox;
-            const observer = new ResizeObserver((entries) => {
+            const observer = new ResizeObserver(() => {
                 this.chartResize();
             });
             observer.observe(myDiv);
+            this.resizeObserver = observer;
             // 监听resize事件
             const resizeHandle = () => {
                 this.chartResize();
             };
             // 监听resize事件
             window.addEventListener("resize", resizeHandle);
-            // 销毁实例
-            this.$once("hook:beforeDestroy", () => {
-                window.removeEventListener("resize", resizeHandle);
-                observer.disconnect();
-                this.myChart.dispose();
-            });
+            this.resizeHandle = resizeHandle;
         },
         // 防抖
         chartResize() {
@@ -279,6 +277,20 @@ export default {
     },
     mounted() {
         this.getData();
+    },
+    beforeUnmount() {
+        if (this.resizeHandle) {
+            window.removeEventListener("resize", this.resizeHandle);
+            this.resizeHandle = null;
+        }
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
+        }
+        if (this.myChart) {
+            this.myChart.dispose();
+            this.myChart = null;
+        }
     },
 };
 </script>

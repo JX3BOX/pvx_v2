@@ -37,7 +37,7 @@
                                 <span class="u-icons">
                                     <i class="u-icon" v-for="(icon, key) in flowers[item.name]" :key="key">
                                         <el-tooltip effect="dark" :content="icon.color" placement="top">
-                                            <img :src="icon.icon | iconURL" :alt="icon.color" />
+                                            <img :src="iconURL(icon.icon)" :alt="icon.color" />
                                         </el-tooltip>
                                     </i>
                                 </span>
@@ -68,7 +68,7 @@
                                 <span class="u-icons">
                                     <i class="u-icon" v-for="(icon, key) in flowers[item._name]" :key="key">
                                         <el-tooltip effect="dark" :content="icon.color" placement="top">
-                                            <img :src="icon.icon | iconURL" :alt="icon.color" />
+                                            <img :src="iconURL(icon.icon)" :alt="icon.color" />
                                         </el-tooltip>
                                     </i>
                                 </span>
@@ -361,6 +361,9 @@ export default {
                     this.$forceUpdate();
                 });
         },
+        iconURL(id) {
+            return __iconPath + "icon/" + id + ".png";
+        },
     },
     watch: {
         map: function (newdata) {
@@ -377,11 +380,6 @@ export default {
         },
         type: function (val) {
             this.filterTypes();
-        },
-    },
-    filters: {
-        iconURL: function (id) {
-            return __iconPath + "icon/" + id + ".png";
         },
     },
     mounted: function () {

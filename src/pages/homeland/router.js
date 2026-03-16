@@ -1,18 +1,14 @@
+import { createRouter, createWebHistory } from "vue-router";
 import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
-
-const Flower = () => import("@/views/homeland/Flower.vue");
-const Maps = () => import("@/views/homeland/Maps.vue");
-const Tutorial = () => import("@/views/homeland/Tutorial.vue");
-const Index = () => import("@/views/homeland/Index.vue");
-const IndexMobile = () => import("@/views/homeland/mobile/Index.vue");
-const TutorialMobile = () => import("@/views/homeland/mobile/Tutorial.vue");
-const MobileMaps = () => import("@/views/homeland/mobile/Map.vue");
 
 const routes = [
     {
         name: "index",
         path: "/",
-        component: isMiniProgram() || isApp() ? IndexMobile : Index,
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/homeland/mobile/Index.vue")
+                : () => import("@/views/homeland/Index.vue"),
         meta: {
             i18n: {
                 title: "pages.homeland.title",
@@ -24,7 +20,10 @@ const routes = [
     {
         name: "tutorial",
         path: "/tutorial",
-        component: isMiniProgram() || isApp() ? TutorialMobile : Tutorial,
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/homeland/mobile/Tutorial.vue")
+                : () => import("@/views/homeland/Tutorial.vue"),
         meta: {
             i18n: {
                 title: "pages.homeland.tutorial.title",
@@ -36,7 +35,10 @@ const routes = [
     {
         name: "maps",
         path: "/maps",
-        component: isMiniProgram() || isApp() ? MobileMaps : Maps,
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/homeland/mobile/Map.vue")
+                : () => import("@/views/homeland/Maps.vue"),
         meta: {
             i18n: {
                 title: "pages.homeland.maps.title",
@@ -48,7 +50,7 @@ const routes = [
     {
         name: "flower",
         path: "/flower",
-        component: Flower,
+        component: () => import("@/views/homeland/Flower.vue"),
         meta: {
             i18n: {
                 title: "pages.homeland.flower.title",
@@ -59,4 +61,9 @@ const routes = [
     },
 ];
 
-export default createPageRouter("/homeland", routes);
+const router = createRouter({
+    history: createWebHistory('/homeland/'),
+    routes,
+});
+
+export default router;

@@ -22,9 +22,11 @@
                                 <div class="u-horse" v-for="horse in data.item.horses" :key="horse" @click="go(horse)">
                                     <el-tooltip class="item" effect="dark" :content="horse" placement="top">
                                         <el-image :src="getImgSrc(horse)" class="u-image">
-                                            <div slot="error" class="image-slot">
-                                                <img :src="getImgSrc(horse, true)" @error="replaceByDefault" />
-                                            </div>
+                                            <template #error>
+                                                <div class="image-slot">
+                                                    <img :src="getImgSrc(horse, true)" @error="replaceByDefault" />
+                                                </div>
+                                            </template>
                                         </el-image>
                                     </el-tooltip>
                                 </div>

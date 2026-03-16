@@ -14,36 +14,38 @@
 import Bus from '@/store/bus.js'
 export default {
     name: "publish_client",
-    props: ["data",'forbidAll'],
+    props: {
+        modelValue: {
+            type: String,
+            default: "std",
+        },
+        forbidAll: Boolean,
+    },
+    emits: ["update:modelValue"],
     data: function () {
         return {
-            client: this.data,
+            client: this.modelValue,
         };
     },
-    model: {
-        prop: "data", //向上同步数据
-        event: "update",
-    },
     watch: {
-        data: function (newval) {
+        modelValue: function (newval) {
             this.client = newval;
         },
         client: {
             deep: true,
             handler: function (newval) {
-                this.$emit("update", newval);
+                this.$emit("update:modelValue", newval);
             },
         },
     },
     computed: {},
     methods: {
         handleChange : function (){
-            Bus.$emit('changeClient',this.client)
+            Bus.emit('changeClient', this.client)
         }
     },
     mounted: function () {},
     components: {},
 };
 </script>
-
 

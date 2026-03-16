@@ -50,7 +50,7 @@
                                 :max="30000"
                                 :min="0"
                             >
-                                <template slot="prepend">
+                                <template v-slot:prepend>
                                     <img class="u-icon" :src="iconLink(form.icon)" />
                                 </template>
                             </el-input>

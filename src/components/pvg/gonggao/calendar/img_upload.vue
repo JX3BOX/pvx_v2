@@ -9,7 +9,7 @@
             with-credentials
             accept="image/jpg,image/jpeg,image/gif,image/png,image/bmp"
         >
-            <img v-if="banner" :src="banner | showBanner" />
+            <img v-if="banner" :src="showBanner(banner)" />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
         <el-button class="u-remove" type="info" size="mini" icon="el-icon-circle-close" @click="clearBanner">移除图片</el-button>
@@ -20,7 +20,7 @@
 import { __cms } from "@/utils/config";
 const API_Root = process.env.NODE_ENV === "production" ? __cms : "/";
 const API = API_Root + "api/cms/upload";
-import { showBanner } from "@jx3box/jx3box-common/js/utils";
+import { showBanner as showBannerUtil } from "@jx3box/jx3box-common/js/utils";
 
 export default {
     name: "post_banner",
@@ -60,11 +60,11 @@ export default {
         },
         clearBanner : function (){
             this.banner = ''
-        }
+        },
+        showBanner(val) {
+            return showBannerUtil(val);
+        },
     },
-    filters : {
-        showBanner
-    }
 };
 </script>
 

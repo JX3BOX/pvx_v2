@@ -51,7 +51,7 @@
                 :hide-on-single-page="true"
                 :page-size="per_page"
                 :total="total"
-                :current-page.sync="page"
+                v-model:current-page="page"
             ></el-pagination>
         </template>
         <el-alert

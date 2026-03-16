@@ -12,12 +12,14 @@
         <div class="u-attr-wrap">
             <div class="u-attr" v-for="(attr, index) in item.MagicAttributes || []" :key="index">
                 <el-tooltip trigger="hover" placement="top">
-                    <div class="u-attr-pop" slot="content">
-                        <div class="u-attr-name" v-if="attr.name">
-                            {{ (attr.name || "") + (Number(attr.level) ? attr.level + "级" : "") }}
+                    <template #content>
+                        <div class="u-attr-pop">
+                            <div class="u-attr-name" v-if="attr.name">
+                                {{ (attr.name || "") + (Number(attr.level) ? attr.level + "级" : "") }}
+                            </div>
+                            <div class="u-attr-desc">{{ attr.desc }}</div>
                         </div>
-                        <div class="u-attr-desc">{{ attr.desc }}</div>
-                    </div>
+                    </template>
                     <img class="u-attr-icon" :src="attr.iconUrl" :alt="attr.name" />
                 </el-tooltip>
             </div>
