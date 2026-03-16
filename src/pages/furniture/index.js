@@ -1,6 +1,6 @@
 // 1.Create APP
 import { createApp } from "vue";
-import App from "@/views/homeland/Furniture.vue";
+import App from "@/views/furniture/Furniture.vue";
 const app = createApp(App);
 
 // 2.Router

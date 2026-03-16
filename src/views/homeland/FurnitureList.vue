@@ -75,10 +75,10 @@ import FurnitureCategory from "@/components/homeland/furniture_category.vue";
 import FurnitureCard from "@/components/homeland/furniture_card.vue";
 import { getFurnitureCategory, getFurnitureMatch } from "@/service/homeland.js";
 import { getFurniture } from "@/service/furniture.js";
-import { categoryCss } from "@/assets/data/furniture.json";
-import { sourceList, levelList, categoryList } from "@/assets/data/furniture.json";
+import furnitureData from "@/assets/data/furniture.json";
 
 import dayjs from "@/plugins/day";
+const { categoryCss, sourceList, levelList, categoryList } = furnitureData;
 
 export default {
     name: "FurnitureList",

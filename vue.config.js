@@ -103,6 +103,12 @@ module.exports = {
         // 与 @jx3box/jx3box-common/js/api.js 对齐：
         // 本地开发开启 `VUE_APP_PROXY_ENABLE=1` 后，会把请求 baseURL 切到 `${VUE_APP_PROXY_PREFIX}/${serviceKey}`
         proxy: buildEnvProxy(),
+        // 多页面 + vue-router history 模式：直接打开 `/pvg/manufacture` 这类地址时，
+        // 需要回退到对应页面的 `index.html`，否则 Express 会返回 `Cannot GET ...` 404
+        historyApiFallback: {
+            disableDotRule: true,
+            rewrites: buildHistoryApiFallbackRewrites(pages),
+        },
         allowedHosts: "all",
         port: process.env.DEV_PORT || 12028,
     },
@@ -247,4 +253,21 @@ function buildEnvProxy() {
     };
 
     return Object.keys(serviceTargets).reduce((acc, key) => Object.assign(acc, mk(key, serviceTargets[key])), {});
+}
+
+function buildHistoryApiFallbackRewrites(pages) {
+    // 主站入口（index）在本项目里实际挂在 `/pvx/`（见 `src/router/index.js`）
+    const rewrites = [{ from: /^\/pvx(?:\/.*)?$/, to: "/index.html" }];
+
+    // 其他子应用：`/<pageName>/...` -> `/<pageName>/index.html`
+    Object.keys(pages || {})
+        .filter((name) => name && name !== "index")
+        .forEach((name) => {
+            rewrites.push({
+                from: new RegExp(`^/${escapeRegExp(name)}(?:/.*)?$`),
+                to: `/${name}/index.html`,
+            });
+        });
+
+    return rewrites;
 }

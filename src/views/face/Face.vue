@@ -2,7 +2,7 @@
     <div id="app" class="p-pet">
         <CommonHeader></CommonHeader>
         <Nav @statusChange="statusChange" class="p-nav"></Nav>
-        <Main :class="navStatusClass" :withoutRight="true" :withoutLeft="true">
+        <Main :class="navStatusClass" :withoutRight="true" :withoutLeft="true" :withoutBread="true">
             <div class="m-main"><router-view></router-view></div>
         </Main>
     </div>

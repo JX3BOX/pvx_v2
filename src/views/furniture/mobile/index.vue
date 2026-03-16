@@ -124,12 +124,13 @@
 <script>
 import { getFurnitureCategory, getFurnitureMatch } from "@/service/homeland.js";
 import { getFurniture, getFurnitureSet } from "@/service/furniture.js";
-import { sourceList, levelList, categoryList, categoryCss } from "@/assets/data/furniture.json";
+import furnitureData from "@/assets/data/furniture.json";
 import { deleteNull } from "@/utils/index";
 import dayjs from "@/plugins/day";
 import { omit, cloneDeep, concat } from "lodash";
 import SuspendCommon from "@jx3box/jx3box-ui/src/SuspendCommon";
 import { wxNewPage } from "@/utils/minprogram";
+const { sourceList, levelList, categoryList, categoryCss } = furnitureData;
 
 export default {
     name: "HorseHome",

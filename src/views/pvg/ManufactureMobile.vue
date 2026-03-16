@@ -41,12 +41,13 @@ import BottomBar from "@/components/manufacture/mobile/BottomBar.vue";
 import Plan from "@/components/manufacture/mobile/Plan.vue";
 
 import { keyBy } from "lodash";
-import { craft_types } from "@/assets/data/manufacture.json";
+import manufactureData from "@/assets/data/manufacture.json";
 import { getCraftJson, getManufactures, getManufactureItem, getItemMerges } from "@/service/manufacture/manufacture";
 import { omit, pick } from "lodash";
 import { nanoid } from "nanoid";
 import { mapGetters } from "vuex";
 import { getPlan } from "@/service/manufacture/plan";
+const { craft_types } = manufactureData;
 
 export default {
     name: "ManufactureMobile",

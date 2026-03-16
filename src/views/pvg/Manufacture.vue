@@ -40,11 +40,12 @@
 import { getCraftJson, getManufactures } from "@/service/manufacture/manufacture";
 import servers_std from "@jx3box/jx3box-data/data/server/server_std.json";
 import servers_origin from "@jx3box/jx3box-data/data/server/server_origin.json";
-import { craft_types } from "@/assets/data/manufacture.json";
+import manufactureData from "@/assets/data/manufacture.json";
 import CommonToolbar from "@/components/common/toolbar.vue";
 import Recipe from "@/components/manufacture/Recipe.vue";
 import Cart from "@/components/manufacture/Cart.vue";
 import MyList from "@/components/manufacture/MyList.vue";
+const { craft_types } = manufactureData;
 
 export default {
     name: "Manufacture",

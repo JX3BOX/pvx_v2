@@ -101,9 +101,10 @@ import { __imgPath, __dataPath } from "@/utils/config";
 import { getFurnitureCategory, getFurnitureMatch } from "@/service/homeland.js";
 import { getFurniture, getFurnitureSet } from "@/service/furniture.js";
 import { deleteNull, isPhone } from "@/utils/index";
-import { sourceList, levelList, categoryList, categoryCss } from "@/assets/data/furniture.json";
+import furnitureData from "@/assets/data/furniture.json";
 
 import dayjs from "@/plugins/day";
+const { sourceList, levelList, categoryList, categoryCss } = furnitureData;
 
 export default {
     name: "Index",
@@ -369,13 +370,13 @@ export default {
                 };
             }
         },
-        setIndex(i) {
-            this.childActive = i;
-            this.$set(this.search, "nCatag2Index", i);
-        },
-        getCategory() {
-            getFurnitureCategory().then((res) => {
-                this.categoryObj = res?.data || {};
+	        setIndex(i) {
+	            this.childActive = i;
+	            this.search.nCatag2Index = i;
+	        },
+	        getCategory() {
+	            getFurnitureCategory().then((res) => {
+	                this.categoryObj = res?.data || {};
                 const list = Object.values(res?.data || {});
                 // list.unshift({
                 //     id: "",

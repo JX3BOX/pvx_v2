@@ -55,8 +55,9 @@
 
 
 <script>
-import { tags } from "@/assets/data/exam.json";
+import examData from "@/assets/data/exam.json";
 import school from "@jx3box/jx3box-data/data/xf/forceid.json";
+const { tags } = examData;
 export default {
     name: "exam_tags",
     props: {

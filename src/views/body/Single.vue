@@ -220,12 +220,13 @@ import Comment from "@jx3box/jx3box-ui/src/single/Comment.vue";
 import Bodydat from "@/components/body/Bodydat.vue";
 import { editLink, showAvatar, authorLink, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
-import { bodyMap } from "@jx3box/jx3box-data/data/role/body.json";
+import bodyData from "@jx3box/jx3box-data/data/role/body.json";
 import { __clients, __imgPath, __Root } from "@/utils/config";
 
 import dayjs from "@/utils/day";
 import bodyItem from "@/components/body/item";
 import authorItem from "@/components/face/author";
+const { bodyMap } = bodyData;
 export default {
     name: "single",
     components: {

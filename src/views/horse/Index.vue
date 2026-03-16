@@ -149,7 +149,7 @@
 
 <script>
 import { getHorses, getFeeds, getAttrs } from "@/service/horse";
-import { list, searchType, showTypes } from "@/assets/data/horse.json";
+import horseData from "@/assets/data/horse.json";
 import CommonToolbar from "@/components/common/toolbar.vue";
 import HorseBroadcastV2 from "@/components/horse/HorseBroadcastV2";
 import HorseCard from "@/components/horse/HorseCard";
@@ -160,6 +160,7 @@ import { omit, cloneDeep, concat } from "lodash";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { isPhone } from "@/utils/index";
 import CardBannerList from "@/components/common/card_banner_list.vue";
+const { list, searchType, showTypes } = horseData;
 
 export default {
     name: "HorseHome",
@@ -200,15 +201,16 @@ export default {
             return _params;
         },
         hasNextPage: function () {
-            const pages = this.typeList.filter((e) => e.type === this.active)[0].pages;
+            const current = this.typeList.find((e) => e.type === this.active);
+            const pages = current?.pages || 1;
             return pages > 1 && this.page < pages;
         },
         typeName() {
-            return this.typeList.filter((e) => e.type == this.active)[0].name;
+            return this.typeList.find((e) => e.type == this.active)?.name || "";
         },
         subList() {
-            if (this.active === "") return null;
-            return this.typeList.filter((e) => e.type === this.active)[0].list;
+            if (this.active === "") return [];
+            return this.typeList.find((e) => e.type === this.active)?.list || [];
         },
         isPhone() {
             return isPhone();
@@ -241,15 +243,24 @@ export default {
     },
     methods: {
         iconLink,
-        clickTabs(type) {
-            const active = this.typeList.filter((item) => item.value == type)[0].type;
-            this.active = active;
+        clickTabs(type, { syncToolbar = true } = {}) {
+            const current = this.typeList.find((item) => item.value == type);
+            if (!current) {
+                this.active = "";
+                this.page = 1;
+                return;
+            }
+            this.active = current.type;
             this.typeList = this.typeList.map((e) => {
                 e.page = 1;
                 return e;
             });
-            console.log();
-            this.$refs.toolbar.changeType(type);
+            if (syncToolbar) {
+                const toolbar = this.$refs.toolbar;
+                if (toolbar && typeof toolbar.changeType === "function") {
+                    toolbar.changeType(type);
+                }
+            }
             this.page = 1;
         },
         loadInfoData() {
@@ -433,7 +444,8 @@ export default {
         updateToolbar(data) {
             const { type, search } = data;
             this.keyword = search;
-            this.clickTabs(type);
+            // update 事件可能在 toolbar 初始化阶段触发，此时 $refs 还未就绪
+            this.clickTabs(type, { syncToolbar: false });
         },
     },
     mounted() {

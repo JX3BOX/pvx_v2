@@ -69,7 +69,7 @@
         <!--            </div>-->
         <!--        </el-scrollbar>-->
 
-        <div v-if="isAll && !this.keyword && !isMiniProgram()" class="reputation-list-wrapper">
+	        <div v-if="isAll && !keyword && !isMiniProgram" class="reputation-list-wrapper">
             <div class="reputation-title">资料片新增</div>
             <div class="reputation-list">
                 <reputation-item :item="item" v-for="item in newsList" :key="item.dwForceID"></reputation-item>

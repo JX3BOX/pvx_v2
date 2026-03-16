@@ -220,12 +220,12 @@ export default {
                     } else {
                         const options = item.options;
                         options.forEach((oItem) => {
-                            formData[oItem.key] = "";
-                            const arr = initValue && initValue[oItem.key] ? [initValue[oItem.key]] : [];
-                            this.$set(this.checkboxData, oItem.key, arr);
-                        });
-                    }
-                });
+	                            formData[oItem.key] = "";
+	                            const arr = initValue && initValue[oItem.key] ? [initValue[oItem.key]] : [];
+	                            this.checkboxData[oItem.key] = arr;
+	                        });
+	                    }
+	                });
                 // 使select的值响应式化
                 this.formData = { ...formData, ...initValue };
             },

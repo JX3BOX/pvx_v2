@@ -21,9 +21,10 @@
 </template>
 
 <script>
-import { bodyMap } from "@jx3box/jx3box-data/data/role/body.json";
+import bodyData from "@jx3box/jx3box-data/data/role/body.json";
 import { __imgPath } from "@/utils/config";
 import { getThumbnail } from "@jx3box/jx3box-common/js/utils";
+const { bodyMap } = bodyData;
 export default {
     props: {
         list: {

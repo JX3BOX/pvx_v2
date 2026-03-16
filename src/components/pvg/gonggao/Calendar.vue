@@ -90,13 +90,14 @@
 </template>
 
 <script>
-import { months, weeks } from "@/assets/data/calendar.json";
+import calendarData from "@/assets/data/calendar.json";
 import { getCalendar, getCalendarCount, getCalendarSlogans, getMyTeamRaid } from "@/service/pvg/calendar.js";
 import dayjs from "@/utils/day";
 import calendarDetail from "./calendar/CalendarDetail.vue";
 import calendarItem from "./calendar/CalendarItem.vue";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
+const { months, weeks } = calendarData;
 export default {
     name: "Archive",
     components: {

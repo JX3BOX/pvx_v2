@@ -38,8 +38,9 @@
 <script>
 import { showAvatar as showAvatarUtil, authorLink as authorLinkUtil, showBanner, buildTarget } from "@jx3box/jx3box-common/js/utils";
 import { __imgPath } from "@/utils/config";
-import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
+import markData from "@jx3box/jx3box-common/data/mark.json";
 import {showDate} from '@jx3box/jx3box-common/js/moment.js'
+const mark_map = markData?.cms || {};
 export default {
     name: "ListItem",
     props: ['item','order'],

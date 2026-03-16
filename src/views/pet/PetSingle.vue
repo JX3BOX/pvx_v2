@@ -439,14 +439,14 @@ export default {
             });
             getPets({ ids: [...ids].join(","), client: this.client }).then((res) => {
                 const list = res.data.list;
-                // 将羁绊的宠物放入对应的羁绊中
-                this.medalList.map((item) => {
-                    const petList = list.filter((pet) => item.pets.includes(pet.Index));
-                    this.$set(item, "petList", petList);
-                    return item;
-                });
-            });
-        },
+	                // 将羁绊的宠物放入对应的羁绊中
+	                this.medalList.map((item) => {
+	                    const petList = list.filter((pet) => item.pets.includes(pet.Index));
+	                    item.petList = petList;
+	                    return item;
+	                });
+	            });
+	        },
         mapLoaded(visible) {
             this.mapDisplay = visible;
         },

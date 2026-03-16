@@ -77,8 +77,9 @@ import publish_client from "@/components/exam/publish_client.vue";
 import exam_tags from "@/components/exam/exam_tags.vue";
 import User from "@jx3box/jx3box-common/js/user";
 import { getPublishPaper, createPaper, updatePaper } from "@/service/exam";
-import { awards, marks, styles } from "@/assets/data/exam.json";
+import examData from "@/assets/data/exam.json";
 import { getLink } from "@jx3box/jx3box-common/js/utils";
+const { awards, marks, styles } = examData;
 export default {
     name: "exam_paper",
     components: {

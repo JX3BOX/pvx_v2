@@ -364,13 +364,13 @@ export default {
                 default:
                     return "";
             }
-        },
-        switchPriceMode(item) {
-            this.$set(item, "priceMode", item.priceMode == "single" ? "total" : "single");
-        },
-        add(recipe) {
-            this.cartList.push(recipe);
-        },
+	        },
+	        switchPriceMode(item) {
+	            item.priceMode = item.priceMode == "single" ? "total" : "single";
+	        },
+	        add(recipe) {
+	            this.cartList.push(recipe);
+	        },
         calcCartItemCostPrice(item) {
             return (
                 item.materials

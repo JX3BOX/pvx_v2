@@ -172,7 +172,7 @@
 </template>
 <script>
 import { getHorses, getFeeds, getAttrs } from "@/service/horse";
-import { list, searchType, showTypes } from "@/assets/data/horse.json";
+import horseData from "@/assets/data/horse.json";
 import { omit, cloneDeep, concat } from "lodash";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import ItemIcon from "@/components/common/item_icon.vue";
@@ -181,6 +181,7 @@ import { __cdn } from "@/utils/config";
 import scrollingText from "@/components/horse/mobile/scrollingText.vue";
 import { wxNewPage } from "@/utils/minprogram";
 import wx from "weixin-js-sdk";
+const { list, searchType, showTypes } = horseData;
 export default {
     name: "HorseHome",
     components: { ItemIcon, SuspendCommon, scrollingText },

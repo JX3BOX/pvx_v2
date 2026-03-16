@@ -23,8 +23,9 @@
 import { getGameNews, getPosts, getChangelog } from "@/service/pvg/gonggao";
 import dateFormat from "@/utils/dateFormat.js";
 import { getLink } from "@jx3box/jx3box-common/js/utils";
-import { all_map } from "@jx3box/jx3box-common/data/jx3_zlp.json";
+import zlpData from "@jx3box/jx3box-common/data/jx3_zlp.json";
 import dayjs from "dayjs";
+const { all_map } = zlpData;
 export default {
     name: "SimpleNotice",
     components: {},

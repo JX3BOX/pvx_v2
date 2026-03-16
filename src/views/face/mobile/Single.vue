@@ -147,7 +147,8 @@ import { getFans, getUserInfo } from "@/service/face/author";
 import { showAvatar, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import { subscribeAuthor, unsubscribeAuthor } from "@jx3box/jx3box-common/js/rss.js";
 import { __clients, __imgPath, __Root } from "@/utils/config";
-import { bodyMap } from "@jx3box/jx3box-data/data/role/body.json";
+import bodyData from "@jx3box/jx3box-data/data/role/body.json";
+const { bodyMap } = bodyData;
 export default {
     components: { SuspendCommon, routine_other },
     computed: {

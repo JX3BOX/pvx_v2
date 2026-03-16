@@ -44,11 +44,12 @@
 </template>
 <script>
 import { getMeirentuPredict } from "@/service/pvg/gonggao";
-import { bodyMap } from "@jx3box/jx3box-data/data/role/body.json";
+import bodyData from "@jx3box/jx3box-data/data/role/body.json";
 import schoolMap from "@jx3box/jx3box-data/data/xf/schoolid.json";
 import servers_std from "@jx3box/jx3box-data/data/server/server_std.json";
 import servers_origin from "@jx3box/jx3box-data/data/server/server_origin.json";
 import dayjs from "@/utils/day";
+const { bodyMap } = bodyData;
 export default {
     name: "MrtDialog",
     props: ["visible", "currentServer"],
