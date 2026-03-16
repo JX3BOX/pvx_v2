@@ -9,28 +9,37 @@
 -->
 <template>
     <div class="p-face-routine" :style="{ gap: gap }" :class="{ 'p-face-routine_one': isOne }" @scroll="handleScroll">
-        <div class="u-item" v-for="item in list" :key="item.id"
-            :style="{ width: isOne ? 'calc(calc(100vw - 70px) / 3)' : size  }" @click="openNewFace(item.id)">
-<!--            <a :href="`${link}/${item.id}`">-->
-                <div class="u-item_img" :style="{
+        <div
+            class="u-item"
+            v-for="item in list"
+            :key="item.id"
+            :style="{ width: isOne ? 'calc(calc(100vw - 70px) / 3)' : size }"
+            @click="openNewFace(item.id)"
+        >
+            <div
+                class="u-item_img"
+                :style="{
                     width: isOne ? '100%' : size,
-                    height: isOne ? 'calc(calc(100vw - 70px) / 3)' : size ,
-                }">
-                    <el-image class="u-pic" :src="showImg(item)" fit="cover">
-                        <div slot="error" class="image-slot">
+                    height: isOne ? 'calc(calc(100vw - 70px) / 3)' : size,
+                }"
+            >
+                <el-image class="u-pic" :src="showImg(item)" fit="cover">
+                    <template #error>
+                        <div class="image-slot">
                             <img src="@/assets/img/body_null.png" />
                         </div>
-                    </el-image>
-                </div>
-                <div class="u-item_tag">
-                    <div class="u-tag_item green" v-if="item.is_new_face"></div>
-                    <div class="u-tag_item mint" v-else></div>
-                    <div class="u-tag_item new" v-if="!!item.is_unlimited"></div>
-                    <div class="u-tag_item purple" v-if="!!item.star"></div>
-                </div>
-                <div class="u-item_name">{{ item.title }}</div>
-                <div class="u-item_author">{{ item.display_name || "匿名" }}</div>
-<!--            </a>-->
+                    </template>
+                </el-image>
+            </div>
+            <div class="u-item_tag">
+                <div class="u-tag_item green" v-if="item.is_new_face"></div>
+                <div class="u-tag_item mint" v-else></div>
+                <div class="u-tag_item new" v-if="!!item.is_unlimited"></div>
+                <div class="u-tag_item purple" v-if="!!item.star"></div>
+            </div>
+            <div class="u-item_name">{{ item.title }}</div>
+            <div class="u-item_author">{{ item.display_name || "匿名" }}</div>
+            <!--            </a>-->
         </div>
     </div>
 </template>
@@ -38,11 +47,11 @@
 <script>
 import { __imgPath } from "@/utils/config";
 import { getThumbnail } from "@jx3box/jx3box-common/js/utils";
-import  { wxNewPage } from "@/utils/minprogram";
+import { wxNewPage } from "@/utils/minprogram";
 export default {
     computed: {
         link() {
-            return `/${this.type}`
+            return `/${this.type}`;
         },
     },
     components: {},
@@ -53,7 +62,7 @@ export default {
         },
         size: {
             type: String,
-            default: '6.667rem',
+            default: "6.667rem",
         },
         list: {
             type: Array,
@@ -75,22 +84,19 @@ export default {
             type: Boolean,
             default: false,
         },
-        type:{
+        type: {
             type: String,
-            default: 'face'
-        }
+            default: "face",
+        },
     },
     data() {
-        return {
-        };
+        return {};
     },
-    created() {
-
-    },
-    mounted() { },
+    created() {},
+    mounted() {},
     methods: {
-        openNewFace(id){
-            wxNewPage(`${this.link}/${id}`)
+        openNewFace(id) {
+            wxNewPage(`${this.link}/${id}`);
         },
         getThumbnail,
         showImg(item) {
@@ -100,20 +106,18 @@ export default {
                 this.isOne ? this.getImgSize(width) : this.getImgSize(this.size)
             );
         },
-        getImgSize(w){
-            if(typeof w=='number') return w;
-          if(w.indexOf('px')>-1){
-              return Math.ceil(w.substring(0,w.length - 2))
-          }else if(w.indexOf('rem')>-1){
-              let str=this.convertRemPx(w.substring(0, w.length - 3),'px')
-              return Math.ceil(str.substring(0,str.length - 2))
-          }
+        getImgSize(w) {
+            if (typeof w == "number") return w;
+            if (w.indexOf("px") > -1) {
+                return Math.ceil(w.substring(0, w.length - 2));
+            } else if (w.indexOf("rem") > -1) {
+                let str = this.convertRemPx(w.substring(0, w.length - 3), "px");
+                return Math.ceil(str.substring(0, str.length - 2));
+            }
         },
         convertRemPx(value, mode) {
             // 获取根元素font-size大小
-            const htmlFontSize = window.getComputedStyle(
-                document.documentElement,
-            ).fontSize;
+            const htmlFontSize = window.getComputedStyle(document.documentElement).fontSize;
 
             if (mode === "rem") {
                 // 转rem
@@ -129,7 +133,7 @@ export default {
             this.$emit("getMore");
         },
         handleScroll(event) {
-            console.log(this.loadingList,this.isFinish)
+            console.log(this.loadingList, this.isFinish);
             const { target } = event;
             if (this.loadingList || this.isFinish) return;
             if (target.scrollHeight - target.scrollTop - 60 < target.clientHeight) {

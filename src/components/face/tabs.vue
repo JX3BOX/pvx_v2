@@ -11,7 +11,7 @@
                         </el-radio-group>
                         <p>
                             <el-checkbox-button
-                                @click.native="
+                                @click="
                                     star = false;
                                     price_type = false;
                                     is_unlimited = false;
@@ -35,7 +35,9 @@
                             <el-radio-button class="u-filter" :label="1">捏脸码</el-radio-button>
                         </el-radio-group>
                     </div>
-                    <img svg-inline src="@/assets/img/filter.svg" slot="reference" />
+                    <template #reference>
+                        <img svg-inline src="@/assets/img/filter.svg" />
+                    </template>
                 </el-popover>
             </div>
         </template>
@@ -149,7 +151,7 @@ export default {
         }
         window.addEventListener("resize", this.handleResize);
     },
-    destroyed() {
+    beforeUnmount() {
         window.removeEventListener("resize", this.handleResize);
     },
 };

@@ -1,6 +1,6 @@
 // 1.Create APP
 import { createApp } from "vue";
-import App from "@/layout/Default.vue";
+import App from "@/views/adventure/Adventure.vue";
 const app = createApp(App);
 
 // 2.Router
@@ -79,7 +79,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 import "@/assets/css/tailwind.css";
 
 // 7. 其它扩展
-
 
 // Final.Mount DOM
 app.mount("#app");

@@ -13,12 +13,24 @@ const routes = [
         component: isMiniProgram() || isApp() ? furnitureListMobile : furnitureList,
         meta: {
             sidebar: false,
+            i18n: {
+                title: "pages.furniture.title",
+                keywords: "pages.furniture.keywords",
+                description: "pages.furniture.description",
+            },
         },
     },
     {
         name: "single",
         path: "/:id(\\d+)",
         component: isMiniProgram() || isApp() ? furnitureSingleMobile : furnitureSingle,
+        meta: {
+            i18n: {
+                title: "pages.furniture.single.title",
+                keywords: "pages.furniture.single.keywords",
+                description: "pages.furniture.single.description",
+            },
+        },
     },
 ];
 

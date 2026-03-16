@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="p-adventure">
+    <div class="p-adventure">
         <CommonHeader></CommonHeader>
         <Nav @statusChange="statusChange"></Nav>
         <Main :class="navStatusClass" :withoutRight="true">
@@ -41,28 +41,4 @@ export default {
 <style lang="less">
 @import "~@/assets/css/app.less";
 @import "~@/assets/css/miniprogram.less";
-</style>
-
-<style lang="less">
-.c-header-inner {
-    height: 100%;
-    .c-header-search {
-        height: 100%;
-        margin: 0;
-        .c-search {
-            height: 100%;
-        }
-        .u-form {
-            .flex;
-            align-items: center;
-            height: 100%;
-        }
-        .u-btn {
-            top: calc(50% - 10px);
-            .flex;
-            align-items: center;
-            justify-content: center;
-        }
-    }
-}
 </style>

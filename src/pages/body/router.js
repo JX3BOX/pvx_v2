@@ -1,18 +1,66 @@
-import { createPageRouter } from "@/bootstrap/router";
+import { createRouter, createWebHistory } from "vue-router";
 import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
 
-const List = () => import("@/views/body/List.vue");
-const Single = () => import("@/views/body/Single.vue");
-const Data = () => import("@/views/body/Parse.vue");
-const listMobile = () => import("@/views/body/mobile/List.vue");
-const singleMobile = () => import("@/views/body/mobile/Single.vue");
-const BodydatMobile = () => import("@/views/body/mobile/Bodydat.vue");
-
 const routes = [
-    { name: "list", path: "/", component: isMiniProgram() || isApp() ? listMobile : List },
-    { name: "single", path: "/:id(\\d+)", component: isMiniProgram() || isApp() ? singleMobile : Single },
-    { name: "bodydata", path: "/bodydata", component: Data },
-    { name: "bodydatMobile", path: "/BodydatMobile", component: BodydatMobile },
+    {
+        name: "list",
+        path: "/",
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/body/mobile/List.vue")
+                : () => import("@/views/body/List.vue"),
+        meta: {
+            i18n: {
+                title: "pages.body.title",
+                keywords: "pages.body.keywords",
+                description: "pages.body.description",
+            },
+        },
+    },
+    {
+        name: "single",
+        path: "/:id(\\d+)",
+        component:
+            isMiniProgram() || isApp()
+                ? () => import("@/views/body/mobile/Single.vue")
+                : () => import("@/views/body/Single.vue"),
+        meta: {
+            i18n: {
+                title: "pages.body.single.title",
+                keywords: "pages.body.single.keywords",
+                description: "pages.body.single.description",
+            },
+        },
+    },
+    {
+        name: "bodydata",
+        path: "/bodydata",
+        component: () => import("@/views/body/Parse.vue"),
+        meta: {
+            i18n: {
+                title: "pages.body.bodydata.title",
+                keywords: "pages.body.bodydata.keywords",
+                description: "pages.body.bodydata.description",
+            },
+        },
+    },
+    {
+        name: "bodydatMobile",
+        path: "/BodydatMobile",
+        component: () => import("@/views/body/mobile/Bodydat.vue"),
+        meta: {
+            i18n: {
+                title: "pages.body.bodydatMobile.title",
+                keywords: "pages.body.bodydatMobile.keywords",
+                description: "pages.body.bodydatMobile.description",
+            },
+        },
+    },
 ];
 
-export default createPageRouter("/body", routes);
+const router = createRouter({
+    history: createWebHistory("/body/"),
+    routes,
+});
+
+export default router;

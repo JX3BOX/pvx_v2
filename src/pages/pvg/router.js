@@ -11,6 +11,11 @@ const routes = [
                 : () => import("@/views/pvg/Manufacture.vue"),
         meta: {
             name: "技艺助手",
+            i18n: {
+                title: "pages.pvg.manufacture.title",
+                keywords: "pages.pvg.manufacture.keywords",
+                description: "pages.pvg.manufacture.description",
+            },
         },
     },
     {
@@ -21,6 +26,11 @@ const routes = [
             : () => import("@/views/pvg/price/index.vue"),
         meta: {
             name: "价格走势",
+            i18n: {
+                title: "pages.pvg.price.title",
+                keywords: "pages.pvg.price.keywords",
+                description: "pages.pvg.price.description",
+            },
         },
     },
     {
@@ -32,6 +42,11 @@ const routes = [
         },
         meta: {
             name: "活动告示",
+            i18n: {
+                title: "pages.pvg.gonggao.title",
+                keywords: "pages.pvg.gonggao.keywords",
+                description: "pages.pvg.gonggao.description",
+            },
         },
         children: [
             {
@@ -40,6 +55,11 @@ const routes = [
                 component: () => import("@/components/pvg/gonggao/Daily.vue"),
                 meta: {
                     name: "速览",
+                    i18n: {
+                        title: "pages.pvg.gonggao.daily.title",
+                        keywords: "pages.pvg.gonggao.daily.keywords",
+                        description: "pages.pvg.gonggao.daily.description",
+                    },
                 },
             },
             {
@@ -48,6 +68,11 @@ const routes = [
                 component: () => import("@/components/pvg/gonggao/Calendar.vue"),
                 meta: {
                     name: "日历",
+                    i18n: {
+                        title: "pages.pvg.gonggao.calendar.title",
+                        keywords: "pages.pvg.gonggao.calendar.keywords",
+                        description: "pages.pvg.gonggao.calendar.description",
+                    },
                 },
             },
             {
@@ -56,6 +81,11 @@ const routes = [
                 component: () => import("@/components/pvg/gonggao/Server.vue"),
                 meta: {
                     name: "开服状态",
+                    i18n: {
+                        title: "pages.pvg.gonggao.server.title",
+                        keywords: "pages.pvg.gonggao.server.keywords",
+                        description: "pages.pvg.gonggao.server.description",
+                    },
                 },
             },
             {
@@ -64,6 +94,11 @@ const routes = [
                 component: () => import("@/components/pvg/gonggao/calendar/Single.vue"),
                 meta: {
                     sidebar: true,
+                    i18n: {
+                        title: "pages.pvg.gonggao.single.title",
+                        keywords: "pages.pvg.gonggao.single.keywords",
+                        description: "pages.pvg.gonggao.single.description",
+                    },
                 },
             },
         ],

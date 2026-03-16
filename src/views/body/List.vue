@@ -60,7 +60,7 @@
                 @next-click="changePage"
                 :page-size="per"
                 :total="total"
-                :current-page.sync="page"
+                v-model:current-page="page"
             ></el-pagination>
         </div>
         <el-alert v-if="noList" class="m-archive-null" :title="alertTitle" type="info" center show-icon></el-alert>

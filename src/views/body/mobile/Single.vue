@@ -32,7 +32,7 @@
             </template>
         </SuspendCommon>
         <el-drawer
-            :visible.sync="showFaceData"
+            v-model:visible="showFaceData"
             direction="btt"
             :with-header="false"
             custom-class="u-drawer"

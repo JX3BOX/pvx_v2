@@ -2,9 +2,11 @@
     <a :class="['m-body-item m-face-item', { onlyPic, noName }]" :href="`${link}/${item.id}`" target="_blank">
         <div class="m-img">
             <el-image class="u-pic" :src="showThumb(imgLink)" fit="cover">
-                <div slot="error" class="image-slot">
-                    <img src="../../assets/img/body_null.png" />
-                </div>
+                <template #error>
+                    <div class="image-slot">
+                        <img src="../../assets/img/body_null.png" />
+                    </div>
+                </template>
             </el-image>
             <div class="m-mark-left">
                 <i class="u-mark u-mark--star" v-if="!!item.star">编辑推荐</i>

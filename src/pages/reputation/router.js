@@ -11,17 +11,36 @@ const routes = [
         component: Index,
         meta: {
             sidebar: false,
+            i18n: {
+                title: "pages.reputation.title",
+                keywords: "pages.reputation.keywords",
+                description: "pages.reputation.description",
+            },
         },
     },
     {
         name: "single",
         path: "/:id(\\d+)",
         component: Single,
+        meta: {
+            i18n: {
+                title: "pages.reputation.single.title",
+                keywords: "pages.reputation.single.keywords",
+                description: "pages.reputation.single.description",
+            },
+        },
     },
     {
         name: "search",
         path: "/search",
         component: Search,
+        meta: {
+            i18n: {
+                title: "pages.reputation.search.title",
+                keywords: "pages.reputation.search.keywords",
+                description: "pages.reputation.search.description",
+            },
+        },
     },
 ];
 
