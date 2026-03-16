@@ -278,7 +278,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/search.less";
+@import "~@/assets/css/common/search.less";
 @media screen and (max-width: @phone) {
     .search-group{
         div {

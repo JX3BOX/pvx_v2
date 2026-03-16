@@ -406,5 +406,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/suspension.less";
+@import "~@/assets/css/common/suspension.less";
 </style>

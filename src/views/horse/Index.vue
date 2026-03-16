@@ -444,7 +444,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/search.less";
+@import "~@/assets/css/common/search.less";
 @import "~@/assets/css/common/tabs.less";
 @import "~@/assets/css/horse/index.less";
 </style>

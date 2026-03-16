@@ -151,5 +151,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/nav_v5.less";
+@import "~@/assets/css/common/nav_v5.less";
 </style>

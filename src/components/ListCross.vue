@@ -148,5 +148,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/cross.less";
+@import "~@/assets/css/common/cross.less";
 </style>
