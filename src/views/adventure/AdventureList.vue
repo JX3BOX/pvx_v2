@@ -98,7 +98,7 @@
 
         <!-- 奇遇切换 -->
         <el-drawer
-            :visible.sync="showTypeForm"
+            v-model="showTypeForm"
             direction="btt"
             :with-header="false"
             custom-class="u-drawer"
@@ -129,7 +129,7 @@
 
         <!-- 奇遇搜索 -->
         <el-drawer
-            :visible.sync="showSearchForm"
+            v-model="showSearchForm"
             direction="btt"
             :with-header="false"
             custom-class="u-drawer"

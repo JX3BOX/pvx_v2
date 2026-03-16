@@ -4,11 +4,13 @@
             <el-button type="primary" class="c-admin-button c-admin-drop__button" size="medium"
                 ><i class="el-icon-setting"></i> 管理<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item icon="el-icon-refresh" command="pictureTask">
-                    <span>刷图</span>
-                </el-dropdown-item>
-            </el-dropdown-menu>
+            <template #dropdown>
+                <el-dropdown-menu>
+                    <el-dropdown-item icon="el-icon-refresh" command="pictureTask">
+                        <span>刷图</span>
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </template>
         </el-dropdown>
     </div>
 </template>

@@ -84,8 +84,9 @@
                             </template>
                             <el-image v-else class="u-qy__img" :src="getCdnImgUrl(`pt/${item.dwID}.png`)">
                                 <!-- TODO -->
-                                <el-image slot="error" class="u-qy__img" :src="getCdnImgUrl(`pt/default.png`)">
-                                </el-image>
+                                <template #error>
+                                    <img class="u-qy__img" :src="getCdnImgUrl(`pt/default.png`)" />
+                                </template>
                             </el-image>
                             <div class="m-qy__text">
                                 <img class="u-qy__bg" :src="getCdnImgUrl('pt/text_bg.png')" />

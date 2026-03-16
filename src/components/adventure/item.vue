@@ -17,7 +17,9 @@
                 trigger="click"
                 popper-class="m-school-choose"
             >
-                <img slot="reference" class="u-school-icon" :src="forceIconUrl(force)" />
+                <template #reference>
+                    <img class="u-school-icon" :src="forceIconUrl(force)" />
+                </template>
                 <div class="u-school-list">
                     <img
                         v-for="(name, id) in forceid"

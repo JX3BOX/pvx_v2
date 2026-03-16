@@ -8,19 +8,17 @@
                 <span>（以魔盒在线版本为准）</span>
             </div>
             <WikiPanel :wiki-post="wiki_post">
-                <template v-if="!isRobot">
-                    <template slot="head-title">
-                        <img class="u-icon" svg-inline src="@/assets/img/item.svg" />
-                        <span class="u-txt">{{ name }}攻略</span>
-                    </template>
-                    <template slot="head-actions">
-                        <a class="el-button el-button--primary" :href="publish_url(`${type}/${id}`)">
-                            <i class="el-icon-edit"></i>
-                            <span>完善{{ name }}攻略</span>
-                        </a>
-                    </template>
+                <template #head-title v-if="!isRobot">
+                    <img class="u-icon" svg-inline src="@/assets/img/item.svg" />
+                    <span class="u-txt">{{ name }}攻略</span>
                 </template>
-                <template slot="body">
+                <template #head-actions v-if="!isRobot">
+                    <a class="el-button el-button--primary" :href="publish_url(`${type}/${id}`)">
+                        <i class="el-icon-edit"></i>
+                        <span>完善{{ name }}攻略</span>
+                    </a>
+                </template>
+                <template #body>
                     <div class="m-wiki-compatible" v-if="compatible">
                         <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
                             class="s-link"

@@ -28,18 +28,20 @@
                     popper-class="m-related-roles-options"
                     size="small"
                 >
-                    <span slot="prefix" class="u-prefix">
-                        角色名称
-                        <el-tooltip
-                            v-if="!isVirtual && !isSync"
-                            class="item"
-                            effect="dark"
-                            content="请先在游戏中同步成就"
-                            placement="top"
-                        >
-                            <a href="/tool/74559" target="_blank"><i class="el-icon-warning-outline"></i></a>
-                        </el-tooltip>
-                    </span>
+                    <template #prefix>
+                        <span class="u-prefix">
+                            角色名称
+                            <el-tooltip
+                                v-if="!isVirtual && !isSync"
+                                class="item"
+                                effect="dark"
+                                content="请先在游戏中同步成就"
+                                placement="top"
+                            >
+                                <a href="/tool/74559" target="_blank"><i class="el-icon-warning-outline"></i></a>
+                            </el-tooltip>
+                        </span>
+                    </template>
                     <el-option v-for="role in roleList" :key="role.ID" :value="role" :label="role.name">
                         <span class="u-role">
                             <span class="u-role-name"
@@ -55,7 +57,9 @@
                     popper-class="m-related-roles-options"
                     size="small"
                 >
-                    <span slot="prefix" class="u-prefix">所在阵营</span>
+                    <template #prefix>
+                        <span class="u-prefix">所在阵营</span>
+                    </template>
                     <el-option value="hq" label="浩气盟阵营"> </el-option>
                     <el-option value="er" label="恶人谷阵营"> </el-option>
                 </el-select>

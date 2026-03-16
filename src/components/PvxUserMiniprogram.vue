@@ -5,17 +5,17 @@
         <!--攻略-->
         <div id="mini-wiki-post-panel" class="m-wiki-post-panel" v-if="wiki_post && wiki_post.post">
             <WikiPanel :wiki-post="wiki_post">
-                <template slot="head-title">
+                <template #head-title>
                     <img class="u-icon" svg-inline src="@/assets/img/item.svg" />
                     <span class="u-txt">{{ name }}攻略</span>
                 </template>
-                <template slot="head-actions">
+                <template #head-actions>
                     <a class="el-button el-button--primary" :href="publish_url(`${type}/${id}`)">
                         <i class="el-icon-edit"></i>
                         <span>完善{{ name }}攻略</span>
                     </a>
                 </template>
-                <template slot="body">
+                <template #body>
                     <div class="m-wiki-compatible" v-if="compatible">
                         <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
                             class="s-link"
@@ -36,7 +36,7 @@
             <!-- 历史版本 -->
             <!-- <WikiRevisions :type="type" :source-id="id" /> -->
 
-            <el-dialog :lock-scroll="false" :visible.sync="versionVisible" custom-class="m-version-drawer">
+            <el-dialog :lock-scroll="false" v-model="versionVisible" custom-class="m-version-drawer">
                 <div class="m-version-container">
                     <div class="u-version" v-for="(item, i) in versions" :key="i">
                         <div class="u-title-wrap">
@@ -51,7 +51,7 @@
 
             <!-- <el-drawer
                 class="m-version-drawer"
-                :visible.sync="versionVisible"
+                v-model="versionVisible"
                 direction="btt"
                 append-to-body
                 custom-class="bottom-drawer"

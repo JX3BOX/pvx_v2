@@ -1,6 +1,8 @@
 <template>
     <CommonToolbar search color="#d16400" :active="active" :types="body_types" @update="updateToolbar">
-        <a class="u-jump" href="/adventure/treasure" slot="append">奇遇珍卷</a>
+        <template #append>
+            <a class="u-jump" href="/adventure/treasure">奇遇珍卷</a>
+        </template>
     </CommonToolbar>
 </template>
 

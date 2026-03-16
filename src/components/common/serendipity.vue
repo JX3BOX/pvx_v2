@@ -18,8 +18,8 @@
                 <span class="u-name">玩家</span>
             </li>
             <li v-for="(item, i) in list" :key="i">
-                <span class="u-date">{{ item.date_str | showDate }}</span>
-                <span class="u-time">{{ item.dwTime | wikiDate }}</span>
+                <span class="u-date">{{ formatDate(item.date_str) }}</span>
+                <span class="u-time">{{ formatWikiDate(item.dwTime) }}</span>
                 <span class="u-server">{{ item.region }}-{{ item.server }}</span>
                 <span class="u-name">{{ item.name || "匿名" }}</span>
             </li>
@@ -30,7 +30,7 @@
 <script>
 import servers from "@jx3box/jx3box-data/data/server/server_cn.json";
 import { getUserInfo, getSerendipity } from "@/service/adventure/serendipity";
-import { showRecently, showDate } from "@/utils/moment";
+import { showRecently, showDate as showDateFn } from "@/utils/moment";
 import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "serendipity",
@@ -56,6 +56,12 @@ export default {
         },
     },
     methods: {
+        formatWikiDate(val) {
+            return showRecently(val * 1000);
+        },
+        formatDate(val) {
+            return showDateFn(val);
+        },
         loadSerendipity() {
             this.loading = true;
             getSerendipity(this.params)
@@ -68,14 +74,6 @@ export default {
         },
         changeServer() {
             this.loadSerendipity();
-        },
-    },
-    filters: {
-        wikiDate: function (val) {
-            return showRecently(val * 1000);
-        },
-        showDate: function (val) {
-            return showDate(val);
         },
     },
     mounted: function () {

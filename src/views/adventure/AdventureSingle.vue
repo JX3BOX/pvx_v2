@@ -18,7 +18,7 @@
 
             <!-- 导航目录 -->
             <el-drawer
-                :visible.sync="showCatalogDrawer"
+                v-model="showCatalogDrawer"
                 direction="btt"
                 :with-header="false"
                 custom-class="u-drawer"
@@ -77,7 +77,7 @@
                 :isRobot="isRobot"
                 v-if="achieve_id && !isMiniProgram"
             >
-                <template slot="serendipity" v-if="!isRobot">
+                <template #serendipity v-if="!isRobot">
                     <div class="m-adventure-serendipity">
                         <Serendipity :title="title" />
                     </div>
@@ -458,7 +458,7 @@ export default {
 
         window.addEventListener("scroll", this.handleScroll);
     },
-    destroyed() {
+    unmounted() {
         window.removeEventListener("scroll", this.handleScroll);
     },
 };
