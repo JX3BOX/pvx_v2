@@ -1,93 +1,96 @@
+const pages = {
+    index: {
+        title: "休闲栏目",
+        entry: "src/pages/index/index.js",
+        template: "public/index.html",
+        filename: "index.html",
+    },
+    adventure: {
+        title: "奇遇大全",
+        entry: "src/pages/adventure/index.js",
+        template: "public/index.html",
+        filename: "adventure/index.html",
+    },
+    pvg: {
+        title: "商贾奇才 - JX3BOX",
+        entry: "src/pages/pvg/index.js",
+        template: "public/index.html",
+        filename: "pvg/index.html",
+    },
+    reputation: {
+        title: "声望大全",
+        entry: "src/pages/reputation/index.js",
+        template: "public/index.html",
+        filename: "reputation/index.html",
+    },
+    book: {
+        title: "书籍大全 - JX3BOX",
+        entry: "src/pages/book/index.js",
+        template: "public/index.html",
+        filename: "book/index.html",
+    },
+    exam: {
+        title: "剑三考试 - JX3BOX",
+        entry: "src/pages/exam/index.js",
+        template: "public/index.html",
+        filename: "exam/index.html",
+    },
+    face: {
+        title: "捏脸数据",
+        entry: "src/pages/face/index.js",
+        template: "public/index.html",
+        filename: "face/index.html",
+    },
+    body: {
+        title: "体型数据",
+        entry: "src/pages/body/index.js",
+        template: "public/index.html",
+        filename: "body/index.html",
+    },
+    pet: {
+        title: "宠物大全 - JX3BOX",
+        entry: "src/pages/pet/index.js",
+        template: "public/index.html",
+        filename: "pet/index.html",
+    },
+    furniture: {
+        title: "家具大全 - JX3BOX",
+        entry: "src/pages/furniture/index.js",
+        template: "public/index.html",
+        filename: "furniture/index.html",
+    },
+    horse: {
+        title: "坐骑大全 - JX3BOX",
+        entry: "src/pages/horse/index.js",
+        template: "public/index.html",
+        filename: "horse/index.html",
+    },
+    homeland: {
+        title: "家园蓝图 - JX3BOX",
+        entry: "src/pages/homeland/index.js",
+        template: "public/index.html",
+        filename: "homeland/index.html",
+    },
+    qqbot: {
+        title: "QQRobot - JX3BOX",
+        entry: "src/pages/qqbot/index.js",
+        template: "public/index.html",
+        filename: "qqbot/index.html",
+    },
+}
+
 const path = require("path");
-const pkg = require("./package.json");
-const { JX3BOX, SEO } = require("@jx3box/jx3box-common");
+const webpack = require("webpack");
 const commonDomains = require("@jx3box/jx3box-common/data/jx3box.json");
 
 module.exports = {
-    // map
-    productionSourceMap: false,
-    lintOnSave: false,
-    //❤️ Multiple pages ~
-    pages: {
-        index: {
-            title: "休闲栏目",
-            entry: "src/pages/index/index.js",
-            template: "public/index.html",
-            filename: "index.html",
-        },
-        adventure: {
-            title: "奇遇大全",
-            entry: "src/pages/adventure/index.js",
-            template: "public/index.html",
-            filename: "adventure/index.html",
-        },
-        pvg: {
-            title: "商贾奇才 - JX3BOX",
-            entry: "src/pages/pvg/index.js",
-            template: "public/index.html",
-            filename: "pvg/index.html",
-        },
-        reputation: {
-            title: "声望大全",
-            entry: "src/pages/reputation/index.js",
-            template: "public/index.html",
-            filename: "reputation/index.html",
-        },
-        book: {
-            title: "书籍大全 - JX3BOX",
-            entry: "src/pages/book/index.js",
-            template: "public/index.html",
-            filename: "book/index.html",
-        },
-        exam: {
-            title: "剑三考试 - JX3BOX",
-            entry: "src/pages/exam/index.js",
-            template: "public/index.html",
-            filename: "exam/index.html",
-        },
-        face: {
-            title: "捏脸数据",
-            entry: "src/pages/face/index.js",
-            template: "public/index.html",
-            filename: "face/index.html",
-        },
-        body: {
-            title: "体型数据",
-            entry: "src/pages/body/index.js",
-            template: "public/index.html",
-            filename: "body/index.html",
-        },
-        pet: {
-            title: "宠物大全 - JX3BOX",
-            entry: "src/pages/pet/index.js",
-            template: "public/index.html",
-            filename: "pet/index.html",
-        },
-        furniture: {
-            title: "家具大全 - JX3BOX",
-            entry: "src/pages/furniture/index.js",
-            template: "public/index.html",
-            filename: "furniture/index.html",
-        },
-        horse: {
-            title: "坐骑大全 - JX3BOX",
-            entry: "src/pages/horse/index.js",
-            template: "public/index.html",
-            filename: "horse/index.html",
-        },
-        homeland: {
-            title: "家园蓝图 - JX3BOX",
-            entry: "src/pages/homeland/index.js",
-            template: "public/index.html",
-            filename: "homeland/index.html",
-        },
-        qqbot: {
-            title: "QQRobot - JX3BOX",
-            entry: "src/pages/qqbot/index.js",
-            template: "public/index.html",
-            filename: "qqbot/index.html",
-        },
-    },
+
+    //❤️ define path for static files ~
+    publicPath: process.env.NODE_ENV === "development" ? "/" : (process.env.STATIC_PATH + "/" + process.env.APP_NAME),
+
+    //🌈多页面配置，详见 https://cli.vuejs.org/zh/config/#pages
+    pages: pages,
+
 
     //⚛️ Proxy ~
     devServer: {
@@ -99,28 +102,8 @@ module.exports = {
         port: process.env.DEV_PORT || 12028,
     },
 
-    outputDir: process.env["BUILD_MODE"] == "preview" ? path.resolve(__dirname, pkg.name) : "dist", // 指定构建输出的目录
-
-    //❤️ define path for static files ~
-    publicPath:
-        //FOR Localhost => development
-        (process.env.NODE_ENV === "development" && "/") ||
-        //BY relative path
-        (process.env.BUILD_MODE === "preview" && `/${pkg.name}/`) ||
-        //BY origin
-        (process.env.STATIC_PATH === "origin" && `${JX3BOX.__staticPath["origin"]}${pkg.name}/`) ||
-        //BY github
-        (process.env.STATIC_PATH === "github" && `${JX3BOX.__staticPath["github"]}${pkg.name}/`) ||
-        //BY jsdelivr
-        (process.env.STATIC_PATH === "jsdelivr" && `${JX3BOX.__staticPath["jsdelivr"]}${pkg.name}@gh-pages/`) ||
-        //BY OSS=>CDN
-        (process.env.STATIC_PATH === "mirror" && `${JX3BOX.__staticPath["mirror"]}${pkg.name}/`) ||
-        //BY relative path
-        (process.env.STATIC_PATH === "repo" && `/${pkg.name}/`) ||
-        //BY root path or bind a domain
-        (process.env.STATIC_PATH == "root" && "/") ||
-        //for lost
-        "/",
+    // 依赖包（element-plus/theme-chalk 等）会输出大量 Sass deprecation 警告
+    // 这些不是运行错误，开启 quietDeps 让它们不刷屏（只保留项目自身的警告）
     css: {
         loaderOptions: {
             sass: {
@@ -135,51 +118,80 @@ module.exports = {
             },
         },
     },
+
+    // 过滤依赖包里的已知兼容性 warning（不影响运行，但会刷屏）
+    configureWebpack: {
+        stats: {
+            warningsFilter: [/node_modules[\\\\/]+@jx3box[\\\\/]+jx3box-common[\\\\/]+/],
+        },
+    },
+
+    //❤️ Webpack configuration
     chainWebpack: (config) => {
-        //💘 html-webpack-plugin ~
-        // Multiple pages disable the block below
-        // config.plugin("html").tap((args) => {
-        //     args[0].meta = {
-        //         //------设置SEO信息
-        //         Keywords: Setting.keys,
-        //         Description: Setting.desc,
-        //     };
-        //     args[0].title = Setting.title + SEO.title; //------自动添加标题后缀
-        //     return args;
-        // });
 
         //💝 in-line small imgs ~
         config.module.rule("images").set("parser", {
             dataUrlCondition: {
-                maxSize: 10 * 1024,
+                maxSize: 4 * 1024, // 4KiB
             },
         });
+
+        // 💝 quick svg ~
+        config.module
+            .rule("svg")
+            .exclude.add(path.join(__dirname, "src/assets/img/icon")) // 排除自定义svg目录
+            .end();
+        config.module
+            .rule("icons") // 新规则
+            .test(/\.svg$/)
+            .include.add(path.join(__dirname, "src/assets/img/icon")) // 新规则应用于我们存放svg的目录
+            .end()
+            .use("svg-sprite-loader") // 用sprite-loader接卸
+            .loader("svg-sprite-loader")
+            .options({
+                symbolId: "icon-[name]",
+            })
+            .end();
 
         //💝 in-line svg imgs ~
         config.module.rule("vue").use("vue-svg-inline-loader").loader("vue-svg-inline-loader");
 
         //💖 import common less var * mixin ~
         const types = ["vue-modules", "vue", "normal-modules", "normal"];
-        var preload_styles = [];
-        preload_styles.push(
-            path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/var.less"),
-            path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/mixin.less"),
-            path.resolve(__dirname, "./src/assets/css/mixin.less"),
-            path.resolve(__dirname, "./src/assets/css/var.less"),
-            path.resolve(__dirname, "./node_modules/csslab/base.less")
-        );
-        function addStyleResource(rule) {
-            rule.use("style-resource").loader("style-resources-loader").options({
-                patterns: preload_styles,
-            });
-        }
         types.forEach((type) => addStyleResource(config.module.rule("less").oneOf(type)));
 
         config.externals = {
             tinyMCE: "tinyMCE",
-        };
+        }
+    },
+
+    configureWebpack: {
+        plugins: [
+            new webpack.DefinePlugin({
+                // 全局注入，用于 JS 或其他代码中
+                __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+            }),
+        ],
     },
 };
+
+// 注入全局样式资源（变量、mixin 等）
+// 本地css/var.less、mixin.less会覆盖node_modules里的同名文件，方便定制化
+// 注意此类文件都是变量和mixin函数，不要写全局样式，否则可能会被重复注入多次
+function addStyleResource(rule) {
+    var preload_styles = [];
+    preload_styles.push(
+        path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/var.less"),
+        path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/mixin.less"),
+        path.resolve(__dirname, "./assets/css/var.less"),
+        path.resolve(__dirname, "./assets/css/mixin.less"),
+        path.resolve(__dirname, "./node_modules/csslab/base.less"),
+    );
+    rule.use("style-resource").loader("style-resources-loader").options({
+        patterns: preload_styles,
+    });
+}
+
 
 function normalizeTarget(value) {
     if (!value) return "";
@@ -215,8 +227,6 @@ function buildEnvProxy() {
                 target: normalized,
                 changeOrigin: true,
                 secure: false,
-                // API 代理不需要 websocket，避免给 dev server 叠加 upgrade 监听器
-                ws: false,
                 cookieDomainRewrite: "",
                 pathRewrite: (p) => p.replace(contextRe, ""),
             },

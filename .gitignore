@@ -1,7 +1,12 @@
 .DS_Store
-node_modules
+.playwright-cli
+
+/node_modules/*
 /dist
+/tmp/*
 /src/mock
+.gitkeep
+
 package-lock.json
 yarn.lock
 
@@ -26,4 +31,4 @@ yarn-error.log*
 .user.ini
 .nuxt
 .history
-pvx
+pve
