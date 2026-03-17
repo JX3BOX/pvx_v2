@@ -1,46 +1,22 @@
 <template>
     <div class="m-face-list_mobile">
         <!--        <PvxSuspension isType='list' :miniprogram="{ app: '捏脸', filter_name: 'pvxface' }" />-->
-        <SuspendCommon
-            :btnOptions="{ showHome: true }"
-            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }"
-            @search="search"
-        >
+        <SuspendCommon :btnOptions="{ showHome: true }"
+            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }" @search="search">
             <template #default>
                 <!--                切换按钮区域-->
                 <div class="m-suspend-btn">
                     <div class="u-btn-item line" @click="switchType('cutShow')">
-                        <img
-                            class="u-icon"
-                            src="@/assets/img/pvxsuspension/switch_touchbar.svg"
-                            svg-inline
-                            v-if="showActive == -1"
-                        />
-                        <img
-                            class="u-icon"
-                            src="@/assets/img/pvxsuspension/man.svg"
-                            svg-inline
-                            v-if="showActive == 1"
-                        />
-                        <img
-                            class="u-icon"
-                            src="@/assets/img/pvxsuspension/woman.svg"
-                            svg-inline
-                            ne
-                            v-if="showActive == 2"
-                        />
-                        <img
-                            class="u-icon"
-                            src="@/assets/img/pvxsuspension/boy.svg"
-                            svg-inline
-                            v-if="showActive == 5"
-                        />
-                        <img
-                            class="u-icon"
-                            src="@/assets/img/pvxsuspension/girl.svg"
-                            svg-inline
-                            v-if="showActive == 6"
-                        />
+                        <img class="u-icon" src="@/assets/img/pvxsuspension/switch_touchbar.svg" svg-inline
+                            v-if="showActive == -1" />
+                        <img class="u-icon" src="@/assets/img/pvxsuspension/man.svg" svg-inline
+                            v-if="showActive == 1" />
+                        <img class="u-icon" src="@/assets/img/pvxsuspension/woman.svg" svg-inline ne
+                            v-if="showActive == 2" />
+                        <img class="u-icon" src="@/assets/img/pvxsuspension/boy.svg" svg-inline
+                            v-if="showActive == 5" />
+                        <img class="u-icon" src="@/assets/img/pvxsuspension/girl.svg" svg-inline
+                            v-if="showActive == 6" />
 
                         {{ habitusName }}
                     </div>
@@ -51,15 +27,8 @@
                 </div>
             </template>
         </SuspendCommon>
-        <el-drawer
-            v-model="showForm"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-drawer-suspend"
-        >
+        <el-drawer v-model="showForm" direction="btt" :with-header="false" custom-class="u-drawer"
+            :modal-append-to-body="false" append-to-body class="p-drawer-suspend">
             <!--                体型区域-->
             <transition :name="cutshowTra ? 'slide-up' : ''">
                 <div class="m-cut" v-if="cutShow">
@@ -67,38 +36,16 @@
                         <img class="u-icon" src="@/assets/img/pvxsuspension/all.svg" svg-inline /> 全部体型
                     </div>
                     <div class="u-cut-box">
-                        <div
-                            class="u-cut-item"
-                            v-for="(item, index) in tabsData"
-                            :key="index"
-                            :class="{ 'is-active': showActive == item.value }"
-                            @click="showActive = item.value"
-                        >
-                            <img
-                                class="u-icon"
-                                src="@/assets/img/pvxsuspension/man.svg"
-                                svg-inline
-                                v-if="item.value == 1"
-                            />
-                            <img
-                                class="u-icon"
-                                src="@/assets/img/pvxsuspension/woman.svg"
-                                svg-inline
-                                ne
-                                v-if="item.value == 2"
-                            />
-                            <img
-                                class="u-icon"
-                                src="@/assets/img/pvxsuspension/boy.svg"
-                                svg-inline
-                                v-if="item.value == 5"
-                            />
-                            <img
-                                class="u-icon"
-                                src="@/assets/img/pvxsuspension/girl.svg"
-                                svg-inline
-                                v-if="item.value == 6"
-                            />
+                        <div class="u-cut-item" v-for="(item, index) in tabsData" :key="index"
+                            :class="{ 'is-active': showActive == item.value }" @click="showActive = item.value">
+                            <img class="u-icon" src="@/assets/img/pvxsuspension/man.svg" svg-inline
+                                v-if="item.value == 1" />
+                            <img class="u-icon" src="@/assets/img/pvxsuspension/woman.svg" svg-inline ne
+                                v-if="item.value == 2" />
+                            <img class="u-icon" src="@/assets/img/pvxsuspension/boy.svg" svg-inline
+                                v-if="item.value == 5" />
+                            <img class="u-icon" src="@/assets/img/pvxsuspension/girl.svg" svg-inline
+                                v-if="item.value == 6" />
 
                             <span>{{ item.label }} </span>
                         </div>
@@ -122,85 +69,54 @@
             <div class="m-filtrate" v-if="filtrateShow">
                 <div class="u-filtrate-title">类型</div>
                 <div class="u-box">
-                    <div
-                        class="u-item all"
-                        :class="{ active: !queryFiltrateParams.is_new_face }"
-                        @click="filtrateParams('is_new_face', '')"
-                    >
+                    <div class="u-item all" :class="{ active: !queryFiltrateParams.is_new_face }"
+                        @click="filtrateParams('is_new_face', '')">
                         全部
                     </div>
-                    <div
-                        class="u-item"
-                        :class="{ active: queryFiltrateParams.is_new_face == '1' }"
-                        @click="filtrateParams('is_new_face', '1')"
-                    >
+                    <div class="u-item" :class="{ active: queryFiltrateParams.is_new_face == '1' }"
+                        @click="filtrateParams('is_new_face', '1')">
                         写实
                     </div>
-                    <div
-                        class="u-item"
-                        :class="{ active: queryFiltrateParams.is_new_face == '0' }"
-                        @click="filtrateParams('is_new_face', '0')"
-                    >
+                    <div class="u-item" :class="{ active: queryFiltrateParams.is_new_face == '0' }"
+                        @click="filtrateParams('is_new_face', '0')">
                         写意
                     </div>
                 </div>
                 <div class="u-filtrate-title">标签</div>
                 <div class="u-box">
-                    <div
-                        class="u-item all"
-                        :class="{
-                            active:
-                                !queryFiltrateParams.star &&
-                                queryFiltrateParams.price_type == '' &&
-                                !queryFiltrateParams.is_unlimited,
-                        }"
-                        @click="filtrateParams(['star', 'price_type', 'is_unlimited'], '')"
-                    >
+                    <div class="u-item all" :class="{
+                        active:
+                            !queryFiltrateParams.star &&
+                            queryFiltrateParams.price_type == '' &&
+                            !queryFiltrateParams.is_unlimited,
+                    }" @click="filtrateParams(['star', 'price_type', 'is_unlimited'], '')">
                         全部
                     </div>
-                    <div
-                        class="u-item"
-                        :class="{ active: queryFiltrateParams.star == '1' }"
-                        @click="filtrateParams('star', 1, queryFiltrateParams.star == '1')"
-                    >
+                    <div class="u-item" :class="{ active: queryFiltrateParams.star == '1' }"
+                        @click="filtrateParams('star', 1, queryFiltrateParams.star == '1')">
                         精选
                     </div>
-                    <div
-                        class="u-item"
-                        :class="{ active: queryFiltrateParams.price_type == '0' }"
-                        @click="filtrateParams('price_type', '0', queryFiltrateParams.price_type == '0')"
-                    >
+                    <div class="u-item" :class="{ active: queryFiltrateParams.price_type == '0' }"
+                        @click="filtrateParams('price_type', '0', queryFiltrateParams.price_type == '0')">
                         免费
                     </div>
-                    <div
-                        class="u-item"
-                        :class="{ active: queryFiltrateParams.is_unlimited == '1' }"
-                        @click="filtrateParams('is_unlimited', '1', queryFiltrateParams.is_unlimited == '1')"
-                    >
+                    <div class="u-item" :class="{ active: queryFiltrateParams.is_unlimited == '1' }"
+                        @click="filtrateParams('is_unlimited', '1', queryFiltrateParams.is_unlimited == '1')">
                         可新建
                     </div>
                 </div>
                 <div class="u-filtrate-title">其他</div>
                 <div class="u-box">
-                    <div
-                        class="u-item all"
-                        :class="{ active: !queryFiltrateParams.filter_empty_images }"
-                        @click="filtrateParams(['filter_empty_images', 'code_mode'], '')"
-                    >
+                    <div class="u-item all" :class="{ active: !queryFiltrateParams.filter_empty_images }"
+                        @click="filtrateParams(['filter_empty_images', 'code_mode'], '')">
                         全部
                     </div>
-                    <div
-                        class="u-item"
-                        :class="{ active: queryFiltrateParams.filter_empty_images }"
-                        @click="filtrateParams('filter_empty_images', '1')"
-                    >
+                    <div class="u-item" :class="{ active: queryFiltrateParams.filter_empty_images }"
+                        @click="filtrateParams('filter_empty_images', '1')">
                         只看有图
                     </div>
-                    <div
-                        class="u-item"
-                        :class="{ active: queryFiltrateParams.code_mode }"
-                        @click="filtrateParams('code_mode', '1')"
-                    >
+                    <div class="u-item" :class="{ active: queryFiltrateParams.code_mode }"
+                        @click="filtrateParams('code_mode', '1')">
                         只看捏脸码
                     </div>
                 </div>
@@ -229,17 +145,8 @@
         </div>
         <div class="u-content" v-else>
             <div class="u-list" id="oneList" v-loading="loadingList">
-                <routine
-                    gap="0.667rem"
-                    size="5.778rem"
-                    :isOne="true"
-                    :list="list"
-                    :total="total"
-                    :loadingList="loadingList"
-                    :isFinish="isFinish"
-                    v-if="listShow"
-                    @getMore="getMore()"
-                ></routine>
+                <routine gap="0.667rem" size="5.778rem" :isOne="true" :list="list" :total="total"
+                    :loadingList="loadingList" :isFinish="isFinish" v-if="listShow" @getMore="getMore()"></routine>
             </div>
         </div>
     </div>
@@ -565,9 +472,11 @@ export default {
 @fontColor-dark: #fff;
 @fontColor-dark2: rgba(255, 255, 255, 0.8);
 @fontColor-dark3: rgba(255, 255, 255, 0.4);
+
 body {
     padding: 0 !important;
 }
+
 .m-cut {
     .w(calc(100% - 1.5rem));
 
@@ -584,18 +493,22 @@ body {
         .flex;
         .flex(o);
         .mb(1rem);
+
         .u-icon {
             .w(1.25rem);
             .mr(0.25rem);
+
             svg,
             path {
                 fill: @fontColor-dark2;
                 stroke: @fontColor-dark2;
             }
         }
+
         &.is-active {
             background: #fedaa3;
             color: #24292e;
+
             svg,
             path {
                 fill: #24292e;
@@ -621,7 +534,9 @@ body {
             padding: 0.75rem;
             box-sizing: border-box;
             .r(0.75rem);
+
             .u-icon {
+
                 svg,
                 path {
                     fill: @fontColor-dark2;
@@ -632,6 +547,7 @@ body {
             &.is-active {
                 color: #24292e;
                 background: #fedaa3;
+
                 svg,
                 path {
                     fill: #24292e;
@@ -664,6 +580,7 @@ body {
             background: rgba(255, 255, 255, 0.05);
             color: @fontColor-dark3;
             .x;
+
             &.active {
                 background: #fedaa3;
                 color: #24292e;
@@ -671,17 +588,20 @@ body {
         }
     }
 }
+
 .m-no-body {
     .flex;
     .flex(o);
     flex-direction: column;
+
     .u-tips {
         color: @fontColor-dark3;
-        .fz(0.875rem,1.25rem);
+        .fz(0.875rem, 1.25rem);
         .bold(700);
         .flex;
         .flex(o);
     }
+
     .u-btn {
         .flex;
         .flex(o);
@@ -694,6 +614,7 @@ body {
         color: @fontColor-dark3;
     }
 }
+
 //筛选切换
 .m-filtrate {
     padding: 0.75rem;
@@ -754,6 +675,7 @@ body {
             background: rgba(255, 255, 255, 0.05);
             color: @fontColor-dark3;
             .x;
+
             &.active {
                 background: #fedaa3;
                 color: #24292e;
@@ -767,6 +689,7 @@ body {
     box-sizing: border-box;
     .h(100vh);
     overflow: auto;
+
     .m-base {
         .w(100%);
     }
@@ -781,11 +704,14 @@ body {
             gap: 0.5rem;
             //.w(7.5rem);
             flex: 1;
+
             &.line {
                 border-right: 0.5px solid rgba(254, 218, 163, 0.2);
             }
+
             .u-icon {
                 .size(1.25rem, 1.25rem);
+
                 svg,
                 path {
                     fill: #fedaa3;
@@ -803,6 +729,7 @@ body {
         .fz(1rem, 1.556rem);
         .bold(700);
     }
+
     .u-content-all {
         .u-list {
             &.body {
@@ -811,12 +738,15 @@ body {
             }
         }
     }
+
     .u-content {
         .h(100%);
+
         .u-list {
             .h(100%);
         }
     }
+
     .u-content-item {
         .mb(0.556rem);
     }

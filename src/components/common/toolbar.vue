@@ -6,74 +6,33 @@
         <div class="m-toolbar-box">
             <slot name="prefix"></slot>
             <div class="m-toolbar-item" v-if="types.length">
-                <template v-if="!isMiniProgram">
-                    <div
-                        class="u-item"
-                        :style="style(item.value)"
-                        @mouseover="handleMouseOver(item.value)"
-                        @mouseout="handleMouseOut"
-                        v-for="(item, i) in types"
-                        :key="i"
-                        @click="changeType(item.value)"
-                    >
-                        {{ item.label }}
-                    </div>
-                </template>
-                <template v-else>
-                    <div class="m-toolbar-item__mobile">
-                        <!-- 第一项 -->
-                        <div class="u-current-item">
-                            <div class="u-item" :style="style(activeType.value)">{{ activeType.label }}</div>
-                            <div class="u-more" :class="{ 'is-active': showMore }" @click="showMore = !showMore">
-                                <i class="el-icon-more"></i>
-                            </div>
-                        </div>
-                        <div class="u-item-options" v-if="showMore">
-                            <template v-for="(item, i) in types">
-                                <div
-                                    class="u-item"
-                                    :key="i"
-                                    v-if="item.value != active"
-                                    @click="
-                                        changeType(item.value);
-                                        showMore = false;
-                                    "
-                                    :style="style(item.value)"
-                                >
-                                    {{ item.label }}
-                                </div>
-                            </template>
-                        </div>
-                        <div class="u-search">
-                            <el-input
-                                placeholder="请输入搜索内容"
-                                v-model="title"
-                                suffix-icon="el-icon-search"
-                                class="u-search-input"
-                            />
-                        </div>
-                    </div>
-                </template>
+                <div class="u-item" :style="style(item.value)" @mouseover="handleMouseOver(item.value)"
+                    @mouseout="handleMouseOut" v-for="(item, i) in types" :key="i" @click="changeType(item.value)">
+                    {{ item.label }}
+                </div>
             </div>
             <slot name="prepend"></slot>
-            <div class="m-toolbar-item m-toolbar-search" v-if="search && !isMiniProgram">
+            <div class="m-toolbar-item m-toolbar-search" v-if="search">
                 <slot name="filter"></slot>
                 <div class="u-search">
-                    <el-input
-                        placeholder="请输入搜索内容"
-                        v-model="title"
-                        suffix-icon="el-icon-search"
-                        class="u-search-input"
-                    />
+                    <el-input placeholder="请输入搜索内容" v-model="title" class="u-search-input">
+                        <template #suffix>
+                            <el-icon>
+                                <Search />
+                            </el-icon>
+                        </template>
+                    </el-input>
                 </div>
             </div>
             <slot name="append"></slot>
         </div>
     </div>
 </template>
- 
+
 <script>
+import { Search } from '@element-plus/icons-vue'
 export default {
+    components: { Search },
     name: "toolbar",
     props: {
         types: {
@@ -106,9 +65,6 @@ export default {
         };
     },
     computed: {
-        isMiniProgram() {
-            return document.getElementsByClassName("v-miniprogram")?.length > 0
-        },
         params() {
             const _params = {
                 type: this.type,
