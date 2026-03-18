@@ -8,7 +8,6 @@
             padding-top: 30px;
         }
     }
-    // 普通列表
     .m-archive-list {
         .el-alert {
             width: 100%;
@@ -16,7 +15,7 @@
             background: #fff;
         }
         .u-list {
-            padding: 0;
+            padding-left: 0;
             margin: 0;
             list-style: none;
         }
@@ -24,13 +23,12 @@
         .u-item {
             border-bottom: 1px solid @border-hr;
             padding-bottom: 20px;
-            .mb(20px);
+            margin-bottom: 20px;
             .clearfix;
             .pr;
             list-style: none;
         }
 
-        // 海报
         .u-banner {
             .fl;
             .mr(10px);
@@ -57,12 +55,11 @@
             }
         }
 
-        // 标题
         .u-post {
             margin: 0;
-            padding: 0;
+            padding-left: 0;
             .nobreak;
-            .mb(5px);
+            margin-bottom: 5px;
             .u-icon {
                 .size(16px);
                 .y(-3px);
@@ -73,12 +70,8 @@
                     content: "🎯";
                     .mr(5px);
                 }
-                // .u-title:hover{
-                //     box-shadow: 0 1px 0 #f00;
-                // }
             }
             .u-title {
-                // color:@darkblue;
                 font-weight: 400;
                 &:hover {
                     box-shadow: 0 1px 0 @primary;
@@ -90,7 +83,6 @@
             font-weight: 400;
         }
 
-        // 角标
         .u-mark {
             font-style: normal;
             font-size: 12px;
@@ -99,38 +91,35 @@
             border-radius: 2px;
             background-color: #6f42c1;
             color: #fff;
-            .ml(5px);
+            margin-left: 5px;
         }
 
-        // 内容
         .u-content {
             .db;
             padding-left: 20px;
             .pr;
         }
 
-        // 内容·描述类
         .u-desc {
             .db;
             .fz(12px, 1.8);
             color: #555;
             .break(2);
-            .mb(6px);
+            margin-bottom: 6px;
             padding: 0 2px;
-            .mr(200px);
+            margin-right: 200px;
         }
 
-        // 内容·meta列表
         .u-metalist {
             .nobreak;
             .db;
             .fz(12px, 25px);
-            .mb(4px);
+            margin-bottom: 4px;
             strong {
                 .dbi;
                 .y(top);
                 padding: 0 10px;
-                .mr(10px);
+                margin-right: 10px;
                 .r(4px);
                 background-color: #f1f8ff;
                 color: @color-link;
@@ -179,7 +168,6 @@
             }
         }
 
-        // 底部
         .u-misc {
             .db;
             .pa;
@@ -189,20 +177,14 @@
             color: #777;
         }
 
-        .u-author {
-            // .pa;.rt(0);
-        }
         .u-author-avatar {
             .size(24px);
             .y;
             .r(2px);
-            .mr(5px);
-            // .fr;
-            // .ml(5px);
+            margin-right: 5px;
         }
         .u-author-name {
             .fz(12px, 24px);
-            // .fl;
             color: #666;
             &:hover {
                 color: @pink;
@@ -210,12 +192,11 @@
         }
         .u-date {
             .db;
-            .mt(3px);
+            margin-top: 3px;
             .clear;
         }
 
         .u-down {
-            // .u-btn-white;
             i {
                 .size(12px);
                 .y(-1px);
@@ -250,7 +231,7 @@
                 .none;
             }
             .u-tag {
-                .mb(8px);
+                margin-bottom: 8px;
             }
 
             .u-misc {

@@ -1,9 +1,7 @@
 <template>
     <div class="p-homeland-maps">
-        <SuspendCommon
-            :btnOptions="{ showHome: true, showMore: false }"
-            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }"
-        >
+        <SuspendCommon :btnOptions="{ showHome: true, showMore: false }"
+            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }">
             <template #default>
                 <!--                切换按钮区域-->
                 <div class="m-suspend-btn">
@@ -15,24 +13,12 @@
             </template>
         </SuspendCommon>
 
-        <el-drawer
-            v-model:visible="showForm"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-drawer-suspend"
-        >
+        <el-drawer v-model="showForm" direction="btt" :with-header="false" custom-class="u-drawer"
+            :modal-append-to-body="false" append-to-body class="c-drawer">
             <div class="m-cut">
                 <div class="u-cut-box">
-                    <div
-                        class="u-cut-item"
-                        v-for="(item, index) in data"
-                        :key="index"
-                        :class="{ 'is-active': active == index }"
-                        @click="changeBtn(index)"
-                    >
+                    <div class="u-cut-item" v-for="(item, index) in data" :key="index"
+                        :class="{ 'is-active': active == index }" @click="changeBtn(index)">
                         <span>{{ item }} </span>
                     </div>
                 </div>
@@ -62,7 +48,9 @@
                 <div class="u-item" v-for="(item, index) in active_coords" :key="index">
                     <div class="u-number-1">{{ item.name }}</div>
                     <div class="u-number-2">{{ item.area }}</div>
-                    <div class="u-number-3"><GamePrice :price="~~item.price * 10000" /></div>
+                    <div class="u-number-3">
+                        <GamePrice :price="~~item.price * 10000" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -141,13 +129,15 @@ export default {
     },
 };
 </script>
-<style scoped lang="less">
+<style lang="less">
+@import "~@/assets/css/common/drawer.less";
 @fontcolor: #1c1c1c;
 @fontcolor2: rgba(28, 28, 28, 0.8);
 @fontcolor3: rgba(28, 28, 28, 0.4);
 @fontColor-dark: #fff;
 @fontColor-dark2: rgba(255, 255, 255, 0.8);
 @fontColor-dark3: rgba(255, 255, 255, 0.4);
+
 .m-cut {
     .w(calc(100% - 1.5rem));
 
@@ -164,18 +154,22 @@ export default {
         .flex;
         .flex(o);
         .mb(1rem);
+
         .u-icon {
             .w(1.25rem);
             .mr(0.25rem);
+
             svg,
             path {
                 fill: @fontColor-dark2;
                 stroke: @fontColor-dark2;
             }
         }
+
         &.is-active {
             background: #fedaa3;
             color: #24292e;
+
             svg,
             path {
                 fill: #24292e;
@@ -191,6 +185,7 @@ export default {
         .mb(1rem);
         gap: 0.75rem;
         flex-wrap: wrap;
+
         .u-cut-item {
             .w(calc(calc(100% - 0.75rem) / 2));
             .flex;
@@ -201,16 +196,20 @@ export default {
             padding: 0.75rem;
             box-sizing: border-box;
             .r(0.75rem);
+
             .u-icon {
+
                 svg,
                 path {
                     fill: @fontColor-dark2;
                     stroke: @fontColor-dark2;
                 }
             }
+
             &.is-active {
                 color: #24292e;
                 background: #fedaa3;
+
                 svg,
                 path {
                     fill: #24292e;
@@ -243,6 +242,7 @@ export default {
             background: rgba(255, 255, 255, 0.05);
             color: @fontColor-dark3;
             .x;
+
             &.active {
                 background: #fedaa3;
                 color: #24292e;
@@ -250,6 +250,7 @@ export default {
         }
     }
 }
+
 .p-homeland-maps {
     padding: 1.25rem 1.25rem 4.25rem 1.25rem;
     box-sizing: border-box;
@@ -266,11 +267,14 @@ export default {
             gap: 0.5rem;
             //.w(7.5rem);
             flex: 1;
+
             &.line {
                 border-right: 0.5px solid rgba(254, 218, 163, 0.2);
             }
+
             .u-icon {
                 .size(1.25rem, 1.25rem);
+
                 svg,
                 path {
                     fill: #fedaa3;
@@ -279,49 +283,57 @@ export default {
             }
         }
     }
+
     .m-map {
         .u-tips {
             .mt(0.75rem);
             color: rgba(28, 28, 28, 0.4);
-            .fz(0.875rem,1.25rem);
+            .fz(0.875rem, 1.25rem);
             .x;
         }
     }
+
     .m-homeland-map {
         .mt(1.25rem);
+
         .u-title {
-            .fz(1rem,1.5rem);
+            .fz(1rem, 1.5rem);
             .bold(700);
             .mb(0.75rem);
         }
+
         .u-box {
             .u-item {
                 .flex;
                 justify-content: space-between;
                 gap: 0.625rem;
                 .mb(0.75rem);
+
                 .u-title-1,
                 .u-title-2,
                 .u-title-3 {
                     color: rgba(28, 28, 28, 0.4);
-                    .fz(0.875rem,1.25rem);
+                    .fz(0.875rem, 1.25rem);
                     .x;
                 }
+
                 .u-number-1,
                 .u-number-2,
                 .u-number-3 {
                     color: rgba(28, 28, 28, 0.8);
-                    .fz(0.875rem,1.25rem);
+                    .fz(0.875rem, 1.25rem);
                     background: rgba(28, 28, 28, 0.05);
                     padding: 0.25rem;
                     .flex;
                     .flex(o);
                 }
+
                 .u-title-1,
                 .u-number-1 {
                     .w(7rem);
                     flex-shrink: 0;
                 }
+
                 .u-title-2,
                 .u-number-2,
                 .u-title-3,
@@ -332,25 +344,31 @@ export default {
         }
     }
 }
+
 @media (prefers-color-scheme: dark) {
     .p-homeland-maps {
         background: #000000;
+
         .m-map {
             .u-tips {
                 color: rgba(255, 255, 255, 0.8);
             }
         }
+
         .m-homeland-map {
             .u-title {
                 color: #fff;
             }
+
             .u-box {
                 .u-item {
+
                     .u-title-1,
                     .u-title-2,
                     .u-title-3 {
                         color: rgba(255, 255, 255, 0.4);
                     }
+
                     .u-number-1,
                     .u-number-2,
                     .u-number-3 {
