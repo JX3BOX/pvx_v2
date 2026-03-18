@@ -1,45 +1,21 @@
 <template>
     <div class="m-body-list_mobile">
-        <SuspendCommon
-            :btnOptions="{ showHome: true }"
-            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }"
-            @search="search"
-        >
+        <SuspendCommon :btnOptions="{ showHome: true }"
+            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }" @search="search">
             <template #default>
                 <!--                切换按钮区域-->
                 <div class="m-suspend-btn">
                     <div class="u-btn-item line" @click="switchType('cutShow')">
-                        <img
-                            class="u-icon"
-                            src="@/assets/img/pvxsuspension/switch_touchbar.svg"
-                            svg-inline
-                            v-if="showActive == -1"
-                        />
-                        <img
-                            class="u-icon"
-                            src="@/assets/img/pvxsuspension/man.svg"
-                            svg-inline
-                            v-if="showActive == 1"
-                        />
-                        <img
-                            class="u-icon"
-                            src="@/assets/img/pvxsuspension/woman.svg"
-                            svg-inline
-                            ne
-                            v-if="showActive == 2"
-                        />
-                        <img
-                            class="u-icon"
-                            src="@/assets/img/pvxsuspension/boy.svg"
-                            svg-inline
-                            v-if="showActive == 5"
-                        />
-                        <img
-                            class="u-icon"
-                            src="@/assets/img/pvxsuspension/girl.svg"
-                            svg-inline
-                            v-if="showActive == 6"
-                        />
+                        <img class="u-icon" src="@/assets/img/pvxsuspension/switch_touchbar.svg" svg-inline
+                            v-if="showActive == -1" />
+                        <img class="u-icon" src="@/assets/img/pvxsuspension/man.svg" svg-inline
+                            v-if="showActive == 1" />
+                        <img class="u-icon" src="@/assets/img/pvxsuspension/woman.svg" svg-inline ne
+                            v-if="showActive == 2" />
+                        <img class="u-icon" src="@/assets/img/pvxsuspension/boy.svg" svg-inline
+                            v-if="showActive == 5" />
+                        <img class="u-icon" src="@/assets/img/pvxsuspension/girl.svg" svg-inline
+                            v-if="showActive == 6" />
 
                         {{ habitusName }}
                     </div>
@@ -50,15 +26,8 @@
                 </div>
             </template>
         </SuspendCommon>
-        <el-drawer
-            v-model:visible="showForm"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-drawer-suspend"
-        >
+        <el-drawer v-model="showForm" direction="btt" :with-header="false" :modal-append-to-body="false" append-to-body
+            class="c-drawer">
             <!--                体型区域-->
             <transition :name="cutshowTra ? 'slide-up' : ''">
                 <div class="m-cut" v-if="cutShow">
@@ -66,38 +35,16 @@
                         <img class="u-icon" src="@/assets/img/pvxsuspension/all.svg" svg-inline /> 全部体型
                     </div>
                     <div class="u-cut-box">
-                        <div
-                            class="u-cut-item"
-                            v-for="(item, index) in tabsData"
-                            :key="index"
-                            :class="{ 'is-active': showActive == item.value }"
-                            @click="showActive = item.value"
-                        >
-                            <img
-                                class="u-icon"
-                                src="@/assets/img/pvxsuspension/man.svg"
-                                svg-inline
-                                v-if="item.value == 1"
-                            />
-                            <img
-                                class="u-icon"
-                                src="@/assets/img/pvxsuspension/woman.svg"
-                                svg-inline
-                                ne
-                                v-if="item.value == 2"
-                            />
-                            <img
-                                class="u-icon"
-                                src="@/assets/img/pvxsuspension/boy.svg"
-                                svg-inline
-                                v-if="item.value == 5"
-                            />
-                            <img
-                                class="u-icon"
-                                src="@/assets/img/pvxsuspension/girl.svg"
-                                svg-inline
-                                v-if="item.value == 6"
-                            />
+                        <div class="u-cut-item" v-for="(item, index) in tabsData" :key="index"
+                            :class="{ 'is-active': showActive == item.value }" @click="showActive = item.value">
+                            <img class="u-icon" src="@/assets/img/pvxsuspension/man.svg" svg-inline
+                                v-if="item.value == 1" />
+                            <img class="u-icon" src="@/assets/img/pvxsuspension/woman.svg" svg-inline ne
+                                v-if="item.value == 2" />
+                            <img class="u-icon" src="@/assets/img/pvxsuspension/boy.svg" svg-inline
+                                v-if="item.value == 5" />
+                            <img class="u-icon" src="@/assets/img/pvxsuspension/girl.svg" svg-inline
+                                v-if="item.value == 6" />
 
                             <span>{{ item.label }} </span>
                         </div>
@@ -121,48 +68,32 @@
             <div class="m-filtrate" v-if="filtrateShow">
                 <div class="u-filtrate-title">标签</div>
                 <div class="u-box">
-                    <div
-                        class="u-item all"
-                        :class="{
-                            active:
-                                !queryFiltrateParams.star &&
-                                queryFiltrateParams.price_type == '' &&
-                                !queryFiltrateParams.is_unlimited,
-                        }"
-                        @click="filtrateParams(['star', 'price_type', 'is_unlimited'], '')"
-                    >
+                    <div class="u-item all" :class="{
+                        active:
+                            !queryFiltrateParams.star &&
+                            queryFiltrateParams.price_type == '' &&
+                            !queryFiltrateParams.is_unlimited,
+                    }" @click="filtrateParams(['star', 'price_type', 'is_unlimited'], '')">
                         全部
                     </div>
-                    <div
-                        class="u-item"
-                        :class="{ active: queryFiltrateParams.star == '1' }"
-                        @click="filtrateParams('star', 1, queryFiltrateParams.star == '1')"
-                    >
+                    <div class="u-item" :class="{ active: queryFiltrateParams.star == '1' }"
+                        @click="filtrateParams('star', 1, queryFiltrateParams.star == '1')">
                         精选
                     </div>
-                    <div
-                        class="u-item"
-                        :class="{ active: queryFiltrateParams.price_type == '0' }"
-                        @click="filtrateParams('price_type', '0', queryFiltrateParams.price_type == '0')"
-                    >
+                    <div class="u-item" :class="{ active: queryFiltrateParams.price_type == '0' }"
+                        @click="filtrateParams('price_type', '0', queryFiltrateParams.price_type == '0')">
                         免费
                     </div>
                     <!--                    <div class="u-item" :class="{'active':queryFiltrateParams.is_unlimited=='1'}"  @click="filtrateParams('is_unlimited','1',queryFiltrateParams.is_unlimited=='1')">可新建</div>-->
                 </div>
                 <div class="u-filtrate-title">其他</div>
                 <div class="u-box">
-                    <div
-                        class="u-item all"
-                        :class="{ active: !queryFiltrateParams.filter_empty_images }"
-                        @click="filtrateParams(['filter_empty_images', 'code_mode'], '')"
-                    >
+                    <div class="u-item all" :class="{ active: !queryFiltrateParams.filter_empty_images }"
+                        @click="filtrateParams(['filter_empty_images', 'code_mode'], '')">
                         全部
                     </div>
-                    <div
-                        class="u-item"
-                        :class="{ active: queryFiltrateParams.filter_empty_images }"
-                        @click="filtrateParams('filter_empty_images', '1')"
-                    >
+                    <div class="u-item" :class="{ active: queryFiltrateParams.filter_empty_images }"
+                        @click="filtrateParams('filter_empty_images', '1')">
                         只看有图
                     </div>
                     <!--                    <div class="u-item"  :class="{'active':queryFiltrateParams.code_mode}"  @click="filtrateParams('code_mode','1')">只看捏脸码</div>-->
@@ -191,18 +122,8 @@
         </div>
         <div class="u-content" v-else>
             <div class="u-list" id="oneList">
-                <routine
-                    gap="0.667rem"
-                    size="5.778rem"
-                    :isOne="true"
-                    :list="list"
-                    :total="total"
-                    :isFinish="isFinish"
-                    v-if="listShow"
-                    :loadingList="loadingList"
-                    @getMore="getMore"
-                    type="body"
-                ></routine>
+                <routine gap="0.667rem" size="5.778rem" :isOne="true" :list="list" :total="total" :isFinish="isFinish"
+                    v-if="listShow" :loadingList="loadingList" @getMore="getMore" type="body"></routine>
             </div>
         </div>
     </div>
@@ -325,6 +246,7 @@ export default {
             });
         },
         switchType(type) {
+            console.log(type);
             if (!type) return;
             this.cutshowTra = false;
             if (type == "cutShow") {
@@ -483,16 +405,20 @@ export default {
 </script>
 
 <style lang="less">
-@fontcolor: #1c1c1c;
-@fontcolor2: rgba(28, 28, 28, 0.8);
-@fontcolor3: rgba(28, 28, 28, 0.4);
-@fontColor-dark: #fff;
-@fontColor-dark2: rgba(255, 255, 255, 0.8);
-@fontColor-dark3: rgba(255, 255, 255, 0.4);
+@import "~@/assets/css/common/drawer.less";
+@fontColor: #1c1c1c;
+@fontColorMuted: rgba(28, 28, 28, 0.8);
+@fontColorDisabled: rgba(28, 28, 28, 0.4);
+@fontColorLight: #fff;
+@fontColorLightMuted: rgba(255, 255, 255, 0.8);
+@fontColorLightDisabled: rgba(255, 255, 255, 0.4);
+@primaryColor: #fedaa3;
+@primaryBg: #24292e;
 
 body {
     padding: 0 !important;
 }
+
 .m-cut {
     .w(calc(100% - 1.5rem));
 
@@ -500,7 +426,7 @@ body {
 
     .u-cut-all {
         background: rgba(255, 255, 255, 0.05);
-        color: @fontColor-dark2;
+        color: @fontColorLightMuted;
         .fz(1rem, 1.5rem);
         .bold(700);
         padding: 0.75rem 1rem;
@@ -509,18 +435,22 @@ body {
         .flex;
         .flex(o);
         .mb(1rem);
+
         .u-icon {
             .w(1.25rem);
             .mr(0.25rem);
+
             svg,
             path {
-                fill: @fontColor-dark2;
-                stroke: @fontColor-dark2;
+                fill: @fontColorLightMuted;
+                stroke: @fontColorLightMuted;
             }
         }
+
         &.is-active {
             background: #fedaa3;
             color: #24292e;
+
             svg,
             path {
                 fill: #24292e;
@@ -542,21 +472,24 @@ body {
             .flex(o);
             flex-direction: column;
             background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark2;
+            color: @fontColorLightMuted;
             padding: 0.75rem;
             box-sizing: border-box;
             .r(0.75rem);
+
             .u-icon {
+
                 svg,
                 path {
-                    fill: @fontColor-dark2;
-                    stroke: @fontColor-dark2;
+                    fill: @fontColorLightMuted;
+                    stroke: @fontColorLightMuted;
                 }
             }
 
             &.is-active {
                 color: #24292e;
                 background: #fedaa3;
+
                 svg,
                 path {
                     fill: #24292e;
@@ -578,7 +511,7 @@ body {
             flex-shrink: 0;
             .r(0.75rem);
             background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark2;
+            color: @fontColorLightMuted;
         }
 
         .u-confirm-btn {
@@ -587,8 +520,9 @@ body {
             box-sizing: border-box;
             .r(0.75rem);
             background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark3;
+            color: @fontColorLightDisabled;
             .x;
+
             &.active {
                 background: #fedaa3;
                 color: #24292e;
@@ -596,17 +530,20 @@ body {
         }
     }
 }
+
 .m-no-body {
     .flex;
     .flex(o);
     flex-direction: column;
+
     .u-tips {
-        color: @fontColor-dark3;
-        .fz(0.875rem,1.25rem);
+        color: @fontColorLightDisabled;
+        .fz(0.875rem, 1.25rem);
         .bold(700);
         .flex;
         .flex(o);
     }
+
     .u-btn {
         .flex;
         .flex(o);
@@ -616,9 +553,10 @@ body {
         align-self: stretch;
         .r(0.75rem);
         background: rgba(255, 255, 255, 0.1);
-        color: @fontColor-dark3;
+        color: @fontColorLightDisabled;
     }
 }
+
 //筛选切换
 .m-filtrate {
     padding: 0.75rem;
@@ -641,7 +579,7 @@ body {
             .fz(0.875rem, 1.25rem);
             .bold(400);
             background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark2;
+            color: @fontColorLightMuted;
             .r(0.75rem);
             flex: 1;
             .flex;
@@ -668,7 +606,7 @@ body {
             flex-shrink: 0;
             .r(0.75rem);
             background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark2;
+            color: @fontColorLightMuted;
         }
 
         .u-confirm-btn {
@@ -677,8 +615,9 @@ body {
             box-sizing: border-box;
             .r(0.75rem);
             background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark3;
+            color: @fontColorLightDisabled;
             .x;
+
             &.active {
                 background: #fedaa3;
                 color: #24292e;
@@ -692,6 +631,7 @@ body {
     box-sizing: border-box;
     .h(100vh);
     overflow: auto;
+
     .m-base {
         .w(100%);
     }
@@ -706,11 +646,14 @@ body {
             gap: 0.5rem;
             //.w(7.5rem);
             flex: 1;
+
             &.line {
                 border-right: 0.5px solid rgba(254, 218, 163, 0.2);
             }
+
             .u-icon {
                 .size(1.25rem, 1.25rem);
+
                 svg,
                 path {
                     fill: #fedaa3;
@@ -724,10 +667,11 @@ body {
         padding: 0 1.25rem;
         box-sizing: border-box;
         .mb(0.667rem);
-        color: @fontcolor;
+        color: @fontColor;
         .fz(1rem, 1.556rem);
         .bold(700);
     }
+
     .u-content-all {
         .u-list {
             &.body {
@@ -736,21 +680,25 @@ body {
             }
         }
     }
+
     .u-content {
         .h(100%);
+
         .u-list {
             .h(100%);
         }
     }
+
     .u-content-item {
         .mb(0.556rem);
     }
+
     // @media screen and (width: 390px)
     @media (prefers-color-scheme: dark) {
         background-color: #000;
 
         .u-card-title {
-            color: @fontColor-dark;
+            color: @fontColorLight;
         }
     }
 }

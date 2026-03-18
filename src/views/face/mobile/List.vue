@@ -596,24 +596,23 @@ body {
     flex-direction: column;
 
     .u-tips {
-        .flex;
-        .flex(o);
+        color: @fontColorLightDisabled;
         .fz(0.875rem, 1.25rem);
         .bold(700);
-        color: @fontColorLightDisabled;
+        .flex;
+        .flex(o);
     }
 
     .u-btn {
         .flex;
         .flex(o);
         .mt(1.25rem);
-        .r(0.75rem);
-        flex: 1;
         padding: 0.75rem 1rem;
         gap: 0.5rem;
+        align-self: stretch;
+        .r(0.75rem);
         background: rgba(255, 255, 255, 0.1);
         color: @fontColorLightDisabled;
-        box-sizing: border-box;
     }
 }
 

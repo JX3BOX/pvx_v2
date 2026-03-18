@@ -92,9 +92,14 @@ export default {
         },
         async getDecorationStyle() {
             let decoration_local = sessionStorage.getItem(DECORATION_KEY + this.uid);
-            if (decoration_local) {
-                const decoration = JSON.parse(decoration_local);
-                this.userDefinedStyle = decoration ? decoration : {};
+            if (decoration_local && decoration_local !== "undefined") {
+                try {
+                    const decoration = JSON.parse(decoration_local);
+                    this.userDefinedStyle = decoration ? decoration : {};
+                } catch (e) {
+                    sessionStorage.removeItem(DECORATION_KEY + this.uid);
+                    this.userDefinedStyle = {};
+                }
                 return;
             }
             await getDecoration({ using: 1, user_id: this.uid, type: "homebg" }).then((res) => {
@@ -110,8 +115,15 @@ export default {
                         this.userDefinedStyle = theme;
                     });
                 } else {
-                    const theme = JSON.parse(decorationJson)[decoration.val];
-                    this.userDefinedStyle = theme;
+                    if (decorationJson && decorationJson !== "undefined") {
+                        try {
+                            const theme = JSON.parse(decorationJson)[decoration.val];
+                            this.userDefinedStyle = theme;
+                        } catch (e) {
+                            sessionStorage.removeItem(DECORATION_JSON);
+                            this.userDefinedStyle = {};
+                        }
+                    }
                 }
             });
         },
