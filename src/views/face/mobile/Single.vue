@@ -2,45 +2,33 @@
  * @Author: zhusha
  * @Date: 2025-02-17 23:22:35
  * @LastEditors: zhusha
- * @LastEditTime: 2025-03-29 15:26:18
+ * @LastEditTime: 2026-03-18 11:10:56
  * @Description: 小程序捏脸详情
  *
  * Copyright (c) 2025 by zhusha, email: no email, All Rights Reserved.
 -->
 <template>
     <div class="p-face-detail" v-loading="loading">
-        <SuspendCommon
-            :btnOptions="{ showHome: true }"
-            :drawerOptions="{
-                hideType: ['report', 'rss', 'search'],
-                author: {
-                    name: post.author_name,
-                    avatar: post.user_avatar,
-                    author_id: post.user_id,
-                },
-                title: post.title,
-                postType: 'face',
-                id: id,
-            }"
-            @search="search"
-            v-if="$route.query?.disabled != 'true'"
-        >
+        <SuspendCommon :btnOptions="{ showHome: true }" :drawerOptions="{
+            hideType: ['report', 'rss', 'search'],
+            author: {
+                name: post.author_name,
+                avatar: post.user_avatar,
+                author_id: post.user_id,
+            },
+            title: post.title,
+            postType: 'face',
+            id: id,
+        }" @search="search" v-if="$route.query?.disabled != 'true'">
             <template #default>
                 <div class="u-copy" @click="showFaceData = true">
                     <img class="u-copy-icon" src="@/assets/img/pvxsuspension/copy_touchbar.svg" svg-inline />复制捏脸码
                 </div>
             </template>
         </SuspendCommon>
-        <el-drawer
-            v-model="showFaceData"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-drawer-suspend"
-        >
-            <div class="m-face-data_copy">
+        <el-drawer v-model="showFaceData" direction="btt" :with-header="false" :modal-append-to-body="false"
+            append-to-body class="c-drawer">
+            <div class="m-face-data-copy">
                 <div class="u-copy-box" v-if="post.code_mode">
                     <div class="u-copy-top">
                         <img class="u-icon" src="@/assets/img/pvxsuspension/copy_touchbar_120.svg" svg-inline />
@@ -61,18 +49,18 @@
         </el-drawer>
         <!--        复制捏脸码相关弹窗-->
         <!--        <PvxSuspension isType='single' type="face" :id="id" :title="post.title" :miniprogram="{app:'捏脸',filter_name:'pvxface'}"/>-->
-        <div class="m-face-detail_top">
+        <div class="m-face-detail-top">
             <el-carousel height="550px">
                 <el-carousel-item v-for="(item, i) in previewSrcList" :key="i">
-                    <div class="u-img_item">
+                    <div class="u-img-item">
                         <img :src="showPic(item)" />
                     </div>
                 </el-carousel-item>
             </el-carousel>
             <!-- 作品名称/作者-->
-            <div class="u-face_info">
-                <div class="u-face_name">{{ post.title || "无标题" }}</div>
-                <div class="u-face_author">{{ post.display_name }}</div>
+            <div class="u-face-info">
+                <div class="u-face-name">{{ post.title || "无标题" }}</div>
+                <div class="u-face-author">{{ post.display_name }}</div>
             </div>
         </div>
         <div class="m-tags">
@@ -115,22 +103,22 @@
             <img :src="showAvatar(post.user_avatar, 335)" />
             <div class="u-info-box">
                 <div class="u-author">
-                    <div class="u-author_name">{{ post.author_name }}</div>
-                    <div class="u-author_vermicelli">{{ fans }}个粉丝</div>
+                    <div class="u-author-name">{{ post.author_name }}</div>
+                    <div class="u-author-vermicelli">{{ fans }}个粉丝</div>
                 </div>
                 <div class="u-follow" @click="follow" v-if="!subscribed">关注TA</div>
                 <div class="u-follow" @click="unfollow" v-else>取消关注</div>
             </div>
-            <div class="u-author_introduce" v-if="userInfo.user_bio">{{ userInfo.user_bio }}</div>
+            <div class="u-author-introduce" v-if="userInfo.user_bio">{{ userInfo.user_bio }}</div>
         </div>
         <!-- 其他作品 -->
-        <div class="m-face-author_other" v-if="randomList.length > 0">
+        <div class="m-face-author-other" v-if="randomList.length > 0">
             <div class="u-title">{{ post.display_name }}其他作品</div>
             <!--            <div class="u-img_item" v-if="randomList.length === 0">-->
             <!--                <img src="@/assets/img/face/mobile/empty.png" />-->
             <!--            </div>-->
 
-            <div class="u-other_list">
+            <div class="u-other-list">
                 <routine_other :list="randomList" :isNumber="true"></routine_other>
             </div>
         </div>
@@ -140,7 +128,7 @@
 <script>
 import wx from "weixin-js-sdk";
 import SuspendCommon from "@jx3box/jx3box-ui/src/SuspendCommon";
-// import PvxSuspension from '@/components/PvxSuspension.vue';
+
 import routine_other from "@/components/face/mobile/routine_other";
 import { getOneFaceInfo, getRandomFace } from "@/service/face";
 import { getFans, getUserInfo } from "@/service/face/author";
@@ -187,7 +175,7 @@ export default {
     created() {
         this.getData();
     },
-    mounted() {},
+    mounted() { },
     methods: {
         search() {
             wx.miniProgram.navigateTo({
@@ -280,17 +268,19 @@ export default {
 </script>
 
 <style lang="less">
+@import "~@/assets/css/common/drawer.less";
 @nameColor: #1c1c1c;
-@nameColor-dark: #fff;
+@nameColorDark: #fff;
 @fontBgColor: #fff;
-@fontBgColor-dark: #282828;
+@fontBgColorDark: #282828;
 @fontColor: rgba(28, 28, 28, 0.8);
 @fontColor2: rgba(28, 28, 28, 0.4);
-@fontColor-dark: rgba(255, 255, 255, 0.8);
-@fontColor-dark2: rgba(255, 255, 255, 0.4);
+@fontColorDark: rgba(255, 255, 255, 0.8);
+@fontColorDark2: rgba(255, 255, 255, 0.4);
 @btnBgColor: #24292e;
-@btnBgColor-dark: #fedaa3;
-.m-face-data_copy {
+@btnBgColorDark: #fedaa3;
+
+.m-face-data-copy {
     .w(100%);
 
     .u-copy-box,
@@ -300,17 +290,20 @@ export default {
         .flex(o);
         flex-direction: column;
         gap: 1.25rem;
+
         .u-copy-top {
             .flex;
             .flex(o);
             flex-direction: column;
         }
     }
+
     .u-label {
         color: rgba(255, 255, 255, 0.4);
-        .fz(0.875rem,1.25rem);
+        .fz(0.875rem, 1.25rem);
         .bold(700);
     }
+
     .u-number {
         .w(100%);
         .flex;
@@ -323,9 +316,10 @@ export default {
         box-sizing: border-box;
         color: @fontBgColor;
 
-        .fz(0.75rem,1.125rem);
+        .fz(0.75rem, 1.125rem);
         .bold(700);
     }
+
     .u-copy-btn {
         .flex;
         .flex(o);
@@ -334,9 +328,10 @@ export default {
         align-self: stretch;
         .r(0.75rem);
         background: #fedaa3;
-        .fz(0.875rem,1.25rem);
+        .fz(0.875rem, 1.25rem);
         .bold(700);
     }
+
     .u-no-data-btn {
         .flex;
         .flex(o);
@@ -346,18 +341,21 @@ export default {
         .r(0.75rem);
         background: rgba(255, 255, 255, 0.1);
         color: rgba(255, 255, 255, 0.4);
-        .fz(0.875rem,1.25rem);
+        .fz(0.875rem, 1.25rem);
         .bold(700);
     }
 }
+
 .p-face-detail {
     height: 100vh;
     background-color: #fafafa;
     overflow: auto;
     .pb(3.5rem);
     box-sizing: border-box;
+
     .u-copy-icon {
-        .size(1.5rem,1.5rem);
+        .size(1.5rem, 1.5rem);
+
         svg,
         path {
             fill: #fedaa3;
@@ -367,6 +365,7 @@ export default {
 
     .m-base {
         .w(100%);
+
         .u-copy {
             .w(100%);
             .flex;
@@ -375,12 +374,14 @@ export default {
         }
     }
 
-    .m-face-detail_top {
+    .m-face-detail-top {
         .pr;
         overflow: hidden;
-        .u-img_item {
+
+        .u-img-item {
             .size(100%, 550px);
             .pr;
+
             &::before {
                 content: "";
                 .pa;
@@ -388,13 +389,11 @@ export default {
                 .lt(0);
                 .dbi;
                 .z(1);
-                background: linear-gradient(
-                    180deg,
-                    #f8f8f8 0.04%,
-                    rgba(248, 248, 248, 0) 30%,
-                    rgba(248, 248, 248, 0) 70%,
-                    #fafafa 100%
-                );
+                background: linear-gradient(180deg,
+                        #f8f8f8 0.04%,
+                        rgba(248, 248, 248, 0) 30%,
+                        rgba(248, 248, 248, 0) 70%,
+                        #fafafa 100%);
             }
 
             img {
@@ -428,18 +427,18 @@ export default {
             }
         }
 
-        .u-face_info {
+        .u-face-info {
             .pa;
             .z(2);
-            .lb(1.111rem,0.333rem);
+            .lb(1.111rem, 0.333rem);
 
-            .u-face_name {
+            .u-face-name {
                 color: @nameColor;
                 .fz(0.889rem, 1.333rem);
                 .bold(700);
             }
 
-            .u-face_author {
+            .u-face-author {
                 color: rgba(28, 28, 28, 0.4);
                 .fz(0.667rem, 1rem);
                 .bold(400);
@@ -468,22 +467,22 @@ export default {
 
             &.green {
                 background: #34c759;
-                color: @nameColor-dark;
+                color: @nameColorDark;
             }
 
             &.mint {
                 background: #23abe5;
-                color: @nameColor-dark;
+                color: @nameColorDark;
             }
 
             &.purple {
                 background: #af52de;
-                color: @nameColor-dark;
+                color: @nameColorDark;
             }
 
             &.new {
                 background: #ff72af;
-                color: @nameColor-dark;
+                color: @nameColorDark;
             }
         }
     }
@@ -601,13 +600,13 @@ export default {
             justify-content: space-between;
             padding: 0.667rem 0.889rem;
 
-            .u-author_name {
+            .u-author-name {
                 color: @fontColor;
                 .fz(0.778rem, 1.111rem);
                 .bold(700);
             }
 
-            .u-author_vermicelli {
+            .u-author-vermicelli {
                 color: @fontColor2;
                 .fz(0.556rem, 0.889rem);
                 .bold(400);
@@ -619,12 +618,12 @@ export default {
                 padding: 0.222rem 0.444rem;
                 .r(0.444rem);
                 background: @btnBgColor;
-                color: @btnBgColor-dark;
+                color: @btnBgColorDark;
                 .fz(0.556rem, 0.889rem);
             }
         }
 
-        .u-author_introduce {
+        .u-author-introduce {
             color: @fontColor2;
             .fz(0.667rem, 1rem);
             .bold(400);
@@ -632,7 +631,7 @@ export default {
         }
     }
 
-    .m-face-author_other {
+    .m-face-author-other {
         margin: 0 1.111rem 0.889rem 1.111rem;
         background-color: @fontBgColor;
         .pb(0.889rem);
@@ -645,7 +644,7 @@ export default {
             padding: 0.889rem 0.889rem 0.667rem 0.889rem;
         }
 
-        .u-img_item {
+        .u-img-item {
             .pr;
 
             &::before {
@@ -659,7 +658,7 @@ export default {
             }
         }
 
-        .u-other_list {
+        .u-other-list {
             padding: 0 0.889rem;
         }
     }
@@ -669,52 +668,50 @@ export default {
     @media (prefers-color-scheme: dark) {
         background-color: #000;
 
-        .m-face-detail_top {
-            .u-img_item {
+        .m-face-detail-top {
+            .u-img-item {
                 &::before {
-                    background: linear-gradient(
-                        180deg,
-                        #1c1c1c 0.04%,
-                        rgba(0, 0, 0, 0) 20%,
-                        rgba(0, 0, 0, 0) 80%,
-                        #000000 100%
-                    );
+                    background: linear-gradient(180deg,
+                            #1c1c1c 0.04%,
+                            rgba(0, 0, 0, 0) 20%,
+                            rgba(0, 0, 0, 0) 80%,
+                            #000000 100%);
                 }
             }
 
-            .u-face_info {
-                .u-face_name {
-                    color: @nameColor-dark;
+            .u-face-info {
+                .u-face-name {
+                    color: @nameColorDark;
                 }
 
-                .u-face_author {
-                    color: @fontColor-dark2;
+                .u-face-author {
+                    color: @fontColorDark2;
                 }
             }
         }
 
         .m-tags {
             .u-tag {
-                background: @fontBgColor-dark;
-                color: @fontColor-dark;
+                background: @fontBgColorDark;
+                color: @fontColorDark;
             }
         }
 
         .m-introduce {
-            background-color: @fontBgColor-dark;
+            background-color: @fontBgColorDark;
 
             .u-title {
-                color: @fontColor-dark2;
+                color: @fontColorDark2;
             }
 
             .u-content {
-                color: @fontColor-dark;
+                color: @fontColorDark;
             }
         }
 
         .m-warning {
-            background-color: @fontBgColor-dark;
-            color: @fontColor-dark2;
+            background-color: @fontBgColorDark;
+            color: @fontColorDark2;
 
             .u-img {
                 display: none;
@@ -726,8 +723,8 @@ export default {
         }
 
         .m-face-data {
-            background-color: @fontBgColor-dark;
-            color: @fontColor-dark;
+            background-color: @fontBgColorDark;
+            color: @fontColorDark;
 
             .u-img {
                 display: none;
@@ -739,36 +736,36 @@ export default {
         }
 
         .m-face-author {
-            background-color: @fontBgColor-dark;
+            background-color: @fontBgColorDark;
 
             .u-info-box {
-                .u-author_name {
-                    color: @fontColor-dark;
+                .u-author-name {
+                    color: @fontColorDark;
                 }
 
-                .u-author_vermicelli {
-                    color: @fontColor-dark2;
+                .u-author-vermicelli {
+                    color: @fontColorDark2;
                 }
 
                 .u-follow {
-                    background: @btnBgColor-dark;
+                    background: @btnBgColorDark;
                     color: @btnBgColor;
                 }
             }
 
-            .u-author_introduce {
-                color: @fontColor-dark2;
+            .u-author-introduce {
+                color: @fontColorDark2;
             }
         }
 
-        .m-face-author_other {
-            background-color: @fontBgColor-dark;
+        .m-face-author-other {
+            background-color: @fontBgColorDark;
 
             .u-title {
-                color: @fontColor-dark2;
+                color: @fontColorDark2;
             }
 
-            .u-img_item {
+            .u-img-item {
                 &::before {
                     background: linear-gradient(180deg, #1c1c1c 0.04%, rgba(0, 0, 0, 0) 49.5%, #000 99.96%);
                 }

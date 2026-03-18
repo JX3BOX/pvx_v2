@@ -1,6 +1,5 @@
 <template>
     <div class="m-face-list_mobile">
-        <!--        <PvxSuspension isType='list' :miniprogram="{ app: '捏脸', filter_name: 'pvxface' }" />-->
         <SuspendCommon :btnOptions="{ showHome: true }"
             :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }" @search="search">
             <template #default>
@@ -27,8 +26,8 @@
                 </div>
             </template>
         </SuspendCommon>
-        <el-drawer v-model="showForm" direction="btt" :with-header="false" custom-class="u-drawer"
-            :modal-append-to-body="false" append-to-body class="p-drawer-suspend">
+        <el-drawer v-model="showForm" direction="btt" :with-header="false" :modal-append-to-body="false" append-to-body
+            class="c-drawer">
             <!--                体型区域-->
             <transition :name="cutshowTra ? 'slide-up' : ''">
                 <div class="m-cut" v-if="cutShow">
@@ -154,7 +153,7 @@
 
 <script>
 import SuspendCommon from "@jx3box/jx3box-ui/src/SuspendCommon";
-// import PvxSuspension from '@/components/PvxSuspension.vue';
+
 import routine from "@/components/face/mobile/routine.vue";
 import habitus from "@/components/face/mobile/habitus.vue";
 import faceFind from "@/components/face/mobile/faceFind_v2.vue";
@@ -466,12 +465,15 @@ export default {
 </script>
 
 <style lang="less">
-@fontcolor: #1c1c1c;
-@fontcolor2: rgba(28, 28, 28, 0.8);
-@fontcolor3: rgba(28, 28, 28, 0.4);
-@fontColor-dark: #fff;
-@fontColor-dark2: rgba(255, 255, 255, 0.8);
-@fontColor-dark3: rgba(255, 255, 255, 0.4);
+@import "~@/assets/css/common/drawer.less";
+@fontColor: #1c1c1c;
+@fontColorMuted: rgba(28, 28, 28, 0.8);
+@fontColorDisabled: rgba(28, 28, 28, 0.4);
+@fontColorLight: #fff;
+@fontColorLightMuted: rgba(255, 255, 255, 0.8);
+@fontColorLightDisabled: rgba(255, 255, 255, 0.4);
+@primaryColor: #fedaa3;
+@primaryBg: #24292e;
 
 body {
     padding: 0 !important;
@@ -479,20 +481,19 @@ body {
 
 .m-cut {
     .w(calc(100% - 1.5rem));
-
     margin: 0 auto;
 
     .u-cut-all {
-        background: rgba(255, 255, 255, 0.05);
-        color: @fontColor-dark2;
-        .fz(1rem, 1.5rem);
-        .bold(700);
-        padding: 0.75rem 1rem;
-        box-sizing: border-box;
-        .r(0.75rem);
         .flex;
         .flex(o);
         .mb(1rem);
+        .r(0.75rem);
+        padding: 0.75rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: @fontColorLightMuted;
+        .fz(1rem, 1.5rem);
+        .bold(700);
+        box-sizing: border-box;
 
         .u-icon {
             .w(1.25rem);
@@ -500,58 +501,58 @@ body {
 
             svg,
             path {
-                fill: @fontColor-dark2;
-                stroke: @fontColor-dark2;
+                fill: @fontColorLightMuted;
+                stroke: @fontColorLightMuted;
             }
         }
 
         &.is-active {
-            background: #fedaa3;
-            color: #24292e;
+            background: @primaryColor;
+            color: @primaryBg;
 
             svg,
             path {
-                fill: #24292e;
-                stroke: #24292e;
+                fill: @primaryBg;
+                stroke: @primaryBg;
             }
         }
     }
 
     .u-cut-box {
         .flex;
-        align-content: center;
-        justify-content: space-between;
         .mb(1rem);
         gap: 0.75rem;
+        align-content: center;
+        justify-content: space-between;
 
         .u-cut-item {
-            .w(calc(100% / 4));
             .flex;
             .flex(o);
-            flex-direction: column;
-            background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark2;
-            padding: 0.75rem;
-            box-sizing: border-box;
             .r(0.75rem);
+            flex-direction: column;
+            flex: 1;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: @fontColorLightMuted;
+            box-sizing: border-box;
 
             .u-icon {
 
                 svg,
                 path {
-                    fill: @fontColor-dark2;
-                    stroke: @fontColor-dark2;
+                    fill: @fontColorLightMuted;
+                    stroke: @fontColorLightMuted;
                 }
             }
 
             &.is-active {
-                color: #24292e;
-                background: #fedaa3;
+                background: @primaryColor;
+                color: @primaryBg;
 
                 svg,
                 path {
-                    fill: #24292e;
-                    stroke: #24292e;
+                    fill: @primaryBg;
+                    stroke: @primaryBg;
                 }
             }
         }
@@ -564,26 +565,26 @@ body {
         gap: 1.25rem;
 
         .u-report-btn {
-            padding: 0.75rem 1rem;
-            box-sizing: border-box;
-            flex-shrink: 0;
             .r(0.75rem);
+            flex-shrink: 0;
+            padding: 0.75rem 1rem;
             background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark2;
+            color: @fontColorLightMuted;
+            box-sizing: border-box;
         }
 
         .u-confirm-btn {
+            .r(0.75rem);
             flex: 1;
             padding: 0.75rem 1rem;
-            box-sizing: border-box;
-            .r(0.75rem);
             background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark3;
+            color: @fontColorLightDisabled;
             .x;
+            box-sizing: border-box;
 
             &.active {
-                background: #fedaa3;
-                color: #24292e;
+                background: @primaryColor;
+                color: @primaryBg;
             }
         }
     }
@@ -595,27 +596,27 @@ body {
     flex-direction: column;
 
     .u-tips {
-        color: @fontColor-dark3;
-        .fz(0.875rem, 1.25rem);
-        .bold(700);
         .flex;
         .flex(o);
+        .fz(0.875rem, 1.25rem);
+        .bold(700);
+        color: @fontColorLightDisabled;
     }
 
     .u-btn {
         .flex;
         .flex(o);
         .mt(1.25rem);
+        .r(0.75rem);
+        flex: 1;
         padding: 0.75rem 1rem;
         gap: 0.5rem;
-        align-self: stretch;
-        .r(0.75rem);
         background: rgba(255, 255, 255, 0.1);
-        color: @fontColor-dark3;
+        color: @fontColorLightDisabled;
+        box-sizing: border-box;
     }
 }
 
-//筛选切换
 .m-filtrate {
     padding: 0.75rem;
     box-sizing: border-box;
@@ -627,27 +628,26 @@ body {
 
     .u-box {
         .flex;
-        align-content: center;
-        justify-content: space-between;
         .mb(0.75rem);
         gap: 0.5rem;
+        align-content: center;
+        justify-content: space-between;
 
         .u-item {
-            color: #fff;
-            .fz(0.875rem, 1.25rem);
-            .bold(400);
-            background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark2;
-            .r(0.75rem);
-            flex: 1;
             .flex;
             .flex(o);
+            .r(0.75rem);
+            flex: 1;
             padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: @fontColorLightMuted;
+            .fz(0.875rem, 1.25rem);
+            .bold(400);
             box-sizing: border-box;
 
             &.active {
-                color: #24292e;
-                background: #fedaa3;
+                background: @primaryColor;
+                color: @primaryBg;
             }
         }
     }
@@ -659,36 +659,36 @@ body {
         gap: 1.25rem;
 
         .u-report-btn {
-            padding: 0.75rem 1rem;
-            box-sizing: border-box;
-            flex-shrink: 0;
             .r(0.75rem);
+            flex-shrink: 0;
+            padding: 0.75rem 1rem;
             background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark2;
+            color: @fontColorLightMuted;
+            box-sizing: border-box;
         }
 
         .u-confirm-btn {
+            .r(0.75rem);
             flex: 1;
             padding: 0.75rem 1rem;
-            box-sizing: border-box;
-            .r(0.75rem);
             background: rgba(255, 255, 255, 0.05);
-            color: @fontColor-dark3;
+            color: @fontColorLightDisabled;
             .x;
+            box-sizing: border-box;
 
             &.active {
-                background: #fedaa3;
-                color: #24292e;
+                background: @primaryColor;
+                color: @primaryBg;
             }
         }
     }
 }
 
 .m-face-list_mobile {
-    padding: 0.45rem 0 4.45rem 0;
-    box-sizing: border-box;
     .h(100vh);
+    padding: 0.45rem 0 4.45rem 0;
     overflow: auto;
+    box-sizing: border-box;
 
     .m-base {
         .w(100%);
@@ -701,33 +701,32 @@ body {
         .u-btn-item {
             .flex;
             .flex(o);
-            gap: 0.5rem;
-            //.w(7.5rem);
             flex: 1;
+            gap: 0.5rem;
 
             &.line {
                 border-right: 0.5px solid rgba(254, 218, 163, 0.2);
             }
 
             .u-icon {
-                .size(1.25rem, 1.25rem);
+                .size(1.25rem);
 
                 svg,
                 path {
-                    fill: #fedaa3;
-                    stroke: #fedaa3;
+                    fill: @primaryColor;
+                    stroke: @primaryColor;
                 }
             }
         }
     }
 
     .u-card-title {
-        padding: 0 1.25rem;
-        box-sizing: border-box;
         .mb(0.667rem);
-        color: @fontcolor;
+        padding: 0 1.25rem;
+        color: @fontColor;
         .fz(1rem, 1.556rem);
         .bold(700);
+        box-sizing: border-box;
     }
 
     .u-content-all {
@@ -751,12 +750,11 @@ body {
         .mb(0.556rem);
     }
 
-    //@media screen and (width: 414px)
     @media (prefers-color-scheme: dark) {
         background-color: #000;
 
         .u-card-title {
-            color: @fontColor-dark;
+            color: @fontColorLight;
         }
     }
 }
