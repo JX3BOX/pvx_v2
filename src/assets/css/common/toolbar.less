@@ -28,7 +28,7 @@
     box-sizing: border-box;
 
     // 工具栏容器
-    .m-toolbar-tool > div {
+    .m-toolbar-tool>div {
         .flex(y);
         .r(@toolbar-radius);
         min-height: @toolbar-height;
@@ -56,6 +56,37 @@
 
         &.m-toolbar-search {
             .w(100%);
+        }
+
+        .u-select {
+            width: 160px;
+
+            .el-select__prefix {
+                color: #d16400
+            }
+
+            .el-select__wrapper {
+                .r(30px);
+                background: rgba(209, 100, 0, .1);
+                border: 2px solid #d16400;
+
+                &.is-focused {
+                    border: 2px solid #d16400;
+                    box-shadow: none !important;
+                }
+
+            }
+
+            .el-select__input {
+                font-weight: 700;
+                color: #000;
+            }
+
+            .el-scrollbar {
+                .is-selected {
+                    color: #d16400
+                }
+            }
         }
     }
 
@@ -149,7 +180,7 @@
     }
 
     .el-input__inner {
-        padding-left: 60px;
+        // padding-left: 60px;
         min-width: 158px;
         box-sizing: border-box;
     }
@@ -169,6 +200,7 @@
             i {
                 color: @color-text-active;
             }
+
             svg {
                 fill: @color-text-active;
             }
