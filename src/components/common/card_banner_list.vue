@@ -127,7 +127,7 @@ export default {
             }
 
             &:hover svg {
-                fill: #786CBB;
+                fill: v-bind(color);
             }
         }
     }
