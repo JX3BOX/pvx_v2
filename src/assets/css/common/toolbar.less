@@ -61,31 +61,26 @@
         .u-select {
             width: 160px;
 
-            .el-select__prefix {
-                color: #d16400
-            }
-
             .el-select__wrapper {
                 .r(30px);
-                background: rgba(209, 100, 0, .1);
-                border: 2px solid #d16400;
+                border: 2px solid #f3f4f5;
+                background: #f3f4f5;
+                color: #b0b0b0;
 
                 &.is-focused {
+                    background: rgba(209, 100, 0, .1);
                     border: 2px solid #d16400;
                     box-shadow: none !important;
-                }
 
+                    .el-select__prefix {
+                        color: #d16400
+                    }
+                }
             }
 
             .el-select__input {
                 font-weight: 700;
                 color: #000;
-            }
-
-            .el-scrollbar {
-                .is-selected {
-                    color: #d16400
-                }
             }
         }
     }
