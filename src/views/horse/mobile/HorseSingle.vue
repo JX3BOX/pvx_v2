@@ -365,6 +365,10 @@ export default {
         color: #fff;
         .fz(0.85rem);
 
+        .el-popper__arrow::before {
+            background: #303133;
+        }
+
         .u-attr-name {
             color: #00d24b;
         }

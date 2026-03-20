@@ -49,11 +49,9 @@
                         </div>
                         <div class="m-content m-servant">
                             <div class="img-wrap">
-                                <img
-                                    v-if="reputation.servant && reputation.servant.szImagePath"
+                                <img v-if="reputation.servant && reputation.servant.szImagePath"
                                     :src="getIcon(reputation.servant.szImagePath, 'partner')"
-                                    @error="replaceByDefault"
-                                />
+                                    @error="replaceByDefault" />
                                 <!-- 默认图片 -->
                                 <img v-else src="@/assets/img/reputation/sw-null.jpg" />
                             </div>
@@ -62,10 +60,8 @@
                                     {{ reputation.servant && reputation.servant.szNpcName }}
                                 </div>
                                 <div class="u-desc" v-html="reputation.servant.szDescBrief"></div>
-                                <div
-                                    class="u-desc"
-                                    v-html="reputation.servant.szDescPersonality.replace(/\\n/g, '<br>')"
-                                ></div>
+                                <div class="u-desc"
+                                    v-html="reputation.servant.szDescPersonality.replace(/\\n/g, '<br>')"></div>
                                 <div class="sub-title">
                                     <img src="@/assets/img/reputation/reputation_title2.svg" width="15" svg-inline />
                                     知交祝福
@@ -83,16 +79,13 @@
                     </div>
                 </div> -->
                     </div>
-                    <div
-                        class="map-wrapper"
-                        v-if="
-                            reputation.szMapNames &&
-                            reputation.szMapNames.length &&
-                            reputation.Guides &&
-                            reputation.Guides.length &&
-                            !reputation.hiddenMap
-                        "
-                    >
+                    <div class="map-wrapper" v-if="
+                        reputation.szMapNames &&
+                        reputation.szMapNames.length &&
+                        reputation.Guides &&
+                        reputation.Guides.length &&
+                        !reputation.hiddenMap
+                    ">
                         <div class="title">
                             声望商人
                             <span>{{ reputation.Guides?.[0]?.npcName }}</span>
@@ -106,13 +99,8 @@
                     <div class="title">声望奖励</div>
                     <div class="reward-content">
                         <div class="reward-desc-list">
-                            <div
-                                class="item"
-                                :class="{ active: stage === index }"
-                                v-for="(item, index) in reputation.gainList"
-                                :key="index"
-                                @click="stage = index"
-                            >
+                            <div class="item" :class="{ active: stage === index }"
+                                v-for="(item, index) in reputation.gainList" :key="index" @click="stage = index">
                                 <div class="from-to">
                                     {{ item.from }}<i class="el-icon-caret-right"></i>{{ item.to }}
                                 </div>
@@ -124,33 +112,20 @@
                         </div>
                         <div v-if="reputation.gainList" class="stage-reward-list" :class="{ active: stage !== -1 }">
                             <div class="stage-title">
-                                <span
-                                    >阶段奖励（{{
-                                        stage === -1 ? reputation.gainList?.[0]?.from : reputation.gainList[stage].to
-                                    }}）</span
-                                >
+                                <span>阶段奖励（{{
+                                    stage === -1 ? reputation.gainList?.[0]?.from : reputation.gainList[stage].to
+                                    }}）</span>
                                 <div class="page-list" v-if="stageList.length && stageList?.[0]?.length">
-                                    <div
-                                        class="page-item"
-                                        :class="page === currentPage && 'active'"
-                                        v-for="page in pageLen"
-                                        :key="page"
-                                        @click="currentPage = page"
-                                    >
+                                    <div class="page-item" :class="page === currentPage && 'active'"
+                                        v-for="page in pageLen" :key="page" @click="currentPage = page">
                                         {{ page }}
                                     </div>
                                 </div>
                             </div>
                             <template v-if="stageList.length && stageList?.[0]?.length">
                                 <div class="list">
-                                    <item-icon
-                                        v-for="reward in stageList[currentPage - 1]"
-                                        :key="reward"
-                                        :item_id="reward"
-                                        :onlyIcon="true"
-                                        :size="36"
-                                        class="u-item-icon"
-                                    ></item-icon>
+                                    <item-icon v-for="reward in stageList[currentPage - 1]" :key="reward"
+                                        :item_id="reward" :onlyIcon="true" :size="36" class="u-item-icon"></item-icon>
                                 </div>
                             </template>
                             <div v-else class="no-data">无</div>
@@ -192,13 +167,8 @@
                 </div>
                 <div class="m-pvx__item reward-content">
                     <div class="reward-desc-list">
-                        <div
-                            class="m-pvx__item item"
-                            :class="{ active: stage === index }"
-                            v-for="(item, index) in reputation.gainList"
-                            :key="index"
-                            @click="stage = index"
-                        >
+                        <div class="m-pvx__item item" :class="{ active: stage === index }"
+                            v-for="(item, index) in reputation.gainList" :key="index" @click="stage = index">
                             <div class="from-to">
                                 {{ item.to }}
                             </div>
@@ -209,13 +179,8 @@
                             <div class="m-reward">
                                 <div class="desc-title">阶段奖励：</div>
                                 <div v-if="reputation?.RewardItems?.[item?.toID]?.length" class="list">
-                                    <item-icon
-                                        v-for="reward in reputation?.RewardItems?.[item?.toID]"
-                                        :key="reward"
-                                        :item_id="reward"
-                                        class="u-item-icon"
-                                        :onlyName="true"
-                                    ></item-icon>
+                                    <item-icon v-for="reward in reputation?.RewardItems?.[item?.toID]" :key="reward"
+                                        :item_id="reward" class="u-item-icon" :onlyName="true"></item-icon>
                                 </div>
                                 <div v-else class="no-data">无</div>
                             </div>
@@ -226,11 +191,8 @@
 
             <div class="m-pvx__item m-robot__reputation-servant">
                 <div class="img-wrap">
-                    <img
-                        v-if="reputation.servant && reputation.servant.szImagePath"
-                        :src="getIcon(reputation.servant.szImagePath, 'partner')"
-                        @error="replaceByDefault"
-                    />
+                    <img v-if="reputation.servant && reputation.servant.szImagePath"
+                        :src="getIcon(reputation.servant.szImagePath, 'partner')" @error="replaceByDefault" />
                     <!-- 默认图片 -->
                     <img v-else src="@/assets/img/reputation/sw-null.jpg" />
                 </div>
@@ -253,16 +215,12 @@
         </template>
         <!-- 小程序 -->
         <div class="m-reputation-single__miniprogram">
-            <SuspendCommon
-                :btnOptions="{ showHome: true }"
-                :drawerOptions="{
-                    hideType: hideType,
-                    title: reputation.szName,
-                    postType: 'reputation',
-                    id: id,
-                }"
-                v-if="$route.query?.disabled != 'true'"
-            >
+            <SuspendCommon :btnOptions="{ showHome: true }" :drawerOptions="{
+                hideType: hideType,
+                title: reputation.szName,
+                postType: 'reputation',
+                id: id,
+            }" v-if="$route.query?.disabled != 'true'">
                 <template #default>
                     <div class="m-suspend-btn">
                         <div class="u-btn-item line" @click="showForm = true">
@@ -273,15 +231,8 @@
                 </template>
             </SuspendCommon>
             <!--        导航弹窗-->
-            <el-drawer
-                v-model:visible="showForm"
-                direction="btt"
-                :with-header="false"
-                custom-class="u-drawer"
-                :modal-append-to-body="false"
-                append-to-body
-                class="p-drawer-suspend"
-            >
+            <el-drawer v-model="showForm" direction="btt" :with-header="false" :modal-append-to-body="false"
+                append-to-body class="c-drawer">
                 <div class="m-reputation-tabs__miniprogram">
                     <div class="u-tab" v-for="item in navigation" :key="item.value" @click="switchNav(item)">
                         {{ item.label }}
@@ -312,32 +263,24 @@
                                 <el-col :span="12">
                                     <div class="u-item u-map" @click="mapVisible = true">
                                         <div class="u-label">声望地图</div>
-                                        <div
-                                            class="u-val"
-                                            :class="{
-                                                'no-map': !(
-                                                    reputation.szMapNames &&
-                                                    reputation.szMapNames.length &&
-                                                    reputation.Guides &&
-                                                    reputation.Guides.length &&
-                                                    !reputation.hiddenMap
-                                                ),
-                                            }"
-                                        >
+                                        <div class="u-val" :class="{
+                                            'no-map': !(
+                                                reputation.szMapNames &&
+                                                reputation.szMapNames.length &&
+                                                reputation.Guides &&
+                                                reputation.Guides.length &&
+                                                !reputation.hiddenMap
+                                            ),
+                                        }">
                                             {{ reputation?.szMapNames?.[0] || "-" }}
-                                            <img
-                                                v-if="
-                                                    reputation.szMapNames &&
-                                                    reputation.szMapNames.length &&
-                                                    reputation.Guides &&
-                                                    reputation.Guides.length &&
-                                                    !reputation.hiddenMap
-                                                "
-                                                class="u-icon"
-                                                src="@/assets/img/reputation/map.svg"
-                                                svg-inline
-                                                width="14"
-                                            />
+                                            <img v-if="
+                                                reputation.szMapNames &&
+                                                reputation.szMapNames.length &&
+                                                reputation.Guides &&
+                                                reputation.Guides.length &&
+                                                !reputation.hiddenMap
+                                            " class="u-icon" src="@/assets/img/reputation/map.svg" svg-inline
+                                                width="14" />
                                         </div>
                                     </div>
                                 </el-col>
@@ -364,13 +307,8 @@
             <div class="m-reputation-reward__miniprogram" v-if="reputation.gainList" id="award">
                 <el-scrollbar>
                     <div class="m-reward-tabs">
-                        <div
-                            class="u-reward-tab"
-                            :class="{ active: stage === index }"
-                            v-for="(item, index) in rewardList"
-                            :key="index"
-                            @click="stage = index"
-                        >
+                        <div class="u-reward-tab" :class="{ active: stage === index }"
+                            v-for="(item, index) in rewardList" :key="index" @click="stage = index">
                             {{ item.label }}
                         </div>
                     </div>
@@ -384,15 +322,8 @@
                         <div class="u-label">阶段奖励（{{ rewardList[stage]?.label }}）</div>
                         <div class="u-value reward-content" v-if="stageList.length && stageList?.[0]?.length">
                             <div class="list">
-                                <item-icon
-                                    v-for="reward in stageListMini"
-                                    :key="reward"
-                                    :item_id="reward"
-                                    :onlyIcon="true"
-                                    :size="36"
-                                    :isLink="false"
-                                    class="u-item-icon"
-                                ></item-icon>
+                                <item-icon v-for="reward in stageListMini" :key="reward" :item_id="reward"
+                                    :onlyIcon="true" :size="36" :isLink="false" class="u-item-icon"></item-icon>
                             </div>
                             <div class="u-more" v-if="pageLen && pageLen > currentPage" @click="loadMore">加载更多</div>
                         </div>
@@ -405,19 +336,11 @@
                 <PvxUserMiniprogram :id="achievement_id" name="声望" type="achievement"></PvxUserMiniprogram>
             </div>
             <!-- 小程序知交 -->
-            <el-drawer
-                :title="`${reputation.servant && reputation.servant.szNpcName} - 声望知交`"
-                v-model:visible="servantVisible"
-                direction="btt"
-                append-to-body
-                :show-close="false"
-                custom-class="bottom-drawer"
-            >
+            <el-drawer :title="`${reputation.servant && reputation.servant.szNpcName} - 声望知交`" v-model="servantVisible"
+                direction="btt" append-to-body :show-close="false" class="bottom-drawer">
                 <div class="m-servant-drawer" v-if="reputation.servant">
-                    <img
-                        v-if="reputation.servant && reputation.servant.szImagePath"
-                        :src="getIcon(reputation.servant.szImagePath, 'partner')"
-                    />
+                    <img v-if="reputation.servant && reputation.servant.szImagePath"
+                        :src="getIcon(reputation.servant.szImagePath, 'partner')" />
                     <img v-else src="@/assets/img/reputation/sw-null.jpg" />
                     <div class="m-buff">
                         <div>知交祝福</div>
@@ -430,14 +353,8 @@
                 </div>
             </el-drawer>
             <!-- 小程序地图 -->
-            <el-drawer
-                :title="`${reputation.szMapNames?.[0]} - ${reputation.Guides?.[0]?.npcName} - 声望商人位置`"
-                v-model:visible="mapVisible"
-                direction="btt"
-                append-to-body
-                :show-close="false"
-                custom-class="bottom-drawer"
-            >
+            <el-drawer :title="`${reputation.szMapNames?.[0]} - ${reputation.Guides?.[0]?.npcName} - 声望商人位置`"
+                v-model="mapVisible" direction="btt" append-to-body :show-close="false" class="bottom-drawer">
                 <div class="m-map-drawer">
                     <reputation-map ref="map" :name="reputation.szMapNames?.[0]" :list="reputation.points" />
                 </div>
@@ -617,27 +534,27 @@ export default {
                     data.szDesc = data.szDesc.replace(/\\n/g, "<br>");
                     data.gainList = data.GainDesc
                         ? data.GainDesc.map((item) => {
-                              return {
-                                  fromID: Number(item.from),
-                                  toID: Number(item.to),
-                                  from: this.getLevelDesc(item.from),
-                                  to: this.getLevelDesc(item.to),
-                                  desc: item.desc,
-                              };
-                          })
+                            return {
+                                fromID: Number(item.from),
+                                toID: Number(item.to),
+                                from: this.getLevelDesc(item.from),
+                                to: this.getLevelDesc(item.to),
+                                desc: item.desc,
+                            };
+                        })
                         : [];
                     data.rewards = data.RewardItems
                         ? Object.keys(data.RewardItems).map((item) => {
-                              return {
-                                  level: `【${this.getLevelDesc(item)}】声望奖励：`,
-                                  list: data.RewardItems[item].map((reward) => {
-                                      return {
-                                          id: reward,
-                                          amount: 1,
-                                      };
-                                  }),
-                              };
-                          })
+                            return {
+                                level: `【${this.getLevelDesc(item)}】声望奖励：`,
+                                list: data.RewardItems[item].map((reward) => {
+                                    return {
+                                        id: reward,
+                                        amount: 1,
+                                    };
+                                }),
+                            };
+                        })
                         : [];
                     data.points = [
                         {
@@ -714,6 +631,7 @@ export default {
 @import "~@/assets/css/reputation/single.less";
 @import "~@/assets/css/reputation/reputation_miniprogram.less";
 @import "~@/assets/css/miniprogram.less";
+
 .m-robot__reputation-header {
     .flex;
     justify-content: space-between;
@@ -721,6 +639,7 @@ export default {
     width: 100%;
     height: 75px;
     opacity: 1;
+
     .u-title {
         font-size: 20px;
         .bold;
@@ -729,6 +648,7 @@ export default {
         align-items: center;
         gap: 5px;
     }
+
     .m-meta {
         margin-top: 4px;
         .flex;
@@ -748,14 +668,17 @@ export default {
         }
     }
 }
+
 .m-robot__reputation-info {
     margin-top: 10px;
     .flex;
     gap: 12px;
+
     .u-reputation-logo {
         flex: none;
         width: 28px;
         height: 28px;
+
         img {
             width: 100%;
             height: 100%;
@@ -763,8 +686,10 @@ export default {
         }
     }
 }
+
 .m-robot__reputation-reward {
     margin-top: 10px;
+
     .m-title {
         .flex;
         justify-content: space-between;
@@ -772,65 +697,80 @@ export default {
         color: #fff;
         margin-bottom: 10px;
     }
+
     .u-title {
         font-size: 16px;
         .bold;
     }
+
     .u-up {
         font-size: 12px;
     }
+
     .reward-content {
         background: none !important;
         box-shadow: none !important;
         padding: 6px !important;
     }
+
     .item {
         background: rgba(28, 28, 28, 1) !important;
         box-shadow: none !important;
         margin-bottom: 8px;
+
         &:last-child {
             margin-bottom: 0;
         }
+
         .from-to {
             color: rgba(255, 206, 92, 1);
             font-size: 12px;
             .bold;
             margin-bottom: 4px;
         }
+
         .desc {
             .flex;
             align-items: center;
         }
     }
+
     .m-reward {
         .flex;
         margin-top: 5px;
+
         .desc-title {
             flex: none;
         }
     }
+
     .list {
         .flex;
         flex-wrap: wrap;
         gap: 0;
     }
+
     .u-item-name {
         font-size: 10px !important;
     }
 }
+
 .m-robot__reputation-servant {
     margin-top: 10px;
     .flex;
     gap: 10px;
+
     .img-wrap {
         flex: none;
         .size(80px, 140px);
     }
+
     .sub-title.sub-name {
         font-size: 12px;
         .bold;
         color: #fff;
     }
+
     .u-zf {
         .dbi;
         color: rgba(255, 232, 23, 1);
@@ -839,6 +779,7 @@ export default {
         margin: 4px 0;
         padding: 0 4px;
     }
+
     .u-desc {
         color: rgba(#fff, 0.5);
     }
