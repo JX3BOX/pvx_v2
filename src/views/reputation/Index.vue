@@ -1,13 +1,14 @@
 <template>
     <div class="reputation-container" v-loading="loading">
-        <SuspendCommon :btnOptions="{showHome:true}"
-                       :drawerOptions="{hideType:['collect','rss','laterOn','pin','user','report']}"  @search="search" v-if="isMiniProgram">
+        <SuspendCommon :btnOptions="{ showHome: true }"
+            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }" @search="search"
+            v-if="isMiniProgram">
             <template #default>
                 <!--                切换按钮区域-->
                 <div class="m-suspend-btn">
-                    <div class="u-btn-item line" @click="showForm=true">
+                    <div class="u-btn-item line" @click="showForm = true">
                         <img class="u-icon" src="@/assets/img/pvxsuspension/switch_touchbar.svg" svg-inline />
-                      {{versionLabel}}
+                        {{ versionLabel }}
                     </div>
                     <div class="u-btn-item" @click="search">
                         <img class="u-icon" src="@/assets/img/pvxsuspension/search.svg" svg-inline />
@@ -17,12 +18,13 @@
 
             </template>
         </SuspendCommon>
-<!--        版本筛选弹窗-->
+        <!--        版本筛选弹窗-->
         <el-drawer :visible.sync="showForm" direction="btt" :with-header="false" custom-class="u-drawer"
-                   :modal-append-to-body="false" append-to-body class="p-drawer-suspend">
+            :modal-append-to-body="false" append-to-body class="p-drawer-suspend">
             <div class="m-reputation-tabs__miniprogram">
-<!--                <div class="u-tab" :class="{ active: isAll }" @click="switchVersion()">全部</div>-->
-                <div class="u-tab" v-for="item in versions" :class="{ active: dlc === item.value }" :key="item.value"  @click="switchVersion(item.value)">
+                <!--                <div class="u-tab" :class="{ active: isAll }" @click="switchVersion()">全部</div>-->
+                <div class="u-tab" v-for="item in versions" :class="{ active: dlc === item.value }" :key="item.value"
+                    @click="switchVersion(item.value)">
                     {{ item.label.replace(/\([^)]*\)/g, "") }}
                 </div>
             </div>
@@ -39,17 +41,17 @@
                 </div>
             </template>
         </CommonToolbar>
-<!--        <el-scrollbar class="m-reputation-tabs__miniprogram">-->
-<!--            <div class="m-reputation-tabs__content">-->
-<!--                <div class="u-tab" :class="{ active: isAll }" @click="toAll">全部</div>-->
-<!--                <div class="u-tab" v-for="item in versions" :class="{ active: dlc === item.value }" :key="item.value"-->
-<!--                    @click="dlc = item.value">-->
-<!--                    {{ item.label.replace(/\([^)]*\)/g, "") }}-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </el-scrollbar>-->
+        <!--        <el-scrollbar class="m-reputation-tabs__miniprogram">-->
+        <!--            <div class="m-reputation-tabs__content">-->
+        <!--                <div class="u-tab" :class="{ active: isAll }" @click="toAll">全部</div>-->
+        <!--                <div class="u-tab" v-for="item in versions" :class="{ active: dlc === item.value }" :key="item.value"-->
+        <!--                    @click="dlc = item.value">-->
+        <!--                    {{ item.label.replace(/\([^)]*\)/g, "") }}-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </el-scrollbar>-->
 
-        <div v-if="isAll && !this.keyword && !isMiniProgram()" class="reputation-list-wrapper">
+        <div v-if="isAll && !this.keyword && !isMiniProgram" class="reputation-list-wrapper">
             <div class="reputation-title">资料片新增</div>
             <div class="reputation-list">
                 <reputation-item :item="item" v-for="item in newsList" :key="item.dwForceID"></reputation-item>
@@ -92,9 +94,9 @@ export default {
             keyword: "",
             dlc: "",
 
-            showForm:false,
-            versionLabel:"版本",
-            intervalId:null,
+            showForm: false,
+            versionLabel: "版本",
+            intervalId: null,
             isMiniProgram: isMiniProgram() || isApp(), // 是否在微信/APP小程序中
         };
     },
@@ -134,24 +136,24 @@ export default {
         },
     },
     methods: {
-        versionLabelChange(){
+        versionLabelChange() {
             clearInterval(this.intervalId);
             //定时切换名称
-            let label=""
+            let label = ""
             // if(this.isAll) label='全部'
-            if(this.dlc){
+            if (this.dlc) {
                 const item = this.versionList.find((item) => item.value === Number(this.dlc));
                 label = item.label.replace(/\([^)]*\)/g, "");
             }
-            this.versionLabel=label;
+            this.versionLabel = label;
             this.intervalId = setInterval(() => {
-                if(this.versionLabel===label){this.versionLabel='版本'}
-                else{this.versionLabel=label}
-            },5000)
+                if (this.versionLabel === label) { this.versionLabel = '版本' }
+                else { this.versionLabel = label }
+            }, 5000)
 
         },
-        search(){
-            this.$router.push({name:'search'})
+        search() {
+            this.$router.push({ name: 'search' })
         },
         updateToolbar(data) {
             const { search } = data;
@@ -161,14 +163,14 @@ export default {
             this.isAll = true;
             this.dlc = "";
         },
-        switchVersion(dlc){
-            if(!dlc){
+        switchVersion(dlc) {
+            if (!dlc) {
                 this.isAll = true;
                 this.dlc = "";
-            }else{
+            } else {
                 this.dlc = dlc;
             }
-            this.showForm=false;
+            this.showForm = false;
             this.versionLabelChange()
         },
         loadData() {
@@ -206,8 +208,8 @@ export default {
                                 };
                             });
                             this.versionList = filterList;
-                            if(this.isMiniProgram){
-                                this.dlc=this.versionList?.[0]?.value;
+                            if (this.isMiniProgram) {
+                                this.dlc = this.versionList?.[0]?.value;
                                 this.versionLabelChange()
                             }
                         });
