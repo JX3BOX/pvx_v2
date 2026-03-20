@@ -29,9 +29,9 @@
         .u-item {
             .pr;
             .pointer;
+            .fz(16px,22px);
             .size(100px,40px);
             .flex;
-            .fz(16px,22px);
             .r(30px);
             .bold;
             flex-shrink: 0;
@@ -52,14 +52,18 @@
             flex: 1;
             .flex;
             align-items: center;
-            .u-search-input input {
+            .el-input__wrapper {
+                box-shadow: none;
                 .r(30px);
+            }
+            .u-search-input input {
                 .fz(14px,40px);
                 .size(100%,40px);
                 border: none;
                 background-color: #f3f4f5;
                 padding: 0 40px 0 20px;
                 color: #000;
+
                 &::placeholder {
                     .fz(14px);
                     color: #b0b0b0;

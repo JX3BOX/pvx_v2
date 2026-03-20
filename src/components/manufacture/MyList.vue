@@ -4,7 +4,9 @@
             <span class="u-title">我的账单</span>
             <el-checkbox v-model="selectMode" label="选择模式" border></el-checkbox>
             <el-dropdown trigger="click" @command="handleCommand">
-                <el-button class="u-del" plain type="info" size="mini" icon="el-icon-setting"> </el-button>
+                <el-button class="u-del" plain type="info" size="small">
+                    <el-icon><Setting /></el-icon>
+                </el-button>
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item command="cancel-select">取消选中</el-dropdown-item>

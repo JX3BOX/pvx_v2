@@ -99,8 +99,12 @@
             </div>
         </div>
         <div class="m-add">
-            <el-input-number v-model="count" :min="1" @click.stop></el-input-number>
-            <el-button icon="el-icon-shopping-cart-2" type="success" @click="onAddCartItem()"> </el-button>
+            <el-input-number v-model="count" :min="1" @click.stop />
+            <el-button type="success" @click="onAddCartItem()">
+                <el-icon>
+                    <ShoppingCart />
+                </el-icon>
+            </el-button>
         </div>
     </div>
 </template>

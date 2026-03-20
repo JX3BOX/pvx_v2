@@ -24,7 +24,7 @@
                 custom-class="u-drawer"
                 :modal-append-to-body="false"
                 append-to-body
-                class="p-drawer-suspend p-adventure-drawer"
+                class="p-adventure-drawer"
             >
                 <div class="u-drawer-title">导航</div>
                 <div class="m-drawer-nav">

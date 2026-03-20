@@ -104,7 +104,7 @@
             custom-class="u-drawer"
             :modal-append-to-body="false"
             append-to-body
-            class="p-drawer-suspend p-adventure-drawer-type"
+            class="p-adventure-drawer-type"
         >
             <div class="u-drawer-title">类型</div>
             <div class="m-drawer-content">
@@ -135,7 +135,7 @@
             custom-class="u-drawer"
             :modal-append-to-body="false"
             append-to-body
-            class="p-drawer-suspend p-adventure-drawer-type"
+            class="p-adventure-drawer-type"
         >
             <div class="u-drawer-title">搜索</div>
             <div class="m-search-input">

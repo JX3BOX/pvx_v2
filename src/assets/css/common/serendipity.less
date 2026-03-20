@@ -17,6 +17,7 @@
             .mr(14px);
             display: flex;
             align-items: center;
+            text-wrap: nowrap;
             i {
                 .fz(22px);
                 .mr(4px);
@@ -24,13 +25,14 @@
             }
         }
 
-        .u-server{
+        .u-server {
             .ml(10px);
+            width: 215px;
         }
 
-        .u-more{
+        .u-more {
             .fz(13px,20px);
-            .underline(@color-link);
+            .color(@color-link);
         }
     }
 
@@ -45,7 +47,7 @@
             &:last-child {
                 .mr(0);
             }
-            flex:1;
+            flex: 1;
         }
 
         .u-server {

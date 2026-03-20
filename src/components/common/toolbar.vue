@@ -59,19 +59,20 @@
             <div class="m-toolbar-item m-toolbar-search" v-if="search && !isMiniProgram">
                 <slot name="filter"></slot>
                 <div class="u-search">
-                    <el-input
-                        placeholder="请输入搜索内容"
-                        v-model="title"
-                        suffix-icon="el-icon-search"
-                        class="u-search-input"
-                    />
+                    <el-input placeholder="请输入搜索内容" v-model="title" class="u-search-input">
+                        <template #suffix>
+                            <el-icon class="el-input__icon">
+                                <Search />
+                            </el-icon>
+                        </template>
+                    </el-input>
                 </div>
             </div>
             <slot name="append"></slot>
         </div>
     </div>
 </template>
- 
+
 <script>
 export default {
     name: "toolbar",
@@ -107,7 +108,7 @@ export default {
     },
     computed: {
         isMiniProgram() {
-            return document.getElementsByClassName("v-miniprogram")?.length > 0
+            return document.getElementsByClassName("v-miniprogram")?.length > 0;
         },
         params() {
             const _params = {

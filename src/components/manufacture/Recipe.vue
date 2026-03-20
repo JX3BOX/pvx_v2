@@ -20,13 +20,17 @@
                     >
                     <div class="m-add" v-if="itemId == _list.ID">
                         <el-input-number
-                            v-model.number="recipe.count"
+                            v-model="recipe.count"
                             size="small"
                             :min="1"
-                            @input="onlyInteger"
+                            @change="onlyInteger"
                             @click.stop
-                        ></el-input-number>
-                        <el-button icon="el-icon-shopping-cart-2" size="small" @click="onAddCartItem(_list)">
+                        />
+
+                        <el-button size="small" @click="onAddCartItem(_list)">
+                            <el-icon>
+                                <ShoppingCart />
+                            </el-icon>
                         </el-button>
                     </div>
                 </span>
@@ -179,10 +183,10 @@ export default {
         gap: 10px;
         .m-list {
             .flex;
+            .fz(14px);
             .size(100%,50px);
             .r(10px);
             .pointer;
-            .fz(14px);
             justify-content: space-between;
             box-sizing: border-box;
             gap: 10px;
@@ -223,8 +227,8 @@ export default {
                 }
             }
             &.m-title {
-                .h(38px);
                 .fz(16px);
+                .h(38px);
                 &.active,
                 &:hover {
                     background: #24292e;
@@ -241,6 +245,9 @@ export default {
             .m-add {
                 .flex;
                 gap: 10px;
+                .el-button--small {
+                    .lh(30px,30px);
+                }
             }
         }
     }

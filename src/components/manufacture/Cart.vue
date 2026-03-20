@@ -196,31 +196,22 @@
                     <el-button
                         class="u-delete"
                         type="info"
-                        icon="el-icon-delete"
                         size="small"
                         @click="onDeletePlan()"
-                        v-if="this.plan.id"
+                        v-if="plan.id"
                         :loading="loading"
                     >
+                        <el-icon><Delete /></el-icon>
                         删除账单
                     </el-button>
-                    <el-button
-                        type="success"
-                        icon="el-icon-document-checked"
-                        size="small"
-                        @click="onSavePlan()"
-                        v-if="this.plan.id"
-                        :loading="loading"
-                    >
+
+                    <el-button type="success" size="small" @click="onSavePlan()" v-if="plan.id" :loading="loading">
+                        <el-icon><DocumentChecked /></el-icon>
                         另存为
                     </el-button>
-                    <el-button
-                        type="success"
-                        icon="el-icon-document-checked"
-                        size="small"
-                        @click="onSavePlan(plan)"
-                        :loading="loading"
-                    >
+
+                    <el-button type="success" size="small" @click="onSavePlan(plan)" :loading="loading">
+                        <el-icon><DocumentChecked /></el-icon>
                         保存
                     </el-button>
                 </div>
@@ -364,13 +355,13 @@ export default {
                 default:
                     return "";
             }
-	        },
-	        switchPriceMode(item) {
-	            item.priceMode = item.priceMode == "single" ? "total" : "single";
-	        },
-	        add(recipe) {
-	            this.cartList.push(recipe);
-	        },
+        },
+        switchPriceMode(item) {
+            item.priceMode = item.priceMode == "single" ? "total" : "single";
+        },
+        add(recipe) {
+            this.cartList.push(recipe);
+        },
         calcCartItemCostPrice(item) {
             return (
                 item.materials
@@ -620,6 +611,12 @@ export default {
     .x(right);
     .u-delete {
         .fl;
+    }
+    .el-button {
+        .lh(30px,30px);
+        span {
+            gap: 5px;
+        }
     }
 }
 </style>

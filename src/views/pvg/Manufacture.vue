@@ -52,7 +52,7 @@ export default {
     components: { Recipe, Cart, MyList, CommonToolbar },
     provide() {
         return {
-            isMiniProgram: this.isMiniProgram
+            isMiniProgram: this.isMiniProgram,
         };
     },
     data: function () {
@@ -72,7 +72,7 @@ export default {
     },
     computed: {
         isMiniProgram() {
-            return document.getElementsByClassName("v-miniprogram")?.length > 0
+            return document.getElementsByClassName("v-miniprogram")?.length > 0;
         },
         client() {
             return this.$store.state.client;
@@ -243,11 +243,21 @@ export default {
         .color(#24292e);
     }
     .m-server {
-        background: #fff;
-        .r(20px);
+        .w(205px);
         .el-input {
             .w(120px);
             .pl(85px);
+        }
+        .el-select__wrapper {
+            .r(20px);
+            box-shadow: none;
+            .lh(40px);
+        }
+        .el-select__selected-item {
+            .color(#24292e);
+            .fz(16px);
+            .bold;
+            .x;
         }
         .el-input__inner {
             .fz(16px);

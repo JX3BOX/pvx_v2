@@ -1,7 +1,7 @@
 <template>
     <div class="m-question-list">
         <!-- 表格 -->
-            <el-table class="m-list" :data="list" style="width: 100%" @row-click="takeQuestion">
+        <el-table class="m-list" :data="list" style="width: 100%" @row-click="takeQuestion">
             <el-table-column prop="id" label="编号" width="56"></el-table-column>
             <el-table-column prop="title" label="标题" min-width="200">
                 <template #default="scope">
@@ -37,8 +37,11 @@
                 </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="100" v-if="!isMiniProgram">
-                <template>
-                    <el-button size="small" plain type="primary" icon="el-icon-edit">去答题</el-button>
+                <template #default>
+                    <el-button size="small" plain type="primary">
+                        <el-icon><Edit /></el-icon>
+                        去答题
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
