@@ -6,10 +6,8 @@
 
 <template>
     <div class="p-mobile-book" ref="bookRef" @scroll="handleScroll">
-        <SuspendCommon
-            :btnOptions="{ showHome: true }"
-            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report', 'search'] }"
-        >
+        <SuspendCommon :btnOptions="{ showHome: true }"
+            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report', 'search'] }">
             <template #default>
                 <!--                切换按钮区域-->
                 <div class="m-suspend-btn">
@@ -24,27 +22,15 @@
                 </div>
             </template>
         </SuspendCommon>
-        <el-drawer
-            v-model:visible="showForm"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-drawer-suspend"
-        >
+        <el-drawer v-model="showForm" direction="btt" :with-header="false" :modal-append-to-body="false" append-to-body
+            class="c-drawer">
             <div class="m-cut">
                 <div class="u-cut-all" :class="{ 'is-active': showActive == -1 }" @click="showActive = -1">
                     <img class="u-icon" src="@/assets/img/pvxsuspension/all.svg" svg-inline /> 全部书籍
                 </div>
                 <div class="u-cut-box">
-                    <div
-                        class="u-cut-item"
-                        v-for="(item, index) in tabs"
-                        :key="index"
-                        :class="{ 'is-active': showActive == item.id }"
-                        @click="showActive = item.id"
-                    >
+                    <div class="u-cut-item" v-for="(item, index) in tabs" :key="index"
+                        :class="{ 'is-active': showActive == item.id }" @click="showActive = item.id">
                         <img class="u-icon" src="@/assets/img/book/zj.svg" svg-inline v-if="item.id == 11" />
                         <img class="u-icon" src="@/assets/img/book/dj.svg" svg-inline v-if="item.id == 10" />
                         <img class="u-icon" src="@/assets/img/book/fx.svg" svg-inline v-if="item.id == 9" />
@@ -64,12 +50,8 @@
                     {{ item.label }}
                 </div>
                 <div class="u-list">
-                    <div
-                        class="u-book-item"
-                        v-for="(item2, index2) in item.list"
-                        :key="'book' + index2"
-                        @click="openOther(item2, item.bgColod)"
-                    >
+                    <div class="u-book-item" v-for="(item2, index2) in item.list" :key="'book' + index2"
+                        @click="openOther(item2, item.bgColod)">
                         <div class="u-cover" :style="{ background: item.bgColod }">
                             <div class="u-book-name">
                                 <div class="u-text">
@@ -293,7 +275,8 @@ export default {
 </script>
 
 <style lang="less">
-@fontcolor:rgba (28, 28, 28, 0.80);
+@import "~@/assets/css/common/drawer.less";
+@fontcolor: rgba (28, 28, 28, 0.80);
 @fontColor40: rgba(28, 28, 28, 0.4);
 @fontColor-dark2: rgba(255, 255, 255, 0.8);
 @fontColor-dark3: rgba(255, 255, 255, 0.4);
@@ -302,9 +285,11 @@ export default {
     .m-main {
         padding: 0;
     }
+
     body {
         padding: 0 !important;
     }
+
     .m-cut {
         .w(calc(100% - 1.5rem));
 
@@ -321,18 +306,22 @@ export default {
             .flex;
             .flex(o);
             .mb(1rem);
+
             .u-icon {
                 .w(1.25rem);
                 .mr(0.25rem);
+
                 svg,
                 path {
                     fill: @fontColor-dark2;
                     stroke: @fontColor-dark2;
                 }
             }
+
             &.is-active {
                 background: #fedaa3;
                 color: #24292e;
+
                 svg,
                 path {
                     fill: #24292e;
@@ -358,7 +347,9 @@ export default {
                 padding: 0.75rem;
                 box-sizing: border-box;
                 .r(0.75rem);
+
                 .u-icon {
+
                     svg,
                     path {
                         fill: @fontColor-dark2;
@@ -369,6 +360,7 @@ export default {
                 &.is-active {
                     color: #24292e;
                     background: #fedaa3;
+
                     svg,
                     path {
                         fill: #24292e;
@@ -401,6 +393,7 @@ export default {
                 background: rgba(255, 255, 255, 0.05);
                 color: @fontColor-dark3;
                 .x;
+
                 &.active {
                     background: #fedaa3;
                     color: #24292e;
@@ -416,9 +409,11 @@ export default {
     padding: 0.45rem 1.25rem 4.45rem 1.25rem;
     box-sizing: border-box;
     overflow: auto;
+
     .m-base {
         .w(100%);
     }
+
     .m-suspend-btn {
         .flex;
         align-items: center;
@@ -429,11 +424,14 @@ export default {
             gap: 0.5rem;
             //.w(7.5rem);
             flex: 1;
+
             &.line {
                 border-right: 0.5px solid rgba(254, 218, 163, 0.2);
             }
+
             .u-icon {
                 .size(1.25rem, 1.25rem);
+
                 svg,
                 path {
                     fill: #fedaa3;
@@ -442,16 +440,19 @@ export default {
             }
         }
     }
+
     .m-title {
         color: @fontColor;
-        .fz(1rem,1.5rem);
+        .fz(1rem, 1.5rem);
         .bold(700);
         .mb(0.5rem);
     }
+
     .m-list {
         .u-item {
             .mb(0.75rem);
         }
+
         .u-list {
             .flex;
             flex-wrap: wrap;
@@ -460,19 +461,22 @@ export default {
             .u-book-item {
                 .w(calc(calc(100% - 1.5rem) / 3));
                 flex-shrink: 0;
+
                 .u-name {
                     color: @fontColor;
-                    .fz(0.875rem,1.25rem);
+                    .fz(0.875rem, 1.25rem);
                     .bold(700);
                     font-style: normal;
                     .mt(0.5rem);
                 }
+
                 .u-desc {
                     color: @fontColor40;
-                    .fz(0.625rem,0.938rem);
+                    .fz(0.625rem, 0.938rem);
                     font-style: normal;
                     .bold(400);
                 }
+
                 .u-cover {
                     border-radius: 4px;
                     background: #324148;
@@ -483,6 +487,7 @@ export default {
                     .flex;
                     justify-content: space-between;
                 }
+
                 .u-book-name {
                     background: url("../../../assets/img/book/title.png") center center no-repeat;
                     background-size: 100% 100%;
@@ -491,6 +496,7 @@ export default {
                     padding: 0.5rem;
                     box-sizing: border-box;
                     overflow: hidden;
+
                     //.pa;
                     //.lt(0);
                     //.dbi;
@@ -506,8 +512,10 @@ export default {
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         word-break: break-all;
-                        align-items: center; /* 水平居中 */
-                        justify-content: center; /* 垂直居中 */
+                        align-items: center;
+                        /* 水平居中 */
+                        justify-content: center;
+                        /* 垂直居中 */
                         letter-spacing: 0.2rem;
                         //.u-name-vertical{
                         //    .fz(0.875rem);
@@ -532,20 +540,25 @@ export default {
                         //    //}
                         //}
                     }
+
                     @keyframes verticalScroll {
                         0% {
                             transform: translateY(0);
                         }
+
                         50% {
                             transform: translateY(-100%);
                         }
+
                         100% {
                             transform: translateY(0);
                         }
                     }
                 }
+
                 .u-book-line {
                     .h(100%);
+
                     //.pa;
                     //.rt(0);
                     img {
@@ -557,18 +570,22 @@ export default {
         }
     }
 }
+
 @media (prefers-color-scheme: dark) {
     .p-mobile-book {
         background-color: #000;
+
         .m-title {
             color: @fontColor-dark2;
         }
+
         .u-item {
             .u-list {
                 .u-book-item {
                     .u-name {
                         color: @fontColor-dark3;
                     }
+
                     .u-desc {
                         color: @fontColor-dark2;
                     }
