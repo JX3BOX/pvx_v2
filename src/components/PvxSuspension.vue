@@ -2,16 +2,17 @@
     <div class="m-pvx-suspension" :class="navStatusClass" @touchstart="handleTouchStart" @touchend="handleTouchEnd"
         @touchcancel="handleTouchCancel">
         <div :class="`m-pvx-suspension_box ${navStatus ? 'open' : 'close'} ${isType == 'single' ? 'single' : 'list'}`"
-            :style="{ width: options.length * 1.6 + (isType == 'single' ? 5 : 4.2) +(localList.length>0?1.6:0)+ localList.length * 1.8 + 'rem', bottom: bottomNum }"
+            :style="{ width: options.length * 1.6 + (isType == 'single' ? 5 : 4.2) + (localList.length > 0 ? 1.6 : 0) + localList.length * 1.8 + 'rem', bottom: bottomNum }"
             @click="toRight">
             <template v-if="navStatus">
                 <div class="u-btn-box">
                     <!-- 固定按钮 -->
-                    <div class="u-immobilization" :class="{noList:localList.length==0}">
+                    <div class="u-immobilization" :class="{ noList: localList.length == 0 }">
                         <div class="u-item" style="transform: scaleX(-1);" @click.stop="toLeft">
                             <img class="u-icon" src="@/assets/img/pvxsuspension/right.svg" svg-inline
                                 v-if="!isDarkModeStatus" />
-                            <img class="u-icon-dark" src="@/assets/img/pvxsuspension/right_dark.svg" svg-inline v-else />
+                            <img class="u-icon-dark" src="@/assets/img/pvxsuspension/right_dark.svg" svg-inline
+                                v-else />
                         </div>
                         <div class="u-item" v-for="item in options" :key="item.label" @click.stop="itemClick(item)">
                             <img class="u-icon"
@@ -44,11 +45,11 @@
             </template>
             <iframe :src="iframeInfo?.url" frameborder="0" width="100%" height="100%" />
         </el-drawer> -->
-        <el-dialog v-model:visible="drawer" append-to-body custom-class="p-drawer">
+        <el-dialog v-model="drawer" append-to-body class="p-drawer">
             <iframe :src="iframeInfo?.url" frameborder="0" width="100%" height="100%" />
         </el-dialog>
         <!-- 长按弹出 -->
-        <el-drawer v-model:visible="drawerLong" direction="btt" custom-class="p-drawer long" size="100%" append-to-body
+        <el-drawer v-model="drawerLong" direction="btt" class="p-drawer long" size="100%" append-to-body
             wrapper-closable :with-header="false">
             <div class="u-drawer-top">
                 <div class="u-item">
@@ -183,6 +184,7 @@ export default {
         navStatusClass() {
             let text = "";
             const navStatus = this.navStatus;
+            console.log("xxxx", navStatus);
             if (navStatus) {
                 text = "is-opened";
             } else {
@@ -235,6 +237,7 @@ export default {
             // 记录触摸开始的时间
             this.startTime = Date.now();
             clearTimeout(this.longPressTimeout); // 清除之前的长按检测（如果有的话）
+            this.longPress = false; // 初始化为 false，确保状态一致
 
             // 设置一个定时器，如果超过预设时间则认为是长按
             this.longPressTimeout = setTimeout(() => {
@@ -252,16 +255,30 @@ export default {
             this.longPress = false; // 重置长按标记
         },
         handleLongPress(event) {
+            // 关键修复：检查长按标记是否仍然有效，防止竞态条件
+            if (!this.longPress) return;
             if (this.isType == 'list') return;
             // 在这里处理长按逻辑
+            console.log('这里是否执行了')
             this.toLeft();
             this.drawerLong = true
         },
         toLeft() {
+            // 防止点击穿透：如果 toRight 刚执行过，忽略此次 toLeft 调用
+            if (this._lastToRightTime && Date.now() - this._lastToRightTime < 350) {
+                console.log('toLeft 被阻止：检测到点击穿透');
+                return;
+            }
+            console.log('toLeft 正常执行');
             this.navStatus = false;
         },
         toRight() {
+            clearTimeout(this.longPressTimeout);
+            this.longPress = false;
             this.navStatus = true;
+            // 记录执行时间，用于防止点击穿透
+            this._lastToRightTime = Date.now();
+            console.log("toRight 执行完成，navStatus:", this.navStatus);
         },
         itemClick(item) {
             //如果是搜索 直接跳转原生搜索界面
@@ -407,4 +424,5 @@ export default {
 
 <style lang="less">
 @import "~@/assets/css/common/suspension.less";
+@import "~@/assets/css/common/drawer.less";
 </style>

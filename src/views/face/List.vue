@@ -1,28 +1,13 @@
 <template>
     <div class="p-face-list" v-loading="loading" ref="listRef">
-        <faceTabs
-            :body_types="list"
-            :active="active"
-            :link="link"
-            @change="handleFaceTabChange"
-            @setActive="setActive"
-        />
+        <faceTabs :body_types="list" :active="active" :link="link" @change="handleFaceTabChange"
+            @setActive="setActive" />
         <PublicNotice bckey="face_ac" />
         <template v-if="active === -1">
-            <div
-                v-for="(item, index) in list"
-                :key="'l' + index"
-                class="m-face-box"
-                :class="{ none: !item.list.length }"
-            >
-                <CardBannerList
-                    :class="{ search: tabsData.name }"
-                    :count="count"
-                    :minw="190"
-                    :data="{ ...itemData, type: item.value }"
-                    :items="item.list"
-                    @update:load="handleLoad"
-                >
+            <div v-for="(item, index) in list" :key="'l' + index" class="m-face-box"
+                :class="{ none: !item.list.length }">
+                <CardBannerList :class="{ search: tabsData.name }" :count="count" :minw="190"
+                    :data="{ ...itemData, type: item.value }" :items="item.list" @update:load="handleLoad">
                     <template v-slot:title>
                         <div>{{ item.label + "脸型" }}</div>
                         <div></div>
@@ -43,27 +28,14 @@
             <div class="m-face-list--all">
                 <faceItem v-for="item in subList" :key="item.id" :item="item" />
             </div>
-            <el-button
-                class="m-archive-more"
-                v-show="hasNextPage"
-                type="primary"
-                @click="appendPage"
-                :loading="loading"
-                icon="el-icon-arrow-down"
-                >加载更多</el-button
-            >
-            <el-pagination
-                class="m-archive-pages"
-                background
-                layout="total, prev, pager, next, jumper"
-                :hide-on-single-page="true"
-                @current-change="changePage"
-                @prev-click="changePage"
-                @next-click="changePage"
-                :page-size="per"
-                :total="total"
-                v-model:current-page="page"
-            ></el-pagination>
+            <el-button class="m-archive-more" v-show="hasNextPage" type="primary" @click="appendPage"
+                :loading="loading">
+                <el-icon class="el-icon--left">
+                    <ArrowDown />
+                </el-icon>加载更多</el-button>
+            <el-pagination class="m-archive-pages" background layout="total, prev, pager, next, jumper"
+                :hide-on-single-page="true" @current-change="changePage" @prev-click="changePage"
+                @next-click="changePage" :page-size="per" :total="total" v-model:current-page="page"></el-pagination>
         </div>
         <el-alert v-if="noList" class="m-archive-null" :title="alertTitle" type="info" center show-icon></el-alert>
     </div>
@@ -76,10 +48,11 @@ import faceItem from "@/components/face/item";
 import { isPhone } from "@/utils/index";
 import { cloneDeep, omit, concat, debounce } from "lodash";
 import { getFaceList, getSliders } from "@/service/face";
+import { ArrowDown } from '@element-plus/icons-vue';
 
 export default {
     name: "face",
-    components: { CardBannerList, faceTabs, faceItem, PublicNotice },
+    components: { CardBannerList, faceTabs, faceItem, PublicNotice, ArrowDown },
     data() {
         return {
             loading: false,

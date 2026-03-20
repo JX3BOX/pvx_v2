@@ -14,7 +14,7 @@
 }
 
 .m-furniture-search {
-    .mb(20px);
+    margin-bottom: 20px;
 }
 
 .m-furniture-container {
@@ -28,13 +28,13 @@
     background-color: #f5f7fa;
     .w(120px);
     .u-list {
-        .pl(20px);
+        padding-left: 20px;
         .fz(14px);
     }
     .u-item {
         .db;
         .pointer;
-        .mt(20px);
+        margin-top: 20px;
         &::before {
             content: "◇";
         }
@@ -66,10 +66,10 @@
     box-sizing: border-box;
     .u-tabs {
         .fz(14px);
-        .mb(20px);
+        margin-bottom: 20px;
         flex-wrap: wrap;
         .u-item {
-            .mr(10px);
+            margin-right: 10px;
             .flex;
             .pointer;
             .bold;
@@ -78,7 +78,7 @@
             .u-img {
                 .pointer;
                 .db;
-                .pt(52px);
+                padding-top: 52px;
                 .w(52px);
                 .x;
                 background-repeat: no-repeat;
@@ -90,8 +90,8 @@
             &:hover {
                 color: #0366d6;
             }
-            .u-icon(@i:0) when (@i <= 18) {
-                .u-iconj(@j:0) when (@j <= 11) {
+            .u-icon(@i: 0) when (@i <= 18) {
+                .u-iconj(@j: 0) when (@j <= 11) {
                     .u-icon-@{i}-@{j} {
                         background-position: -52px * (@i) -52px * (@j);
                     }
@@ -111,14 +111,14 @@
     .u-box {
         align-items: center;
         .u-input {
-            .mr(10px);
+            margin-right: 10px;
         }
     }
     .u-select {
         .w(180px);
     }
     .u-margin {
-        .mr(20px);
+        margin-right: 20px;
     }
     .u-input {
         .w(280px);
@@ -167,8 +167,8 @@
     flex-wrap: wrap;
     background-color: #fff;
     .m-furniture-item {
-        .mr(20px);
-        .mb(20px);
+        margin-right: 20px;
+        margin-bottom: 20px;
     }
 }
 
@@ -182,7 +182,7 @@
     .m-archive-more {
         .db;
         .w(100%);
-        .mb(20px) !important;
+        margin-bottom: 20px !important;
     }
     .m-archive-pages {
         overflow-x: auto;
@@ -190,5 +190,5 @@
 }
 
 .m-match-furniture-pop {
-    .fz(14px,1.6);
+    .fz(14px, 1.6);
 }

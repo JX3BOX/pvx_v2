@@ -1,11 +1,8 @@
 <template>
     <div class="p-adventure-single" v-if="id" v-loading="loading">
         <template v-if="!isRobot">
-            <SuspendCommon
-                :btnOptions="{ showHome: true }"
-                :drawerOptions="{ hideType: hideType }"
-                v-if="isMiniProgram"
-            >
+            <SuspendCommon :btnOptions="{ showHome: true }" :drawerOptions="{ hideType: hideType }"
+                v-if="isMiniProgram">
                 <template #default>
                     <div class="m-suspend-btn">
                         <div class="u-btn-item" @click="showCatalogDrawer = true">
@@ -17,25 +14,13 @@
             </SuspendCommon>
 
             <!-- 导航目录 -->
-            <el-drawer
-                v-model="showCatalogDrawer"
-                direction="btt"
-                :with-header="false"
-                custom-class="u-drawer"
-                :modal-append-to-body="false"
-                append-to-body
-                class="p-adventure-drawer"
-            >
+            <el-drawer v-model="showCatalogDrawer" direction="btt" :with-header="false" :modal-append-to-body="false"
+                append-to-body class="c-drawer p-adventure-drawer">
                 <div class="u-drawer-title">导航</div>
                 <div class="m-drawer-nav">
-                    <div
-                        class="u-nav-item"
-                        v-for="(item, index) in drawerNav"
-                        :key="index"
-                        :class="drawerNavCurrentId === item.id ? 'is-active' : ''"
-                        v-show="item.show"
-                        @click="drawerNavCurrentIdHref(item.id)"
-                    >
+                    <div class="u-nav-item" v-for="(item, index) in drawerNav" :key="index"
+                        :class="drawerNavCurrentId === item.id ? 'is-active' : ''" v-show="item.show"
+                        @click="drawerNavCurrentIdHref(item.id)">
                         {{ item.label }}
                     </div>
                 </div>
@@ -70,13 +55,8 @@
             <PvxUserMiniprogram v-if="isMiniProgram" :id="achieve_id" name="奇遇" type="achievement">
             </PvxUserMiniprogram>
             <!-- 包含攻略、评论、历史版本、点赞等 书籍，宠物等物品为item, 声望成就等为achievement -->
-            <pvx-user
-                :id="achieve_id"
-                name="奇遇"
-                type="achievement"
-                :isRobot="isRobot"
-                v-if="achieve_id && !isMiniProgram"
-            >
+            <pvx-user :id="achieve_id" name="奇遇" type="achievement" :isRobot="isRobot"
+                v-if="achieve_id && !isMiniProgram">
                 <template #serendipity v-if="!isRobot">
                     <div class="m-adventure-serendipity">
                         <Serendipity :title="title" />
@@ -466,6 +446,8 @@ export default {
 
 <style lang="less">
 @import "~@/assets/css/adventure/single.less";
+@import "~@/assets/css/common/drawer.less";
+
 .m-robot__adventure-header {
     .flex;
     justify-content: space-between;
@@ -480,24 +462,29 @@ export default {
     background: linear-gradient(to top, rgba(56, 56, 56, 1) 0%, rgba(0, 0, 0, 1) 100%);
 
     border: 1px solid rgba(110, 110, 110, 1);
+
     &.is-perfect {
         background: linear-gradient(to top, rgba(82, 44, 11, 1) 0%, rgba(0, 0, 0, 1) 100%);
 
         border: 1px solid rgba(255, 195, 0, 1);
     }
+
     .m-left {
         flex: 1;
     }
+
     .m-title {
         .flex;
         align-items: center;
         gap: 5px;
     }
+
     .u-title {
         font-size: 20px;
         .bold;
         color: #fff;
     }
+
     .m-reward {
         margin-top: 4px;
         .flex;
@@ -507,33 +494,40 @@ export default {
         font-size: 12px;
         color: #ffeb3b;
         width: 100%;
+
         span {
             flex: none;
         }
+
         .u-reward {
             flex: none;
             .flex;
             align-items: center;
             flex-wrap: wrap;
             width: 460px;
-            & > p:first-child {
+
+            &>p:first-child {
                 .none;
             }
         }
+
         p {
             margin: 0;
             padding: 0;
         }
+
         img,
         h1 {
             .none;
         }
+
         .c-article {
             .flex;
             flex-wrap: wrap;
             gap: 4px;
             align-items: center;
         }
+
         p,
         a,
         span {
@@ -543,42 +537,53 @@ export default {
             max-width: 460px;
             display: inline-block;
         }
+
         div {
             color: #ffeb3b !important;
             font-size: 12px !important;
         }
     }
 }
+
 .m-robot__adventure-condition {
     .flex;
     gap: 5px;
+
     .u-pvx-logo {
         .size(180px);
     }
+
     .m-condition {
         flex: 1;
+
         .u-content {
             min-height: 100px;
         }
     }
 }
+
 .m-robot-item {
     margin-top: 10px;
+
     .u-content {
         width: 100%;
         line-height: 18px;
+
         h1 {
             .none;
         }
+
         p {
             margin-top: 0;
             margin-bottom: 5px;
         }
+
         img {
             margin: 5px 0;
             width: 100%;
             height: auto !important;
         }
+
         p,
         span,
         a,
@@ -587,21 +592,25 @@ export default {
             color: #fff !important;
         }
     }
+
     .m-title {
         .flex;
         align-items: center;
         gap: 4px;
+
         span {
             font-size: 12px;
             font-weight: 400;
             color: rgba(#ffffff, 0.5);
         }
     }
+
     .u-title {
         font-size: 16px;
         color: #ffc300;
         font-weight: 700;
     }
+
     .m-pvx-adventure-content {
         margin-top: 10px;
         border-radius: 4px;

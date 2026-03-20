@@ -4,11 +4,9 @@
         <div
             class="m-replace"
             :style="{ height: height + 'px' }"
-            @mouseover="changeColor(color)"
-            @mouseout="changeColor('#E1E1E1')"
             @click="update"
         >
-            <img svg-inline src="@/assets/img/replace.svg" :fill="fill" />
+            <img svg-inline src="@/assets/img/replace.svg" />
         </div>
     </div>
 </template>
@@ -20,7 +18,6 @@ export default {
     emits: ["update:load"],
     data: function () {
         return {
-            fill: "#E1E1E1",
             number: 0,
         };
     },
@@ -36,9 +33,6 @@ export default {
         },
     },
     methods: {
-        changeColor(newColor) {
-            this.fill = newColor;
-        },
         update() {
             this.$emit("update:load", this.type);
         },
@@ -59,8 +53,14 @@ export default {
         justify-content: center;
         align-items: center;
         flex-shrink: 0;
+
         svg {
             transition: 0.3s ease-out;
+            fill: #E1E1E1;
+        }
+
+        &:hover svg {
+            fill: #786CBB;
         }
     }
     .m-common-list {

@@ -27,7 +27,7 @@ export default {
             navStatusClass: "is-regular",
         };
     },
-    mounted() {},
+    mounted() { },
     computed: {},
     methods: {
         statusChange(navStatusClass) {

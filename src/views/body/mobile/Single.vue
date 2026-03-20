@@ -2,44 +2,32 @@
  * @Author: zhusha
  * @Date: 2025-02-17 23:22:35
  * @LastEditors: zhusha
- * @LastEditTime: 2025-03-31 19:30:14
+ * @LastEditTime: 2026-03-20 16:03:29
  * @Description: 小程序捏脸详情
  *
  * Copyright (c) 2025 by zhusha, email: no email, All Rights Reserved.
 -->
 <template>
     <div class="p-body-detail" v-loading="loading">
-        <SuspendCommon
-            :btnOptions="{ showHome: true }"
-            :drawerOptions="{
-                hideType: ['report', 'rss', 'search'],
-                author: {
-                    name: post.author_name,
-                    avatar: post.user_avatar,
-                    author_id: post.user_id,
-                },
-                title: post.title,
-                postType: 'face',
-                id: id,
-            }"
-            @search="search"
-            v-if="$route.query?.disabled != 'true'"
-        >
+        <SuspendCommon :btnOptions="{ showHome: true }" :drawerOptions="{
+            hideType: ['report', 'rss', 'search'],
+            author: {
+                name: post.author_name,
+                avatar: post.user_avatar,
+                author_id: post.user_id,
+            },
+            title: post.title,
+            postType: 'face',
+            id: id,
+        }" @search="search" v-if="$route.query?.disabled != 'true'">
             <template #default>
                 <div class="u-copy" @click="showFaceData = true">
                     <img class="u-copy-icon" src="@/assets/img/pvxsuspension/copy_touchbar.svg" svg-inline />复制体型码
                 </div>
             </template>
         </SuspendCommon>
-        <el-drawer
-            v-model:visible="showFaceData"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-drawer-suspend"
-        >
+        <el-drawer v-model="showFaceData" direction="btt" :with-header="false" :modal-append-to-body="false"
+            append-to-body class="c-drawer">
             <div class="m-face-data_copy">
                 <div class="u-copy-box" v-if="post.code_mode">
                     <div class="u-copy-top">
@@ -185,7 +173,7 @@ export default {
     created() {
         this.getData();
     },
-    mounted() {},
+    mounted() { },
     methods: {
         search() {
             wx.miniProgram.navigateTo({
@@ -276,6 +264,7 @@ export default {
 </script>
 
 <style lang="less">
+@import "~@/assets/css/common/drawer.less";
 @nameColor: #1c1c1c;
 @nameColor-dark: #fff;
 @fontBgColor: #fff;
@@ -286,6 +275,7 @@ export default {
 @fontColor-dark2: rgba(255, 255, 255, 0.4);
 @btnBgColor: #24292e;
 @btnBgColor-dark: #fedaa3;
+
 .m-face-data_copy {
     .w(100%);
 
@@ -296,17 +286,20 @@ export default {
         .flex(o);
         flex-direction: column;
         gap: 1.25rem;
+
         .u-copy-top {
             .flex;
             .flex(o);
             flex-direction: column;
         }
     }
+
     .u-label {
         color: rgba(255, 255, 255, 0.4);
-        .fz(0.875rem,1.25rem);
+        .fz(0.875rem, 1.25rem);
         .bold(700);
     }
+
     .u-number {
         .w(100%);
         .flex;
@@ -319,9 +312,10 @@ export default {
         box-sizing: border-box;
         color: @fontBgColor;
 
-        .fz(0.75rem,1.125rem);
+        .fz(0.75rem, 1.125rem);
         .bold(700);
     }
+
     .u-copy-btn {
         .flex;
         .flex(o);
@@ -330,9 +324,10 @@ export default {
         align-self: stretch;
         .r(0.75rem);
         background: #fedaa3;
-        .fz(0.875rem,1.25rem);
+        .fz(0.875rem, 1.25rem);
         .bold(700);
     }
+
     .u-no-data-btn {
         .flex;
         .flex(o);
@@ -342,18 +337,21 @@ export default {
         .r(0.75rem);
         background: rgba(255, 255, 255, 0.1);
         color: rgba(255, 255, 255, 0.4);
-        .fz(0.875rem,1.25rem);
+        .fz(0.875rem, 1.25rem);
         .bold(700);
     }
 }
+
 .p-body-detail {
     height: 100vh;
     background-color: #fafafa;
     overflow: auto;
     .pb(3.5rem);
     box-sizing: border-box;
+
     .u-copy-icon {
-        .size(1.5rem,1.5rem);
+        .size(1.5rem, 1.5rem);
+
         svg,
         path {
             fill: #fedaa3;
@@ -363,6 +361,7 @@ export default {
 
     .m-base {
         .w(100%);
+
         .u-copy {
             .w(100%);
             .flex;
@@ -374,9 +373,11 @@ export default {
     .m-body-detail_top {
         .pr;
         overflow: hidden;
+
         .u-img_item {
             .size(100%, 500px);
             .pr;
+
             &::before {
                 content: "";
                 .pa;
@@ -384,13 +385,11 @@ export default {
                 .lt(0);
                 .dbi;
                 .z(1);
-                background: linear-gradient(
-                    180deg,
-                    #f8f8f8 0.04%,
-                    rgba(248, 248, 248, 0) 30%,
-                    rgba(248, 248, 248, 0) 70%,
-                    #fafafa 100%
-                );
+                background: linear-gradient(180deg,
+                        #f8f8f8 0.04%,
+                        rgba(248, 248, 248, 0) 30%,
+                        rgba(248, 248, 248, 0) 70%,
+                        #fafafa 100%);
             }
 
             img {
@@ -427,7 +426,7 @@ export default {
         .u-body_info {
             .pa;
             .z(2);
-            .lb(1.111rem,0.333rem);
+            .lb(1.111rem, 0.333rem);
 
             .u-body_name {
                 color: @nameColor;
@@ -668,13 +667,11 @@ export default {
         .m-body-detail_top {
             .u-img_item {
                 &::before {
-                    background: linear-gradient(
-                        180deg,
-                        #1c1c1c 0.04%,
-                        rgba(0, 0, 0, 0) 20%,
-                        rgba(0, 0, 0, 0) 80%,
-                        #000000 100%
-                    );
+                    background: linear-gradient(180deg,
+                            #1c1c1c 0.04%,
+                            rgba(0, 0, 0, 0) 20%,
+                            rgba(0, 0, 0, 0) 80%,
+                            #000000 100%);
                 }
             }
 

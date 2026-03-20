@@ -1,32 +1,18 @@
 <template>
     <div class="horse-home-wrapper">
-        <CommonToolbar
-            ref="toolbar"
-            class="m-horse-tabs"
-            :active="active"
-            color="#d16400"
-            search
-            :types="list"
-            @update="updateToolbar"
-        >
+        <CommonToolbar ref="toolbar" class="m-horse-tabs" :active="active" color="#d16400" search :types="list"
+            @update="updateToolbar">
             <template v-slot:filter>
                 <div class="u-filter">
-                    <el-popover
-                        ref="popover"
-                        :placement="isPhone ? 'right' : 'bottom'"
-                        :width="!isPhone && 420"
-                        trigger="click"
-                    >
+                    <el-popover ref="popover" :placement="isPhone ? 'right' : 'bottom'" :width="!isPhone && 420"
+                        trigger="click">
                         <div class="filter-content">
                             <div class="filter-item" v-for="(sItem, i) in searchType" :key="i">
                                 <div class="check-box-wrapper">
                                     <div class="name">{{ sItem.name }}</div>
                                     <el-checkbox-group v-model="searchType[i].checked">
-                                        <el-checkbox-button
-                                            v-for="option in sItem.list"
-                                            :label="option.label"
-                                            :key="option.value"
-                                        ></el-checkbox-button>
+                                        <el-checkbox-button v-for="option in sItem.list" :label="option.label"
+                                            :key="option.value"></el-checkbox-button>
                                     </el-checkbox-group>
                                 </div>
                             </div>
@@ -51,12 +37,8 @@
                 <!-- 普通坐骑、奇趣坐骑、马具 -->
                 <div v-for="(item, i) in typeList" :key="i" class="m-list-wrapper">
                     <template v-if="item.list && item.list.length">
-                        <CardBannerList
-                            :count="count"
-                            :data="{ ...itemData, type: item.type }"
-                            @update:load="handleLoad"
-                            :items="item.list"
-                        >
+                        <CardBannerList :count="count" :data="{ ...itemData, type: item.type }"
+                            @update:load="handleLoad" :items="item.list">
                             <template v-slot:title>
                                 <div>{{ item.name }}</div>
                             </template>
@@ -80,13 +62,8 @@
                 <div class="u-type u-all-type">
                     <div class="u-title">{{ typeName }}</div>
                     <div v-if="active !== ''" class="m-operate">
-                        <div
-                            class="m-item"
-                            :class="showType === item.value && 'active'"
-                            :key="item.value"
-                            v-for="item in showTypes"
-                            @click="showType = item.value"
-                        >
+                        <div class="m-item" :class="showType === item.value && 'active'" :key="item.value"
+                            v-for="item in showTypes" @click="showType = item.value">
                             {{ item.label }}
                         </div>
                     </div>
@@ -94,54 +71,27 @@
                 <template v-if="subList.length">
                     <div class="m-horse-list--card" v-if="showType === 'card'">
                         <template v-if="active !== 2">
-                            <HorseCard
-                                :style="!isPhone ? `width: calc(100% / ${count} - 20px)` : ''"
-                                v-for="item in subList"
-                                :key="item.ID"
-                                :item="item"
-                                :reporter="{ aggregate: listId(subList) }"
-                            />
+                            <HorseCard :style="!isPhone ? `width: calc(100% / ${count} - 20px)` : ''"
+                                v-for="item in subList" :key="item.ID" :item="item"
+                                :reporter="{ aggregate: listId(subList) }" />
                         </template>
                         <template v-else>
-                            <SameItem
-                                :style="!isPhone ? `width: calc(100% / ${count} - 20px)` : ''"
-                                v-for="item in subList"
-                                :key="item.ID"
-                                :item="item"
-                                :reporter="{ aggregate: listId(item.list) }"
-                            />
+                            <SameItem :style="!isPhone ? `width: calc(100% / ${count} - 20px)` : ''"
+                                v-for="item in subList" :key="item.ID" :item="item"
+                                :reporter="{ aggregate: listId(item.list) }" />
                         </template>
                     </div>
                     <div class="m-horse-list--list" v-if="showType === 'list'">
                         <ListHead></ListHead>
-                        <HorseItem
-                            v-for="item in subList"
-                            :key="item.ID"
-                            :item="item"
-                            :reporter="{ aggregate: listId(subList) }"
-                        />
+                        <HorseItem v-for="item in subList" :key="item.ID" :item="item"
+                            :reporter="{ aggregate: listId(subList) }" />
                     </div>
                 </template>
-                <el-button
-                    class="m-archive-more"
-                    v-show="hasNextPage"
-                    type="primary"
-                    plain
-                    @click="appendPage"
-                    :loading="loading"
-                    icon="el-icon-arrow-down"
-                    >加载更多</el-button
-                >
-                <el-pagination
-                    class="m-archive-pages"
-                    background
-                    layout="total, prev, pager, next, jumper"
-                    :hide-on-single-page="true"
-                    :page-size="per"
-                    :total="total"
-                    :current-page="page"
-                    @current-change="changePage"
-                ></el-pagination>
+                <el-button class="m-archive-more" v-show="hasNextPage" type="primary" plain @click="appendPage"
+                    :loading="loading" icon="el-icon-arrow-down">加载更多</el-button>
+                <el-pagination class="m-archive-pages" background layout="total, prev, pager, next, jumper"
+                    :hide-on-single-page="true" :page-size="per" :total="total" :current-page="page"
+                    @current-change="changePage"></el-pagination>
             </div>
         </div>
     </div>

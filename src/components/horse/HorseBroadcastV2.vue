@@ -7,27 +7,15 @@
             </el-select>
         </div>
         <div class="m-horse-broadcast__list" v-if="listData.length && listData[active].map_id">
-            <jx3box-map
-                v-if="listData[active].map_id"
-                class="u-horse-map"
-                :mapId="Number(listData[active].map_id)"
-                :key="listData[active].map_id"
-                :overview="false"
-                :datas="(listData[active].mapDatas && listData[active].mapDatas[listData[active].map_id]) || []"
-            ></jx3box-map>
+            <jx3box-map v-if="listData[active].map_id" class="u-horse-map" :mapId="Number(listData[active].map_id)"
+                :key="listData[active].map_id" :overview="false"
+                :datas="(listData[active].mapDatas && listData[active].mapDatas[listData[active].map_id]) || []"></jx3box-map>
             <div class="m-list">
                 <div class="m-item" v-for="(item, index) in listData" :key="index">
-                    <div
-                        class="m-horse"
-                        @click="changeHorse(item, index)"
-                        v-if="!item.is_chitu"
-                        :class="{ active: active === index }"
-                    >
-                        <div
-                            class="u-col u-times"
-                            :class="item.subtype === 'foreshow' && 'u-times-lately'"
-                            v-if="item.fromTime"
-                        >
+                    <div class="m-horse" @click="changeHorse(item, index)" v-if="!item.is_chitu"
+                        :class="{ active: active === index }">
+                        <div class="u-col u-times" :class="item.subtype === 'foreshow' && 'u-times-lately'"
+                            v-if="item.fromTime">
                             <span>{{ item.fromTime }}</span>
                             <span> ~ </span>
                             <span>{{ item.toTime }}</span>

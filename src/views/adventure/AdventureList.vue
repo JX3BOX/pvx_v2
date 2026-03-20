@@ -15,21 +15,11 @@
             </div>
         </div> -->
         <template v-if="active === 'all'">
-            <div
-                v-for="(item, index) in list"
-                :key="'l' + index"
-                class="m-adventure-list"
-                :class="`m-adventure-list-${index}`"
-            >
+            <div v-for="(item, index) in list" :key="'l' + index" class="m-adventure-list"
+                :class="`m-adventure-list-${index}`">
                 <template v-if="item.list.length">
-                    <CardBannerList
-                        :class="{ search: tabsData.name }"
-                        :count="count"
-                        :minw="212"
-                        :data="{ ...itemData, type: item.value }"
-                        @update:load="handleLoad"
-                        :items="item.list"
-                    >
+                    <CardBannerList :class="{ search: tabsData.name }" :count="count" :minw="212"
+                        :data="{ ...itemData, type: item.value }" @update:load="handleLoad" :items="item.list">
                         <template v-slot:title>
                             <div>{{ item.label + "奇遇" }}</div>
                         </template>
@@ -56,25 +46,11 @@
                 </div>
             </template>
             <template v-else>
-                <el-button
-                    class="m-archive-more"
-                    v-show="hasNextPage"
-                    type="primary"
-                    @click="appendPage"
-                    :loading="loading"
-                    icon="el-icon-arrow-down"
-                    >加载更多</el-button
-                >
-                <el-pagination
-                    class="m-archive-pages"
-                    background
-                    layout="total, prev, pager, next, jumper"
-                    :hide-on-single-page="true"
-                    :page-size="per"
-                    :total="total"
-                    :current-page="page"
-                    @current-change="changePage"
-                ></el-pagination>
+                <el-button class="m-archive-more" v-show="hasNextPage" type="primary" @click="appendPage"
+                    :loading="loading" icon="el-icon-arrow-down">加载更多</el-button>
+                <el-pagination class="m-archive-pages" background layout="total, prev, pager, next, jumper"
+                    :hide-on-single-page="true" :page-size="per" :total="total" :current-page="page"
+                    @current-change="changePage"></el-pagination>
             </template>
         </div>
         <div class="u-archive-alert" v-if="noList || (subList && !subList.length)">
@@ -97,15 +73,8 @@
         </SuspendCommon>
 
         <!-- 奇遇切换 -->
-        <el-drawer
-            v-model="showTypeForm"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-adventure-drawer-type"
-        >
+        <el-drawer v-model="showTypeForm" direction="btt" :with-header="false" :modal-append-to-body="false"
+            append-to-body class="c-drawer p-adventure-drawer-type">
             <div class="u-drawer-title">类型</div>
             <div class="m-drawer-content">
                 <div class="m-type-item" :class="{ 'is-active': active === 'all' }" @click="setActive('all')">
@@ -128,15 +97,8 @@
         </el-drawer>
 
         <!-- 奇遇搜索 -->
-        <el-drawer
-            v-model="showSearchForm"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-adventure-drawer-type"
-        >
+        <el-drawer v-model="showSearchForm" direction="btt" :with-header="false" :modal-append-to-body="false"
+            append-to-body class="c-drawer p-adventure-drawer-type">
             <div class="u-drawer-title">搜索</div>
             <div class="m-search-input">
                 <input type="text" class="u-input" placeholder="请输入搜索内容" @input="onMiniSearch" />
@@ -258,7 +220,9 @@ export default {
         active: {
             immediate: true,
             handler: function (val) {
-                this.per = val == "all" ? this.count : this.count * 3;
+                if (this.count > 0) {
+                    this.per = val == "all" ? this.count : this.count * 3;
+                }
                 this.page = 1;
             },
         },
@@ -371,4 +335,5 @@ export default {
 
 <style lang="less">
 @import "~@/assets/css/adventure/list.less";
+@import "~@/assets/css/common/drawer.less";
 </style>

@@ -1,10 +1,7 @@
 <template>
     <div class="p-horse_mobile" @scroll="handleScroll">
-        <SuspendCommon
-            :btnOptions="{ showHome: true }"
-            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }"
-            @search="search"
-        >
+        <SuspendCommon :btnOptions="{ showHome: true }"
+            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }" @search="search">
             <template #default>
                 <!--                切换按钮区域-->
                 <div class="m-suspend-btn">
@@ -19,34 +16,19 @@
                 </div>
             </template>
         </SuspendCommon>
-        <el-drawer
-            v-model:visible="showForm"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-drawer-suspend"
-        >
+        <el-drawer v-model="showForm" direction="btt" :with-header="false" :modal-append-to-body="false" append-to-body
+            class="c-drawer">
             <!--类型区域-->
             <transition :name="cutShowTra ? 'slide-up' : ''">
                 <div class="m-cut" v-show="cutShow">
                     <div class="u-cut-box">
-                        <div
-                            class="u-cut-item"
-                            :class="{ 'is-active': listQueryParams.type === '' }"
-                            @click="cutChange('')"
-                        >
+                        <div class="u-cut-item" :class="{ 'is-active': listQueryParams.type === '' }"
+                            @click="cutChange('')">
                             <img class="u-icon" src="@/assets/img/pvxsuspension/all.svg" svg-inline />
                             全部
                         </div>
-                        <div
-                            class="u-cut-item"
-                            v-for="(item, index) in typeList.slice(1)"
-                            :key="index"
-                            :class="{ 'is-active': listQueryParams.type === item.type }"
-                            @click="cutChange(item.type)"
-                        >
+                        <div class="u-cut-item" v-for="(item, index) in typeList.slice(1)" :key="index"
+                            :class="{ 'is-active': listQueryParams.type === item.type }" @click="cutChange(item.type)">
                             <img src="@/assets/img/house/mj.svg" svg-inline v-show="item.type == 2" />
                             <img src="@/assets/img/house/mp.svg" svg-inline v-show="item.type == 0" />
                             <img src="@/assets/img/house/qq.svg" svg-inline v-show="item.type == 1" />
@@ -73,13 +55,8 @@
                 <div v-for="(searchItem, index) in searchType" :key="searchItem.key">
                     <div class="u-filtrate-title">{{ searchItem.name }}</div>
                     <div class="u-box" :class="searchItem.key">
-                        <div
-                            class="u-item"
-                            :class="{ active: searchItem.checked.indexOf(item.label) !== -1 }"
-                            @click="filtrateParams(index, item.label)"
-                            v-for="item in searchItem.list"
-                            :key="item.id"
-                        >
+                        <div class="u-item" :class="{ active: searchItem.checked.indexOf(item.label) !== -1 }"
+                            @click="filtrateParams(index, item.label)" v-for="item in searchItem.list" :key="item.id">
                             {{ item.label }}
                         </div>
                     </div>
@@ -107,12 +84,8 @@
             <!--        马具-->
             <div class="m-title">马具</div>
             <div class="m-harness-card">
-                <div
-                    class="u-harness-item"
-                    v-for="item in typeList?.[3]?.list"
-                    :key="item?.ID"
-                    @click="openOther(item, 2)"
-                >
+                <div class="u-harness-item" v-for="item in typeList?.[3]?.list" :key="item?.ID"
+                    @click="openOther(item, 2)">
                     <!--                    <img :src="getImgSrc(item, true)"  @error="replaceByDefault" class="u-img" />-->
                     <item-icon :item_id="String(item.ItemID)" :isLink="false" :size="38" :onlyIcon="true"></item-icon>
                     <div class="u-info">
@@ -129,7 +102,9 @@
             <div class="m-horse-card">
                 <div class="u-item" v-for="item in typeList?.[2]?.list" :key="item?.ID" @click="openOther(item, 1)">
                     <img :src="getImgSrc(item, true)" @error="replaceByDefault" class="u-img" />
-                    <div class="u-name"><scrollingText :showText="item.Name" /></div>
+                    <div class="u-name">
+                        <scrollingText :showText="item.Name" />
+                    </div>
                     <div class="u-id">ID：{{ item.ID }}</div>
                 </div>
             </div>
@@ -137,12 +112,8 @@
         <div class="m-list" v-else>
             <!--        坐骑类列表-->
             <div class="m-horse-card" v-if="showHorse">
-                <div
-                    class="u-item"
-                    v-for="item in listData"
-                    :key="'list' + item.ID"
-                    @click="openOther(item, listQueryParams.type)"
-                >
+                <div class="u-item" v-for="item in listData" :key="'list' + item.ID"
+                    @click="openOther(item, listQueryParams.type)">
                     <img :src="getImgSrc(item, true)" @error="replaceByDefault" class="u-img" />
                     <div class="u-name">
                         <scrollingText :showText="item.Name" />
@@ -153,15 +124,13 @@
             </div>
             <!--        马具列表-->
             <div class="m-harness-card" v-else>
-                <div
-                    class="u-harness-item"
-                    v-for="item in listData"
-                    :key="'list' + item.ID"
-                    @click="openOther(item, 1)"
-                >
+                <div class="u-harness-item" v-for="item in listData" :key="'list' + item.ID"
+                    @click="openOther(item, 1)">
                     <item-icon :item_id="String(item.ItemID)" :isLink="false" :size="38" :onlyIcon="true"></item-icon>
                     <div class="u-info">
-                        <div class="u-name"><scrollingText :showText="item.Name" /></div>
+                        <div class="u-name">
+                            <scrollingText :showText="item.Name" />
+                        </div>
                         <div class="u-id">ID：{{ item.ID }}</div>
                     </div>
                 </div>
@@ -432,20 +401,25 @@ export default {
 };
 </script>
 <style lang="less">
-@fontcolor:rgba (28, 28, 28, 0.80);
+@import "~@/assets/css/common/drawer.less";
+@fontcolor: rgba (28, 28, 28, 0.80);
 @fontColor40: rgba(28, 28, 28, 0.4);
 @fontColor-dark2: rgba(255, 255, 255, 0.8);
 @fontColor-dark3: rgba(255, 255, 255, 0.4);
+
 .v-miniprogram {
     .m-main {
         padding: 0;
     }
+
     body {
         padding: 0 !important;
     }
+
     .m-cut {
         .w(calc(100% - 1.5rem));
         margin: 0 auto;
+
         .u-cut-all {
             background: rgba(255, 255, 255, 0.05);
             color: @fontColor-dark2;
@@ -457,6 +431,7 @@ export default {
             .flex;
             .flex(o);
             .mb(1rem);
+
             &.is-active {
                 background: #fedaa3;
                 color: #24292e;
@@ -480,6 +455,7 @@ export default {
                 padding: 0.75rem;
                 box-sizing: border-box;
                 .r(0.75rem);
+
                 svg,
                 path {
                     fill: @fontColor-dark2;
@@ -489,6 +465,7 @@ export default {
                 &.is-active {
                     color: #24292e;
                     background: #fedaa3;
+
                     svg,
                     path {
                         fill: #24292e;
@@ -521,6 +498,7 @@ export default {
                 background: rgba(255, 255, 255, 0.05);
                 color: @fontColor-dark3;
                 .x;
+
                 &.active {
                     background: #fedaa3;
                     color: #24292e;
@@ -528,17 +506,20 @@ export default {
             }
         }
     }
+
     .m-no-body {
         .flex;
         .flex(o);
         flex-direction: column;
+
         .u-tips {
             color: @fontColor-dark3;
-            .fz(0.875rem,1.25rem);
+            .fz(0.875rem, 1.25rem);
             .bold(700);
             .flex;
             .flex(o);
         }
+
         .u-btn {
             .flex;
             .flex(o);
@@ -551,6 +532,7 @@ export default {
             color: @fontColor-dark3;
         }
     }
+
     //筛选切换
     .m-filtrate {
         padding: 0.75rem;
@@ -568,10 +550,12 @@ export default {
             .mb(0.75rem);
             gap: 0.5rem;
             flex-wrap: wrap;
+
             &.attr {
                 height: 30vh;
                 overflow-y: auto;
             }
+
             .u-item {
                 .w(calc(calc(100% - 1rem) / 3));
                 flex-shrink: 0;
@@ -589,6 +573,7 @@ export default {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+
                 //border: 1px solid #000;
                 &.active {
                     color: #24292e;
@@ -620,6 +605,7 @@ export default {
                 background: rgba(255, 255, 255, 0.05);
                 color: @fontColor-dark3;
                 .x;
+
                 &.active {
                     background: #fedaa3;
                     color: #24292e;
@@ -635,6 +621,7 @@ export default {
     padding: 0.45rem 1.25rem 4.45rem 1.25rem;
     box-sizing: border-box;
     overflow: auto;
+
     .m-base {
         .w(100%);
     }
@@ -649,11 +636,14 @@ export default {
             gap: 0.5rem;
             //.w(7.5rem);
             flex: 1;
+
             &.line {
                 border-right: 0.5px solid rgba(254, 218, 163, 0.2);
             }
+
             .u-icon {
                 .size(1.25rem, 1.25rem);
+
                 svg,
                 path {
                     fill: #fedaa3;
@@ -662,17 +652,20 @@ export default {
             }
         }
     }
+
     .m-title {
         color: @fontColor;
-        .fz(1rem,1.5rem);
+        .fz(1rem, 1.5rem);
         .bold(700);
         .mb(0.5rem);
     }
+
     .m-horse-card {
         .flex;
         gap: 0.75rem;
         flex-wrap: wrap;
         .mb(1.5rem);
+
         .u-item {
             padding: 0.5rem;
             box-sizing: border-box;
@@ -682,6 +675,7 @@ export default {
             //.flex(o);
             background: #fff;
             .r(0.25rem);
+
             .u-img {
                 .w(100%);
                 border-radius: 0.25rem;
@@ -689,25 +683,29 @@ export default {
                 .mb(0.5rem);
                 border: 1px solid #ff2dff;
             }
+
             .u-name {
                 color: @fontColor;
-                .fz(0.875rem,1.25rem);
+                .fz(0.875rem, 1.25rem);
                 .bold(700);
                 font-style: normal;
             }
+
             .u-id {
                 color: @fontColor40;
-                .fz(0.625rem,0.938rem);
+                .fz(0.625rem, 0.938rem);
                 font-style: normal;
                 .bold(400);
             }
         }
     }
+
     .m-harness-card {
         .flex;
         gap: 0.75rem;
         flex-wrap: wrap;
         .mb(1.5rem);
+
         .u-harness-item {
             padding: 0.5rem;
             box-sizing: border-box;
@@ -717,25 +715,28 @@ export default {
             .flex(o);
             background: #fff;
             .r(0.25rem);
+
             .u-info {
                 .w(calc(calc(100% - 38px) - 0.5rem));
                 .flex;
                 flex-direction: column;
                 justify-content: center;
             }
+
             .u-name {
                 color: @fontColor;
-                .fz(0.875rem,1.25rem);
+                .fz(0.875rem, 1.25rem);
                 .bold(700);
                 font-style: normal;
                 .w(100%);
                 overflow: hidden;
                 white-space: nowrap;
             }
+
             .u-id {
                 .mt(0.25rem);
                 color: @fontColor40;
-                .fz(0.625rem,0.938rem);
+                .fz(0.625rem, 0.938rem);
                 font-style: normal;
                 .bold(400);
             }
@@ -747,26 +748,33 @@ export default {
 @media (prefers-color-scheme: dark) {
     .p-horse_mobile {
         background-color: #000;
+
         .m-title {
             color: @fontColor-dark2;
         }
+
         .m-horse-card {
             .u-item {
                 background: #282828;
+
                 .u-name {
                     color: @fontColor-dark2;
                 }
+
                 .u-id {
                     color: @fontColor-dark3;
                 }
             }
         }
+
         .m-harness-card {
             .u-harness-item {
                 background: #282828;
+
                 .u-name {
                     color: @fontColor-dark2;
                 }
+
                 .u-id {
                     color: @fontColor-dark3;
                 }

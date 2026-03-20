@@ -1,9 +1,7 @@
 <template>
     <div class="p-furniture_mobile" ref="furnitureRef" @scroll="handleScroll">
-        <SuspendCommon
-            :btnOptions="{ showHome: true }"
-            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report', 'search'] }"
-        >
+        <SuspendCommon :btnOptions="{ showHome: true }"
+            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report', 'search'] }">
             <template #default>
                 <!--                切换按钮区域-->
                 <div class="m-suspend-btn">
@@ -14,15 +12,8 @@
                 </div>
             </template>
         </SuspendCommon>
-        <el-drawer
-            v-model:visible="showForm"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-drawer-suspend"
-        >
+        <el-drawer v-model="showForm" direction="btt" :with-header="false" class="c-drawer"
+            :modal-append-to-body="false" append-to-body>
             <!--                筛选区域-->
             <div class="m-filtrate">
                 <div class="u-filtrate-content" ref="filteateContent" @scroll="handleFilteateScroll">
@@ -37,13 +28,8 @@
                     <div v-if="queryType === 1">
                         <div class="u-filtrate-title">分类</div>
                         <div class="u-box">
-                            <div
-                                class="u-item"
-                                :class="{ active: item.nDlcID == version }"
-                                v-for="(item, index) in versions"
-                                :key="index"
-                                @click="versionChange(item.nDlcID)"
-                            >
+                            <div class="u-item" :class="{ active: item.nDlcID == version }"
+                                v-for="(item, index) in versions" :key="index" @click="versionChange(item.nDlcID)">
                                 {{ item.name?.split("(")?.[0] }}
                             </div>
                         </div>
@@ -53,15 +39,10 @@
                         <div v-for="(item, index) in searchProps" :key="index">
                             <div class="u-filtrate-title">{{ item.name }}</div>
                             <div class="u-box">
-                                <div
-                                    class="u-item"
-                                    :class="{ active: getActiveStatus(item, item2) }"
-                                    v-for="(item2, index2) in item.options"
-                                    :key="index2"
-                                    @click="
+                                <div class="u-item" :class="{ active: getActiveStatus(item, item2) }"
+                                    v-for="(item2, index2) in item.options" :key="index2" @click="
                                         setSearchParams(item.key == 'nCatag1Index' ? item.key : item2.paramsKey, item2)
-                                    "
-                                >
+                                        ">
                                     {{ item.key == "nCatag1Index" ? item2.name : item2.value }}
                                 </div>
                             </div>
@@ -69,14 +50,10 @@
                             <template v-if="item.key == 'nCatag1Index'">
                                 <div class="u-filtrate-title">次级分类</div>
                                 <div class="u-box">
-                                    <div
-                                        class="u-item"
-                                        :class="{ active: queryParams.nCatag2Index == item2.nCatag2Index }"
-                                        v-for="(item2, index2) in item.options[Number(queryParams.nCatag1Index) - 1]
-                                            ?.children || []"
-                                        :key="index2"
-                                        @click="setSearchParams('nCatag2Index', item2)"
-                                    >
+                                    <div class="u-item"
+                                        :class="{ active: queryParams.nCatag2Index == item2.nCatag2Index }" v-for="(item2, index2) in item.options[Number(queryParams.nCatag1Index) - 1]
+                                            ?.children || []" :key="index2"
+                                        @click="setSearchParams('nCatag2Index', item2)">
                                         {{ item2.szName }}
                                     </div>
                                 </div>
@@ -507,14 +484,17 @@ export default {
 };
 </script>
 <style lang="less">
-@fontcolor:rgba (28, 28, 28, 0.80);
+@import "~@/assets/css/common/drawer.less";
+@fontcolor: rgba (28, 28, 28, 0.80);
 @fontColor40: rgba(28, 28, 28, 0.4);
 @fontColor-dark2: rgba(255, 255, 255, 0.8);
 @fontColor-dark3: rgba(255, 255, 255, 0.4);
+
 .v-miniprogram {
     .m-main {
         padding: 0;
     }
+
     body {
         padding: 0 !important;
     }
@@ -523,10 +503,12 @@ export default {
     .m-filtrate {
         padding: 0.75rem;
         box-sizing: border-box;
+
         .u-filtrate-content {
             height: 45vh;
             overflow-y: auto;
         }
+
         .u-filtrate-title {
             .mb(0.75rem);
             color: rgba(255, 255, 255, 0.6);
@@ -539,10 +521,12 @@ export default {
             .mb(0.75rem);
             gap: 0.5rem;
             flex-wrap: wrap;
+
             &.attr {
                 height: 30vh;
                 overflow-y: auto;
             }
+
             .u-item {
                 .w(calc(calc(100% - 1rem) / 3));
                 flex-shrink: 0;
@@ -559,11 +543,13 @@ export default {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+
                 //border: 1px solid #000;
                 &.active {
                     color: #24292e;
                     background: #fedaa3;
                 }
+
                 &.top {
                     .w(calc(calc(100% - 1rem) / 2));
                 }
@@ -580,18 +566,21 @@ export default {
                     top: -1.5rem;
                     left: 0;
                     width: 100%;
-                    height: 1.5rem; /* 阴影高度 */
+                    height: 1.5rem;
+                    /* 阴影高度 */
                     background: linear-gradient(180deg, rgba(36, 41, 46, 0) 0%, #24292e 73.94%);
                     background-size: 200% 100%;
                     animation: gradient-animation 3s linear infinite;
                 }
             }
+
             .u-btn-box {
                 .flex;
                 .fz(1rem, 1.5rem);
                 .bold(700);
                 gap: 1.25rem;
             }
+
             .u-report-btn {
                 padding: 0.75rem 1rem;
                 box-sizing: border-box;
@@ -609,6 +598,7 @@ export default {
                 background: rgba(255, 255, 255, 0.05);
                 color: @fontColor-dark3;
                 .x;
+
                 &.active {
                     background: #fedaa3;
                     color: #24292e;
@@ -624,6 +614,7 @@ export default {
     padding: 0.45rem 1.25rem 4.45rem 1.25rem;
     box-sizing: border-box;
     overflow: auto;
+
     .m-base {
         .w(100%);
     }
@@ -638,11 +629,14 @@ export default {
             gap: 0.5rem;
             //.w(7.5rem);
             flex: 1;
+
             &.line {
                 border-right: 0.5px solid rgba(254, 218, 163, 0.2);
             }
+
             .u-icon {
                 .size(1.25rem, 1.25rem);
+
                 svg,
                 path {
                     fill: #fedaa3;
@@ -651,17 +645,20 @@ export default {
             }
         }
     }
+
     .m-title {
         color: @fontColor;
-        .fz(1rem,1.5rem);
+        .fz(1rem, 1.5rem);
         .bold(700);
         .mb(0.5rem);
     }
+
     .m-horse-card {
         .flex;
         gap: 0.75rem;
         flex-wrap: wrap;
         .mb(1.5rem);
+
         .u-item {
             padding: 0.5rem;
             box-sizing: border-box;
@@ -671,6 +668,7 @@ export default {
             //.flex(o);
             background: #fff;
             .r(0.25rem);
+
             .u-img {
                 .w(100%);
                 .h(calc(calc(calc(100vw - 4.5rem) / 3) - 1rem));
@@ -683,25 +681,29 @@ export default {
                 background-repeat: no-repeat;
                 background-size: cover;
             }
+
             .u-name {
                 color: @fontColor;
-                .fz(0.875rem,1.25rem);
+                .fz(0.875rem, 1.25rem);
                 .bold(700);
                 font-style: normal;
             }
+
             .u-id {
                 color: @fontColor40;
-                .fz(0.625rem,0.938rem);
+                .fz(0.625rem, 0.938rem);
                 font-style: normal;
                 .bold(400);
             }
         }
     }
+
     .m-harness-card {
         .flex;
         gap: 0.75rem;
         flex-wrap: wrap;
         .mb(1.5rem);
+
         .u-harness-item {
             padding: 0.5rem;
             box-sizing: border-box;
@@ -711,25 +713,28 @@ export default {
             .flex(o);
             background: #fff;
             .r(0.25rem);
+
             .u-info {
                 .w(calc(calc(100% - 38px) - 0.5rem));
                 .flex;
                 flex-direction: column;
                 justify-content: center;
             }
+
             .u-name {
                 color: @fontColor;
-                .fz(0.875rem,1.25rem);
+                .fz(0.875rem, 1.25rem);
                 .bold(700);
                 font-style: normal;
                 .w(100%);
                 overflow: hidden;
                 white-space: nowrap;
             }
+
             .u-id {
                 .mt(0.25rem);
                 color: @fontColor40;
-                .fz(0.625rem,0.938rem);
+                .fz(0.625rem, 0.938rem);
                 font-style: normal;
                 .bold(400);
             }
@@ -741,26 +746,33 @@ export default {
 @media (prefers-color-scheme: dark) {
     .p-furniture_mobile {
         background-color: #000;
+
         .m-title {
             color: @fontColor-dark2;
         }
+
         .m-horse-card {
             .u-item {
                 background: #282828;
+
                 .u-name {
                     color: @fontColor-dark2;
                 }
+
                 .u-id {
                     color: @fontColor-dark3;
                 }
             }
         }
+
         .m-harness-card {
             .u-harness-item {
                 background: #282828;
+
                 .u-name {
                     color: @fontColor-dark2;
                 }
+
                 .u-id {
                     color: @fontColor-dark3;
                 }

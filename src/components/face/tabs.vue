@@ -2,38 +2,36 @@
     <CommonToolbar class="m-face-tabs" :active="active" search :types="body_types" @update="updateToolbar">
         <template v-slot:filter>
             <div class="u-filter">
-                <el-popover placement="bottom-end" trigger="click" v-model="filterOpen">
+                <el-popover placement="bottom-end" trigger="click" v-model="filterOpen" :width="400">
                     <div class="m-face-filter m-common-filter">
-                        <el-radio-group v-model="is_new_face" v-if="client === 'std'">
-                            <el-radio-button class="u-filter" :label="-1">全部</el-radio-button>
-                            <el-radio-button class="u-filter" :label="1">写实</el-radio-button>
-                            <el-radio-button class="u-filter" :label="0">写意</el-radio-button>
-                        </el-radio-group>
-                        <p>
+                        <div class="u-filter-item">
+                            <el-radio-group v-model="is_new_face" v-if="client === 'std'">
+                                <el-radio-button class="u-filter" :label="-1">全部</el-radio-button>
+                                <el-radio-button class="u-filter" :label="1">写实</el-radio-button>
+                                <el-radio-button class="u-filter" :label="0">写意</el-radio-button>
+                            </el-radio-group>
+                        </div>
+
+                        <div class="u-filter-item">
                             <el-checkbox-button
-                                @click="
-                                    star = false;
-                                    price_type = false;
-                                    is_unlimited = false;
-                                "
-                                :value="star === false && price_type === false && is_unlimited === false"
-                                class="u-filter"
-                                >全部</el-checkbox-button
-                            >
+                                :model-value="star === false && price_type === false && is_unlimited === false"
+                                @change="handleSelectAll" class="u-filter">全部</el-checkbox-button>
                             <el-checkbox-button v-model="star" class="u-filter">精选</el-checkbox-button>
                             <el-checkbox-button v-model="price_type" class="u-filter">免费</el-checkbox-button>
                             <el-checkbox-button v-model="is_unlimited" class="u-filter">可新建</el-checkbox-button>
-                        </p>
-                        <p style="margin-top: 0">
+                        </div>
+                        <div class="u-filter-item">
                             <el-radio-group v-model="filter_empty_images">
                                 <el-radio-button class="u-filter" :label="0">全部</el-radio-button>
                                 <el-radio-button class="u-filter" :label="1">有图</el-radio-button>
                             </el-radio-group>
-                        </p>
-                        <el-radio-group v-model="code_mode">
-                            <el-radio-button class="u-filter" label="">全部</el-radio-button>
-                            <el-radio-button class="u-filter" :label="1">捏脸码</el-radio-button>
-                        </el-radio-group>
+                        </div>
+                        <div class="u-filter-item">
+                            <el-radio-group v-model="code_mode">
+                                <el-radio-button class="u-filter" label="">全部</el-radio-button>
+                                <el-radio-button class="u-filter" :label="1">捏脸码</el-radio-button>
+                            </el-radio-group>
+                        </div>
                     </div>
                     <template #reference>
                         <img svg-inline src="@/assets/img/filter.svg" />
@@ -41,8 +39,8 @@
                 </el-popover>
             </div>
         </template>
-        <template v-if="!isMininote" v-slot:append>
-            <div class="m-toolbar-item m-toolbar-publish">
+        <template v-slot:append>
+            <div v-if="!isMininote" class="m-toolbar-item m-toolbar-publish">
                 <a :href="link.data" target="_blank">
                     <el-button type="primary" size="medium" class="u-analysis"> 数据解析 </el-button>
                 </a>
@@ -54,8 +52,8 @@
                 </a>
             </div>
         </template>
-        <template v-if="isMininote" v-slot:tool>
-            <div class="m-toolbar-item">
+        <template v-slot:tool>
+            <div v-if="isMininote" class="m-toolbar-item">
                 <a :href="publish_link(link.key)" target="_blank">
                     <div class="u-face-publish">
                         <img svg-inline src="@/assets/img/face/face-publish.svg" class="u-img" />
@@ -132,6 +130,11 @@ export default {
         handleResize() {
             this.screenWidth = window.innerWidth;
         },
+        handleSelectAll() {
+            this.star = false;
+            this.price_type = false
+            this.is_unlimited = false
+        },
     },
     watch: {
         params: {
@@ -164,44 +167,60 @@ export default {
             background-color: @faceColor;
         }
     }
+
     .u-analysis {
         .r(5px);
         .fz(16px);
         background-color: #e54059;
         border-color: #e54059;
         transition: 0.3s ease-out;
+
         &:hover {
             filter: brightness(1.1);
         }
     }
+
     .u-face-publish {
         .pr;
         .pointer;
         .bold;
         .pr(10px);
+        min-height: 38px;
         .size(120px, 38px);
         .fz(16px, 38px);
         .r(5px);
         background: @faceColor;
         color: #fff;
+
         span {
             .fr;
         }
+
         .u-img {
             .pa;
             .lb(0);
             .w(65px);
         }
+
         &:hover {
             filter: brightness(1.1);
         }
     }
 }
+
 .m-face-filter {
     .flex;
+    flex-wrap: wrap;
     gap: 10px;
+    .w(100%);
     flex-direction: column;
+
     .u-filter {
+        .u-filter-item {
+            .w(100%);
+            flex-shrink: 0;
+        }
+
         .el-button,
         .el-checkbox-button__inner,
         .el-radio-button__inner {
@@ -210,24 +229,29 @@ export default {
             .r(30px);
             border: 1px solid #dcdfe6;
             background-color: #e1dfdf;
+
             &:hover {
                 color: #fff;
                 background-color: @faceColor;
                 border-color: @faceColor;
             }
         }
-        .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+
+        .el-radio-button__orig-radio:checked+.el-radio-button__inner {
             background-color: @faceColor;
             border-color: @faceColor;
         }
+
         .el-checkbox-button__inner {
             white-space: nowrap;
             transition: 0.3s ease-out;
+
             &:hover {
                 background-color: @faceColor;
                 color: #fff;
             }
         }
+
         &.is-checked {
             .el-checkbox-button__inner {
                 border-color: @faceColor;
@@ -237,6 +261,7 @@ export default {
         }
     }
 }
+
 @media screen and (max-width: @ipad) {
     .m-face-tabs {
         .m-toolbar-publish {
@@ -245,13 +270,16 @@ export default {
         }
     }
 }
-// @media screen and (max-width: @phone) {
-//     .m-face-tabs .m-toolbar-item {
-//         &.m-toolbar-publish {
-//             a:first-child {
-//                 order: 2;
-//             }
-//         }
-//     }
-// }
+
+/*
+@media screen and (max-width: @phone) {
+    .m-face-tabs .m-toolbar-item {
+        &.m-toolbar-publish {
+            a:first-child {
+                order: 2;
+            }
+        }
+    }
+}
+*/
 </style>

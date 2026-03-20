@@ -1,57 +1,74 @@
 .reputation-container {
     .pt(40px);
+
     .m-reputation-tabs {
         .u-select {
-            .flex;
+            height: 40px;
             width: 260px;
+
             input {
                 .r(30px);
             }
         }
+
         .u-item {
             background-color: #d16400;
             color: #fff;
         }
+
         .m-toolbar-item {
             .flex;
             gap: 10px;
             align-items: center;
-            .el-select .el-input .el-input__inner {
-                border: 2px solid #f3f4f5;
-                background: #f3f4f5;
-                color: #b0b0b0;
-                padding-left: 60px;
-            }
-            .active .el-input .el-input__inner,
-            .el-select .el-input.is-focus .el-input__inner {
-                .bold;
-                border: 2px solid #d16400;
-                background: rgba(209, 100, 0, 0.1);
-                color: #000;
-                &::placeholder {
+
+            .u-select {
+                .el-select__wrapper {
+                    .r(30px);
+                    .h(40px);
+                    border: none;
+                    background: #f3f4f5;
+                    color: #b0b0b0;
+                    box-shadow: none;
+                }
+
+                &.active .el-select__wrapper,
+                .el-select__wrapper.is-focused {
+                    .bold;
+                    border: none;
+                    background: rgba(209, 100, 0, 0.1);
+                    color: #000;
+                    box-shadow: none;
+                }
+
+                .el-select__prefix {
+                    color: #949494;
+                }
+
+                &.active .el-select__prefix {
+                    color: #d16400;
+                }
+
+                .el-select__input {
+                    font-weight: 700;
                     color: #000;
                 }
             }
-            .el-input__prefix {
-                line-height: 40px;
-                padding: 0 10px;
-                color: #949494;
-            }
-            .active .el-input__prefix {
-                color: #d16400;
-            }
         }
+
         .u-tab {
             transition: 0.3s ease-out;
+
             &.active,
             &:hover {
                 background-color: @active-color;
                 color: #fff;
             }
         }
+
         .u-search {
             .flex;
             align-items: center;
+
             input {
                 border-radius: 30px;
                 font-size: 16px;
@@ -68,12 +85,14 @@
 
     .reputation-list-wrapper {
         .pt(40px);
+
         .reputation-title {
             .fz(28px);
             .bold;
             color: #24292e;
         }
     }
+
     .reputation-list {
         .flex;
         flex-wrap: wrap;
@@ -87,6 +106,7 @@
     .reputation-container {
         .m-common-tabs {
             flex-direction: column;
+
             .m-group {
                 .w(100%);
                 .r(10px);
@@ -95,11 +115,14 @@
                 box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
             }
         }
+
         .reputation-list .reputation-item {
             .w(100%);
+
             .reputation-icon {
                 flex-shrink: 0;
             }
+
             .progress-wrap {
                 width: 100%;
             }

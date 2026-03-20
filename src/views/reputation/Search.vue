@@ -85,7 +85,7 @@ export default {
         },
     },
     watch: {},
-    created() {},
+    created() { },
     mounted() {
         this.loadData();
     },
@@ -148,9 +148,11 @@ export default {
 .m-pvx-reputation-search {
     height: 100%;
     background: #f9f9f9;
+
     .u-search {
         .mt(15px);
     }
+
     .u-select {
         .mb(10px);
         .w(100%);
@@ -179,18 +181,23 @@ export default {
         gap: 10px;
         align-items: center;
         background: #f9f9f9;
+
         &::-webkit-scrollbar {
             width: 0;
             height: 0;
         }
+
         .reputation-title {
             .fz(16px);
         }
+
         .reputation-show-list {
             .w(100%);
+
             .u-title {
                 .fz(16px);
             }
+
             .u-list {
                 .mt(10px);
                 .flex;
@@ -199,11 +206,13 @@ export default {
                 background: #f9f9f9;
             }
         }
+
         .reputation-item {
             .w(100%);
         }
     }
 }
+
 //@media screen and (width: 390px)
 @media (prefers-color-scheme: dark) {
     .v-miniprogram {
@@ -211,16 +220,20 @@ export default {
             background: #000000;
         }
     }
+
     .m-pvx-reputation-search {
         .u-search {
             background: #000000;
         }
+
         .reputation-list {
             background: #000000;
+
             .reputation-show-list {
                 .u-title {
                     color: #ffffff;
                 }
+
                 .u-list {
                     background: #000000;
                 }

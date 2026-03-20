@@ -5,7 +5,9 @@
             <Upload type="face" @success="handleSuccess">
                 <template #guide>
                     <a class="u-help" href="/tool/746" target="_blank">
-                        <i class="el-icon-collection"></i> 游戏脸型导入导出指南
+                        <el-icon>
+                            <Collection />
+                        </el-icon> 游戏脸型导入导出指南
                     </a>
                 </template>
             </Upload>
@@ -18,6 +20,7 @@
 import Facedat from "@jx3box/jx3box-facedat/src/Facedat";
 import Upload from "@jx3box/jx3box-facedat/src/Upload";
 import { __imgPath } from "@/utils/config";
+import { Collection } from '@element-plus/icons-vue';
 export default {
     name: "FacedataParse",
     props: [],
@@ -42,10 +45,11 @@ export default {
             }
         },
     },
-    mounted: function () {},
+    mounted: function () { },
     components: {
         Facedat,
         Upload,
+        Collection,
     },
 };
 </script>

@@ -1,11 +1,8 @@
 <template>
     <div class="reputation-container" v-loading="loading">
-        <SuspendCommon
-            :btnOptions="{ showHome: true }"
-            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }"
-            @search="search"
-            v-if="isMiniProgram"
-        >
+        <SuspendCommon :btnOptions="{ showHome: true }"
+            :drawerOptions="{ hideType: ['collect', 'rss', 'laterOn', 'pin', 'user', 'report'] }" @search="search"
+            v-if="isMiniProgram">
             <template #default>
                 <!--                切换按钮区域-->
                 <div class="m-suspend-btn">
@@ -21,24 +18,11 @@
             </template>
         </SuspendCommon>
         <!--        版本筛选弹窗-->
-        <el-drawer
-            v-model:visible="showForm"
-            direction="btt"
-            :with-header="false"
-            custom-class="u-drawer"
-            :modal-append-to-body="false"
-            append-to-body
-            class="p-drawer-suspend"
-        >
+        <el-drawer v-model="showForm" direction="btt" :with-header="false" custom-class="u-drawer"
+            :modal-append-to-body="false" append-to-body class="c-drawer">
             <div class="m-reputation-tabs__miniprogram">
-                <!--                <div class="u-tab" :class="{ active: isAll }" @click="switchVersion()">全部</div>-->
-                <div
-                    class="u-tab"
-                    v-for="item in versions"
-                    :class="{ active: dlc === item.value }"
-                    :key="item.value"
-                    @click="switchVersion(item.value)"
-                >
+                <div class="u-tab" v-for="item in versions" :class="{ active: dlc === item.value }" :key="item.value"
+                    @click="switchVersion(item.value)">
                     {{ item.label.replace(/\([^)]*\)/g, "") }}
                 </div>
             </div>
@@ -48,12 +32,8 @@
                 <div class="m-toolbar-item">
                     <div class="u-item" :class="{ active: isAll }" @click="toAll">全部</div>
                     <el-select class="u-select" v-model="dlc" clearable :class="{ active: dlc }">
-                        <el-option
-                            v-for="item in versions"
-                            :key="item.value"
-                            :value="item.value"
-                            :label="item.label"
-                        ></el-option>
+                        <el-option v-for="item in versions" :key="item.value" :value="item.value"
+                            :label="item.label"></el-option>
                         <template #prefix> 版本 </template>
                     </el-select>
                 </div>
@@ -69,7 +49,7 @@
         <!--            </div>-->
         <!--        </el-scrollbar>-->
 
-	        <div v-if="isAll && !keyword && !isMiniProgram" class="reputation-list-wrapper">
+        <div v-if="isAll && !keyword && !isMiniProgram" class="reputation-list-wrapper">
             <div class="reputation-title">资料片新增</div>
             <div class="reputation-list">
                 <reputation-item :item="item" v-for="item in newsList" :key="item.dwForceID"></reputation-item>
@@ -250,4 +230,5 @@ export default {
 @import "~@/assets/css/reputation/home.less";
 @import "~@/assets/css/reputation/reputation_miniprogram.less";
 @import "~@/assets/css/miniprogram.less";
+@import "~@/assets/css/common/drawer.less";
 </style>

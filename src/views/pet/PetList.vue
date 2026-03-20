@@ -1,13 +1,7 @@
 <template>
     <div class="p-pet-list p-common-list" v-loading="loading" ref="listRef">
-        <petTabs
-            @change="handleTabChange"
-            :types="Type"
-            :active="active"
-            :Source="Source"
-            @setActive="setActive"
-            :mapList="mapList"
-        />
+        <petTabs @change="handleTabChange" :types="Type" :active="active" :Source="Source" @setActive="setActive"
+            :mapList="mapList" />
         <PublicNotice bckey="pet_ac" />
         <template v-if="luckyList.length > 0 && !showAllList">
             <div class="m-pet-title u-type u-lucky-title">
@@ -35,33 +29,13 @@
             <div class="m-pet-list">
                 <pet-item v-for="pet in list" :key="pet.id" :petObject="pet" />
             </div>
-            <el-button
-                class="m-archive-more"
-                v-show="hasNextPage"
-                type="primary"
-                @click="appendPage"
-                :loading="loading"
-                icon="el-icon-arrow-down"
-                >加载更多</el-button
-            >
-            <el-pagination
-                class="m-archive-pages"
-                background
-                layout="total, prev, pager, next, jumper"
-                :hide-on-single-page="true"
-                :page-size="per_page"
-                :total="total"
-                v-model:current-page="page"
-            ></el-pagination>
+            <el-button class="m-archive-more" v-show="hasNextPage" type="primary" @click="appendPage" :loading="loading"
+                icon="el-icon-arrow-down">加载更多</el-button>
+            <el-pagination class="m-archive-pages" background layout="total, prev, pager, next, jumper"
+                :hide-on-single-page="true" :page-size="per_page" :total="total"
+                v-model:current-page="page"></el-pagination>
         </template>
-        <el-alert
-            v-if="isNoRes()"
-            class="m-archive-null"
-            title="没有找到相关宠物"
-            type="info"
-            center
-            show-icon
-        ></el-alert>
+        <el-alert v-if="isNoRes()" class="m-archive-null" title="没有找到相关宠物" type="info" center show-icon></el-alert>
     </div>
 </template>
 <script>
@@ -156,16 +130,19 @@ export default {
         params: {
             deep: true,
             handler(val) {
-                this.getPetListInit(val);
+                this.$nextTick(() => {
+                    this.getPetListInit(val);
+                })
             },
         },
     },
     created() {
-        this.showCount();
+
+    },
+    mounted: function () {
         this.getPetLucky();
         this.getMapList();
     },
-    mounted: function () {},
     methods: {
         getMapList() {
             getMapList().then((res) => {
@@ -278,6 +255,7 @@ export default {
         showCount(num = 1) {
             if (this.isPhone) num += 8;
             const listWidth = this.$refs.listRef?.clientWidth;
+            console.log(listWidth);
             this.per_page = Math.floor(listWidth / 206) * num;
         },
     },
