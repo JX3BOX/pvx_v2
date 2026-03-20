@@ -1,31 +1,19 @@
 <template>
     <div class="p-horse-single_mobile">
-        <SuspendCommon
-            :btnOptions="{ showHome: true }"
-            :drawerOptions="{
-                hideType: ['report', 'rss', 'search', 'user'],
-                title: item.Name,
-                postType: 'horse',
-                id: id,
-            }"
-            @search="search"
-            v-if="$route.query?.disabled != 'true'"
-            class="u-horse-common"
-        >
+        <SuspendCommon :btnOptions="{ showHome: true }" :drawerOptions="{
+            hideType: ['report', 'rss', 'search', 'user'],
+            title: item.Name,
+            postType: 'horse',
+            id: id,
+        }" @search="search" v-if="$route.query?.disabled != 'true'" class="u-horse-common">
         </SuspendCommon>
         <div class="m-info-main">
             <div class="u-top-box">
                 <div class="u-img">
                     <img v-if="type !== 2" :src="getImgSrc(item, true)" @error="replaceByDefault" class="u-image" />
 
-                    <item-icon
-                        v-else
-                        class="u-image"
-                        :item_id="String(item.ItemID)"
-                        :isLink="false"
-                        :size="150"
-                        :onlyIcon="true"
-                    ></item-icon>
+                    <item-icon v-else class="u-image" :item_id="String(item.ItemID)" :isLink="false" :size="150"
+                        :onlyIcon="true"></item-icon>
                 </div>
                 <div class="u-info">
                     <div class="u-name">{{ item.Name }}</div>
@@ -106,7 +94,9 @@
             </div>
             <div class="u-more" v-show="sameList.length > 3 && !showMore" @click="showMore = true">加载更多</div>
         </div>
-        <div><PvxUserMiniprogram :id="id" name="坐骑" type="item"></PvxUserMiniprogram></div>
+        <div>
+            <PvxUserMiniprogram :id="id" name="坐骑" type="item"></PvxUserMiniprogram>
+        </div>
     </div>
 </template>
 <script>
@@ -172,22 +162,22 @@ export default {
             const attrs = this.item.MagicAttributes;
             return attrs && attrs.length
                 ? attrs
-                      .filter((item) => !item.level || item.level === "0")
-                      .map((mItem) => {
-                          mItem.iconUrl = iconLink(mItem.icon);
-                          return mItem;
-                      })
+                    .filter((item) => !item.level || item.level === "0")
+                    .map((mItem) => {
+                        mItem.iconUrl = iconLink(mItem.icon);
+                        return mItem;
+                    })
                 : [];
         },
         magicAttrs() {
             const attrs = this.item.MagicAttributes;
             return attrs && attrs.length
                 ? attrs
-                      .filter((item) => item.icon && item.level !== "0")
-                      .map((mItem) => {
-                          mItem.iconUrl = iconLink(mItem.icon);
-                          return mItem;
-                      })
+                    .filter((item) => item.icon && item.level !== "0")
+                    .map((mItem) => {
+                        mItem.iconUrl = iconLink(mItem.icon);
+                        return mItem;
+                    })
                 : [];
         },
         typeName() {
@@ -360,17 +350,21 @@ export default {
     .m-main {
         padding: 0;
     }
+
     body {
         padding: 0 !important;
     }
+
     .el-backtop {
         display: none;
     }
+
     .u-attr-popover {
         border: none;
         background: #303133;
         color: #fff;
         .fz(0.85rem);
+
         .u-attr-name {
             color: #00d24b;
         }
@@ -383,90 +377,108 @@ export default {
     box-sizing: border-box;
     overflow: auto;
     height: 100vh;
+
     .u-horse-common {
         .m-more {
             border-left: none;
         }
     }
+
     .m-info-main {
         background: #fff;
         .r(0.75rem);
         padding: 1rem;
         box-sizing: border-box;
+
         .u-top-box {
             .flex;
             //justify-content: space-between;
             gap: 0.5rem;
             .mb(1rem);
+
             .u-name {
                 color: @fontColor;
-                .fz(1rem,1.5rem);
+                .fz(1rem, 1.5rem);
                 .bold(700);
             }
+
             .u-id {
                 color: @fontColor;
-                .fz(0.75rem,1.5rem);
+                .fz(0.75rem, 1.5rem);
                 .bold(400);
             }
+
             .u-img {
                 .size(2.875rem);
                 .r(0.25rem);
                 background: #aaa;
             }
         }
+
         .m-box {
             .mb(1rem);
+
             .u-title {
                 color: @fontColor-40;
-                .fz(0.75rem,1.125rem);
+                .fz(0.75rem, 1.125rem);
                 .bold(400);
                 .mb(0.25rem);
             }
+
             .u-text {
                 color: @fontColor-80;
-                .fz(0.875rem,1.25rem);
+                .fz(0.875rem, 1.25rem);
                 .bold(400);
             }
         }
+
         .m-other {
             .flex;
             flex-wrap: wrap;
             gap: 1rem;
+
             .u-item {
                 .w(calc(calc(100% - 1rem) / 2));
                 flex-shrink: 0;
             }
         }
+
         .m-attrs {
             .u-attrs {
                 .flex;
                 flex-wrap: wrap;
                 gap: 0.5rem;
+
                 .u-attr-item {
                     .size(2.25rem);
                     .r(0.25rem);
                     background: #d9d9d9;
                 }
+
                 .u-attr-icon {
                     .r(0.25rem);
                 }
             }
         }
     }
+
     //同类坐骑
     .m-same-horses {
         margin: 1.25rem 0;
+
         .m-title {
             color: @fontColor;
-            .fz(1rem,1.5rem);
+            .fz(1rem, 1.5rem);
             .bold(700);
             .mb(0.5rem);
         }
+
         .m-horse-card {
             .flex;
             gap: 0.75rem;
             .mb(1rem);
             flex-wrap: wrap;
+
             .u-item {
                 padding: 0.5rem;
                 box-sizing: border-box;
@@ -477,6 +489,7 @@ export default {
                 //.flex(o);
                 background: #fff;
                 .r(0.25rem);
+
                 .u-img {
                     .w(100%);
                     border-radius: 0.25rem;
@@ -484,64 +497,78 @@ export default {
                     .mb(0.5rem);
                     border: 1px solid #ff2dff;
                 }
+
                 .u-name {
                     color: @fontColor;
-                    .fz(0.875rem,1.25rem);
+                    .fz(0.875rem, 1.25rem);
                     .bold(700);
                     font-style: normal;
                 }
+
                 .u-id {
                     color: @fontColor-40;
-                    .fz(0.625rem,0.938rem);
+                    .fz(0.625rem, 0.938rem);
                     font-style: normal;
                     .bold(400);
                 }
             }
         }
+
         .u-more {
             color: @fontColor-40;
-            .fz(0.75rem,1.125rem);
+            .fz(0.75rem, 1.125rem);
             .bold(400);
             .x;
         }
     }
 }
+
 //@media screen and (width: 414px)
 @media (prefers-color-scheme: dark) {
     .p-horse-single_mobile {
         background-color: #000;
+
         .m-info-main {
             background: #282828;
+
             .u-top-box {
+
                 .u-name,
                 .u-id {
                     color: @fontColor-dark;
                 }
             }
+
             .m-box {
                 .u-title {
                     color: @fontColor-40-dark;
                 }
+
                 .u-text {
                     color: @fontColor-80-dark;
                 }
             }
         }
+
         .m-same-horses {
             .m-title {
                 color: @fontColor-80-dark;
             }
+
             .m-horse-card {
                 .u-item {
                     background: #282828;
+
                     .u-name {
                         color: @fontColor-dark;
                     }
+
                     .u-id {
                         color: @fontColor-40-dark;
                     }
                 }
             }
+
             .u-more {
                 color: @fontColor-40-dark;
             }
