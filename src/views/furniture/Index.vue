@@ -1,99 +1,62 @@
 <template>
     <div ref="listRef" class="p-furniture" v-loading="loading">
-        <PvxSearch
-            ref="search"
-            :items="isPhone ? searchProps.slice(0, 1) : searchProps"
-            :initValue="initValue"
-            :active="isActive"
-            class="m-furniture-search"
-            @search="searchEvent($event)"
-        >
+        <PvxSearch ref="search" :items="isPhone ? searchProps.slice(0, 1) : searchProps" :initValue="initValue"
+            :active="isActive" class="m-furniture-search" @search="searchEvent($event)">
             <template v-slot:default>
                 <div class="u-furniture-select" :class="version && 'is-selected'">
                     <label v-if="!isPhone">庐园广记</label>
                     <el-select v-model="version" :placeholder="isPhone ? '庐园广记' : ''">
-                        <el-option
-                            v-for="item in versions"
-                            :key="item.nDlcID"
-                            :value="item.nDlcID"
-                            :label="item.name"
-                        ></el-option>
+                        <el-option v-for="item in versions" :key="item.nDlcID" :value="item.nDlcID"
+                            :label="item.name" />
                     </el-select>
                 </div>
             </template>
         </PvxSearch>
         <template v-if="isPhone">
-            <PvxSearch
-                style="margin-top: 40px"
-                ref="search"
-                :items="searchProps.slice(2, 3)"
-                :initValue="initValue"
-                :active="isActive"
-                class="m-furniture-search"
-                @search="searchEvent($event)"
-            >
-            </PvxSearch>
+            <PvxSearch style="margin-top: 40px" ref="searchMobile" :items="searchProps.slice(2, 3)"
+                :initValue="initValue" :active="isActive" class="m-furniture-search" @search="searchEvent($event)" />
         </template>
         <div v-if="childCategory.length" class="m-child-category">
             <div class="u-item" :class="!childActive && 'is-active'" @click="setIndex('')">全部</div>
-            <div
-                class="u-item"
-                :class="item.nCatag2Index === childActive ? 'is-active' : ''"
-                v-for="item in childCategory"
-                :key="item.dwTableID"
-                @click.stop="setIndex(item.nCatag2Index)"
-            >
+            <div class="u-item" :class="item.nCatag2Index === childActive ? 'is-active' : ''"
+                v-for="item in childCategory" :key="item.dwTableID" @click.stop="setIndex(item.nCatag2Index)">
                 {{ item.szName }}
             </div>
         </div>
         <div v-if="list.length" class="m-furniture-list" :class="!childCategory.length && 'm-no-child'">
-            <!--            <FurnitureItem :item="item" v-for="item in list" :key="item.ID" :copy="hasCopy"></FurnitureItem>-->
             <furnitureSet :data="item" v-for="item in list" :key="item.ID" :category="categoryObj" :copy="hasCopy" />
             <div class="m-furniture-null" v-if="!list.length">
-                <el-alert center title="没有对应的家具" show-icon type="info"> </el-alert>
+                <el-alert center title="没有对应的家具" show-icon type="info" />
             </div>
         </div>
         <div v-if="setList.length" class="m-furniture-wrap">
             <div class="u-set-item" v-for="setItem in setList" :key="setItem.dwSetID">
                 <div class="u-title">{{ setItem.szName }}</div>
                 <div class="u-furniture-list">
-                    <furnitureSet
-                        :data="item"
-                        v-for="item in setItem.furnitures"
-                        :key="item.ID"
-                        :category="categoryObj"
-                    />
+                    <furnitureSet :data="item" v-for="item in setItem.furnitures" :key="item.ID"
+                        :category="categoryObj" />
                 </div>
             </div>
         </div>
         <div v-if="list.length" class="m-furniture-pages">
-            <el-button
-                class="m-archive-more"
-                v-show="hasNextPage"
-                @click="appendPage"
-                :loading="loading"
-                icon="el-icon-arrow-down"
-                :style="{ width: buttonWidth ? buttonWidth + 'px' : '100%' }"
-                >加载更多</el-button
-            >
-            <el-pagination
-                class="m-archive-pages"
-                background
-                layout="total, prev, pager, next, jumper"
-                :hide-on-single-page="true"
-                :page-size="per"
-                :total="total"
-                v-model:current-page="page"
-                @current-change="changePage"
-            ></el-pagination>
+            <el-button class="m-archive-more" v-show="hasNextPage" @click="appendPage" :loading="loading"
+                :style="{ width: buttonWidth ? buttonWidth + 'px' : '100%' }">
+                <el-icon class="el-icon--left">
+                    <ArrowDown />
+                </el-icon>
+                加载更多
+            </el-button>
+            <el-pagination class="m-archive-pages" background layout="total, prev, pager, next, jumper"
+                :hide-on-single-page="true" :page-size="per" :total="total" v-model:current-page="page"
+                @current-change="changePage" />
         </div>
         <PvxBacktop color="#fff" bgColor="#07ad36"></PvxBacktop>
     </div>
 </template>
 
 <script>
+import { ArrowDown } from "@element-plus/icons-vue";
 import PvxSearch from "@/components/PvxSearch.vue";
-// import FurnitureItem from "@/components/furniture/FurnitureItem.vue";
 import furnitureSet from "@/components/furniture/furniture_set.vue";
 import PvxBacktop from "@/components/PvxBacktop.vue";
 
@@ -108,7 +71,7 @@ const { sourceList, levelList, categoryList, categoryCss } = furnitureData;
 
 export default {
     name: "Index",
-    components: { PvxSearch, furnitureSet, PvxBacktop },
+    components: { PvxSearch, furnitureSet, PvxBacktop, ArrowDown },
     provide: {
         __imgRoot: __imgPath + "homeland/",
         __dataRoot: __dataPath + "pvx/",
@@ -370,13 +333,13 @@ export default {
                 };
             }
         },
-	        setIndex(i) {
-	            this.childActive = i;
-	            this.search.nCatag2Index = i;
-	        },
-	        getCategory() {
-	            getFurnitureCategory().then((res) => {
-	                this.categoryObj = res?.data || {};
+        setIndex(i) {
+            this.childActive = i;
+            this.search.nCatag2Index = i;
+        },
+        getCategory() {
+            getFurnitureCategory().then((res) => {
+                this.categoryObj = res?.data || {};
                 const list = Object.values(res?.data || {});
                 // list.unshift({
                 //     id: "",
@@ -519,19 +482,24 @@ export default {
 <style lang="less">
 @import "~@/assets/css/furniture/index.less";
 @import "~@/assets/css/miniprogram.less";
+
 .pvx-search-wrapper .search-group .search-item.filter-wrap {
     margin: 0;
 }
+
 .p-furniture .u-furniture-select {
     margin: 0;
 }
+
 @media screen and (max-width: @ipad) {
     .pvx-search-wrapper {
         height: auto;
         padding-left: 15px;
+
         .search-group {
             flex-wrap: wrap;
             flex-direction: row;
+
             .search-item {
                 input {
                     width: 100% !important;
