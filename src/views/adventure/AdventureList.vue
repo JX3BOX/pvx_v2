@@ -306,7 +306,7 @@ export default {
         },
         // 按宽度显示个数
         showCount() {
-            if (isPhone()) {
+            if (isPhone() || isMiniProgram()) {
                 this.per = 8;
                 return;
             }

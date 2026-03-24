@@ -1,26 +1,47 @@
+// ===========================================
+// 变量定义
+// ===========================================
 @themeColor: #d16400;
+@Brand-2: #24292e;
+@Brand-2-dark: #fedaa3;
+@black-40: rgba(28, 28, 28, 0.4);
+@black-80: rgba(28, 28, 28, 0.8);
+@black-100: #1c1c1c;
+@black-40-dark: rgba(255, 255, 255, 0.4);
+@black-80-dark: rgba(255, 255, 255, 0.8);
+@black-100-dark: #ffffff;
+@brand4: #282828;
 
+// ===========================================
+// 页面级样式 - p-adventure-List
+// ===========================================
 .p-adventure-List {
     .u-type {
         .flex;
         .mb(20px);
         justify-content: space-between;
         align-items: flex-end;
+
         .u-all {
             cursor: pointer;
             color: #a5a5a5;
-            .fz(16px,21px);
+            .fz(16px, 21px);
         }
     }
+
     .u-title {
-        .fz(28px,42px);
+        .fz(28px, 42px);
         .bold(700);
         color: #24292e;
     }
 }
 
+// ===========================================
+// 模块级样式 - m-adventure-list
+// ===========================================
 .m-adventure-list {
     .mt(40px);
+
     .u-shade-btn {
         .pointer;
         .pa;
@@ -28,57 +49,91 @@
         .flex;
         .flex(x);
         align-items: center;
-        .size(60px,200px);
+        .size(60px, 200px);
         .fz(26px);
         visibility: hidden;
         background-color: rgba(0, 0, 0, 0.7);
+
         i {
             color: #fff;
         }
+
         &:hover {
             background-color: @themeColor;
+
             i,
             svg {
                 color: #fff;
             }
         }
     }
+
     .u-shade-btn-left {
         border-radius: 10px 0 0 10px;
     }
+
     .u-shade-btn-right {
         border-radius: 0 10px 10px 0;
         right: 0;
     }
+
     .u-disabled {
         cursor: not-allowed;
         background-color: rgba(163, 152, 152, 0.7);
+
         &:hover {
             background-color: rgba(163, 152, 152, 0.7);
         }
     }
 }
 
-//分类型list
+// ===========================================
+// 分类列表样式
+// ===========================================
 .u-all-type {
     margin-top: 20px !important;
 }
-//全部list
+
+// ===========================================
+// 全部列表样式
+// ===========================================
 .m-face-list--all {
     .mb(40px);
     display: inline-flex;
     flex-wrap: wrap;
     gap: 20px;
 }
+
+// ===========================================
+// 分页与加载更多 - 通用样式
+// ===========================================
 .m-archive-more {
     width: 100%;
     .mb(40px);
 }
+
+// ===========================================
+// 其他模块样式
+// ===========================================
+.m-type-list {
+    display: none;
+}
+
+.m-adventure-item {
+    .u-name {
+        display: none;
+    }
+}
+
+// ===========================================
+// 平板端响应式适配
+// ===========================================
 @media screen and (max-width: @ipad) {
     .m-adventure {
         .u-type {
             .mt(20px);
         }
+
         .u-title {
             .fz(24px);
         }
@@ -93,31 +148,10 @@
         .scrollbar(2px);
     }
 }
-// @media screen and (max-width: @phone) {
-//     .p-adventure-List .u-type.u-all-type {
-//         .pt(64px);
-//     }
-// }
 
-.m-type-list {
-    display: none;
-}
-.m-adventure-item {
-    .u-name {
-        display: none;
-    }
-}
-@Brand-2: #24292e;
-@Brand-2-dark: #fedaa3;
-@black-40: rgba(28, 28, 28, 0.4);
-@black-80: rgba(28, 28, 28, 0.8);
-@black-100: #1c1c1c;
-@black-40-dark: rgba(255, 255, 255, 0.4);
-@black-80-dark: rgba(255, 255, 255, 0.8);
-@black-100-dark: #ffffff;
-
-@brand4: #282828;
-// 小程序端适配
+// ===========================================
+// 小程序端适配 - v-miniprogram
+// ===========================================
 .v-miniprogram {
     &::after {
         content: "";
@@ -128,24 +162,29 @@
         z-index: -1;
         background-color: #fafafa;
     }
+
     .m-main {
         padding-right: 0;
         padding-top: 0;
         padding-bottom: calc(20px + env(safe-area-inset-bottom));
     }
+
     .m-common-toolbar,
     .m-card-banner-list .u-action {
         display: none;
     }
+
     .p-common-list {
         padding-top: 0;
     }
+
+    // 类型列表 - 小程序端
     .m-type-list {
         display: flex;
         gap: 18px;
         padding-top: 12px;
         padding-bottom: 4px;
-        .fz(18px,28px);
+        .fz(18px, 28px);
         .bold();
         color: @black-40;
         position: sticky;
@@ -155,8 +194,10 @@
 
         .u-type-item {
             position: relative;
+
             &.is-active {
                 color: @black-100;
+
                 &::after {
                     content: "";
                     display: block;
@@ -172,46 +213,58 @@
             }
         }
     }
-    // 原样式处理
+
+    // 奇遇列表 - 小程序端
     .m-adventure-list {
         .mt(20px);
+        padding: 0 4px;
+
         .u-all-type {
             .mt(20px);
             .mb(8px);
+
             .u-title {
-                .fz(16px,24px);
+                .fz(16px, 24px);
                 color: @black-80;
             }
         }
+
         .m-card-banner-list {
             .m-card-banner-list_header {
                 .mb(8px);
+
                 .u-title {
-                    .fz(16px,24px);
+                    .fz(16px, 24px);
                     color: @black-80;
                 }
             }
+
             .m-card-banner-list_box {
                 .m-cardlist-items {
                     grid-template-columns: repeat(8, minmax(156px, 1fr)) !important;
                     gap: 12px;
                     padding-bottom: 28px;
+
                     .m-cardlist-item {
                         background-color: transparent;
                         border: none;
+
                         .m-adventure-item {
                             height: 100%;
                             overflow: initial;
                             box-shadow: none;
                             border-radius: 8px;
                             border: 1px solid rgba(40, 40, 40, 0.05);
+
                             &:hover {
                                 background-color: transparent;
                                 box-shadow: none;
                             }
+
                             .u-title {
                                 bottom: 10px;
                             }
+
                             .u-name {
                                 position: absolute;
                                 bottom: -8px;
@@ -223,6 +276,7 @@
                                 display: block;
                             }
                         }
+
                         &:nth-of-type(n + 9) {
                             display: none;
                         }
@@ -230,14 +284,26 @@
                 }
             }
         }
-        .m-archive-more,
-        .m-archive-pages {
-            width: calc(100% - 20px);
+    }
+
+    // 分页样式 - 小程序端
+    .m-archive-pages {
+        background-color: @themeColor;
+
+        .el-pager {
+            background-color: @themeColor;
+
+            .is-active {
+                background-color: @themeColor  !important;
+            }
         }
     }
+
+    // 全部列表 - 小程序端
     .m-face-list--all {
         .pr(20px);
         margin-bottom: 0;
+
         .m-adventure-item {
             flex: calc(50% - 20px);
             height: 100%;
@@ -245,9 +311,11 @@
             overflow: initial;
             box-shadow: none;
             border: 1px solid rgba(40, 40, 40, 0.05);
+
             .u-title {
                 bottom: 10px;
             }
+
             .u-name {
                 position: absolute;
                 bottom: -8px;
@@ -259,18 +327,24 @@
                 display: block;
             }
         }
+
         &::after {
             content: "";
             flex: 0 0 calc(50% - 20px);
         }
     }
+
+    // 加载更多 - 小程序端
     .m-get-more {
         text-align: center;
         padding-top: 20px;
     }
+
     .m-base {
         .w(100%);
     }
+
+    // 悬浮按钮 - 小程序端
     .m-suspend-btn {
         .flex;
         align-items: center;
@@ -279,13 +353,15 @@
             .flex;
             .flex(o);
             gap: 0.5rem;
-            //.w(7.5rem);
             flex: 1;
+
             &.line {
                 border-right: 0.5px solid rgba(254, 218, 163, 0.2);
             }
+
             .u-icon {
                 .size(1.25rem, 1.25rem);
+
                 svg,
                 path {
                     fill: #fedaa3;
@@ -295,32 +371,39 @@
         }
     }
 
+    // 抽屉样式 - 小程序端
     .p-adventure-drawer-type {
         background-color: #24292e !important;
         border-radius: 1.25rem 1.25rem 0 0;
         padding: 1.25rem 0.75rem 2.5rem 0.75rem;
         height: auto !important;
+
         .el-drawer__body {
             padding: 0;
         }
+
         .u-drawer-title {
-            .fz(18px,20px);
+            .fz(18px, 20px);
             .bold();
             color: rgba(255, 255, 255, 0.6);
         }
+
         .m-drawer-content {
             .mt(12px);
             display: flex;
             gap: 8px;
+
             .m-type-item {
                 flex: 1;
                 padding: 16px 0;
                 background-color: rgba(255, 255, 255, 0.1);
                 border-radius: 8px;
+
                 .u-type-icon {
                     display: block;
                     margin: 0 auto;
-                    .size(60px,60px);
+                    .size(60px, 60px);
+
                     svg,
                     path {
                         fill: rgba(255, 255, 255, 0.8);
@@ -330,10 +413,9 @@
 
                 .u-type-name {
                     .mt(8px);
-                    .fz(14px,20px);
+                    .fz(14px, 20px);
                     .bold();
                     text-align: center;
-                    // color: #000;
                     color: rgba(255, 255, 255, 0.6);
                 }
 
@@ -341,6 +423,7 @@
                     background-color: #fedaa3;
 
                     .u-type-icon {
+
                         svg,
                         path {
                             fill: #24292e;
@@ -357,8 +440,9 @@
 
         .m-search-input {
             .mt(12px);
+
             .u-input {
-                .fz(14px,20px);
+                .fz(14px, 20px);
                 width: 100%;
                 box-sizing: border-box;
                 background-color: transparent;
@@ -371,6 +455,10 @@
         }
     }
 }
+
+// ===========================================
+// 小程序端 - 深色模式适配
+// ===========================================
 @media (prefers-color-scheme: dark) {
     .v-miniprogram {
         &::after {
@@ -384,32 +472,38 @@
             .u-type-item {
                 &.is-active {
                     color: @black-100-dark;
+
                     &::after {
                         background-color: @black-100-dark;
                     }
                 }
             }
         }
+
         .m-adventure-list {
             .u-all-type {
                 .u-title {
                     color: @black-80-dark;
                 }
             }
+
             .m-card-banner-list {
                 .m-card-banner-list_header {
                     .u-title {
                         color: @black-80-dark;
                     }
                 }
+
                 .m-card-banner-list_box {
                     .m-cardlist-items {
                         .m-cardlist-item {
                             background-color: transparent;
                             border-color: transparent;
+
                             .m-adventure-item {
                                 background-color: @brand4;
                                 border-color: transparent;
+
                                 .u-name {
                                     color: @Brand-2-dark;
                                 }
@@ -419,10 +513,12 @@
                 }
             }
         }
+
         .m-face-list--all {
             .m-adventure-item {
                 background-color: @brand4;
                 border-color: transparent;
+
                 .u-name {
                     color: @Brand-2-dark;
                 }
