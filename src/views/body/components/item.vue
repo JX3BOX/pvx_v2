@@ -1,10 +1,10 @@
 <template>
-    <a :class="['m-body-item m-face-item', { onlyPic, noName }]" :href="`${link}/${item.id}`" target="_blank">
+    <a :class="['m-body-item', { onlyPic, noName }]" :href="`${link}/${item.id}`" target="_blank">
         <div class="m-img">
             <el-image class="u-pic" :src="showThumb(imgLink)" fit="cover">
                 <template #error>
                     <div class="image-slot">
-                        <img src="../../assets/img/body_null.png" />
+                        <img src="@/assets/img/body_null.png" />
                     </div>
                 </template>
             </el-image>
@@ -65,5 +65,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/face/item.less";
+@import "~@/assets/css/body/item.less";
 </style>

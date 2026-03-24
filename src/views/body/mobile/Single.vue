@@ -28,7 +28,7 @@
         </SuspendCommon>
         <el-drawer v-model="showFaceData" direction="btt" :with-header="false" :modal-append-to-body="false"
             append-to-body class="c-drawer">
-            <div class="m-face-data_copy">
+            <div class="m-body-data_copy">
                 <div class="u-copy-box" v-if="post.code_mode">
                     <div class="u-copy-top">
                         <img class="u-icon" src="@/assets/img/pvxsuspension/copy_touchbar_120.svg" svg-inline />
@@ -77,15 +77,15 @@
         </div>
         <!-- warning -->
         <div class="m-warning">
-            <img src="@/assets/img/face/mobile/warning.svg" class="u-img" />
-            <img src="@/assets/img/face/mobile/warning-dark.svg" class="u-img-dark" />
+            <img src="@/assets/img/common/face-body/mobile/warning.svg" class="u-img" />
+            <img src="@/assets/img/common/face-body/mobile/warning-dark.svg" class="u-img-dark" />
             <div class="u-text">小程序暂时不支持[非体型码]作品数据下载</div>
         </div>
 
         <!-- 捏脸码 -->
         <div class="m-body-number" v-if="post.code_mode" @click="copy">
             <div class="u-title">
-                <img src="@/assets/img/face/mobile/copy.svg" />
+                <img src="@/assets/img/common/face-body/mobile/copy.svg" />
                 <div class="u-text">体型码</div>
             </div>
             <div class="u-number">{{ post.code_mode }}</div>
@@ -93,8 +93,8 @@
         <!-- 捏脸数据 -->
         <div class="m-body-data" v-else @click="goTobBodydatMobile()">
             <div class="u-text">体型数据</div>
-            <img src="@/assets/img/face/mobile/CaretLeft.svg" class="u-img" />
-            <img src="@/assets/img/face/mobile/CaretLeft-dark.svg" class="u-img-dark" />
+            <img src="@/assets/img/common/face-body/mobile/CaretLeft.svg" class="u-img" />
+            <img src="@/assets/img/common/face-body/mobile/CaretLeft-dark.svg" class="u-img-dark" />
         </div>
         <!-- 关于作者 -->
         <div class="m-body-author">
@@ -124,7 +124,7 @@
 <script>
 import wx from "weixin-js-sdk";
 import SuspendCommon from "@jx3box/jx3box-ui/src/SuspendCommon";
-import routine_other from "@/components/face/mobile/routine_other";
+import routine_other from "@/components/common/face-body/mobile/routine_other";
 import { getOneBodyInfo, getRandomBody } from "@/service/body";
 import { getFans, getUserInfo } from "@/service/face/author";
 import { showAvatar, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
@@ -276,7 +276,7 @@ export default {
 @btnBgColor: #24292e;
 @btnBgColor-dark: #fedaa3;
 
-.m-face-data_copy {
+.m-body-data_copy {
     .w(100%);
 
     .u-copy-box,

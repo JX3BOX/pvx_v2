@@ -78,15 +78,15 @@
         </div>
         <!-- warning -->
         <div class="m-warning" v-if="!post.code_mode">
-            <img src="@/assets/img/face/mobile/warning.svg" class="u-img" />
-            <img src="@/assets/img/face/mobile/warning-dark.svg" class="u-img-dark" />
+            <img src="@/assets/img/common/face-body/mobile/warning.svg" class="u-img" />
+            <img src="@/assets/img/common/face-body/mobile/warning-dark.svg" class="u-img-dark" />
             <div class="u-text">小程序暂时不支持[非捏脸码]作品数据下载</div>
         </div>
 
         <!-- 捏脸码 -->
         <div class="m-face-number" v-if="post.code_mode" @click="copy">
             <div class="u-title">
-                <img src="@/assets/img/face/mobile/copy.svg" />
+                <img src="@/assets/img/common/face-body/mobile/copy.svg" />
                 <div class="u-text">捏脸码</div>
             </div>
             <div class="u-number">{{ post.code }}</div>
@@ -94,8 +94,8 @@
         <!-- 捏脸数据 -->
         <div class="m-face-data" v-else @click="goToFaceDataMobile()">
             <div class="u-text">捏脸数据</div>
-            <img src="@/assets/img/face/mobile/CaretLeft.svg" class="u-img" />
-            <img src="@/assets/img/face/mobile/CaretLeft-dark.svg" class="u-img-dark" />
+            <img src="@/assets/img/common/face-body/mobile/CaretLeft.svg" class="u-img" />
+            <img src="@/assets/img/common/face-body/mobile/CaretLeft-dark.svg" class="u-img-dark" />
         </div>
         <!-- 关于作者 -->
         <div class="m-face-author">
@@ -129,7 +129,7 @@
 import wx from "weixin-js-sdk";
 import SuspendCommon from "@jx3box/jx3box-ui/src/SuspendCommon";
 
-import routine_other from "@/components/face/mobile/routine_other";
+import routine_other from "@/components/common/face-body/mobile/routine_other";
 import { getOneFaceInfo, getRandomFace } from "@/service/face";
 import { getFans, getUserInfo } from "@/service/face/author";
 import { showAvatar, resolveImagePath } from "@jx3box/jx3box-common/js/utils";

@@ -1,12 +1,12 @@
 <template>
-    <div class="p-face-single" v-loading="loading" ref="singleRef">
+    <div class="p-body-single" v-loading="loading" ref="singleRef">
         <div class="m-navigation">
             <div class="u-goback" @click="goBack">返回列表</div>
 
-            <div class="m-face-btn-box">
+            <div class="m-body-btn-box">
                 <a :href="publish_link" target="_blank">
-                    <div class="u-face-publish">
-                        <img svg-inline src="@/assets/img/face/face-publish.svg" class="u-img" />
+                    <div class="u-body-publish">
+                        <img svg-inline src="@/assets/img/common/face-body/publish.svg" class="u-img" />
                         <span>发布体型</span>
                     </div>
                 </a>
@@ -31,13 +31,15 @@
                         post.author_name
                     }}</a>
                     <span class="u-name" v-else>{{ post.author_name }}</span>
-	                    <time class="u-time">{{ post.updated_at }}</time>
-	                    <a class="u-edit" v-if="canEdit" :href="editLink('body', post.id)" target="_blank">
-	                        <el-icon class="u-edit-icon"><EditPen /></el-icon>
-	                        编辑
-	                    </a>
-	                </div>
-	                <div class="u-meta">
+                    <time class="u-time">{{ post.updated_at }}</time>
+                    <a class="u-edit" v-if="canEdit" :href="editLink('body', post.id)" target="_blank">
+                        <el-icon class="u-edit-icon">
+                            <EditPen />
+                        </el-icon>
+                        编辑
+                    </a>
+                </div>
+                <div class="u-meta">
                     <i class="u-mark" v-if="!!post.star">★ 编辑推荐</i>
                     <i class="u-fr" v-if="!!post.is_fr">首发</i>
                     <i class="u-original" v-if="!!post.original">原创</i>
@@ -50,86 +52,67 @@
             <a :href="tvLink" target="_blank" class="m-topic" v-if="topicText">{{ topicText }}</a>
         </div>
 
-        <div class="m-face-content">
-	            <div class="m-single-pics m-single-content-box" v-if="previewSrcList">
-	                <!-- 动态改为当前图片 -->
-	                <div v-if="previewSrcList.length === 0" class="u-no-pic">
-	                    <el-icon><Picture /></el-icon>
-	                    <span>该脸型数据暂无图片</span>
-	                </div>
-	                <template v-else>
+        <div class="m-body-content">
+            <div class="m-single-pics m-single-content-box" v-if="previewSrcList">
+                <!-- 动态改为当前图片 -->
+                <div v-if="previewSrcList.length === 0" class="u-no-pic">
+                    <el-icon>
+                        <Picture />
+                    </el-icon>
+                    <span>该脸型数据暂无图片</span>
+                </div>
+                <template v-else>
                     <div class="u-bg-wrap">
                         <div class="u-bg" :style="{ backgroundImage: `url(${showPic(activePic)})` }"></div>
                     </div>
-                    <el-carousel
-                        class="m-carousel"
-                        :interval="4000"
-                        type="card"
-                        arrow="always"
-                        @change="carouselChange"
-                    >
+                    <el-carousel class="m-carousel" :interval="4000" type="card" arrow="always"
+                        @change="carouselChange">
                         <el-carousel-item v-for="(item, i) in previewSrcList" :key="i">
-                            <div class="m-face-pic">
-	                                <el-image
-	                                    ref="previewImage"
-	                                    fit="contain"
-	                                    :src="showPic(item)"
-	                                    class="u-pic"
-	                                    :preview-src-list="resolveImageArr(previewSrcList)"
-	                                    :initial-index="previewIndex"
-	                                    @click.capture="handlePreviewImage(i)"
-	                                ></el-image>
-	                            </div>
-	                        </el-carousel-item>
-	                    </el-carousel>
+                            <div class="m-body-pic">
+                                <el-image ref="previewImage" fit="contain" :src="showPic(item)" class="u-pic"
+                                    :preview-src-list="resolveImageArr(previewSrcList)" :initial-index="previewIndex"
+                                    @click.capture="handlePreviewImage(i)"></el-image>
+                            </div>
+                        </el-carousel-item>
+                    </el-carousel>
                 </template>
             </div>
 
             <!-- 右侧 -->
-            <div class="m-face-pay">
-                <div class="m-face-buy" :class="{ 'm-dowload': (post.price_type && post.price_type === 0) || has_buy }">
-                    <div
-                        class="m-face-buy-btn"
-                        @click="bodyPay()"
-                        v-if="post.price_type && post.price_type != 0 && !has_buy"
-                    >
+            <div class="m-body-pay">
+                <div class="m-body-buy" :class="{ 'm-dowload': (post.price_type && post.price_type === 0) || has_buy }">
+                    <div class="m-body-buy-btn" @click="bodyPay()"
+                        v-if="post.price_type && post.price_type != 0 && !has_buy">
                         <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
                         <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
-                        <div class="u-buy"><img :src="require('@/assets/img/face/shopcart.svg')" alt="" />购买</div>
+                        <div class="u-buy"><img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
+                        </div>
                     </div>
-                    <div class="m-face-buy-btn" v-else @click="downloadAll">
-                        <div class="u-buy"><img :src="require('@/assets/img/face/download.svg')" alt="" />下载数据</div>
+                    <div class="m-body-buy-btn" v-else @click="downloadAll">
+                        <div class="u-buy"><img :src="require('@/assets/img/common/face-body/download.svg')"
+                                alt="" />下载数据</div>
                     </div>
 
                     <div class="u-update-time">更新时间： {{ post.updated_at }}</div>
-                    <img class="u-box-img" :src="require('@/assets/img/face/face_stroke.svg')" />
+                    <img class="u-box-img" :src="require('@/assets/img/common/face-body/stroke.svg')" />
                 </div>
-                <div class="m-face-tips" v-if="post.game_price">
-                    <img :src="require('@/assets/img/face/info.svg')" alt="" />
+                <div class="m-body-tips" v-if="post.game_price">
+                    <img :src="require('@/assets/img/common/face-body/info.svg')" alt="" />
                     <div class="u-tips-left">该数据含游戏内收费项目，总计约</div>
                     <div class="u-tips-right">{{ post.game_price }}通宝</div>
                 </div>
-                <div class="u-face-desc-tab">
-                    <span
-                        @click="rightShow = 'desc'"
-                        :style="rightShow === 'data' ? 'color: #c2c5c7;cursor: pointer;' : ''"
-                        >说明</span
-                    >
-                    <span
-                        @click="rightShow = 'data'"
-                        v-if="downFileList && downFileList.length"
-                        :style="rightShow === 'desc' ? 'color: #c2c5c7;cursor: pointer;' : ''"
-                        >数据列表</span
-                    >
+                <div class="u-body-desc-tab">
+                    <span @click="rightShow = 'desc'"
+                        :style="rightShow === 'data' ? 'color: #c2c5c7;cursor: pointer;' : ''">说明</span>
+                    <span @click="rightShow = 'data'" v-if="downFileList && downFileList.length"
+                        :style="rightShow === 'desc' ? 'color: #c2c5c7;cursor: pointer;' : ''">数据列表</span>
                 </div>
-                <div
-                    class="m-face-desc"
-                    :class="{ 'no-desc': !post.remark && rightShow === 'desc', 'is-desc': rightShow === 'desc' }"
-                >
+                <div class="m-body-desc"
+                    :class="{ 'no-desc': !post.remark && rightShow === 'desc', 'is-desc': rightShow === 'desc' }">
                     <div v-if="rightShow === 'desc'" class="u-desc">
                         {{ post.remark }}
                     </div>
-                    <div class="m-face-files-list" v-if="rightShow === 'data' && downFileList && downFileList.length">
+                    <div class="m-body-files-list" v-if="rightShow === 'data' && downFileList && downFileList.length">
                         <div class="u-file" v-for="item in downFileList" :key="item.id">
                             <div class="u-info">
                                 <span class="u-label"> {{ item.name }} </span>
@@ -142,9 +125,9 @@
                     </div>
                 </div>
 
-                <div class="m-face-head" v-if="topic_info">
-                    <img :src="require('@/assets/img/face/cup.svg')" alt="" />
-                    该脸型于{{ topic_info.created_at }}荣登头条
+                <div class="m-body-head" v-if="topic_info">
+                    <img :src="require('@/assets/img/common/face-body/cup.svg')" alt="" />
+                    该体型于{{ topic_info.created_at }}荣登头条
                 </div>
             </div>
         </div>
@@ -153,21 +136,19 @@
             <span class="m-single-data-title">独家数据分析</span>
             <Bodydat v-if="bodydata" :data="bodydata" />
             <div class="m-single-buy-box" v-else>
-                <div
-                    class="m-face-buy-btn"
-                    @click="bodyPay()"
-                    v-if="post.price_type && post.price_type != 0 && !has_buy"
-                >
+                <div class="m-body-buy-btn" @click="bodyPay()"
+                    v-if="post.price_type && post.price_type != 0 && !has_buy">
                     <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
                     <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
-                    <div class="u-buy"><img :src="require('@/assets/img/face/shopcart.svg')" alt="" />购买</div>
+                    <div class="u-buy"><img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
+                    </div>
                 </div>
-                <div class="u-face-buy-tip">数据分析将在购买后解锁</div>
+                <div class="u-body-buy-tip">数据分析将在购买后解锁</div>
             </div>
         </div>
-        <div class="m-face-download" v-if="has_buy && bodydata">
-            <div class="m-face-buy-btn" @click="downloadAll">
-                <div class="u-buy"><img :src="require('@/assets/img/face/download.svg')" alt="" />下载数据</div>
+        <div class="m-body-download" v-if="has_buy && bodydata">
+            <div class="m-body-buy-btn" @click="downloadAll">
+                <div class="u-buy"><img :src="require('@/assets/img/common/face-body/download.svg')" alt="" />下载数据</div>
             </div>
         </div>
         <div class="u-about-author">关于作者</div>
@@ -178,16 +159,9 @@
             </div>
         </div>
         <!-- 点赞 -->
-        <Thx
-            class="m-thx m-single-content-box"
-            :postId="id"
-            postType="body"
-            :postTitle="post.title || '无标题'"
-            :userId="post.user_id"
-            :adminBoxcoinEnable="post.status == 1"
-            :userBoxcoinEnable="post.status == 1"
-            :client="post.client"
-        />
+        <Thx class="m-thx m-single-content-box" :postId="id" postType="body" :postTitle="post.title || '无标题'"
+            :userId="post.user_id" :adminBoxcoinEnable="post.status == 1" :userBoxcoinEnable="post.status == 1"
+            :client="post.client" />
         <!-- 评论 -->
         <div class="m-comments m-single-content-box">
             <el-divider content-position="left">讨论</el-divider>
@@ -217,15 +191,15 @@ import {
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 import Comment from "@jx3box/jx3box-ui/src/single/Comment.vue";
-import Bodydat from "@/components/body/Bodydat.vue";
+import Bodydat from "./components/Bodydat.vue";
 import { editLink, showAvatar, authorLink, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
 import bodyData from "@jx3box/jx3box-data/data/role/body.json";
 import { __clients, __imgPath, __Root } from "@/utils/config";
 
 import dayjs from "@/utils/day";
-import bodyItem from "@/components/body/item";
-import authorItem from "@/components/face/author";
+import bodyItem from "./components/item.vue";
+import authorItem from "@/components/common/face-body/author";
 const { bodyMap } = bodyData;
 export default {
     name: "single",
@@ -235,11 +209,11 @@ export default {
         bodyItem,
         authorItem,
     },
-	    data: function () {
-	        return {
-	            loading: false,
-	            search: "", //搜索值
-	            post: {},
+    data: function () {
+        return {
+            loading: false,
+            search: "", //搜索值
+            post: {},
             stat: {},
             has_buy: false, //是否购买
             client_map: __clients,
@@ -250,13 +224,13 @@ export default {
                 total: 0,
             },
             payBtnLoading: false,
-	            randomList: [],
-	            carouselActive: 0,
-	            previewIndex: 0,
-	            isEditor: User.isEditor(),
-	            rightShow: "desc",
-	            topic_info: null,
-	            face: {},
+            randomList: [],
+            carouselActive: 0,
+            previewIndex: 0,
+            isEditor: User.isEditor(),
+            rightShow: "desc",
+            topic_info: null,
+            face: {},
             pvxbodyList: [],
             newFaceMap: ["写意", "写实"],
         };
@@ -364,16 +338,16 @@ export default {
         showBodyTypeLabel(val) {
             return bodyMap[val];
         },
-	        carouselChange(val) {
-	            this.carouselActive = val;
-	        },
-	        handlePreviewImage(index) {
-	            this.previewIndex = index;
-	        },
-	        getData() {
-	            if (this.id) {
-	                this.loading = true;
-	                getOneBodyInfo(this.id)
+        carouselChange(val) {
+            this.carouselActive = val;
+        },
+        handlePreviewImage(index) {
+            this.previewIndex = index;
+        },
+        getData() {
+            if (this.id) {
+                this.loading = true;
+                getOneBodyInfo(this.id)
                     .then((res) => {
                         this.post = this.$store.state.bodySingle = res.data.data;
                         document.title = this.post.title;
@@ -525,14 +499,14 @@ export default {
                                     .then(() => {
                                         window.open("/vip/cny", "_blank");
                                     })
-                                    .catch(() => {});
+                                    .catch(() => { });
                             }
                         })
                         .finally(() => {
                             this.payBtnLoading = false;
                         });
                 })
-                .catch(() => {});
+                .catch(() => { });
         },
         getPayBodyStatus(pay_status, setIntervalId) {
             if (pay_status == 1) {
@@ -690,5 +664,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/face/single.less";
+@import "~@/assets/css/body/single.less";
 </style>

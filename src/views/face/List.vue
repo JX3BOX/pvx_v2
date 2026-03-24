@@ -43,8 +43,8 @@
 <script>
 import PublicNotice from "@/components/PublicNotice";
 import CardBannerList from "@/components/common/card_banner_list.vue";
-import faceTabs from "@/components/face/tabs";
-import faceItem from "@/components/face/item";
+import faceTabs from "@/components/common/face-body/tabs";
+import faceItem from "./components/item";
 import { isPhone } from "@/utils/index";
 import { cloneDeep, omit, concat, debounce } from "lodash";
 import { getFaceList, getSliders } from "@/service/face";

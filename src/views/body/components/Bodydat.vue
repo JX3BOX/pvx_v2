@@ -134,4 +134,3 @@ export default {
 <style lang="less">
 @import "~@jx3box/jx3box-facedat/assets/css/facedat.less";
 </style>
-

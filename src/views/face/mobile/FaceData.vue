@@ -17,8 +17,8 @@ import decal_default from "@jx3box/jx3box-facedat/assets/data/face/decal_default
 
 import { DecalDatabase } from "@jx3box/jx3box-facedat/src/DecalDatabase";
 
-import NewFace from "@/components/face/mobile/newFaceData";
-import OldFace from "@/components/face/mobile/oldFaceData";
+import NewFace from "../components/mobile/newFaceData";
+import OldFace from "../components/mobile/oldFaceData";
 export default {
     name: "Facedat",
     props: ["tab_type"],

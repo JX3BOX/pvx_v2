@@ -1,64 +1,198 @@
-.m-body-list {
-    .pt(40px);
-    .m-list {
+@import "~@/assets/css/common/animation.less";
+
+.p-body-list {
+    .pr;
+    padding-top: 40px;
+    .m-body-box {
+        &.none {
+            display: none;
+        }
+    }
+    .u-type {
         .flex;
-        flex-direction: column;
-        .u-list-title {
-            .flex;
-            .fz(24px,1);
-            .bold;
-            margin: 40px 0 20px 0;
-            justify-content: space-between;
-            align-items: baseline;
-            .u-more {
-                .pointer;
-                .fz(16px);
-                font-weight: normal;
-                color: #a5a5a5;
+        margin-bottom: 20px;
+        justify-content: space-between;
+        align-items: flex-end;
+        .u-all {
+            .pointer;
+            color: #a5a5a5;
+            .fz(16px, 21px);
+        }
+    }
+    .u-title {
+        .fz(24px, 1);
+        .bold(700);
+        color: #24292e;
+    }
+    .u-recommend-title {
+        margin: 20px 0;
+    }
+    .c-public-notice {
+        margin-top: 40px;
+    }
+}
+.m-recommend-list {
+    .flex;
+    .clip;
+    .r(10px);
+    width: 100%;
+    .scrollbar(2px);
+}
+@media screen and (max-width: @ipad) {
+    .m-recommend-list {
+        overflow-x: auto;
+        margin-top: 20px;
+    }
+}
+
+.m-body-title {
+    margin-top: 20px !important;
+}
+
+.m-recommend-box,
+.m-body-box {
+    margin-top: 40px;
+    .u-shade-btn {
+        .pointer;
+        .pa;
+        .z(12);
+        .flex(y);
+        .size(60px, 200px);
+        .fz(26px);
+        visibility: hidden;
+        background-color: rgba(0, 0, 0, 0.7);
+        i {
+            color: #fff;
+        }
+        &:hover {
+            background-color: @bodyColor;
+            i,
+            svg {
+                color: #fff;
             }
         }
-        .m-rare {
-            .clip;
-            .r(10px);
-            .list {
-                .flex;
-                gap: 20px;
-                .item{
-                    .r(10px);
-                    border: 1px solid #f9f9f9;
-                    box-shadow: 0 0 0 0;
+    }
+    .u-shade-btn-left {
+        .r(10px 0 0 10px);
+    }
+    .u-shade-btn-right {
+        .r(0 10px 10px 0);
+        right: 0;
+    }
+    .u-disabled {
+        cursor: not-allowed;
+        background-color: rgba(163, 152, 152, 0.7);
+        &:hover {
+            background-color: rgba(163, 152, 152, 0.7);
+        }
+    }
+}
+@media screen and (max-width: @phone) {
+    .m-recommend-box {
+        padding-top: 64px;
+    }
+    .m-body-tabs {
+        .pr;
+        width: unset;
+    }
+    .m-body-box {
+        &:nth-child(2) {
+            margin-top: 40px;
+        }
+    }
+    .m-body-box {
+        .u-shade-btn {
+            height: 264px;
+        }
+        .u-shade {
+            height: 224px;
+        }
+    }
+}
+
+.m-body-list--all {
+    .flex;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.m-body-item:last-child,
+.m-recommend-item:last-child {
+    margin-right: 0;
+}
+
+.m-archive-null {
+    margin-top: 20px;
+}
+.m-archive-more {
+    margin-top: 40px;
+    width: 100%;
+    background-color: #6b52ff;
+    &:hover,
+    &:focus {
+        background-color: #6b52ff;
+        border-color: #6b52ff;
+    }
+}
+.m-archive-pages {
+    overflow: auto;
+    .active {
+        background-color: #6b52ff !important;
+    }
+}
+
+@media screen and (max-width: @ipad) {
+    .p-body-list {
+        .u-type {
+            margin-top: 20px;
+        }
+        .u-title {
+            .fz(24px);
+        }
+        .u-recommend-title,
+        .u-all-type {
+            margin-top: 0 !important;
+        }
+    }
+    .m-body-list--all {
+        width: 100%;
+        .flex;
+        justify-content: space-between;
+        .m-body-item {
+            .pr;
+            margin-bottom: 30px;
+            overflow: hidden;
+            height: auto;
+            width: 100%;
+            margin-right: 10px;
+            .u-img {
+                .size(auto);
+            }
+            .u-op {
+                .u-body-title {
+                    .fz(14px);
+                    .bold(600);
                 }
             }
         }
     }
+    .m-common-list {
+        .scrollbar(2px);
+        overflow-x: auto;
 
-    .m-all {
-        .flex;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-    .m-archive-null {
-        .mt(20px);
-    }
-}
-
-.cross-wrapper .cross {
-    .z(9);
-    background-color: rgba(0, 0, 0, 0.7);
-    &.active {
-        background-color: #6b52ff;
-    }
-}
-
-@media screen and (max-width: @phone) {
-    .m-body-list {
-        .m-content {
-            .pt(60px);
+        .m-body-item {
+            .u-img {
+                .u-star-mark {
+                    .fz(12px);
+                    .lt(6px);
+                    padding: 2px;
+                }
+            }
         }
-        .m-list {
-            .u-list-title {
-                .fz(24px,1);
-                margin: 20px 0 0 0;
+        .u-op {
+            .u-body-title {
+                .fz(14px);
+                .bold(600);
             }
         }
     }

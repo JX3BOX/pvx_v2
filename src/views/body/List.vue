@@ -1,6 +1,6 @@
 <template>
-    <div class="p-face-list" v-loading="loading" ref="listRef">
-        <faceTabs
+    <div class="p-body-list" v-loading="loading" ref="listRef">
+        <pvxTabs
             @change="handleBodyTabChange"
             :body_types="list"
             :link="link"
@@ -11,7 +11,7 @@
             <div
                 v-for="(item, index) in list"
                 :key="'l' + index"
-                class="m-face-box"
+                class="m-body-box"
                 :class="{ none: !item.list.length }"
             >
                 <CardBannerList
@@ -34,11 +34,11 @@
                 </CardBannerList>
             </div>
         </template>
-        <div class="m-face-box" v-else>
-            <div class="m-face-title u-type">
+        <div class="m-body-box" v-else>
+            <div class="m-body-title u-type">
                 <div class="u-title">{{ typeName + "体型" }}</div>
             </div>
-            <div class="m-face-list--all">
+            <div class="m-body-list--all">
                 <bodyItem v-for="item in subList" :key="item.id" :item="item" />
             </div>
             <el-button
@@ -69,15 +69,15 @@
 </template>
 <script>
 import CardBannerList from "@/components/common/card_banner_list.vue";
-import faceTabs from "@/components/face/tabs";
-import bodyItem from "@/components/body/item";
+import pvxTabs from "@/components/common/face-body/tabs";
+import bodyItem from "./components/item.vue";
 import { isPhone } from "@/utils/index";
 import { cloneDeep, omit, concat, debounce } from "lodash";
 import { getBodyList, getSliders } from "@/service/body";
 
 export default {
-    name: "face",
-    components: { CardBannerList, faceTabs, bodyItem },
+    name: "bodyList",
+    components: { CardBannerList, pvxTabs, bodyItem },
     data() {
         return {
             loading: false,
@@ -239,5 +239,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/face/list.less";
+@import "~@/assets/css/body/list.less";
 </style>

@@ -6,7 +6,7 @@
             <div class="m-face-btn-box">
                 <a :href="publish_link" target="_blank">
                     <div class="u-face-publish">
-                        <img svg-inline src="@/assets/img/face/face-publish.svg" class="u-img" />
+                        <img svg-inline src="@/assets/img/common/face-body/publish.svg" class="u-img" />
                         <span>发布作品</span>
                     </div>
                 </a>
@@ -88,7 +88,8 @@
                         v-if="post.price_type && post.price_type != 0 && !has_buy">
                         <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
                         <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
-                        <div class="u-buy"><img :src="require('@/assets/img/face/shopcart.svg')" alt="" />购买</div>
+                        <div class="u-buy"><img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
+                        </div>
                     </div>
                     <template v-else>
                         <div class="m-face-buy-btn" v-if="post.code_mode"
@@ -99,7 +100,7 @@
                         </div>
                         <div class="m-face-buy-btn" v-else @click="downloadAll">
                             <div class="u-buy">
-                                <img :src="require('@/assets/img/face/download.svg')" alt="" />下载数据
+                                <img :src="require('@/assets/img/common/face-body/download.svg')" alt="" />下载数据
                             </div>
                         </div>
                     </template>
@@ -108,10 +109,10 @@
                         {{ post.code }}
                     </div>
                     <div class="u-update-time">更新时间： {{ post.updated_at }}</div>
-                    <img class="u-box-img" :src="require('@/assets/img/face/face_stroke.svg')" />
+                    <img class="u-box-img" :src="require('@/assets/img/common/face-body/stroke.svg')" />
                 </div>
                 <div class="m-face-tips" v-if="post.game_price">
-                    <img :src="require('@/assets/img/face/info.svg')" alt="" />
+                    <img :src="require('@/assets/img/common/face-body/info.svg')" alt="" />
                     <div class="u-tips-left">该数据含游戏内收费项目，总计约</div>
                     <div class="u-tips-right">{{ post.game_price }}通宝</div>
                 </div>
@@ -140,7 +141,7 @@
                 </div>
 
                 <div class="m-face-head" v-if="topic_info">
-                    <img :src="require('@/assets/img/face/cup.svg')" alt="" />
+                    <img :src="require('@/assets/img/common/face-body/cup.svg')" alt="" />
                     该脸型于{{ topic_info.created_at }}荣登头条
                 </div>
             </div>
@@ -154,14 +155,15 @@
                     v-if="post.price_type && post.price_type != 0 && !has_buy">
                     <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
                     <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
-                    <div class="u-buy"><img :src="require('@/assets/img/face/shopcart.svg')" alt="" />购买</div>
+                    <div class="u-buy"><img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
+                    </div>
                 </div>
                 <div class="u-face-buy-tip">数据分析将在购买后解锁</div>
             </div>
         </div>
         <div class="m-face-download" v-if="has_buy && facedata">
             <div class="m-face-buy-btn" @click="downloadAll">
-                <div class="u-buy"><img :src="require('@/assets/img/face/download.svg')" alt="" />下载数据</div>
+                <div class="u-buy"><img :src="require('@/assets/img/common/face-body/download.svg')" alt="" />下载数据</div>
             </div>
         </div>
         <div class="u-about-author">关于作者</div>
@@ -211,8 +213,8 @@ import bodyData from "@jx3box/jx3box-data/data/role/body.json";
 import { __clients, __imgPath, __Root } from "@/utils/config";
 
 import dayjs from "@/utils/day";
-import faceItem from "@/components/face/item";
-import authorItem from "@/components/face/author";
+import faceItem from "./components/item";
+import authorItem from "@/components/common/face-body/author";
 import { Edit, Picture } from '@element-plus/icons-vue';
 const { bodyMap } = bodyData;
 export default {

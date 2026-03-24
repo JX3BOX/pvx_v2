@@ -1,7 +1,7 @@
 <template>
-    <div class="m-facedata">
-        <div class="m-face-parse" :class="{ on: done }">
-            <h1 class="m-face-parse-title">体型数据解析器</h1>
+    <div class="m-bodydata">
+        <div class="m-body-parse" :class="{ on: done }">
+            <h1 class="m-body-parse-title">体型数据解析器</h1>
             <Upload type="body" @success="handleSuccess">
                 <template #guide>
                     <a class="u-help" href="/tool/67546" target="_blank">
@@ -10,13 +10,13 @@
                     </a>
                 </template>
             </Upload>
-            <Bodydat class="m-face-parse-preview" :data="json" :lock="false" v-if="done" />
+            <Bodydat class="m-body-parse-preview" :data="json" :lock="false" v-if="done" />
         </div>
     </div>
 </template>
 
 <script>
-import Bodydat from "@/components/body/Bodydat.vue";
+import Bodydat from "./components/Bodydat.vue";
 import Upload from "@jx3box/jx3box-facedat/src/Upload";
 export default {
     name: "BodyDataParse",
@@ -49,5 +49,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/face/parse.less";
+@import "~@/assets/css/body/parse.less";
 </style>
