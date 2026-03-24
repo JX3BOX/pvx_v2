@@ -153,10 +153,8 @@
 
 <script>
 import SuspendCommon from "@jx3box/jx3box-ui/src/SuspendCommon";
-
 import routine from "@/components/face/mobile/routine.vue";
 import habitus from "@/components/face/mobile/habitus.vue";
-import faceFind from "@/components/face/mobile/faceFind_v2.vue";
 import { cloneDeep, omit, concat, debounce } from "lodash";
 import { getFaceList, getSliders } from "@/service/face";
 import wx from "weixin-js-sdk";

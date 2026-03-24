@@ -9,9 +9,8 @@
                 </span>
                 <div class="u-tips">
                     <el-tooltip :content="`当前经验 ${data.experience || 0}`" placement="top">
-                        <span class="u-level" :class="'lv-' + level" :style="{ backgroundColor: showLevelColor(level) }"
-                            >Lv.{{ level }}</span
-                        >
+                        <span class="u-level" :class="'lv-' + level"
+                            :style="{ backgroundColor: showLevelColor(level) }">Lv.{{ level }}</span>
                     </el-tooltip>
                     <el-tooltip :content="vipTypeTitle" v-if="isPRO" placement="top">
                         <a class="u-vip" href="/vip/premium?from=user_homepage" target="_blank">
@@ -37,10 +36,14 @@
 import { getUserInfo, getDecoration, getDecorationJson } from "@/service/face";
 import { __userLevelColor, __imgPath } from "@/utils/config";
 import User from "@jx3box/jx3box-common/js/user";
+import Avatar from "@jx3box/jx3box-ui/src/author/Avatar.vue"
 const DECORATION_JSON = "decoration_json_face";
 const DECORATION_KEY = "decoration_me_face";
 export default {
     name: "Author",
+    components: {
+        Avatar,
+    },
     props: ["uid"],
     watch: {},
     data: function () {
@@ -138,18 +141,21 @@ export default {
 .m-author-header {
     .pr;
     .clip;
-    .size(100%,220px);
+    .size(100%, 220px);
     .r(10px);
     background-color: #fff;
 
     .m-mark {
         .flex;
         justify-content: flex-end;
+
         .u-img {
             .pr;
+
             img {
                 .h(220px);
             }
+
             &:after {
                 content: "";
                 .pa;
@@ -160,6 +166,7 @@ export default {
             }
         }
     }
+
     .m-info {
         .flex;
         .size(100%);
@@ -169,21 +176,25 @@ export default {
         padding: 20px;
         box-sizing: border-box;
     }
+
     .u-avatar {
         .size(120px);
         flex-shrink: 0;
         margin: 0 48px;
     }
+
     .m-author-info {
         .pr;
         .flex;
         flex-direction: column;
         flex: 1;
         color: #000;
+
         .u-tips {
             .h(24px);
             .mt(10px);
         }
+
         .u-name {
             .flex;
             .fz(26px);
@@ -191,39 +202,49 @@ export default {
             user-select: none;
             gap: 10px;
             align-items: center;
+
             .u-uid {
                 .fz(14px);
             }
         }
+
         .u-level {
-            .fz(14px,1.5);
+            .fz(14px, 1.5);
             color: #fff;
             background-color: #aaa;
             padding: 1px 6px;
             border-radius: 2px;
             font-style: normal;
             .bold(600);
+
             &.lv-1 {
                 background-color: #32d3c4;
             }
+
             &.lv-2 {
                 background-color: #86c0fb;
             }
+
             &.lv-3 {
                 background-color: #33d9ff;
             }
+
             &.lv-4 {
                 background-color: #ffdb2a;
             }
+
             &.lv-5 {
                 background-color: #ffa739;
             }
+
             &.lv-6 {
                 background-color: #ff70b2;
             }
+
             &.lv-7 {
                 background-color: #ff3399;
             }
+
             &.lv-8 {
                 background-color: #f93c3c;
             }
@@ -232,34 +253,39 @@ export default {
         .u-icon {
             .bold(600);
             cursor: default;
-            .fz(14px,1.5);
+            .fz(14px, 1.5);
             font-style: normal;
             padding: 1px 6px;
             border-radius: 2px;
             background-color: #ddd;
             color: #fff;
+
             &.vip {
                 background-color: #6f42c1;
             }
+
             &.superauthor {
                 background-color: #f8b718;
             }
         }
+
         .u-vip,
         .u-superauthor {
             margin-left: 4px;
             font-weight: normal;
         }
+
         .u-honor {
             .dbi;
             text-align: center;
-            .size(220px,45px);
+            .size(220px, 45px);
             // background-color: #494038;
             color: #ffffff;
-            .fz(10px,45px);
+            .fz(10px, 45px);
             .r(2px);
         }
     }
+
     .u-info {
         .fz(14px);
         color: #fff;
@@ -268,6 +294,7 @@ export default {
         .break(1);
         cursor: pointer;
     }
+
     @media screen and (max-width: @ipad) {
         .m-mark {
             display: none;
