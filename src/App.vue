@@ -9,14 +9,8 @@
                         {{ menu.label }}
                     </div>
                     <div class="m-child-category-list">
-                        <a
-                            :href="submenu.path"
-                            class="m-child-category"
-                            :class="'child-' + index"
-                            v-for="(submenu, i) in menu.submenus"
-                            :target="submenu.target || '_self'"
-                            :key="i"
-                        >
+                        <a :href="submenu.path" class="m-child-category" :class="'child-' + index"
+                            v-for="(submenu, i) in menu.submenus" :target="submenu.target || '_self'" :key="i">
                             <img :src="getNavIcon(submenu.key)" class="u-img" :alt="submenu.label" />
                             <span class="u-text">{{ submenu.label }}</span>
                         </a>
