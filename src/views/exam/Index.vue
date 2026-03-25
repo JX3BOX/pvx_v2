@@ -4,7 +4,6 @@
             <template #extra>
                 <el-button
                     type="primary"
-                    size="medium"
                     class="u-analysis"
                     v-if="search.type == 2 || search.type == 3"
                     @click="openLink(search.type)"

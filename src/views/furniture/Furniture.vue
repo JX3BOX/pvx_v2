@@ -7,9 +7,11 @@
         <Nav @statusChange="statusChange"></Nav>
         <Main :class="navStatusClass" :withoutRight="true" :withoutLeft="true" :withoutBread="true">
             <div class="m-main">
-                <keep-alive include="FurnitureList">
-                    <router-view></router-view>
-                </keep-alive>
+                <router-view v-slot="{ Component }">
+                    <keep-alive include="FurnitureList">
+                        <component :is="Component" />
+                    </keep-alive>
+                </router-view>
             </div>
             <!-- <Footer></Footer> -->
         </Main>

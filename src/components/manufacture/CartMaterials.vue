@@ -37,7 +37,7 @@
             </el-table>
         </div>
         <template v-slot:footer>
-            <el-button type="primary" size="medium" @click="close">确认</el-button>
+            <el-button type="primary" @click="close">确认</el-button>
         </template>
     </el-dialog>
 </template>

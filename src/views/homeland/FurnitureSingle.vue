@@ -1,9 +1,7 @@
 <template>
     <div class="v-homeland-furniture" v-loading="loading">
         <div class="m-navigation">
-            <el-button class="u-goback" size="medium" icon="el-icon-arrow-left" @click="goBack" plain
-                >返回列表</el-button
-            >
+            <el-button class="u-goback" icon="el-icon-arrow-left" @click="goBack" plain>返回列表</el-button>
             <el-input placeholder="请输入家具名字搜索" v-model="search" class="u-input" @keyup.enter="goSearch">
                 <template #append><el-button icon="el-icon-search" @click="goSearch"></el-button></template>
             </el-input>

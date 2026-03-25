@@ -15,7 +15,10 @@
                         <div class="u-filter-item">
                             <el-checkbox-button
                                 :model-value="star === false && price_type === false && is_unlimited === false"
-                                @change="handleSelectAll" class="u-filter">全部</el-checkbox-button>
+                                @change="handleSelectAll"
+                                class="u-filter"
+                                >全部</el-checkbox-button
+                            >
                             <el-checkbox-button v-model="star" class="u-filter">精选</el-checkbox-button>
                             <el-checkbox-button v-model="price_type" class="u-filter">免费</el-checkbox-button>
                             <el-checkbox-button v-model="is_unlimited" class="u-filter">可新建</el-checkbox-button>
@@ -42,7 +45,7 @@
         <template v-slot:append>
             <div v-if="!isMininote" class="m-toolbar-item m-toolbar-publish">
                 <a :href="link.data" target="_blank">
-                    <el-button type="primary" size="medium" class="u-analysis"> 数据解析 </el-button>
+                    <el-button type="primary" class="u-analysis"> 数据解析 </el-button>
                 </a>
                 <a :href="publish_link(link.key)" target="_blank">
                     <div class="u-face-publish">
@@ -61,7 +64,7 @@
                     </div>
                 </a>
                 <a :href="link.data" target="_blank">
-                    <el-button type="primary" size="medium" class="u-analysis"> 数据解析 </el-button>
+                    <el-button type="primary" class="u-analysis"> 数据解析 </el-button>
                 </a>
             </div>
         </template>
@@ -132,8 +135,8 @@ export default {
         },
         handleSelectAll() {
             this.star = false;
-            this.price_type = false
-            this.is_unlimited = false
+            this.price_type = false;
+            this.is_unlimited = false;
         },
     },
     watch: {
@@ -237,7 +240,7 @@ export default {
             }
         }
 
-        .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+        .el-radio-button__orig-radio:checked + .el-radio-button__inner {
             background-color: @faceColor;
             border-color: @faceColor;
         }
