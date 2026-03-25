@@ -10,7 +10,7 @@
         >
             <itemIcon
                 :item_id="String(item.ItemTabType + '_' + item.ItemTabIndex)"
-                :size="38"
+                :size="34"
                 :onlyIcon="true"
                 :isLink="false"
             ></itemIcon>

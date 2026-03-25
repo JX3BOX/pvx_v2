@@ -144,10 +144,11 @@ export default {
         color: #000;
     }
     .u-reputation-icon {
-        @s: 38px;
+        @s: 32px;
         .size(@s);
         overflow: hidden;
         .mr(5px);
+        .r(3px);
         img {
             .size(100%);
             .db;
