@@ -99,7 +99,7 @@ import { showSchoolIcon } from "@jx3box/jx3box-common/js/utils";
 import getData from "@/assets/js/treasure.js";
 import User from "@jx3box/jx3box-common/js/user";
 import html2canvas from "html2canvas";
-import {  __cdn, __Root } from "@/utils/config";
+import { __cdn, __Root } from "@/utils/config";
 import portraitContent from "./portraitContent.vue";
 import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
 import { wxGoLogin } from "@/utils/minprogram";
@@ -287,7 +287,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import "~@/assets/css/app.less";
 @import "~@/assets/css/adventure/treasure.less";
 
@@ -295,13 +295,12 @@ export default {
     display: block;
     padding: 0 30px;
     .el-select {
-        border-radius: 0;
         border: 1px solid #81453e;
         .r(4px);
         .el-select__wrapper {
-            padding: 0 10px 0 0;
-            height: 30px;
-            line-height: 30px;
+            padding: 0 10px 0 0 !important;
+            height: 30px !important;
+            line-height: 30px !important;
         }
     }
     .u-action {
@@ -312,5 +311,4 @@ export default {
         }
     }
 }
-
 </style>
