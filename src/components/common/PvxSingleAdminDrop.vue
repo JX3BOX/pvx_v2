@@ -1,7 +1,7 @@
 <template>
     <div class="m-pvx-admin-drop" v-if="showAdmin">
         <el-dropdown trigger="click" @command="handleCommand">
-            <el-button type="primary" class="c-admin-button c-admin-drop__button" size="medium"
+            <el-button type="primary" class="c-admin-button c-admin-drop__button"
                 ><i class="el-icon-setting"></i> 管理<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <template #dropdown>
@@ -62,7 +62,7 @@ export default {
 .m-pvx-admin-drop {
     .flex;
     align-items: center;
-    .el-icon-setting{
+    .el-icon-setting {
         margin-right: 5px;
     }
 }

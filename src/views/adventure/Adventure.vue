@@ -4,9 +4,11 @@
         <Nav @statusChange="statusChange"></Nav>
         <Main :class="navStatusClass" :withoutRight="true" :withoutLeft="true" :withoutBread="true">
             <div class="m-main">
-                <keep-alive include="adventureList">
-                    <router-view></router-view>
-                </keep-alive>
+                <router-view v-slot="{ Component }">
+                    <keep-alive include="adventureList">
+                        <component :is="Component" />
+                    </keep-alive>
+                </router-view>
             </div>
         </Main>
     </div>

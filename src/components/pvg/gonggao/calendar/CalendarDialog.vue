@@ -12,7 +12,6 @@
                             :min="2009"
                             :max="maxYear"
                             class="u-date"
-                            size="medium"
                             v-model.number="form.year"
                         ></el-input-number>
                         <el-input-number
@@ -20,7 +19,6 @@
                             :min="1"
                             :max="12"
                             class="u-date"
-                            size="medium"
                             v-model.number="form.month"
                         ></el-input-number>
                         <el-input-number
@@ -28,7 +26,6 @@
                             :min="1"
                             :max="31"
                             class="u-date"
-                            size="medium"
                             v-model.number="form.date"
                         ></el-input-number>
                     </div>
@@ -59,7 +56,7 @@
                     </div>
                 </el-form-item>
                 <el-form-item label="描述" required :error="descError">
-                    <el-input type="textarea" v-model="form.desc" :rows="8" placeholder="输入事件描述" ></el-input>
+                    <el-input type="textarea" v-model="form.desc" :rows="8" placeholder="输入事件描述"></el-input>
                 </el-form-item>
                 <el-form-item label="客户端" required>
                     <el-radio-group size="small" v-model="form.client">
@@ -99,20 +96,21 @@
                         <el-input type="input" v-model="form.title" placeholder="输入简述（非必填）"></el-input>
                     </el-form-item>
                     <el-form-item label="重要级别">
-                        <el-input-number v-model.number="form.level" size="medium" :min="0" :max="5"></el-input-number>
+                        <el-input-number v-model.number="form.level" :min="0" :max="5"></el-input-number>
                     </el-form-item>
                     <el-form-item label="样式">
                         <div class="m-style">
-                            <!-- <el-select v-model="form.style" size="medium" placeholder="请选择样式"></el-select> -->
                             <div class="m-color-item">
                                 <label class="u-label">背景色</label>
                                 <span class="u-color-value" v-show="form.bgcolor">【{{ form.bgcolor }}】</span>
-                                <el-color-picker v-model="form.bgcolor" size="small" :predefine="predefineColors"> </el-color-picker>
+                                <el-color-picker v-model="form.bgcolor" size="small" :predefine="predefineColors">
+                                </el-color-picker>
                             </div>
                             <div class="m-color-item">
                                 <label class="u-label">颜色</label>
                                 <span class="u-color-value" v-show="form.color">【{{ form.color }}】</span>
-                                <el-color-picker v-model="form.color" size="small" :predefine="predefineColors"> </el-color-picker>
+                                <el-color-picker v-model="form.color" size="small" :predefine="predefineColors">
+                                </el-color-picker>
                             </div>
                         </div>
                     </el-form-item>
@@ -123,7 +121,7 @@
                         <img-upload :data="form.img" filed="img" @update="setMeta"></img-upload>
                     </el-form-item>
                     <el-form-item label="备注">
-                        <el-input v-model="form.remark" size="medium" placeholder="请输入备注"></el-input>
+                        <el-input v-model="form.remark" placeholder="请输入备注"></el-input>
                     </el-form-item>
                     <el-form-item label="操作">
                         <el-button icon="el-icon-refresh-left" size="small" @click="recheck" type="warning"
@@ -135,8 +133,8 @@
             </el-form>
         </main>
         <template v-slot:footer>
-            <el-button size="medium" @click="cancel">取消</el-button>
-            <el-button type="primary" size="medium" @click="confirm" :loading="loading">确认</el-button>
+            <el-button @click="cancel">取消</el-button>
+            <el-button type="primary" @click="confirm" :loading="loading">确认</el-button>
         </template>
     </el-dialog>
 </template>
