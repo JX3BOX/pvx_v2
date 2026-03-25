@@ -3,7 +3,7 @@
 
 /node_modules/*
 /dist
-/tmp/*
+/tmp
 /src/mock
 .gitkeep
 

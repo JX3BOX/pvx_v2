@@ -1,7 +1,7 @@
 .m-navigation {
     .flex;
     justify-content: space-between;
-    padding: 40px 0;
+    padding: 40px 0 0 0;
     background-color: #fff;
 
     .u-goback {
@@ -176,10 +176,6 @@
         a {
             color: #000;
             opacity: 0.6;
-
-            &:hover {
-                border-bottom: 1px solid rgba(0, 0, 0, 0.6);
-            }
         }
 
         i {
@@ -207,11 +203,10 @@
         }
 
         .u-edit {
-            color: #0366d6;
-
-            &:hover {
-                border-bottom: 1px solid #0366d6;
-            }
+            color: @v4primary;
+            .flex(y);
+            gap: 2px;
+            .underline();
         }
     }
 
@@ -328,7 +323,19 @@
         margin: 20px 0 0 0;
         padding: 10px;
         background: #fff;
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        // box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+
+        .el-radio-button__inner{
+            margin-top:0;
+        }
+    }
+
+    .c-facedat-group{
+        .u-list{
+            span{
+                color:@v4primary;
+            }
+        }
     }
 }
 

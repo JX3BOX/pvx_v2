@@ -62,5 +62,8 @@ export default {
 .m-pvx-admin-drop {
     .flex;
     align-items: center;
+    .el-icon-setting{
+        margin-right: 5px;
+    }
 }
 </style>

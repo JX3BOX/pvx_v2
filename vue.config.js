@@ -250,6 +250,7 @@ function buildEnvProxy() {
         lua: process.env.VUE_APP_LUA_API || commonDomains.__lua,
         node: process.env.VUE_APP_NODE_API || commonDomains.__node,
         helper: process.env.VUE_APP_HELPER_API || commonDomains.__helperUrl,
+        pull: process.env.VUE_APP_PULL_API || commonDomains.__pull,
     };
 
     return Object.keys(serviceTargets).reduce((acc, key) => Object.assign(acc, mk(key, serviceTargets[key])), {});

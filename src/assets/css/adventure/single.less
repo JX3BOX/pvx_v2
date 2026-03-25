@@ -179,13 +179,13 @@
     // .x;
     .u-link {
         .fz(14px);
+        .flex(y);
+        gap:3px;
+        color:@v4text;
 
-        i {
-            .mr(2px);
-            .y;
+        &:hover{
+            box-shadow : 0 1px 0 @v4text;
         }
-
-        .underline(@color-link);
     }
 
     em {

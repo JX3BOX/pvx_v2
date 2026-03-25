@@ -5,9 +5,7 @@ function getUserInfo() {
 }
 
 function getSerendipity(params) {
-    const __pull = "https://pull.j3cx.com/";
-    return axios.get("/api/serendipity", {
-        baseURL: process.env.NODE_ENV === "production" ? __pull : "/",
+    return axios.get("https://pull-gplugin.jx3box.com/api/serendipity", {
         params,
     });
 }
