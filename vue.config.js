@@ -93,8 +93,8 @@ module.exports = {
     publicPath: process.env.BUILD_PREVIEW
         ? "/" + process.env.APP_NAME
         : process.env.NODE_ENV === "development"
-          ? "/"
-          : process.env.STATIC_PATH + "/" + process.env.APP_NAME,
+        ? "/"
+        : process.env.STATIC_PATH + "/" + process.env.APP_NAME,
 
     //🌈多页面配置，详见 https://cli.vuejs.org/zh/config/#pages
     pages: pages,
@@ -237,6 +237,12 @@ function buildEnvProxy() {
                 secure: false,
                 cookieDomainRewrite: "",
                 pathRewrite: (p) => p.replace(contextRe, ""),
+                onProxyReq: (request) => {
+                    // 本地开发时避免把 localhost 的来源头转发给上游，
+                    // 某些支付/会员接口会直接按 Origin/Referer 拒绝请求。
+                    request.setHeader("origin", "");
+                    request.setHeader("referer", "");
+                },
             },
         };
     };
