@@ -178,42 +178,6 @@
         padding-top: 0;
     }
 
-    // 类型列表 - 小程序端
-    .m-type-list {
-        display: flex;
-        gap: 18px;
-        padding-top: 12px;
-        padding-bottom: 4px;
-        .fz(18px, 28px);
-        .bold();
-        color: @black-40;
-        position: sticky;
-        top: 0;
-        z-index: 5;
-        background-color: #fafafa;
-
-        .u-type-item {
-            position: relative;
-
-            &.is-active {
-                color: @black-100;
-
-                &::after {
-                    content: "";
-                    display: block;
-                    width: 20px;
-                    height: 2px;
-                    background-color: @black-100;
-                    border-radius: 4px;
-                    position: absolute;
-                    bottom: -4px;
-                    left: 50%;
-                    transform: translateX(-50%) translateY(50%);
-                }
-            }
-        }
-    }
-
     // 奇遇列表 - 小程序端
     .m-adventure-list {
         .mt(20px);
