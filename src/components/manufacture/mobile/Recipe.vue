@@ -75,7 +75,7 @@ export default {
         },
         client() {
             return this.$store.state.client;
-        }
+        },
     },
     methods: {
         iconLink,
@@ -121,9 +121,12 @@ export default {
         }
 
         .u-search {
-            .el-input__inner {
-                .r(8px);
+            .el-input__wrapper {
+                box-shadow: none;
                 border: 1px solid #2828280d;
+                .r(8px);
+            }
+            .el-input__inner {
                 background: var(--Primary-Brand-4);
                 color: var(--black-100);
             }

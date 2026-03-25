@@ -13,12 +13,11 @@
         <PlanListVue ref="plan-list" @go-plan="$emit('go-plan', $event)"></PlanListVue>
         <el-drawer
             :with-header="false"
-            v-model:visible="serverVisible"
+            v-model="serverVisible"
             direction="btt"
-            wrapper-closable
+            :wrapper-closable="true"
             append-to-body
-            modal-append-to-body
-            custom-class="m-server-select-drawer"
+            class="m-server-select-drawer"
         >
             <div class="m-server-list">
                 <div
@@ -140,7 +139,7 @@ export default {
     bottom: 50px;
     padding: 12px 20px;
 
-    left:50%;
+    left: 50%;
     transform: translateX(-50%);
     .w(310px);
     .r(30px);

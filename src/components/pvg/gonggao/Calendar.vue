@@ -6,42 +6,45 @@
                     <!-- 年份切换 -->
                     <section class="m-calendar-year">
                         <el-button
-                            icon="el-icon-arrow-left"
-                            size="medium"
+                            size="default"
                             :disabled="prevDisabled"
                             @click="toggleYear('prev')"
                             class="u-btn"
                             title="上一年"
-                        ></el-button>
+                        >
+                            <el-icon><ArrowLeft /></el-icon>
+                        </el-button>
                         <span class="u-year" :style="{ color: getSloganMeta('color') }">{{ current.year }}</span>
                         <el-button
-                            icon="el-icon-arrow-right"
-                            size="medium"
+                            size="default"
                             :disabled="nextDisabled"
                             @click="toggleYear('next')"
                             class="u-btn"
                             title="下一年"
-                        ></el-button>
-                        <!-- 月份切换 -->
+                        >
+                            <el-icon><ArrowRight /></el-icon>
+                        </el-button>
                         <el-button
-                            icon="el-icon-arrow-left"
-                            size="medium"
+                            size="default"
                             :disabled="prevDisabled"
                             @click="toggleMonth('prev')"
                             class="u-btn"
                             title="上一月"
-                        ></el-button>
-                        <span class="u-year u-month-text" :style="{ color: getSloganMeta('color') }">{{
-                            current.month
-                        }}</span>
+                        >
+                            <el-icon><ArrowLeft /></el-icon>
+                        </el-button>
+                        <span class="u-year u-month-text" :style="{ color: getSloganMeta('color') }">
+                            {{ current.month }}
+                        </span>
                         <el-button
-                            icon="el-icon-arrow-right"
-                            size="medium"
+                            size="default"
                             :disabled="nextDisabled"
                             @click="toggleMonth('next')"
                             class="u-btn"
                             title="下一月"
-                        ></el-button>
+                        >
+                            <el-icon><ArrowRight /></el-icon>
+                        </el-button>
                     </section>
                     <!-- <span class="u-contribute" @click="rank_show = true"><i class="el-icon-s-data"></i>剑三日历贡献排行榜</span> -->
                 </div>
@@ -82,7 +85,9 @@
             </section>
         </main>
         <aside class="m-calendar-aside" :class="{ expanded: !isExpand }">
-            <i class="u-expand-icon el-icon-upload2" @click="setExpand(false)"></i>
+            <el-icon class="u-expand-icon" @click="setExpand(false)">
+                <UploadFilled />
+            </el-icon>
             <calendar-detail :date-obj="current"></calendar-detail>
         </aside>
         <!-- <calendar-rank v-if="rank_show" @calendarRank="rank_show = false" /> -->

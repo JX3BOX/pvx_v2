@@ -213,7 +213,7 @@ export default {
 <style lang="less">
 @import "~@/assets/css/common/tabs.less";
 
-.m-manufacture .m-common-toolbar .m-toolbar-item .u-search .u-search-input input {
+.m-manufacture .m-common-toolbar .m-toolbar-item .u-search .u-search-input .el-input__wrapper {
     background: #fff !important;
 }
 .m-manufacture-body {

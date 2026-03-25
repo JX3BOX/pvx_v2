@@ -22,12 +22,12 @@
         <Plan v-if="page == 'plan'" :plan="plan" @edit-plan="onEditPlan"></Plan>
 
         <Cart
-            :visible="cartVisible"
-            @close="cartVisible = false"
+            v-model="cartVisible"
             :plan="plan"
             :editing="cartEditing"
             @update-plan="onPlanUpdate"
-        ></Cart>
+            @close="cartVisible = false"
+        />
         <BottomBar v-if="showBottomBar" @go-cart="cartVisible = true" @go-plan="go('plan', $event)"></BottomBar>
     </div>
 </template>
@@ -179,10 +179,7 @@ export default {
                 }
             }
             // 获取材料列表，并且把材料信息写到 materials
-            const other_ids = [
-                ...materials.map((item) => item.item_id),
-                recipe.item_id,
-            ].join(",");
+            const other_ids = [...materials.map((item) => item.item_id), recipe.item_id].join(",");
             await getItemMerges(this.client, other_ids).then((res) => {
                 const items = keyBy(res.data, "id");
                 materials.forEach((material) => {
@@ -288,7 +285,7 @@ export default {
 .m-pvg-main {
     padding: 0;
 }
-.v-miniprogram .m-manufacture-mobile{
+.v-miniprogram .m-manufacture-mobile {
     padding-top: 12px;
 }
 .m-manufacture-mobile {

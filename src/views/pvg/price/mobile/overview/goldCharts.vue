@@ -38,6 +38,7 @@ export default {
         currentDataList() {
             const server = this.server; // 当前服务器
             const channelMap = this.goldPriceData[server];
+            if (!channelMap) return [];
             let list = [];
             for (const key in channelMap) {
                 const data = channelMap[key];
@@ -66,15 +67,6 @@ export default {
             }
             list = list.sort((a, b) => b.sum - a.sum);
             return list;
-        },
-    },
-    watch: {
-        active: {
-            handler(newVal) {
-                // 当active值变化时，重新计算currentDataList
-                this.$forceUpdate();
-            },
-            immediate: true,
         },
     },
     methods: {

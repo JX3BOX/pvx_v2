@@ -36,7 +36,7 @@
             <!-- 历史版本 -->
             <!-- <WikiRevisions :type="type" :source-id="id" /> -->
 
-            <el-dialog :lock-scroll="false" v-model="versionVisible" custom-class="m-version-drawer">
+            <el-dialog :lock-scroll="false" v-model="versionVisible" class="m-version-drawer">
                 <div class="m-version-container">
                     <div class="u-version" v-for="(item, i) in versions" :key="i">
                         <div class="u-title-wrap">

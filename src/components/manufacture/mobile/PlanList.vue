@@ -2,12 +2,11 @@
     <el-drawer
         :with-header="false"
         direction="btt"
-        wrapper-closable
+        :wrapper-closable="true"
         append-to-body
-        modal-append-to-body
-        custom-class="m-manufacture-plan-mobile"
-        @close="$emit('close')"
-        v-model:visible="visible"
+        class="m-manufacture-plan-mobile"
+        @close="handleClose"
+        v-model="visible"
     >
         <div class="m-manufacture-plan-body">
             <div class="m-manufacture-plan-list">
@@ -27,16 +26,22 @@ export default {
     name: "ManufacturePlanListMobile",
     components: {},
     props: {},
-    data: () => ({
-        visible: false,
-        plans: [],
-        isLogin: User.isLogin(),
-    }),
+    data() {
+        return {
+            visible: false,
+            plans: [],
+            isLogin: User.isLogin(),
+        };
+    },
     computed: {},
     methods: {
         open() {
             this.visible = true;
             this.load();
+        },
+        handleClose() {
+            this.visible = false;
+            this.$emit("close");
         },
         load() {
             if (!this.isLogin) return;

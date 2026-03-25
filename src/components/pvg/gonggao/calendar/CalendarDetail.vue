@@ -1,7 +1,9 @@
 <template>
     <div class="m-calendar-detail" v-loading="loading">
         <!-- 头部 -->
-        <el-button class="m-calendar-detail-add" icon="el-icon-plus" circle @click="add"></el-button>
+        <el-button class="m-calendar-detail-add" circle @click="add">
+            <el-icon><Plus /></el-icon>
+        </el-button>
         <div class="m-calendar-detail-header">
             <div class="m-calendar-detail-title">{{ currentDate }}</div>
             <div class="m-calendar-detail-title-sub">{{ currentDay }}</div>

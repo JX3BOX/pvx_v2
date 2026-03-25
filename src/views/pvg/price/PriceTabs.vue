@@ -12,9 +12,14 @@
                 :model-value="params.keywords"
                 @update:modelValue="updateKeywords"
                 placeholder="请输入"
-                suffix-icon="el-icon-search"
                 class="u-search-input"
-            />
+            >
+                <template #suffix>
+                    <el-icon class="el-input__icon">
+                        <Search />
+                    </el-icon>
+                </template>
+            </el-input>
         </div>
     </div>
 </template>
@@ -42,24 +47,18 @@ export default {
             ],
         };
     },
-    watch: {
-        // 监听搜索条件变化
-        "params.keywords": {
-            handler: function (val, oldVal) {
-                if (this.params.currentTab === "") {
-                    this.$emit("update:params", { ...this.params, currentTab: "goods" });
-                }
-            },
-            deep: true,
-        },
-    },
     methods: {
         changeTab(tab) {
             this.$emit("update:params", { ...this.params, currentTab: tab.value });
             this.$emit("changeTab", tab.value);
         },
         updateKeywords(val) {
-            this.$emit("update:params", { ...this.params, keywords: val });
+            if (val === this.params.keywords) return;
+            const next = { ...this.params, keywords: val };
+            if (this.params.currentTab === "" && val) {
+                next.currentTab = "goods";
+            }
+            this.$emit("update:params", next);
         },
     },
 };
@@ -73,8 +72,16 @@ export default {
             background-color: @activeColor;
         }
     }
-    .u-search .u-search-input input {
-        background-color: #fff;
+    .u-search {
+        .u-search-input {
+            .el-input__wrapper {
+                box-shadow: none;
+                .r(30px);
+            }
+            input {
+                background-color: #fff;
+            }
+        }
     }
 }
 @media screen and(max-width:@phone) {

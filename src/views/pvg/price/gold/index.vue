@@ -72,9 +72,20 @@ export default {
         .u-servers {
             position: relative;
             width: 200px;
-            background-color: #fff;
-            border-radius: 40px;
-            .el-input__prefix {
+            .el-select__wrapper {
+                .r(20px);
+                box-shadow: none;
+                .lh(40px);
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            .el-select__selected-item {
+                .color(#24292e);
+                .fz(16px);
+                .bold;
+                .x;
+            }
+            .el-select__prefix {
                 display: flex;
                 align-items: center;
                 padding-left: 15px;
@@ -82,17 +93,6 @@ export default {
                 font-size: 16px;
                 font-weight: bold;
                 line-height: 40px;
-            }
-
-            .el-input__inner {
-                height: 40px;
-                padding-left: 100px;
-                color: #24292e;
-                font-size: 16px;
-                font-weight: bold;
-                line-height: 40px;
-                border: none;
-                border-radius: 40px;
             }
         }
     }

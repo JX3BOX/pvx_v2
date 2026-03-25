@@ -1,12 +1,12 @@
 <template>
     <el-drawer
+        v-model="drawerVisible"
         :with-header="false"
         direction="btt"
-        wrapper-closable
+        :wrapper-closable="true"
         append-to-body
-        modal-append-to-body
-        custom-class="m-manufacture-cart"
-        @close="$emit('close')"
+        class="m-manufacture-cart"
+        @close="handleClose"
         v-bind="$attrs"
     >
         <div class="m-manufacture-cart-body">
@@ -142,9 +142,23 @@ export default {
             type: Boolean,
             default: false,
         },
+        modelValue: {
+            type: Boolean,
+            default: false,
+        },
     },
     data: () => ({}),
     computed: {
+        drawerVisible: {
+            get() {
+                return this.modelValue;
+            },
+            set(val) {
+                if (!val) {
+                    this.$emit("update:modelValue", false);
+                }
+            },
+        },
         cartList() {
             return this.$store.state.cart_list || [];
         },
