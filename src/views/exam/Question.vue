@@ -15,7 +15,7 @@
             @changeVal="finalAnswer"
         />
         <div class="m-exam-submit" @click="submit" :class="{ isSubmitted }">
-            <el-button class="u-btn" :disabled="isSubmitted">提交</el-button>
+            <el-button class="u-btn" :disabled="isSubmitted" size="large">提交</el-button>
         </div>
 
         <Thx

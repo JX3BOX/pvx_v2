@@ -78,13 +78,6 @@
                 "icon": "el-icon-files",
                 "key": "book",
                 "status": true
-            },
-            {
-                "path": "/exam",
-                "label": "考试大全",
-                "icon": "el-icon-files",
-                "key": "exam",
-                "status": true
             }
         ]
     },
@@ -94,6 +87,13 @@
         "menuTitle": "信息",
         "index": "3",
         "submenus": [
+            {
+                "path": "/exam",
+                "label": "考试大全",
+                "icon": "el-icon-files",
+                "key": "exam",
+                "status": true
+            },
             {
                 "path": "/pvg/manufacture",
                 "label": "技艺助手",
