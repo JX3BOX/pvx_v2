@@ -45,8 +45,12 @@
                     <i class="u-fr" v-if="!!post.is_fr">首发</i>
                     <i class="u-original" v-if="!!post.original">原创</i>
                     <i class="u-client" :class="post.client || 'std'">{{ showClientLabel(post.client) }}</i>
-                    <i class="u-is-new-face" v-if="post.client === 'std'"
-                        :class="post.is_new_face === 1 ? 'u-new' : 'u-old'">{{ newFaceMap[post.is_new_face] }}</i>
+                    <i
+                        class="u-is-new-face"
+                        v-if="post.client === 'std'"
+                        :class="post.is_new_face === 1 ? 'u-new' : 'u-old'"
+                        >{{ newFaceMap[post.is_new_face] }}</i
+                    >
                     <i class="u-bodytype" :class="'u-bodytype-' + post.body_type" v-if="post.body_type">{{
                         showBodyTypeLabel(post.body_type)
                     }}</i>
@@ -68,13 +72,23 @@
                     <div class="u-bg-wrap">
                         <div class="u-bg" :style="{ backgroundImage: `url(${showPic(activePic)})` }"></div>
                     </div>
-                    <el-carousel class="m-carousel" :interval="4000" type="card" arrow="always"
-                        @change="carouselChange">
+                    <el-carousel
+                        class="m-carousel"
+                        :interval="4000"
+                        type="card"
+                        arrow="always"
+                        @change="carouselChange"
+                    >
                         <el-carousel-item v-for="(item, i) in previewSrcList" :key="i">
                             <div class="m-face-pic">
-                                <el-image ref="previewImage" fit="contain" :src="showPic(item)" class="u-pic"
+                                <el-image
+                                    ref="previewImage"
+                                    fit="contain"
+                                    :src="showPic(item)"
+                                    class="u-pic"
                                     :preview-src-list="resolveImageArr(previewSrcList)"
-                                    @click.capture="handlePreviewImage(i)"></el-image>
+                                    @click.capture="handlePreviewImage(i)"
+                                ></el-image>
                             </div>
                         </el-carousel-item>
                     </el-carousel>
@@ -84,16 +98,24 @@
             <!-- 右侧 -->
             <div class="m-face-pay">
                 <div class="m-face-buy" :class="{ 'm-dowload': (post.price_type && post.price_type === 0) || has_buy }">
-                    <div class="m-face-buy-btn" @click="facePay()"
-                        v-if="post.price_type && post.price_type != 0 && !has_buy">
+                    <div
+                        class="m-face-buy-btn"
+                        @click="facePay()"
+                        v-if="post.price_type && post.price_type != 0 && !has_buy"
+                    >
                         <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
                         <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
-                        <div class="u-buy"><img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
+                        <div class="u-buy">
+                            <img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
                         </div>
                     </div>
                     <template v-else>
-                        <div class="m-face-buy-btn" v-if="post.code_mode"
-                            :class="{ 'm-face-buy-btn_copy': post.code_mode }" @click="copy(post.code)">
+                        <div
+                            class="m-face-buy-btn"
+                            v-if="post.code_mode"
+                            :class="{ 'm-face-buy-btn_copy': post.code_mode }"
+                            @click="copy(post.code)"
+                        >
                             <div class="u-buy">
                                 <img :src="require('@/assets/img/face/bxs_copy.svg')" alt="" />复制捏脸码
                             </div>
@@ -117,13 +139,22 @@
                     <div class="u-tips-right">{{ post.game_price }}通宝</div>
                 </div>
                 <div class="u-face-desc-tab">
-                    <span @click="rightShow = 'desc'"
-                        :style="rightShow === 'data' ? 'color: #c2c5c7;cursor: pointer;' : ''">说明</span>
-                    <span @click="rightShow = 'data'" v-if="downFileList && downFileList.length"
-                        :style="rightShow === 'desc' ? 'color: #c2c5c7;cursor: pointer;' : ''">数据列表</span>
+                    <span
+                        @click="rightShow = 'desc'"
+                        :style="rightShow === 'data' ? 'color: #c2c5c7;cursor: pointer;' : ''"
+                        >说明</span
+                    >
+                    <span
+                        @click="rightShow = 'data'"
+                        v-if="downFileList && downFileList.length"
+                        :style="rightShow === 'desc' ? 'color: #c2c5c7;cursor: pointer;' : ''"
+                        >数据列表</span
+                    >
                 </div>
-                <div class="m-face-desc"
-                    :class="{ 'no-desc': !post.remark && rightShow === 'desc', 'is-desc': rightShow === 'desc' }">
+                <div
+                    class="m-face-desc"
+                    :class="{ 'no-desc': !post.remark && rightShow === 'desc', 'is-desc': rightShow === 'desc' }"
+                >
                     <div v-if="rightShow === 'desc'" class="u-desc">
                         {{ post.remark }}
                     </div>
@@ -151,11 +182,15 @@
             <span class="m-single-data-title">独家数据分析</span>
             <facedata v-if="has_buy && facedata" :data="faceAllData" :lock="true" type="face" />
             <div class="m-single-buy-box" v-else>
-                <div class="m-face-buy-btn" @click="facePay()"
-                    v-if="post.price_type && post.price_type != 0 && !has_buy">
+                <div
+                    class="m-face-buy-btn"
+                    @click="facePay()"
+                    v-if="post.price_type && post.price_type != 0 && !has_buy"
+                >
                     <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
                     <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
-                    <div class="u-buy"><img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
+                    <div class="u-buy">
+                        <img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
                     </div>
                 </div>
                 <div class="u-face-buy-tip">数据分析将在购买后解锁</div>
@@ -163,7 +198,9 @@
         </div>
         <div class="m-face-download" v-if="has_buy && facedata">
             <div class="m-face-buy-btn" @click="downloadAll">
-                <div class="u-buy"><img :src="require('@/assets/img/common/face-body/download.svg')" alt="" />下载数据</div>
+                <div class="u-buy">
+                    <img :src="require('@/assets/img/common/face-body/download.svg')" alt="" />下载数据
+                </div>
             </div>
         </div>
         <div class="u-about-author">关于作者</div>
@@ -174,13 +211,20 @@
             </div>
         </div>
         <!-- 点赞 -->
-        <Thx class="m-thx m-single-content-box" :postId="id" postType="face" :postTitle="post.title || '无标题'"
-            :userId="post.user_id" :adminBoxcoinEnable="post.status == 1" :userBoxcoinEnable="post.status == 1"
-            :client="post.client" />
+        <Thx
+            class="m-thx m-single-content-box"
+            :postId="id"
+            postType="face"
+            :postTitle="post.title || '无标题'"
+            :userId="post.user_id"
+            :adminBoxcoinEnable="post.status == 1"
+            :userBoxcoinEnable="post.status == 1"
+            :client="post.client"
+        />
         <!-- 评论 -->
         <div class="m-comments m-single-content-box">
             <el-divider content-position="left">讨论</el-divider>
-            <Comment :id="id" category="face" />
+            <CommonComment :id="id" category="face" />
         </div>
     </div>
 </template>
@@ -206,7 +250,7 @@ import {
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 import facedata from "@jx3box/jx3box-facedat/src/Facedat.vue";
-import Comment from "@jx3box/jx3box-ui/src/single/Comment.vue";
+import CommonComment from "@jx3box/jx3box-ui/src/single/Comment.vue";
 import { editLink, showAvatar, authorLink, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
 import bodyData from "@jx3box/jx3box-data/data/role/body.json";
@@ -215,14 +259,14 @@ import { __clients, __imgPath, __Root } from "@/utils/config";
 import dayjs from "@/utils/day";
 import faceItem from "./components/item";
 import authorItem from "@/components/common/face-body/author";
-import { Edit, Picture } from '@element-plus/icons-vue';
+import { Edit, Picture } from "@element-plus/icons-vue";
 const { bodyMap } = bodyData;
 export default {
     name: "single",
     components: {
         PublicNotice,
         facedata,
-        Comment,
+        CommonComment,
         faceItem,
         authorItem,
         Edit,
@@ -522,14 +566,14 @@ export default {
                                     .then(() => {
                                         window.open("/vip/cny", "_blank");
                                     })
-                                    .catch(() => { });
+                                    .catch(() => {});
                             }
                         })
                         .finally(() => {
                             this.payBtnLoading = false;
                         });
                 })
-                .catch(() => { });
+                .catch(() => {});
         },
         getPayFaceStatus(pay_status, setIntervalId) {
             if (pay_status == 1) {
