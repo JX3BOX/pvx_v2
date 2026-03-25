@@ -17,11 +17,8 @@
                 </template>
                 <template #body>
                     <div class="m-wiki-compatible" v-if="compatible">
-                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
-                            class="s-link"
-                            :href="publish_url(`${type}/${id}`)"
-                            >参与修订</a
-                        >。
+                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a class="s-link"
+                            :href="publish_url(`${type}/${id}`)">参与修订</a>。
                     </div>
                     <Article :content="wiki_post.post.content" />
                     <div class="m-wiki-signature" v-if="wiki_post.post.content" @click="versionVisible = true">
@@ -279,6 +276,7 @@ export default {
 @color-dark: #ffffff;
 @bg-dark: #060606;
 @secondary-cyan: #32ade6;
+
 // html
 .v-miniprogram {
     .m-version-drawer {
@@ -289,6 +287,7 @@ export default {
         width: 100% !important;
         border-radius: 20px 20px 0px 0px;
         background: @brand4;
+
         .el-dialog__header {
             .none;
         }
@@ -298,6 +297,7 @@ export default {
             max-height: 70vh;
             overflow-y: scroll;
         }
+
         .m-version-container {
             .u-title-wrap {
                 .flex;
@@ -305,10 +305,12 @@ export default {
                 align-items: center;
             }
         }
+
         .u-version {
             position: relative;
             padding-bottom: 2px;
             margin-bottom: 12px;
+
             &::after {
                 width: 160px;
                 height: 1px;
@@ -320,6 +322,7 @@ export default {
                 left: calc((100% - 160px) / 2);
             }
         }
+
         .u-title {
             color: @brand2;
 
@@ -327,8 +330,10 @@ export default {
             font-size: 16px;
             font-style: normal;
             font-weight: 700;
-            line-height: 24px; /* 150% */
+            line-height: 24px;
+            /* 150% */
         }
+
         .u-user,
         .u-content {
             color: rgba(28, 28, 28, 0.8);
@@ -337,8 +342,10 @@ export default {
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
-            line-height: 20px; /* 142.857% */
+            line-height: 20px;
+            /* 142.857% */
         }
+
         .u-time {
             margin-top: 2px;
             color: rgba(28, 28, 28, 0.4);
@@ -348,22 +355,28 @@ export default {
             font-size: 12px;
             font-style: normal;
             font-weight: 400;
-            line-height: 18px; /* 150% */
+            line-height: 18px;
+            /* 150% */
         }
+
         .u-content {
             margin: 12px 0;
         }
+
         @media (prefers-color-scheme: dark) {
             .u-title {
                 color: @brand3;
             }
+
             .u-user,
             .u-content {
                 color: rgba(255, 255, 255, 0.8);
             }
+
             .u-time {
                 color: rgba(255, 255, 255, 0.8);
             }
+
             .u-version {
                 &::after {
                     background: rgba(255, 255, 255, 0.1);
@@ -390,7 +403,7 @@ export default {
             .mt(-20px);
             color: @black-40;
             text-align: center;
-            .fz(12px,18px);
+            .fz(12px, 18px);
         }
 
         .m-wiki-post-panel {
@@ -398,9 +411,11 @@ export default {
             border: 1px solid rgba(40, 40, 40, 0.05);
             .r(10px);
             .mt(20px);
+
             .c-wiki-panel {
                 background-color: transparent;
                 border: none;
+
                 .m-panel-head {
                     padding: 16px 16px 0;
                     background-color: transparent;
@@ -410,37 +425,45 @@ export default {
                     .m-panel-title {
                         padding: 0;
                         color: @brand2;
+
                         .u-txt,
                         span {
                             font-family: "Microsoft YaHei UI" !important;
                             font-size: 16px !important;
                             font-weight: 700 !important;
                         }
+
                         svg,
                         .el-icon-chat-line-round {
                             .none !important;
                         }
                     }
                 }
+
                 .m-panel-body {
                     padding: 0 16px 16px;
+
                     .m-wiki-metas {
                         .u-creator {
                             &:not(:last-child) {
                                 margin-right: -8px;
                             }
                         }
+
                         .u-meta {
                             margin-top: 4px;
                             margin-bottom: 4px;
+
                             &:nth-of-type(2) {
                                 display: none;
                             }
                         }
                     }
+
                     .u-label {
                         .none;
                     }
+
                     .u-value {
                         color: rgba(@brand2, 0.4);
                     }
@@ -449,6 +472,7 @@ export default {
                     .u-content {
                         color: @black-80;
                     }
+
                     .m-wiki-signature {
                         margin-top: 16px;
                         padding-top: 20px;
@@ -456,10 +480,12 @@ export default {
                         border: none;
                         color: @black-40;
                     }
+
                     .w-thx-copyright {
                         background-color: @color-dark !important;
                         border: none;
                     }
+
                     .u-comment {
                         border: none !important;
                     }
@@ -500,7 +526,7 @@ export default {
     }
 
     .c-wiki-comments {
-        margin: 20px -20px 0;
+        margin: 20px 0;
         border: none;
         background-color: @brand4;
         border-radius: 0;
@@ -512,9 +538,11 @@ export default {
         .u-nickname {
             color: @secondary-cyan !important;
         }
+
         .u-content {
             color: @black-80;
         }
+
         .u-time {
             color: @black-40;
         }
@@ -524,38 +552,48 @@ export default {
         }
     }
 }
+
 @media (prefers-color-scheme: dark) {
     .m-version-drawer {
         background: @brand4-dark !important;
     }
+
     .w-pvx-user__miniprogram {
         .u-adventure-tips {
             color: @black-40-dark !important;
         }
+
         .m-wiki-post-panel {
             background-color: @brand4-dark !important;
+
             .m-panel-title {
                 color: @brand2-dark !important;
             }
+
             .m-panel-body {
                 .m-wiki-metas {
                     .u-value {
                         color: rgba(@color-dark, 0.4) !important;
                     }
                 }
+
                 .c-article-tinymce {
                     color: @black-80-dark !important;
                 }
             }
+
             .m-wiki-signature {
                 color: @black-40-dark !important;
             }
         }
+
         .c-wiki-comments {
             background-color: @brand4-dark;
+
             .u-content {
                 color: @black-80-dark !important;
             }
+
             .u-time {
                 color: @black-40-dark !important;
             }

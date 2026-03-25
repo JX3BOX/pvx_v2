@@ -20,11 +20,8 @@
                 </template>
                 <template #body>
                     <div class="m-wiki-compatible" v-if="compatible">
-                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
-                            class="s-link"
-                            :href="publish_url(`${type}/${id}`)"
-                            >参与修订</a
-                        >。
+                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a class="s-link"
+                            :href="publish_url(`${type}/${id}`)">参与修订</a>。
                     </div>
                     <Article id="pvxWiki" :content="wiki_post.post.content" />
                     <div class="m-wiki-signature">
@@ -41,11 +38,8 @@
                 <WikiRevisions :type="type" :source-id="id" />
             </template>
         </div>
-        <div
-            class="m-wiki-post-empty"
-            :class="isRobot ? 'is-robot-empty' : ''"
-            v-if="(!wiki_post || !wiki_post.post) && id"
-        >
+        <div class="m-wiki-post-empty" :class="isRobot ? 'is-robot-empty' : ''"
+            v-if="(!wiki_post || !wiki_post.post) && id">
             <template v-if="!isRobot">
                 <i class="el-icon-s-opportunity"></i>
                 <span>暂无攻略，我要</span>
@@ -54,21 +48,12 @@
             <span v-else>暂无相关攻略，欢迎热心侠士前往补充！</span>
         </div>
         <template v-if="!isRobot">
-            <Thx
-                class="m-thx"
-                :postId="id"
-                :postType="type"
-                :postTitle="wiki_post.source.Name"
-                :userId="author_id"
-                :adminBoxcoinEnable="false"
-                :userBoxcoinEnable="false"
-                :authors="authors"
-                mode="wiki"
-                :key="type + '-thx-' + id"
-                :client="client" />
+            <Thx class="m-thx" :postId="id" :postType="type" :postTitle="wiki_post?.source?.Name || ''"
+                :userId="author_id" :adminBoxcoinEnable="false" :userBoxcoinEnable="false" :authors="authors"
+                mode="wiki" :key="type + '-thx-' + id" :client="client" />
             <!-- 百科评论 -->
-            <WikiComments :type="type" :source-id="String(id)"
-        /></template>
+            <WikiComments :type="type" :source-id="String(id)" />
+        </template>
     </div>
 </template>
 
@@ -184,7 +169,7 @@ export default {
             return [];
         },
     },
-    mounted() {},
+    mounted() { },
     beforeUnmount() {
         window.removeEventListener("load", this.initImageLoader);
     },
@@ -338,26 +323,32 @@ export default {
     .m-wiki-post-panel.is-robot .m-panel-head .m-panel-title {
         .none;
     }
+
     .m-pvx-wiki-title {
         margin-top: 10px;
+
         span {
             font-weight: normal;
             font-style: normal;
             color: rgba(255, 255, 255, 0.5);
             font-size: 12px;
         }
+
         .u-title {
             color: #fff;
             font-size: 16px;
             font-weight: bold;
         }
     }
-    & > div {
+
+    &>div {
         margin-top: 40px !important;
     }
+
     .c-wiki-panel {
         margin-top: 40px !important;
     }
+
     .m-wiki-signature {
         text-align: right;
         color: #999;
