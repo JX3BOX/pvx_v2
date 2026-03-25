@@ -287,7 +287,30 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import "~@/assets/css/app.less";
 @import "~@/assets/css/adventure/treasure.less";
+
+.m-related-roles {
+    display: block;
+    padding: 0 30px;
+    .el-select {
+        border-radius: 0;
+        border: 1px solid #81453e;
+        .r(4px);
+        .el-select__wrapper {
+            padding: 0 10px 0 0;
+            height: 30px;
+            line-height: 30px;
+        }
+    }
+    .u-action {
+        .u-refresh,
+        .u-role-setting {
+            line-height: 32px;
+            height: 32px;
+        }
+    }
+}
+
 </style>
