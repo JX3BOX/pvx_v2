@@ -45,12 +45,8 @@
                     <i class="u-fr" v-if="!!post.is_fr">首发</i>
                     <i class="u-original" v-if="!!post.original">原创</i>
                     <i class="u-client" :class="post.client || 'std'">{{ showClientLabel(post.client) }}</i>
-                    <i
-                        class="u-is-new-face"
-                        v-if="post.client === 'std'"
-                        :class="post.is_new_face === 1 ? 'u-new' : 'u-old'"
-                        >{{ newFaceMap[post.is_new_face] }}</i
-                    >
+                    <i class="u-is-new-face" v-if="post.client === 'std'"
+                        :class="post.is_new_face === 1 ? 'u-new' : 'u-old'">{{ newFaceMap[post.is_new_face] }}</i>
                     <i class="u-bodytype" :class="'u-bodytype-' + post.body_type" v-if="post.body_type">{{
                         showBodyTypeLabel(post.body_type)
                     }}</i>
@@ -72,23 +68,13 @@
                     <div class="u-bg-wrap">
                         <div class="u-bg" :style="{ backgroundImage: `url(${showPic(activePic)})` }"></div>
                     </div>
-                    <el-carousel
-                        class="m-carousel"
-                        :interval="4000"
-                        type="card"
-                        arrow="always"
-                        @change="carouselChange"
-                    >
+                    <el-carousel class="m-carousel" :interval="4000" type="card" arrow="always"
+                        @change="carouselChange">
                         <el-carousel-item v-for="(item, i) in previewSrcList" :key="i">
                             <div class="m-face-pic">
-                                <el-image
-                                    ref="previewImage"
-                                    fit="contain"
-                                    :src="showPic(item)"
-                                    class="u-pic"
+                                <el-image ref="previewImage" fit="contain" :src="showPic(item)" class="u-pic"
                                     :preview-src-list="resolveImageArr(previewSrcList)"
-                                    @click.capture="handlePreviewImage(i)"
-                                ></el-image>
+                                    @click.capture="handlePreviewImage(i)"></el-image>
                             </div>
                         </el-carousel-item>
                     </el-carousel>
@@ -98,24 +84,15 @@
             <!-- 右侧 -->
             <div class="m-face-pay">
                 <div class="m-face-buy" :class="{ 'm-dowload': (post.price_type && post.price_type === 0) || has_buy }">
-                    <div
-                        class="m-face-buy-btn"
-                        @click="facePay()"
-                        v-if="post.price_type && post.price_type != 0 && !has_buy"
-                    >
-                        <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
-                        <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
+                    <div class="m-face-buy-btn" @click="facePay()" v-if="canBuy">
+                        <div class="u-price">{{ priceText }}</div>
                         <div class="u-buy">
                             <img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
                         </div>
                     </div>
                     <template v-else>
-                        <div
-                            class="m-face-buy-btn"
-                            v-if="post.code_mode"
-                            :class="{ 'm-face-buy-btn_copy': post.code_mode }"
-                            @click="copy(post.code)"
-                        >
+                        <div class="m-face-buy-btn" v-if="post.code_mode"
+                            :class="{ 'm-face-buy-btn_copy': post.code_mode }" @click="copy(post.code)">
                             <div class="u-buy">
                                 <img :src="require('@/assets/img/face/bxs_copy.svg')" alt="" />复制捏脸码
                             </div>
@@ -139,22 +116,13 @@
                     <div class="u-tips-right">{{ post.game_price }}通宝</div>
                 </div>
                 <div class="u-face-desc-tab">
-                    <span
-                        @click="rightShow = 'desc'"
-                        :style="rightShow === 'data' ? 'color: #c2c5c7;cursor: pointer;' : ''"
-                        >说明</span
-                    >
-                    <span
-                        @click="rightShow = 'data'"
-                        v-if="downFileList && downFileList.length"
-                        :style="rightShow === 'desc' ? 'color: #c2c5c7;cursor: pointer;' : ''"
-                        >数据列表</span
-                    >
+                    <span @click="rightShow = 'desc'"
+                        :style="rightShow === 'data' ? 'color: #c2c5c7;cursor: pointer;' : ''">说明</span>
+                    <span @click="rightShow = 'data'" v-if="downFileList && downFileList.length"
+                        :style="rightShow === 'desc' ? 'color: #c2c5c7;cursor: pointer;' : ''">数据列表</span>
                 </div>
-                <div
-                    class="m-face-desc"
-                    :class="{ 'no-desc': !post.remark && rightShow === 'desc', 'is-desc': rightShow === 'desc' }"
-                >
+                <div class="m-face-desc"
+                    :class="{ 'no-desc': !post.remark && rightShow === 'desc', 'is-desc': rightShow === 'desc' }">
                     <div v-if="rightShow === 'desc'" class="u-desc">
                         {{ post.remark }}
                     </div>
@@ -182,13 +150,8 @@
             <span class="m-single-data-title">独家数据分析</span>
             <facedata v-if="has_buy && facedata" :data="faceAllData" :lock="true" type="face" />
             <div class="m-single-buy-box" v-else>
-                <div
-                    class="m-face-buy-btn"
-                    @click="facePay()"
-                    v-if="post.price_type && post.price_type != 0 && !has_buy"
-                >
-                    <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
-                    <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
+                <div class="m-face-buy-btn" @click="facePay()" v-if="canBuy">
+                    <div class="u-price">{{ priceText }}</div>
                     <div class="u-buy">
                         <img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
                     </div>
@@ -211,16 +174,9 @@
             </div>
         </div>
         <!-- 点赞 -->
-        <Thx
-            class="m-thx m-single-content-box"
-            :postId="id"
-            postType="face"
-            :postTitle="post.title || '无标题'"
-            :userId="post.user_id"
-            :adminBoxcoinEnable="post.status == 1"
-            :userBoxcoinEnable="post.status == 1"
-            :client="post.client"
-        />
+        <Thx class="m-thx m-single-content-box" :postId="id" postType="face" :postTitle="post.title || '无标题'"
+            :userId="post.user_id" :adminBoxcoinEnable="post.status == 1" :userBoxcoinEnable="post.status == 1"
+            :client="post.client" />
         <!-- 评论 -->
         <div class="m-comments m-single-content-box">
             <el-divider content-position="left">讨论</el-divider>
@@ -231,7 +187,6 @@
 
 <script>
 import PublicNotice from "@/components/PublicNotice";
-const single_pages = ["single"];
 import { downloadZip } from "@/utils/exportFileZip";
 import {
     getOneFaceInfo,
@@ -240,7 +195,6 @@ import {
     getAccessoryList,
     getDownUrl,
     getRandomFace,
-    getRandomFaceAndBody,
     setStar,
     cancelStar,
     onlineFace,
@@ -275,10 +229,8 @@ export default {
     data: function () {
         return {
             loading: false,
-            search: "", //搜索值
             post: {},
-            stat: {},
-            has_buy: false, //是否购买
+            has_buy: false,
             client_map: __clients,
             downFileList: [],
             downloadParams: {
@@ -292,15 +244,10 @@ export default {
             isEditor: User.isEditor(),
             rightShow: "desc",
             topic_info: null,
-            face: {},
-            pvxbodyList: [],
             newFaceMap: ["写意", "写实"],
         };
     },
     computed: {
-        ready: function () {
-            return !!(this.facedata && this.decalDb.ready());
-        },
         publish_link() {
             return publishLink("face");
         },
@@ -315,7 +262,12 @@ export default {
         },
         facedata: function () {
             const data = this.post?.data || "";
-            return data.indexOf("\\") > -1 ? JSON.parse(data) : data;
+            try {
+                return data.indexOf("\\") > -1 ? JSON.parse(data) : data;
+            } catch (e) {
+                console.error("解析 facedata 失败:", e);
+                return data;
+            }
         },
         previewSrcList: function () {
             return this.post?.images || [];
@@ -323,11 +275,16 @@ export default {
         canEdit: function () {
             return User.isEditor() || this.post?.user_id == User.getInfo().uid;
         },
+        canBuy: function () {
+            return this.post.price_type && this.post.price_type != 0 && !this.has_buy;
+        },
+        priceText: function () {
+            if (this.post.price_type == 1) return `售价：${this.post.price_count} 盒币`;
+            if (this.post.price_type == 2) return `售价：${this.post.price_count} 金箔`;
+            return "";
+        },
         activePic: function () {
             return this.previewSrcList[this.carouselActive];
-        },
-        isSinglePage: function () {
-            return single_pages.includes(this.$route.name);
         },
         //上下架状态
         status: function () {
@@ -360,9 +317,6 @@ export default {
         this.getData();
     },
     methods: {
-        imgLink: function (images) {
-            return images?.[0] || __imgPath + "image/face/null2.png";
-        },
         showAvatar(url) {
             return showAvatar(url, "l");
         },
@@ -371,14 +325,6 @@ export default {
         },
         authorLink,
         editLink,
-        getFaceList() {
-            this.$router.push({
-                name: "list",
-                query: {
-                    title: this.search,
-                },
-            });
-        },
         goBack() {
             document.title = "捏脸分享 - JX3BOX";
             this.$router.push({
@@ -543,20 +489,13 @@ export default {
                         accessUserId: res.user_id,
                         payUserId: User.getInfo().uid,
                     };
-                    //支付
                     this.payBtnLoading = true;
                     payFace(params)
                         .then((res) => {
                             let payid = res.data.data.id;
-                            // 轮询接口
-                            let setIntervalId = setInterval(
-                                loopPayStatus(payid).then((d) => {
-                                    this.getPayFaceStatus(d.data.data.pay_status, setIntervalId);
-                                }, 1000)
-                            );
+                            this.pollPayStatus(payid);
                         })
                         .catch((err) => {
-                            // 余额不足
                             if (err.response?.data?.code == 40019) {
                                 this.$confirm("余额不足，是否前往充值？", "提示", {
                                     confirmButtonText: "确定",
@@ -566,20 +505,32 @@ export default {
                                     .then(() => {
                                         window.open("/vip/cny", "_blank");
                                     })
-                                    .catch(() => {});
+                                    .catch(() => { });
                             }
                         })
                         .finally(() => {
                             this.payBtnLoading = false;
                         });
                 })
-                .catch(() => {});
+                .catch(() => { });
         },
-        getPayFaceStatus(pay_status, setIntervalId) {
+        pollPayStatus(payid) {
+            loopPayStatus(payid)
+                .then((d) => {
+                    const status = d.data.data.pay_status;
+                    if (status === 1 || status === 2) {
+                        this.getPayFaceStatus(status);
+                    } else {
+                        setTimeout(() => this.pollPayStatus(payid), 1000);
+                    }
+                })
+                .catch(() => {
+                    setTimeout(() => this.pollPayStatus(payid), 1000);
+                });
+        },
+        getPayFaceStatus(pay_status) {
             if (pay_status == 1) {
                 this.payBtnLoading = false;
-                clearInterval(setIntervalId);
-                //购买成功后需要重载数据，拉取下载列表
                 this.getData();
                 this.$notify.success({
                     title: "成功",
@@ -587,7 +538,6 @@ export default {
                 });
             } else if (pay_status == 2) {
                 this.payBtnLoading = false;
-                clearInterval(setIntervalId);
                 this.$notify.error({
                     title: "失败",
                     message: "支付失败",
@@ -605,19 +555,6 @@ export default {
                 if (res.data.data.list && res.data.data.list.length > 0) {
                     this.randomList = res.data.data.list;
                 }
-            });
-        },
-        getRandomList() {
-            const { body_type, client, user_id } = this.post;
-            getRandomFaceAndBody({
-                body_type,
-                client,
-                user_id,
-                limit: 8,
-            }).then((res) => {
-                const { face, pvxbodyList } = res.data.data;
-                this.face = face;
-                this.pvxbodyList = pvxbodyList || [];
             });
         },
         showPic(url) {

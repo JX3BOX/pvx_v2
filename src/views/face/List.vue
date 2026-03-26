@@ -58,6 +58,10 @@ export default {
             loading: false,
             tabsData: {},
             active: -1,
+            // 请求标识符，用于处理竞态问题（快速切换 tab 时取消过期请求）
+            requestId: 0,
+            // 是否正在切换 Tab
+            isTabSwitching: false,
             list: [
                 { label: "全部", list: [], value: -1, client: ["std", "origin"], page: 1, pages: 1 },
                 { label: "成男", list: [], value: 1, client: ["std", "origin"], page: 1, pages: 1 },
@@ -84,6 +88,10 @@ export default {
         };
     },
     computed: {
+        // 获取当前激活的 tab 项，减少重复查找
+        activeTab() {
+            return this.list.find((e) => e.value === this.active);
+        },
         client() {
             return this.$store.state.client;
         },
@@ -97,40 +105,63 @@ export default {
             };
         },
         hasNextPage() {
-            const pages = this.list.filter((e) => e.value == this.active)[0].pages;
-            return pages > 1 && this.page < pages;
+            // 使用 activeTab 替代 filter()[0]，减少遍历次数
+            const tab = this.activeTab;
+            return tab && tab.pages > 1 && this.page < tab.pages;
         },
         alertTitle: function () {
             if (this.title) return "没找到对应的捏脸，请重新选择条件或关键词搜索";
             return "没有找到相关的捏脸";
         },
         subList() {
+            // 使用 activeTab 获取当前激活项的列表数据
             if (!this.active) return null;
-            return this.list.filter((e) => e.value === this.active)[0].list;
+            const tab = this.activeTab;
+            return tab ? tab.list : [];
         },
         typeName() {
-            return this.list.filter((e) => e.value == this.active)[0].label;
+            // 使用可选链避免空指针
+            return this.activeTab?.label || '';
         },
         noList() {
-            if (this.active === -1) return this.list.every((obj) => obj.list.length === 0);
-            return this.subList.length === 0;
+            if (this.active === -1) {
+                // 全部 tab 下，检查所有分类是否都为空
+                return this.list.every((obj) => obj.list.length === 0);
+            }
+            // 其他 tab 下，检查当前分类列表是否为空
+            const sub = this.subList;
+            return !sub || sub.length === 0;
         },
     },
     watch: {
-        params: {
-            handler: debounce(function () {
-                this.loadData();
-            }, 500),
-            deep: true,
+        // Tab 切换时立即触发加载
+        active: {
+            handler(val) {
+                // 先设置每页数量和页码，再加载数据
+                this.per = val === -1 ? this.count : this.count * 3;
+                // 延迟到 nextTick 执行，确保 page=1 的响应式变化先完成
+                this.$nextTick(() => {
+                    this.page = 1;
+                    this.loadData();
+                });
+            },
+            immediate: false,
         },
-        active(val) {
-            this.per = val === -1 ? this.count : this.count * 3;
-            this.page = 1;
+        // 监听 tabsData 变化（筛选条件变化时触发）
+        tabsData: {
+            handler() {
+                // 如果正在切换 Tab，不触发加载
+                if (this.isTabSwitching) return;
+                this.loadData();
+            },
+            deep: true,
         },
     },
 
     methods: {
         setActive(val) {
+            // 标记正在切换 Tab
+            this.isTabSwitching = true;
             this.active = val;
             document.documentElement.scrollTop = 0;
         },
@@ -140,28 +171,39 @@ export default {
                 this.slidersList = res.data.data.list || [];
             });
         },
-        // 加载数据
+        // 加载数据（添加竞态处理）
         loadData() {
             this.loading = true;
+            // 生成新的请求标识
+            const currentRequestId = ++this.requestId;
+
             let params = omit(this.params, ["type"]);
             if (this.active === -1) {
                 const list = this.list.filter((e) => e.value !== -1);
                 list.forEach((e) => {
                     params.pageIndex = e.page;
                     params.body_type = e.value;
-                    this.loadList(params, e.value);
+                    this.loadList(params, e.value, currentRequestId);
                 });
             } else {
                 params.pageIndex = this.page;
-                this.loadList({ ...params, body_type: this.active }, this.active);
+                this.loadList({ ...params, body_type: this.active }, this.active, currentRequestId);
             }
         },
-
-        loadList(params, key) {
+        // 加载列表数据（添加竞态处理，避免数据错乱）
+        loadList(params, key, requestId) {
             const index = this.list.findIndex((e) => e.value === key);
-            if (this.list[index].pages < params.pageIndex && this.active === -1) params.pageIndex = 1;
+            if (index === -1) return;
+
+            if (this.list[index].pages < params.pageIndex && this.active === -1) {
+                params.pageIndex = 1;
+            }
+
             getFaceList(params)
                 .then((res) => {
+                    // 检查请求是否已过时（快速切换 tab 时丢弃旧响应）
+                    if (requestId !== this.requestId) return;
+
                     const { list, page } = res.data.data;
                     const _list = this.appendMode ? concat(this.list[index].list, list) : list;
                     this.list[index].list = _list || [];
@@ -171,8 +213,13 @@ export default {
                     this.total = page.total;
                 })
                 .finally(() => {
-                    this.loading = false;
-                    this.appendMode = false;
+                    // 仅在最新请求完成时关闭 loading
+                    if (requestId === this.requestId) {
+                        this.loading = false;
+                        this.appendMode = false;
+                        // 请求完成后重置 Tab 切换标志
+                        this.isTabSwitching = false;
+                    }
                 });
         },
         changePage(i) {
@@ -187,7 +234,8 @@ export default {
             this.page = 1;
             this.tabsData = data;
         },
-        showCount() {
+        // 页面宽度变化时重新计算每页显示数量（带防抖，避免频繁触发）
+        showCount: debounce(function () {
             if (isPhone()) {
                 this.per = 8;
                 return;
@@ -195,21 +243,34 @@ export default {
             const listWidth = this.$refs.listRef?.clientWidth - 120;
             this.count = Math.floor(listWidth / (Number(this.itemData.width) + 10));
             this.per = this.active === -1 ? this.count : this.count * 3;
-        },
+        }, 200),
+        // 加载更多时的处理
         handleLoad(type) {
-            const page = this.list.filter((e) => e.value === type)[0].page;
+            // 使用 find() 替代 filter()[0]，提高查找效率
+            const item = this.list.find((e) => e.value === type);
+            const page = item?.page || 1;
             let params = cloneDeep(this.params);
             params.pageSize = this.per;
             params.pageIndex = page + 1;
             params.body_type = type;
-            this.loadList(params, type);
+            // 加载更多时也使用当前最新请求标识
+            this.loadList(params, type, this.requestId);
         },
-        listId(list) {
-            return list.map((e) => e.id);
+        // 窗口大小变化处理
+        handleResize() {
+            this.showCount();
         },
     },
     mounted() {
         this.showCount();
+        // 首次加载数据
+        this.loadData();
+        // 监听窗口大小变化，响应式调整布局
+        window.addEventListener('resize', this.handleResize);
+    },
+    beforeUnmount() {
+        // 组件销毁前移除事件监听，避免内存泄漏
+        window.removeEventListener('resize', this.handleResize);
     },
 };
 </script>

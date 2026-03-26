@@ -85,19 +85,18 @@
                         v-if="post.price_type && post.price_type != 0 && !has_buy">
                         <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
                         <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
-                        <div class="u-buy"><img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
+                        <div class="u-buy"><img :src="iconShopcart" alt="" />购买
                         </div>
                     </div>
                     <div class="m-body-buy-btn" v-else @click="downloadAll">
-                        <div class="u-buy"><img :src="require('@/assets/img/common/face-body/download.svg')"
-                                alt="" />下载数据</div>
+                        <div class="u-buy"><img :src="iconDownload" alt="" />下载数据</div>
                     </div>
 
                     <div class="u-update-time">更新时间： {{ post.updated_at }}</div>
-                    <img class="u-box-img" :src="require('@/assets/img/common/face-body/stroke.svg')" />
+                    <img class="u-box-img" :src="iconStroke" />
                 </div>
                 <div class="m-body-tips" v-if="post.game_price">
-                    <img :src="require('@/assets/img/common/face-body/info.svg')" alt="" />
+                    <img :src="iconInfo" alt="" />
                     <div class="u-tips-left">该数据含游戏内收费项目，总计约</div>
                     <div class="u-tips-right">{{ post.game_price }}通宝</div>
                 </div>
@@ -126,7 +125,7 @@
                 </div>
 
                 <div class="m-body-head" v-if="topic_info">
-                    <img :src="require('@/assets/img/common/face-body/cup.svg')" alt="" />
+                    <img :src="iconCup" alt="" />
                     该体型于{{ topic_info.created_at }}荣登头条
                 </div>
             </div>
@@ -140,7 +139,7 @@
                     v-if="post.price_type && post.price_type != 0 && !has_buy">
                     <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
                     <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
-                    <div class="u-buy"><img :src="require('@/assets/img/common/face-body/shopcart.svg')" alt="" />购买
+                    <div class="u-buy"><img :src="iconShopcart" alt="" />购买
                     </div>
                 </div>
                 <div class="u-body-buy-tip">数据分析将在购买后解锁</div>
@@ -148,7 +147,7 @@
         </div>
         <div class="m-body-download" v-if="has_buy && bodydata">
             <div class="m-body-buy-btn" @click="downloadAll">
-                <div class="u-buy"><img :src="require('@/assets/img/common/face-body/download.svg')" alt="" />下载数据</div>
+                <div class="u-buy"><img :src="iconDownload" alt="" />下载数据</div>
             </div>
         </div>
         <div class="u-about-author">关于作者</div>
@@ -171,15 +170,16 @@
 </template>
 
 <script>
-import PublicNotice from "@/components/PublicNotice";
-const single_pages = ["single"];
-import { downloadZip } from "@/utils/exportFileZip";
+/**
+ * Single.vue - 体型数据详情页
+ * 主要功能：展示体型数据详情、图片预览、购买/下载、评论等
+ */
 import {
     getOneBodyInfo,
     payBody,
     loopPayStatus,
     getAccessoryList,
-    getDownUrl,
+    getDownUrl as fetchDownUrl,
     getRandomBody,
     getRandomFaceAndBody,
     setStar,
@@ -191,15 +191,24 @@ import {
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 import Comment from "@jx3box/jx3box-ui/src/single/Comment.vue";
-import Bodydat from "./components/Bodydat.vue";
+// import Bodydat from "./components/Bodydat.vue";
+import Bodydat from "@jx3box/jx3box-facedat/src/Bodydat.vue";
 import { editLink, showAvatar, authorLink, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
 import bodyData from "@jx3box/jx3box-data/data/role/body.json";
-import { __clients, __imgPath, __Root } from "@/utils/config";
+import { __clients, __imgPath } from "@/utils/config";
 
-import dayjs from "@/utils/day";
 import bodyItem from "./components/item.vue";
 import authorItem from "@/components/common/face-body/author";
+import { downloadZip } from "@/utils/exportFileZip";
+import dayjs from "@/utils/day";
+
+import iconShopcart from "@/assets/img/common/face-body/shopcart.svg";
+import iconDownload from "@/assets/img/common/face-body/download.svg";
+import iconStroke from "@/assets/img/common/face-body/stroke.svg";
+import iconInfo from "@/assets/img/common/face-body/info.svg";
+import iconCup from "@/assets/img/common/face-body/cup.svg";
+
 const { bodyMap } = bodyData;
 export default {
     name: "single",
@@ -212,10 +221,9 @@ export default {
     data: function () {
         return {
             loading: false,
-            search: "", //搜索值
             post: {},
             stat: {},
-            has_buy: false, //是否购买
+            has_buy: false,
             client_map: __clients,
             downFileList: [],
             downloadParams: {
@@ -227,18 +235,16 @@ export default {
             randomList: [],
             carouselActive: 0,
             previewIndex: 0,
-            isEditor: User.isEditor(),
             rightShow: "desc",
             topic_info: null,
-            face: {},
-            pvxbodyList: [],
-            newFaceMap: ["写意", "写实"],
+            iconShopcart,
+            iconDownload,
+            iconStroke,
+            iconInfo,
+            iconCup,
         };
     },
     computed: {
-        ready: function () {
-            return !!(this.facedata && this.decalDb.ready());
-        },
         publish_link() {
             return publishLink("body");
         },
@@ -257,19 +263,15 @@ export default {
         },
         bodydata: function () {
             const data = this.post?.data || "";
-            const bodyData = {
-                object: {},
-            };
+            if (!data) return { object: {}, fieldRanges: [] };
+
             try {
-                if (data) {
-                    bodyData.object = JSON.parse(JSON.parse(data));
-                } else {
-                    bodyData.object = data;
-                }
+                const parsed = JSON.parse(data);
+                const finalData = typeof parsed === "string" ? JSON.parse(parsed) : parsed;
+                return { object: finalData, fieldRanges: finalData?.fieldRanges || [] };
             } catch {
-                bodyData.object = JSON.parse(data);
+                return { object: {}, fieldRanges: [] };
             }
-            return bodyData;
         },
         previewSrcList: function () {
             return this.post?.images || [];
@@ -280,54 +282,22 @@ export default {
         activePic: function () {
             return this.previewSrcList[this.carouselActive];
         },
-        isSinglePage: function () {
-            return single_pages.includes(this.$route.name);
-        },
-        //上下架状态
-        status: function () {
-            return this.$store.state.faceSingle?.status || 1;
-        },
-        statusText: function () {
-            return this.status !== 1 ? "上架" : "下架";
-        },
-        isStar: function () {
-            return this.$store.state.faceSingle?.star || 0;
-        },
-        starText: function () {
-            return this.isStar ? "取消精选" : "精选";
-        },
         topicText() {
             return this.topic_info ? `${dayjs.tz(this.topic_info.created_at).format("YYYY年MM月DD日")}荣登头条` : "";
         },
         tvLink() {
-            return __Root + "index/tv";
-        },
-        bodyAllData() {
-            return {
-                json: this.bodydata,
-                object: JSON.parse(this.bodydata),
-                type: "body",
-            };
+            return __imgPath + "index/tv";
         },
     },
     created: function () {
         this.getData();
     },
     methods: {
-        imgLink: function (images) {
-            return images?.[0] || __imgPath + "image/body/null2.png";
-        },
         showAvatar(url) {
             return showAvatar(url, "l");
         },
-        showThumbnail(url) {
-            return resolveImagePath(url);
-        },
         authorLink,
         editLink,
-        getBodyList() {
-            this.$router.push({ name: "list", query: { title: this.search } });
-        },
         goBack() {
             document.title = "捏脸分享 - JX3BOX";
             this.$router.push({ name: "list" });
@@ -390,8 +360,7 @@ export default {
                 });
         },
         getDownUrl(uuid, filename) {
-            getDownUrl(this.id, uuid).then((res) => {
-                // window.location.href = resolveImagePath(res.data.data?.url);
+            fetchDownUrl(this.id, uuid).then((res) => {
                 this.downloadfile(res.data.data?.url, filename);
             });
         },
@@ -442,7 +411,7 @@ export default {
             }
             const urlArr = [];
             this.downFileList.forEach((item) => {
-                urlArr.push(getDownUrl(this.id, item.uuid));
+                urlArr.push(fetchDownUrl(this.id, item.uuid));
             });
             let p = Promise.all(urlArr);
             let downloadFiles = [];
@@ -467,29 +436,22 @@ export default {
                 type: "warning",
             })
                 .then(() => {
-                    let res = this.post;
+                    let postData = this.post;
                     let params = {
                         postType: "body",
-                        PostId: res.id,
-                        priceType: res.price_type,
-                        priceCount: res.price_count,
-                        accessUserId: res.user_id,
+                        PostId: postData.id,
+                        priceType: postData.price_type,
+                        priceCount: postData.price_count,
+                        accessUserId: postData.user_id,
                         payUserId: User.getInfo().uid,
                     };
-                    //支付
                     this.payBtnLoading = true;
                     payBody(params)
                         .then((res) => {
                             let payid = res.data.data.id;
-                            // 轮询接口
-                            let setIntervalId = setInterval(
-                                loopPayStatus(payid).then((d) => {
-                                    this.getPayBodyStatus(d.data.data.pay_status, setIntervalId);
-                                }, 1000)
-                            );
+                            this.loopPayStatus(payid);
                         })
                         .catch((err) => {
-                            // 余额不足
                             if (err.response?.data?.code == 40019) {
                                 this.$confirm("余额不足，是否前往充值？", "提示", {
                                     confirmButtonText: "确定",
@@ -508,11 +470,21 @@ export default {
                 })
                 .catch(() => { });
         },
-        getPayBodyStatus(pay_status, setIntervalId) {
+        loopPayStatus(payid) {
+            let intervalId = setInterval(() => {
+                loopPayStatus(payid)
+                    .then((d) => {
+                        this.getPayBodyStatus(d.data.data.pay_status, intervalId);
+                    })
+                    .catch(() => {
+                        clearInterval(intervalId);
+                    });
+            }, 2000);
+        },
+        getPayBodyStatus(pay_status, intervalId) {
             if (pay_status == 1) {
                 this.payBtnLoading = false;
-                clearInterval(setIntervalId);
-                //购买成功后需要重载数据，拉取下载列表
+                clearInterval(intervalId);
                 this.getData();
                 this.$notify.success({
                     title: "成功",
@@ -520,7 +492,7 @@ export default {
                 });
             } else if (pay_status == 2) {
                 this.payBtnLoading = false;
-                clearInterval(setIntervalId);
+                clearInterval(intervalId);
                 this.$notify.error({
                     title: "失败",
                     message: "支付失败",
