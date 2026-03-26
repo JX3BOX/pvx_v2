@@ -3,7 +3,7 @@
         <template v-if="!isRobot">
             <div class="m-reputation-single">
                 <div class="back-wrap">
-                    <el-button @click="goBack">返回列表</el-button>
+                    <div class="u-goback" @click="goBack">返回列表</div>
                     <div class="u-back-right">
                         <PvxRobotTip v-if="!isRobot" type-name="声望" :reply="reputation.szName"></PvxRobotTip>
                         <PvxSingleAdminDrop></PvxSingleAdminDrop>
@@ -114,7 +114,7 @@
                             <div class="stage-title">
                                 <span>阶段奖励（{{
                                     stage === -1 ? reputation.gainList?.[0]?.from : reputation.gainList[stage].to
-                                    }}）</span>
+                                }}）</span>
                                 <div class="page-list" v-if="stageList.length && stageList?.[0]?.length">
                                     <div class="page-item" :class="page === currentPage && 'active'"
                                         v-for="page in pageLen" :key="page" @click="currentPage = page">

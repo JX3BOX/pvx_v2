@@ -2,7 +2,7 @@
     <div ref="bookSingleWrap" class="book-single-wrapper m-single-wrapper">
         <template v-if="!isRobot">
             <div class="back-wrap">
-                <el-button @click="goBack">返回列表</el-button>
+                <div class="u-goback" @click="goBack">返回列表</div>
                 <div class="u-back-right">
                     <PvxRobotTip v-if="!isRobot" type-name="书籍" :reply="book.Name"></PvxRobotTip>
                     <PvxSingleAdminDrop></PvxSingleAdminDrop>
@@ -36,14 +36,10 @@
                                             <template v-if="getOrigin(book).indexOf('任务') > -1">
                                                 <div class="u-detail-item">任务</div>
                                                 <div class="book-quest">
-                                                    <div
-                                                        class="quest-item"
-                                                        v-for="item in getQuestOrigin(book)"
-                                                        :key="item.questId"
-                                                    >
+                                                    <div class="quest-item" v-for="item in getQuestOrigin(book)"
+                                                        :key="item.questId">
                                                         <a target="_blank" :href="getLink('quest', item.questId)">
-                                                            [{{ item.questName }}]</a
-                                                        >
+                                                            [{{ item.questName }}]</a>
                                                     </div>
                                                 </div>
                                             </template>
@@ -55,15 +51,9 @@
                                 </el-tooltip>
                             </div>
                             <div v-else class="u-info-item">
-                                来源：<span v-if="getOrigin(book) === '碑铭'" class="book-special"
-                                    >{{ getOrigin(book) }}
-                                    <a
-                                        class="look-site"
-                                        href="javascript:;"
-                                        v-if="bookMapSite.length"
-                                        @click="dialogVisible = true"
-                                        >查看位置</a
-                                    >
+                                来源：<span v-if="getOrigin(book) === '碑铭'" class="book-special">{{ getOrigin(book) }}
+                                    <a class="look-site" href="javascript:;" v-if="bookMapSite.length"
+                                        @click="dialogVisible = true">查看位置</a>
                                 </span>
                                 <!-- 其它 -->
                                 <span v-else>{{ getOrigin(book) }}</span>
@@ -99,29 +89,18 @@
                                 </div>
                                 <div v-if="book.copyList?.length" class="u-info-item">
                                     <span>所需材料：</span>
-                                    <item-icon
-                                        v-for="material in book.copyList"
-                                        :key="material.item_id"
-                                        :item_id="material.item_id"
-                                        :size="28"
-                                        :amount="material.count"
-                                        :onlyIcon="true"
-                                    ></item-icon>
+                                    <item-icon v-for="material in book.copyList" :key="material.item_id"
+                                        :item_id="material.item_id" :size="28" :amount="material.count"
+                                        :onlyIcon="true"></item-icon>
                                 </div>
                             </div>
                         </template>
                     </div>
-                    <div
-                        v-if="book.contentInfo"
-                        class="book-content-wrapper"
-                        :class="`book-content-wrapper-${book.ExtendProfessionID1}`"
-                    >
+                    <div v-if="book.contentInfo" class="book-content-wrapper"
+                        :class="`book-content-wrapper-${book.ExtendProfessionID1}`">
                         <div class="right-div"></div>
-                        <div
-                            v-if="/^\d+$/g.test(book.contentInfo)"
-                            class="book-content"
-                            :class="/^\d+$/g.test(book.contentInfo) && 'img-content'"
-                        >
+                        <div v-if="/^\d+$/g.test(book.contentInfo)" class="book-content"
+                            :class="/^\d+$/g.test(book.contentInfo) && 'img-content'">
                             <img :src="iconLink(book.contentInfo, client)" :alt="iconLink(book.contentInfo, client)" />
                         </div>
                         <template v-else>
@@ -147,12 +126,8 @@
                 <div v-if="bookList.length" class="m-book-list" v-loading="listLoading">
                     <div class="u-title">
                         <span class="title">套书·{{ book.BookName }}</span>
-                        <a
-                            v-if="book.AchievementID"
-                            class="book-achievement"
-                            target="_blank"
-                            :href="getLink('achievement', book.AchievementID)"
-                        >
+                        <a v-if="book.AchievementID" class="book-achievement" target="_blank"
+                            :href="getLink('achievement', book.AchievementID)">
                             <!-- [{{ book.achievement ? book.achievement.Name : "" }}] -->
                             <i class="el-icon-warning"></i>
                             <span>该套书有成就</span>
@@ -160,11 +135,8 @@
                     </div>
                     <div class="book-list-wrapper">
                         <div class="book-list-content">
-                            <BookCard
-                                :item="item"
-                                v-for="(item, index) in bookList"
-                                :key="item.idKey + index"
-                            ></BookCard>
+                            <BookCard :item="item" v-for="(item, index) in bookList" :key="item.idKey + index">
+                            </BookCard>
                         </div>
                     </div>
                 </div>
@@ -205,8 +177,7 @@
                             <span :class="getOrigin(book) !== '其它' && 'book-special'">{{ getOrigin(book) }}</span>
                         </div>
                         <div v-else class="u-info-item">
-                            来源：<span v-if="getOrigin(book) === '碑铭'" class="book-special"
-                                >{{ getOrigin(book) }}
+                            来源：<span v-if="getOrigin(book) === '碑铭'" class="book-special">{{ getOrigin(book) }}
                             </span>
                             <!-- 其它 -->
                             <span v-else>{{ getOrigin(book) }}</span>
@@ -267,20 +238,11 @@
         <!-- 包含攻略、评论、历史版本、点赞等 书籍，宠物等物品为item, 声望成就等为achievement -->
         <pvx-user :id="id" name="书籍" type="item" :is-robot="isRobot"></pvx-user>
         <!-- 碑铭信息 -->
-        <el-dialog
-            title="碑铭位置"
-            v-model:visible="dialogVisible"
-            :width="isPhone() ? '90%' : '38%'"
-            center
-            destroy-on-close
-        >
+        <el-dialog title="碑铭位置" v-model:visible="dialogVisible" :width="isPhone() ? '90%' : '38%'" center
+            destroy-on-close>
             <div class="m-book-map">
-                <jx3box-map
-                    v-if="bookMapSite.length"
-                    class="u-content"
-                    :map-id="parseInt(bookMapSite[0].map)"
-                    :datas="bookMapSite[0].position"
-                ></jx3box-map>
+                <jx3box-map v-if="bookMapSite.length" class="u-content" :map-id="parseInt(bookMapSite[0].map)"
+                    :datas="bookMapSite[0].position"></jx3box-map>
             </div>
         </el-dialog>
     </div>
@@ -703,6 +665,7 @@ export default {
 
 <style lang="less">
 @import "~@/assets/css/book/single.less";
+
 .m-robot__book-header {
     .flex;
     justify-content: space-between;
@@ -710,6 +673,7 @@ export default {
     width: 100%;
     height: 75px;
     opacity: 1;
+
     .u-title {
         font-size: 20px;
         .bold;
@@ -718,6 +682,7 @@ export default {
         align-items: center;
         gap: 5px;
     }
+
     .m-meta {
         margin-top: 4px;
         .flex;
@@ -734,47 +699,57 @@ export default {
             height: 15px;
             line-height: 15px;
             box-sizing: border-box;
+
             &.u-class-11 {
                 background: rgba(50, 65, 72, 1);
             }
+
             &.u-class-10 {
                 background: rgba(25, 67, 114, 1);
             }
+
             &.u-class-9 {
                 background: rgba(148, 125, 46, 1);
             }
         }
     }
 }
+
 .m-robot__book-info {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     margin-top: 10px;
+
     .u-title {
         .bold;
         color: rgba(255, 206, 92, 1);
         font-size: 12px;
     }
+
     .m-list {
         gap: 4px;
         margin-top: 4px;
         color: #fff;
+
         .book-special {
             color: #fff;
         }
     }
+
     .m-book-info {
         .m-list {
             .flex;
             flex-direction: column;
         }
     }
+
     .m-book-write {
         .m-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
         }
+
         .u-info-item,
         .u-material {
             .flex;
@@ -783,34 +758,42 @@ export default {
             font-size: 10px;
             color: #fff;
         }
+
         .m-materials {
             margin-top: 4px;
         }
+
         .u-material {
             margin-right: 4px;
         }
+
         .u-item-name {
             padding-left: 0 !important;
             font-size: 10px;
         }
+
         .u-num {
             margin-left: 4px;
         }
     }
 }
+
 .m-robot__book-pack {
     margin-top: 10px;
+
     .u-title {
         .bold;
         color: #fff;
         font-size: 16px;
     }
+
     .m-book-pack {
         .flex;
         flex-wrap: wrap;
         align-items: center;
         gap: 8px;
         margin-top: 10px;
+
         .u-item {
             background: rgba(148, 125, 46, 1);
             .r(4px);
@@ -820,6 +803,7 @@ export default {
         }
     }
 }
+
 .m-robot__book-content {
     margin-top: 10px;
     width: 100%;
@@ -831,22 +815,26 @@ export default {
     align-items: center;
     padding: 12px 0;
     color: rgba(69, 41, 30, 1);
+
     .u-title {
         font-size: 16px;
         .bold;
         text-align: center;
         margin-bottom: 10px;
     }
+
     .m-pvx-book-content {
         display: grid;
         align-items: flex-start;
         justify-content: center;
         grid-template-columns: repeat(3, 1fr);
     }
+
     .u-content {
         padding: 0 12px;
         box-sizing: border-box;
         font-size: 10px;
+
         &:nth-child(2) {
             border-left: 1px solid rgba(194, 187, 161, 1);
             border-right: 1px solid rgba(194, 187, 161, 1);

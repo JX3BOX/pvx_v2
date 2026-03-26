@@ -1,9 +1,27 @@
 @import "~@/assets/css/common/back.less";
 
 .m-reputation-wrapper {
+    .u-goback {
+        .pointer;
+        .r(30px);
+        .fz(16px, 40px);
+        .size(100px, 40px);
+        .x;
+        margin-right: 10px;
+        .color(#fff);
+        border: none;
+        background: #24292e;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+
+        &:hover {
+            background: #6b52ff;
+        }
+    }
+
     .reputation-reward-wrapper {
         margin-top: 40px;
         margin-bottom: 40px;
+
         .title {
             font-size: 28px;
             color: #24292e;
@@ -11,15 +29,18 @@
             height: 42px;
             line-height: 42px;
         }
+
         .reward-content {
             display: flex;
             width: 100%;
             min-height: 400px;
             margin-top: 20px;
+
             .reward-desc-list {
                 flex: 1;
                 min-height: 400px;
                 margin-right: 20px;
+
                 .item {
                     display: flex;
                     justify-content: flex-start;
@@ -34,29 +55,34 @@
                     border: 1px #fff solid;
                     transition: 0.3s ease-out;
                     cursor: pointer;
+
                     .from-to {
                         .fz(16px);
                         margin-right: 20px;
                         font-weight: 700;
                         flex-shrink: 0;
                     }
+
                     .desc {
                         display: flex;
                         justify-content: flex-start;
                         align-items: flex-start;
                         width: inherit;
+
                         .desc-title {
                             .fz(16px);
                             margin-right: 10px;
                             font-weight: 700;
                             width: 90px;
                         }
+
                         .desc-content {
                             width: inherit;
-                            .fz(14px,24px);
+                            .fz(14px, 24px);
                             font-weight: 300;
                         }
                     }
+
                     &.active,
                     &:hover {
                         background: #e86f0019;
@@ -66,6 +92,7 @@
                     }
                 }
             }
+
             .stage-reward-list {
                 padding: 20px;
                 width: 414px;
@@ -78,20 +105,24 @@
                 border: 1px #fff solid;
                 transition: 0.3s ease-out;
                 cursor: pointer;
+
                 .stage-title {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+
                     span {
                         font-size: 16px;
                         font-weight: 700;
                         color: #000;
                     }
+
                     .page-list {
                         display: flex;
                         justify-content: flex-end;
                         align-items: center;
                         gap: 10px;
+
                         .page-item {
                             width: 20px;
                             height: 20px;
@@ -104,6 +135,7 @@
                             border: 2px solid #d16400;
                             box-sizing: border-box;
                             .pointer;
+
                             &.active,
                             &:hover {
                                 background-color: #fff;
@@ -112,6 +144,7 @@
                         }
                     }
                 }
+
                 .list {
                     padding: 20px 0;
                     display: flex;
@@ -120,6 +153,7 @@
                     flex-wrap: wrap;
                     gap: 10px;
                 }
+
                 .no-data {
                     margin-top: 20px;
                     width: 36px;
@@ -131,16 +165,19 @@
                     font-weight: 700;
                     border-radius: 5px;
                 }
+
                 &.active {
                     background: #e86f0019;
                     color: #d16400;
                     border: 1px #e86f00 solid;
                     box-shadow: 0px 0px 10px rgba(232, 111, 0, 0.4);
+
                     .stage-title {
                         span {
                             color: #d16400;
                         }
                     }
+
                     .no-data {
                         background-color: #d16400;
                         color: #fff;
@@ -161,11 +198,12 @@
         grid-column: span 3;
     }
 }
+
 // 内容
 .m-reputation-content {
     .pr;
     .flex;
-    .size(100%,auto);
+    .size(100%, auto);
     .pt(20px);
     min-height: 375px;
     gap: 20px;
@@ -181,6 +219,7 @@
         height: 42px;
         line-height: 42px;
         gap: 10px;
+
         span {
             font-size: 14px;
             font-weight: 400;
@@ -195,11 +234,13 @@
         padding: 20px;
         gap: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
         .m-content {
             .flex;
             .fz(14px, 24px);
             .pt(70px);
             gap: 20px;
+
             &.m-content-info {
                 .pt(0);
                 gap: 0px;
@@ -207,6 +248,7 @@
                 .w(500px);
                 flex-shrink: 0;
             }
+
             .sub-title {
                 .flex;
                 .bold;
@@ -214,36 +256,43 @@
                 gap: 5px;
                 align-items: center;
                 color: #000;
+
                 &.sub-name {
                     .fz(20px);
                 }
             }
+
             .detail-wrap {
                 .flex;
                 flex-direction: column;
+
                 img {
                     .w(100%);
                 }
             }
+
             .img-wrap {
                 .w(150px);
                 flex-shrink: 0;
             }
         }
     }
+
     .map-wrapper {
         .r(10px);
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         height: fit-content;
+
         .map-content {
             .clip;
             margin-top: 20px;
             width: 468px;
             height: 260px;
             overflow: hidden;
+
             .m-reputation-map {
-                & > div {
+                &>div {
                     height: 275px;
                 }
             }
@@ -298,43 +347,54 @@
         background-color: #fff;
     }
 }
+
 @media screen and (max-width: @ipad) {
     .m-reputation-content {
         flex-direction: column;
+
         .title {
-            .fz(20px,28px);
+            .fz(20px, 28px);
             flex-direction: column;
             height: auto;
             align-items: flex-start;
         }
+
         .info-wrapper {
             padding: 0;
             box-shadow: 0 0 0 0;
             flex-direction: column;
+
             .m-content {
                 .r(10px);
                 flex-direction: column;
                 padding: 20px !important;
                 box-sizing: border-box;
                 .pt(0);
+
                 &.m-content-info {
                     .w(100%);
                 }
+
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
                 .img-wrap {
                     order: 1;
                     .auto(x);
                 }
             }
         }
+
         .map-wrapper .map-content {
             .w(100%);
         }
     }
+
     .m-reputation-wrapper .reputation-reward-wrapper .reward-content {
         flex-direction: column;
+
         .reward-desc-list {
             margin: 0;
+
             .item {
                 padding: 10px;
                 gap: 10px;
@@ -345,12 +405,14 @@
                 .desc {
                     align-items: flex-start;
                     font-weight: normal;
+
                     .desc-title {
                         flex-shrink: 0;
                     }
                 }
             }
         }
+
         .stage-reward-list {
             .w(100%);
             padding: 10px;

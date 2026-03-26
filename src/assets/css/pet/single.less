@@ -1,31 +1,33 @@
 .m-pet-navigation {
     .pr;
-    .mt(20px);
-    padding: 20px 0;
+    padding: 40px 0 20px 0;
     display: flex;
     position: sticky;
     top: @header-height;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
     .flex;
     align-items: center;
     justify-content: space-between;
     .z(10);
+
     .u-goback {
         .pointer;
         .r(30px);
-        .fz(16px,40px);
-        .size(100px,40px);
+        .fz(16px, 40px);
+        .size(100px, 40px);
         .x;
         .mr(10px);
         .color(#fff);
         border: none;
         background: #24292e;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+
         &:hover {
             background: #d16400;
         }
     }
+
     .u-back-right {
         .flex;
         align-items: center;
@@ -37,10 +39,12 @@
 .m-pet-links {
     .u-link {
         .fz(14px);
-        color:@v4text;
-        &:hover{
-            box-shadow : 0 1px 0 @v4text;
+        color: @v4text;
+
+        &:hover {
+            box-shadow: 0 1px 0 @v4text;
         }
+
         i {
             .mr(2px);
         }
@@ -71,17 +75,20 @@
     padding: 20px;
     box-sizing: border-box;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
     .u-title {
         .pr;
         .flex;
-        .fz(28px,28px);
+        .fz(28px, 28px);
         .bold;
         justify-content: space-between;
         margin: 0 0 10px 0;
     }
+
     .u-stars {
         .flex;
         gap: 4px;
+
         .u-star {
             .size(21px);
         }
@@ -92,13 +99,16 @@
         flex-direction: column;
         margin-top: 20px;
         gap: 8px;
+
         .u-meta {
             .fz(14px);
             font-weight: 300;
+
             .u-meta-label {
                 .bold;
             }
         }
+
         .u-lucky-dates {
             cursor: pointer;
         }
@@ -106,10 +116,11 @@
 
     .u-shop {
         .pa;
-        .rt(0,40px);
+        .rt(0, 40px);
         .flex;
         gap: 10px;
         flex-direction: column;
+
         i {
             .dbi;
             // .y(1px);
@@ -148,15 +159,18 @@
     .r(10px);
     margin-top: 20px;
 }
+
 .u-pet-skill-title {
     .bold;
     .fz(16px);
     margin: 20px 0 10px 0;
 }
+
 .m-pet-skills {
     .flex;
     margin-top: 20px;
     gap: 10px;
+
     .u-skill {
         .size(38px);
     }
@@ -167,6 +181,7 @@
     border: 1px solid #132221;
     background: rgba(#132221f3);
     padding: 10px;
+
     .u-skill-name {
         color: #ff0;
     }
@@ -175,12 +190,14 @@
         color: #eee;
     }
 }
+
 .m-pet-comment {
     .mt(20px);
     background: #ffffff;
     .r(10px);
     padding: 20px;
 }
+
 .m-lucky-dates-dialog {
     .u-lucky-dates-item {
         margin: 2px;
@@ -198,27 +215,34 @@
         justify-content: center;
         margin-bottom: 15px;
         flex-wrap: wrap;
+
         .m-pet-links {
             .w(100%);
             flex-shrink: 0;
         }
+
         .m-pet-card {
             .mb(15px);
             .mr(0);
         }
+
         .m-pet-map {
-            .size(100%,auto);
+            .size(100%, auto);
+
             .m-pet-map-box {
-                .size(100%,auto);
+                .size(100%, auto);
             }
+
             .u-map__wrapper,
             .u-map__inner {
                 .w(100%) !important;
             }
         }
     }
+
     .m-pet-info {
-        .size(100%,auto);
+        .size(100%, auto);
+
         .u-title {
             flex-wrap: wrap;
         }

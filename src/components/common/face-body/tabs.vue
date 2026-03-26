@@ -15,10 +15,7 @@
                         <div class="u-filter-item">
                             <el-checkbox-button
                                 :model-value="star === false && price_type === false && is_unlimited === false"
-                                @change="handleSelectAll"
-                                class="u-filter"
-                                >全部</el-checkbox-button
-                            >
+                                @change="handleSelectAll" class="u-filter">全部</el-checkbox-button>
                             <el-checkbox-button v-model="star" class="u-filter">精选</el-checkbox-button>
                             <el-checkbox-button v-model="price_type" class="u-filter">免费</el-checkbox-button>
                             <el-checkbox-button v-model="is_unlimited" class="u-filter">可新建</el-checkbox-button>
@@ -174,6 +171,7 @@ export default {
     .u-analysis {
         .r(5px);
         .fz(16px);
+        .h(38px);
         background-color: #e54059;
         border-color: #e54059;
         transition: 0.3s ease-out;
@@ -188,9 +186,8 @@ export default {
         .pointer;
         .bold;
         .pr(10px);
-        min-height: 38px;
         .size(120px, 38px);
-        .fz(16px, 38px);
+        .fz(16px);
         .r(5px);
         background: @faceColor;
         color: #fff;
@@ -240,7 +237,7 @@ export default {
             }
         }
 
-        .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+        .el-radio-button__orig-radio:checked+.el-radio-button__inner {
             background-color: @faceColor;
             border-color: @faceColor;
         }
