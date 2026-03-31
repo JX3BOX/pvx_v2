@@ -187,7 +187,7 @@ export default {
         .bold;
         .pr(10px);
         .size(120px, 38px);
-        .fz(16px);
+        .fz(16px,38px);
         .r(5px);
         background: @faceColor;
         color: #fff;
