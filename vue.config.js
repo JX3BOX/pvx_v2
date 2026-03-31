@@ -73,12 +73,17 @@ const pages = {
         template: "public/index.html",
         filename: "exam/index.html",
     },
-
     pvg: {
         title: "商贾奇才 - JX3BOX",
         entry: "src/pages/pvg/index.js",
         template: "public/index.html",
         filename: "pvg/index.html",
+    },
+    achievement: {
+        title: "资历宝典 - JX3BOX",
+        entry: "src/pages/wiki/index.js",
+        template: "public/index.html",
+        filename: "achievement/index.html",
     },
 };
 
