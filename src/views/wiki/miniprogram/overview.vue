@@ -145,7 +145,7 @@ import schoolid from "@jx3box/jx3box-data/data/xf/schoolid.json";
 import { getMyInfo } from "@/service/user";
 import { __imgPath, __cdn } from "@/utils/config";
 import RoleAvatar from "@/components/wiki/RoleAvatar.vue";
-import RoleListVue from "@/views/wiki/mobile/components/roleList.vue";
+import RoleListVue from "@/views/wiki/miniprogram/components/roleList.vue";
 import { mobileOpen } from "@/utils/minprogram";
 import {
     getUserRolesList,

@@ -10,7 +10,14 @@ let store = {
         generalTotal: 0,
         armorTotal: 0,
     },
-    mutations: {},
+    mutations: {
+        SET_STATE(state, payload) {
+            if (payload.isSession) {
+                sessionStorage.setItem(payload.key, JSON.stringify(payload.value));
+            }
+            state[payload.key] = payload.value;
+        },
+    },
     getters: {},
     actions: {},
     modules: {},

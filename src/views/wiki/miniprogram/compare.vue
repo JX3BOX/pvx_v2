@@ -89,11 +89,11 @@
 </template>
 
 <script>
-import AddFriend from '@/views/wiki/mobile/compare/addFriend.vue'
-import DeleteRole from '@/views/wiki/mobile/compare/deleteRole.vue'
-import CataloguePop from '@/views/wiki/mobile/compare/catalogue_pop.vue'
+import AddFriend from '@/views/wiki/miniprogram/compare/addFriend.vue'
+import DeleteRole from '@/views/wiki/miniprogram/compare/deleteRole.vue'
+import CataloguePop from '@/views/wiki/miniprogram/compare/catalogue_pop.vue'
 import RoleAvatar from "@/components/wiki/RoleAvatar.vue";
-import Search from "@/views/wiki/mobile/compare/search.vue";
+import Search from "@/views/wiki/miniprogram/compare/search.vue";
 import { getUserRolesList, getRoleGameAchievementsList, getMenuAndPoints, getAchievementsFinishStatus } from "@/utils/wiki_miniprogram";
 import { cloneDeep } from "lodash";
 import { mobileOpen } from "@/utils/minprogram";

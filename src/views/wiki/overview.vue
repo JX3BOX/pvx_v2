@@ -294,7 +294,9 @@ export default {
                 let total = 0,
                     my_achievements = this.$store.state.achievements;
                 my_achievements.forEach((item) => {
-                    total = total + (this.pointsData[item] || 0);
+                    const itemId = String(item);
+                    const numId = Number(item);
+                    total = total + (this.pointsData[itemId] || this.pointsData[numId] || 0);
                 });
                 return total;
             }
@@ -309,13 +311,18 @@ export default {
         achievementData() {
             this.getRenderList();
         },
-        // pointsData() {
-        //     this.getRenderList();
-        // },
-        "$store.state.achievements": {
-            deep: true,
+        pointsData: {
             handler(val) {
-                this.getRenderList();
+                if (val && Object.keys(val).length) {
+                    this.getRenderList();
+                }
+            },
+        },
+        "$store.state.achievements": {
+            handler(val) {
+                if (val && val.length) {
+                    this.getRenderList();
+                }
             },
         },
         currentRole: {
@@ -326,6 +333,7 @@ export default {
                 localStorage.setItem("wiki_last_sync", val.jx3id || 0);
                 this.$store.commit("SET_STATE", { key: "role", value: val });
                 const { jx3id } = val;
+                console.log(jx3id);
                 if (jx3id) {
                     this.$store.commit("SET_STATE", { key: "achievementsVirtual", value: [] });
                     this.loadRoleAchievements(jx3id);
@@ -337,7 +345,6 @@ export default {
 
     mounted() {
         this.getUserInfo();
-        this.loadData();
     },
     methods: {
         iconLink,
@@ -368,6 +375,7 @@ export default {
             }
             getMyInfo().then((res) => {
                 this.userInfo = res;
+                this.loadData();
             });
         },
         onChangeRole(role) {
@@ -438,7 +446,7 @@ export default {
         },
         loadData() {
             this.getList();
-            this.getPoints();
+
         },
         getRenderList(data) {
             data = data ? data : this.achievementData;
@@ -533,6 +541,7 @@ export default {
             }).then((res) => {
                 const data = res.data.data.menus;
                 this.achievementData = data;
+                this.getPoints();
             });
         },
         // 获取成就对应点数
@@ -551,7 +560,7 @@ export default {
                     const wiki_last_sync_jx3id = localStorage.getItem("wiki_last_sync");
 
                     if (wiki_last_sync_jx3id && wiki_last_sync_jx3id !== "0") {
-                        this.currentRole = this.roleList.find((item) => item.jx3id == wiki_last_sync_jx3id) || "";
+                        this.currentRole = this.roleList.find((item) => item.jx3id == wiki_last_sync_jx3id) || null;
                     } else {
                         if (this.roleList.length) {
                             this.currentRole = this.roleList[0];
@@ -559,7 +568,7 @@ export default {
                         } else {
                             this.currentRole = this.virtualRole;
                             this.$store.commit("SET_STATE", { key: "role", value: this.virtualRole });
-                            this.loadVirtualAchievements();
+                            // this.loadVirtualAchievements();
                         }
                     }
                 });

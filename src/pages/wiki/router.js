@@ -12,7 +12,7 @@ const routes = [
         path: "/overview",
         component:
             isMiniProgram() || isApp()
-                ? () => import("@/views/wiki/mobile/overview.vue")
+                ? () => import("@/views/wiki/miniprogram/overview.vue")
                 : () => import("@/views/wiki/overview.vue"),
         meta: {
             i18n: {
@@ -27,7 +27,7 @@ const routes = [
         path: "/compare",
         component:
             isMiniProgram() || isApp()
-                ? () => import("@/views/wiki/mobile/compare.vue")
+                ? () => import("@/views/wiki/miniprogram/compare.vue")
                 : () => import("@/views/wiki/compare.vue"),
         meta: {
             i18n: {
@@ -60,7 +60,7 @@ const routes = [
                 description: "pages.wiki.catalogue.description",
             },
         },
-        component: () => import("@/views/wiki/mobile/catalogue.vue"),
+        component: () => import("@/views/wiki/miniprogram/catalogue.vue"),
     },
     {
         name: "list",
@@ -73,7 +73,7 @@ const routes = [
                 description: "pages.wiki.list.description",
             },
         },
-        component: () => import("@/views/wiki/mobile/achievement.vue"),
+        component: () => import("@/views/wiki/miniprogram/achievement.vue"),
     },
     {
         name: "compare/catalogue",
@@ -86,7 +86,7 @@ const routes = [
                 description: "pages.wiki.compare.catalogue.description",
             },
         },
-        component: () => import("@/views/wiki/mobile/compare/compare_catalogue.vue"),
+        component: () => import("@/views/wiki/miniprogram/compare/compare_catalogue.vue"),
     },
     {
         name: "compare/achievement",
@@ -99,7 +99,7 @@ const routes = [
                 description: "pages.wiki.compare.achievement.description",
             },
         },
-        component: () => import("@/views/wiki/mobile/compare/compare_achievement.vue"),
+        component: () => import("@/views/wiki/miniprogram/compare/compare_achievement.vue"),
     },
 ];
 

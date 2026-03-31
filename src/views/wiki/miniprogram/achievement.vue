@@ -121,7 +121,7 @@ import { getRoleGameAchievementsList, getMenuAndPoints, getAchievementsFinishSta
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { __imgPath } from "@/utils/config";
 import { cloneDeep } from "lodash";
-import achievement_detail from "@/views/wiki/mobile/components/achievement_detail.vue"
+import achievement_detail from "@/views/wiki/miniprogram/components/achievement_detail.vue"
 export default {
     name: "AchievementMiniProgram",
     components: {

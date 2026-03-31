@@ -5,8 +5,8 @@
     position: relative;
     width: 100%;
     // .h(100vh);
-    height: calc(100vh - 64px);
-    margin-top: 64px;
+    height: calc(100vh - 60px);
+    margin-top: 60px;
 
     // padding-bottom: 64px;
     box-sizing: border-box;
@@ -19,6 +19,7 @@
     &.is_mobile {
         .pb(0);
         align-items: flex-start;
+
         &::after {
             display: none;
         }
@@ -30,6 +31,7 @@
     height: 100%;
     min-width: 960px;
     .pr;
+
     &.is_mobile {
         margin-left: 0;
         min-width: auto;
