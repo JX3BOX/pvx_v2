@@ -18,7 +18,7 @@
                 <span class="u-desc" v-if="item.desc">{{ desc || "无" }}</span>
             </div>
             <div class="u-block u-author">
-                <span>出卷人：</span><a :href="authorLink(item.createUserId)" target="_blank">{{ item.createUser }}</a>
+                <span>出卷人：</span><a :href="authorLink(item.createUserId)" target="_blank">{{ item?.userInfo?.display_name }}</a>
             </div>
         </div>
 

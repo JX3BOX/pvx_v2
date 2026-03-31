@@ -63,6 +63,7 @@ export default {
 
             // 技改
             skill_change_data: [],
+            pageNumber: 6,
         };
     },
     computed: {
@@ -74,7 +75,7 @@ export default {
         },
         all_data: function () {
             let list = [...this.game_data.slice(0, 5), ...this.box_data.slice(0, 2)];
-            return list.slice(0, 7);
+            return list.slice(0, this.pageNumber);
         },
         data: function () {
             return this.mode == "all" ? this.all_data : this[this.mode + "_data"];
@@ -111,11 +112,11 @@ export default {
                         item.url = item.post_url;
                         return item;
                     })
-                    .slice(0, 7);
+                    .slice(0, this.pageNumber);
             });
         },
         loadBoxData: function () {
-            getPosts(this.client, "notice", 7).then((res) => {
+            getPosts(this.client, "notice", this.pageNumber).then((res) => {
                 this.box_data = res.data.data?.list?.map((item) => {
                     item.title = item.post_title;
                     item.url = `/notice/${item.ID}`;
@@ -130,7 +131,7 @@ export default {
                 client: this.client,
             };
             getChangelog(params).then((res) => {
-                this.skill_change_data = (res.data.data?.list || []).slice(0, 7).map((item) => {
+                this.skill_change_data = (res.data.data?.list || []).slice(0, this.pageNumber).map((item) => {
                     item.title = `【${this.zlp_map[item.zlp]}】${item.title}`;
                     item.url = item.link || getLink("bps", item.post_id);
                     item.time = new Date(item.date);
