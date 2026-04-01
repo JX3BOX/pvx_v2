@@ -5,76 +5,41 @@
             <div class="u-label">亲友对比</div>
             <div class="u-tip">
                 <!-- *根据成就未完成人数由多到少排序。 -->
-                <el-input
-                    placeholder="输入成就名称/成就描述/称号/奖励物品「回车」进行搜索"
-                    v-model="searchKeyword"
-                    class="u-search-input"
-                    @keydown.enter="searchHandle"
-                >
+                <el-input placeholder="输入成就名称/成就描述/称号/奖励物品「回车」进行搜索" v-model="searchKeyword" class="u-search-input"
+                    @keydown.enter="searchHandle">
                     <template #prepend>
-                        <slot
-                            ><el-cascader
-                                v-model="searchMap"
-                                :options="mapList"
-                                @change="searchHandle"
-                                :show-all-levels="false"
-                                clearable
-                                class="u-cascader"
-                            ></el-cascader
-                        ></slot>
+                        <slot><el-cascader v-model="searchMap" :options="mapList" @change="searchHandle"
+                                :show-all-levels="false" clearable class="u-cascader"></el-cascader></slot>
                     </template>
-                    <template #append><el-button icon="Search" class="u-btn" @click="searchHandle"></el-button></template>
+                    <template #append><el-button icon="Search" class="u-btn"
+                            @click="searchHandle"></el-button></template>
                 </el-input>
             </div>
             <div class="u-radio">
                 <!-- <el-radio value="1" size="large">仅显示共同未完成</el-radio> -->
-                <el-select
-                    v-model="selectTab"
-                    placeholder="请选择"
-                    multiple
-                    collapse-tags
-                    clearable
-                    @change="selectTabChange"
-                >
-                    <el-option
-                        v-for="item in selectOptions"
-                        :key="item.type"
-                        :label="item.name"
-                        :value="item.type"
-                        :disabled="isSelectDisabled(item.type)"
-                    >
+                <el-select v-model="selectTab" placeholder="请选择" multiple collapse-tags clearable
+                    @change="selectTabChange">
+                    <el-option v-for="item in selectOptions" :key="item.type" :label="item.name" :value="item.type"
+                        :disabled="isSelectDisabled(item.type)">
                     </el-option>
                 </el-select>
             </div>
         </div>
-        <div class="m-main">
+        <div class="m-compare-main">
             <!-- 左侧成就筛选 -->
             <div class="u-left">
-                <ul
-                    class="u-zl-item"
-                    :class="{
-                        active: item.sub == activeIndex,
-                        show: item.sub == activeIndex && !activeShow,
-                    }"
-                    v-for="(item, index) in menuList"
-                    :key="index"
-                    @click="setActiveIndex(item.sub)"
-                >
+                <ul class="u-zl-item" :class="{
+                    active: item.sub == activeIndex,
+                    show: item.sub == activeIndex && !activeShow,
+                }" v-for="(item, index) in menuList" :key="index" @click="setActiveIndex(item.sub)">
                     <div class="u-zl-item_title">
-                        {{ item.name }}&nbsp;<LegacyIcon
-                            :class="
-                                item.sub == activeIndex && activeShow ? 'el-icon-caret-top' : 'el-icon-caret-bottom'
-                            "
-                            @click.stop="setActiveShow(item.sub)"
-                         />
+                        {{ item.name }}&nbsp;
+                        <LegacyIcon :class="item.sub == activeIndex && activeShow ? 'el-icon-caret-top' : 'el-icon-caret-bottom'
+                            " @click.stop="setActiveShow(item.sub)" />
                     </div>
-                    <li
-                        class="u-zl-item_children"
-                        :class="{ active: item2.detail == activeIndexChildren }"
-                        v-for="(item2, index2) in item.children"
-                        :key="index2"
-                        @click.stop="setActiveIndex(item.sub, item2.detail)"
-                    >
+                    <li class="u-zl-item_children" :class="{ active: item2.detail == activeIndexChildren }"
+                        v-for="(item2, index2) in item.children" :key="index2"
+                        @click.stop="setActiveIndex(item.sub, item2.detail)">
                         {{ item2.name }}
                     </li>
                 </ul>
@@ -102,11 +67,8 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="u-zl_cell"
-                        :style="'width:' + (contrastKith.length + 1) * 200 + 'px'"
-                        v-loading="achievementsLoading"
-                    >
+                    <div class="u-zl_cell" :style="'width:' + (contrastKith.length + 1) * 200 + 'px'"
+                        v-loading="achievementsLoading">
                         <div class="u-zl-list ps">
                             <div class="u-zl-list_item" v-for="(item, index) in achievements" :key="index">
                                 <el-tooltip effect="dark" :content="item.Desc" placement="top">
@@ -114,15 +76,15 @@
                                         <div class="u-zl-list_item_box">
                                             <img class="u-icon" :src="icon_url(item?.IconID)" />
                                             <span class="u-name">{{ item?.Name }}</span>
-                                        </div></a
-                                    >
+                                        </div>
+                                    </a>
                                 </el-tooltip>
                             </div>
                         </div>
                         <div class="u-zl-list" v-for="(item, index) in contrastKith" :key="index">
                             <div class="u-zl-list_item kith" v-for="(item2, index2) in item.achievements" :key="index2">
                                 <div class="u-self-checked" :class="{ finish: item2.value != '-1' }">
-                                    <LegacyIcon class="el-icon-check"  />
+                                    <LegacyIcon class="el-icon-check" />
                                 </div>
                             </div>
                         </div>
@@ -138,48 +100,40 @@
         <el-dialog v-model="showAddRole" title="添加角色" width="420px" draggable :close-on-click-modal="false">
             <el-form :model="kithForm" :rules="rules" ref="roleRef">
                 <el-form-item label="角色类型" prop="roleType">
-                    <el-radio-group
-                        v-model="kithForm.roleType"
-                        @input="
-                            kithForm.userId = '';
-                            kithForm.jx3Id = [];
-                        "
-                    >
+                    <el-radio-group v-model="kithForm.roleType" @input="
+                        kithForm.userId = '';
+                    kithForm.jx3Id = [];
+                    ">
                         <el-radio label="1">自身</el-radio>
                         <el-radio label="2">亲友</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="我的亲友" prop="uid" v-if="kithForm.roleType == 2">
                     <el-select v-model="kithForm.uid" placeholder="请选择" @change="getKithRolesList">
-                        <el-option
-                            :label="item?.kith_info?.display_name || '-'"
-                            :value="item.kith_id"
-                            v-for="(item, index) in myKith"
-                            :key="index"
-                        ></el-option>
+                        <el-option :label="item?.kith_info?.display_name || '-'" :value="item.kith_id"
+                            v-for="(item, index) in myKith" :key="index"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="对应角色" prop="jx3Id">
                     <el-select v-model="kithForm.jx3Id" placeholder="请选择对应角色" @change="setRoleInfo" multiple>
-                        <el-option
-                            :label="item.name"
-                            :value="item.jx3id"
+                        <el-option :label="item.name" :value="item.jx3id"
                             v-for="(item, index) in kithForm.roleType == 1 ? roleList : myKithRoles"
-                            :key="index"
-                        ></el-option>
+                            :key="index"></el-option>
                     </el-select>
                 </el-form-item>
             </el-form>
             <div class="u-tips">
-                <div><LegacyIcon class="el-icon-info" />&nbsp;提示</div>
+                <div>
+                    <LegacyIcon class="el-icon-info" />&nbsp;提示
+                </div>
                 1. 添加亲友角色后，可对比亲友角色与自身角色的成就进度。<br />
                 2. 去<a href="https://www.jx3box.com/dashboard/privacy?tab=whitelist" target="_blank">添加亲友</a>
             </div>
             <template #footer>
-            <div class="dialog-footer">
-                <el-button @click="showAddRole = false">取 消</el-button>
-                <el-button type="primary" @click="addRoleConfirm">确 定</el-button>
-            </div>
+                <div class="dialog-footer">
+                    <el-button @click="showAddRole = false">取 消</el-button>
+                    <el-button type="primary" @click="addRoleConfirm">确 定</el-button>
+                </div>
             </template>
         </el-dialog>
     </div>
@@ -246,7 +200,7 @@ export default {
         this.loadUserRoles();
         this.loadMapList();
     },
-    mounted() {},
+    mounted() { },
     methods: {
         get_link: function (id) {
             return getLink("achievement", id);
@@ -400,6 +354,7 @@ export default {
                 roleType: "1",
                 userId: "",
                 jx3Id: "",
+                info: [],
             };
             this.showAddRole = true;
             this.$nextTick(() => {
@@ -644,7 +599,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 /* 针对Webkit内核的浏览器 */
 ::-webkit-scrollbar {
     /* 设置滚动条的宽度 */
@@ -667,19 +622,22 @@ export default {
 ::-webkit-scrollbar-thumb:hover {
     background: #e2d3b9;
 }
+
 .u-left {
     &::-webkit-scrollbar {
         /* 设置滚动条的宽度 */
         width: 2px;
     }
 }
+
 .p-compare {
-    padding-top: 45px;
+    margin-top: 45px;
     // width: 960px;
-    height: 97%;
+
     min-width: 960px;
     max-width: 1520px;
     box-sizing: border-box;
+
     .m-info-user {
         .mb(8px);
         .flex;
@@ -689,10 +647,11 @@ export default {
         color: rgba(255, 236, 204, 1);
 
         .u-name {
-            .fz(24px,35px);
-            .mr(8px );
+            .fz(24px, 35px);
+            .mr(8px);
             .bold;
         }
+
         .u-toggle-btn {
             .r(4px);
             .size(96px, 28px);
@@ -703,9 +662,11 @@ export default {
             color: #ffeccc;
             gap: 4px;
             cursor: pointer;
-            > div {
+
+            >div {
                 .flex;
                 align-items: center;
+
                 img {
                     .ml(4px);
                     width: 16px;
@@ -713,8 +674,9 @@ export default {
                 }
             }
         }
+
         .u-overview {
-            .fz(24px,35px);
+            .fz(24px, 35px);
             .bold;
             color: white;
             margin-left: auto;
@@ -724,10 +686,12 @@ export default {
             bottom: -5px;
         }
     }
+
     .u-title {
         .flex;
         align-items: center;
         .mb(8px);
+
         .u-label {
             .w(115px);
             flex-shrink: 0;
@@ -736,84 +700,103 @@ export default {
             .bold(900);
             color: #fff;
         }
+
         .u-tip {
             flex: 1;
+
             // color: rgba(255, 236, 204, 1);
             // .fz(14px);
             // .bold(400);
             .u-search-input {
                 .w(600px);
             }
-            :deep(.el-input-group__prepend) {
-                padding: 0;
+
+            .el-input-group__prepend {
+                padding: 0 !important;
             }
-            :deep(.el-input-group__append),
-            :deep(.el-input-group__prepend) {
+
+            .el-input-group__append,
+            .el-input-group__prepend {
                 border: 0;
             }
+
             .u-cascader {
                 .w(160px);
             }
+
             .u-btn {
                 background-color: rgba(255, 236, 204, 1);
                 color: #000;
             }
         }
+
         .u-radio {
             min-width: 200px;
             flex-shrink: 0;
+
             :deep(.el-select__tags) {
                 max-width: 100% !important;
             }
+
             :deep(.el-input__inner) {
                 background-color: rgba(255, 255, 255, 0);
                 color: #fff;
+
                 &:focus {
                     border-color: #fff;
                 }
             }
         }
     }
-    .m-main {
-        height: calc(100% - 40px);
+
+    .m-compare-main {
+        height: calc(100vh - 170px);
         padding: 0;
         .flex;
+
         .u-left {
             flex: 0 0 106px;
             color: #ffeccc;
             background: linear-gradient(180deg, #000000 0%, #000000 100%);
             height: 100%;
             overflow-y: auto;
+
             ul,
             li {
                 padding: 0;
                 margin: 0;
             }
+
             .u-zl-item {
                 cursor: pointer;
                 padding: 4px 4px 4px 2px;
                 box-sizing: border-box;
+
                 &.active {
                     .u-zl-item_title {
                         background: #3d342a;
                     }
+
                     .u-zl-item_children {
                         transition: display 0.5s ease-in;
                         display: block;
                     }
                 }
+
                 &.show {
                     .u-zl-item_children {
                         display: none;
                         transition: display 0.5s ease-out;
                     }
                 }
+
                 .u-zl-item_title {
                     .fz(14px);
                     padding: 4px;
                     .bold(700);
                 }
             }
+
             .u-zl-item_children {
                 .bold(400);
                 .fz(12px);
@@ -821,12 +804,14 @@ export default {
                 color: rgba(255, 236, 204, 1);
                 padding: 4px 0 4px 20px;
                 .pr;
+
                 &.active {
                     background: #3d342a;
+
                     &::before {
                         content: "";
                         .ps;
-                        .lt(0,50%);
+                        .lt(0, 50%);
                         .size(4px);
                         transform: translateY(-50%);
                         background-color: #fff;
@@ -836,37 +821,42 @@ export default {
                 }
             }
         }
+
         .u-right {
             .h(100%);
             .flex;
             max-width: 1414px;
             min-width: 854px;
             justify-content: space-between;
+
             .u-zl-box {
                 .h(100%);
                 // max-width: 642px;
                 max-width: 1200px;
                 overflow: scroll;
                 .pr;
-                .fz(16px,24px);
+                .fz(16px, 24px);
                 .bold(400);
             }
+
             .u-zl_table {
                 .flex;
                 .w(100%);
                 position: sticky;
                 top: 0;
                 .z(3);
+
                 .u-table_label {
                     background-color: #463c34;
                     padding: 0px 12px 0px 12px;
                     box-sizing: border-box;
-                    .size(200px,50px);
+                    .size(200px, 50px);
                     flex-shrink: 0;
                     color: #ffeccc;
 
                     .flex;
                     .flex(o);
+
                     .u-name {
                         .mr(4px);
                         max-width: 170px;
@@ -878,27 +868,32 @@ export default {
                     &.kith {
                         justify-content: center;
                     }
+
                     &.ps {
                         position: sticky;
                         left: 0;
                     }
+
                     i {
                         cursor: pointer;
                     }
                 }
             }
+
             .u-zl-number_table {
                 .flex;
                 .w(100%);
+
                 .u-table_label {
                     background-color: #fff;
                     padding: 0px 12px 0px 12px;
                     box-sizing: border-box;
-                    .size(200px,36px);
+                    .size(200px, 36px);
                     flex-shrink: 0;
                     color: #846b4b;
                     .flex;
                     .flex(o);
+
                     .u-name {
                         .mr(4px);
                         max-width: 170px;
@@ -910,15 +905,18 @@ export default {
                     &.kith {
                         justify-content: center;
                     }
+
                     &.ps {
                         position: sticky;
                         left: 0;
                     }
+
                     i {
                         cursor: pointer;
                     }
                 }
             }
+
             .u-zl_cell {
                 .h(calc(100% - 86px));
                 .flex;
@@ -927,8 +925,9 @@ export default {
             }
 
             .u-zl-list {
-                .size(200px,100%);
+                .size(200px, 100%);
                 flex-shrink: 0;
+
                 &.ps {
                     position: sticky;
                     left: 0;
@@ -946,20 +945,25 @@ export default {
                     &:nth-child(odd) {
                         background: #ebe5df;
                     }
+
                     &:nth-child(even) {
                         background: #fff;
                     }
+
                     &.kith {
                         .flex(o);
                     }
+
                     .u-zl-list_item_box {
                         cursor: pointer;
                         .flex;
                         align-items: center;
+
                         .u-icon {
                             .size(22px);
                             margin: 0 18px 0 12px;
                         }
+
                         .u-name {
                             color: #846b4b;
                             white-space: nowrap;
@@ -968,19 +972,23 @@ export default {
                             max-width: 140px;
                         }
                     }
+
                     .u-self-checked {
                         .size(24px);
                         background: #fff;
                         border: 1px solid #6e6e6d;
                         .r(4px);
+
                         i {
                             .fz(24px);
                             .bold(600);
                             color: #000;
                             display: none;
                         }
+
                         &.finish {
                             background: linear-gradient(180deg, rgba(181, 148, 87, 1) 0%, rgba(227, 211, 191, 1) 100%);
+
                             i {
                                 display: block;
                             }
@@ -988,9 +996,10 @@ export default {
                     }
                 }
             }
+
             .u-zl-add_item {
                 cursor: pointer;
-                .size(200px,100%);
+                .size(200px, 100%);
                 .fz(22px);
                 .flex;
                 .flex(o);
@@ -999,6 +1008,7 @@ export default {
                 border-radius: 10px;
                 border: 1px solid #e2d3b9;
                 .ml(12px);
+
                 .u-add-icon {
                     .fz(42px);
                 }

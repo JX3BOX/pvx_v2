@@ -1,23 +1,12 @@
 <template>
-    <el-drawer
-        :title="title"
-        :model-value="drawerVisible"
-        direction="btt"
-        size="420px"
-        @close="handleClose"
-        class="c-role-list-drawer"
-    >
+    <el-drawer :title="title" :model-value="drawerVisible" direction="btt" size="420px" @close="handleClose"
+        class="c-role-list-drawer">
         <div class="role-list-wrapper">
             <div class="role-list-container" ref="roleListContainer">
                 <!-- 初始角色类型 -->
                 <div class="role-items" v-if="currentStep == 1">
-                    <div
-                        class="role-item"
-                        @click="selectRoleType(role)"
-                        v-for="(role, index) in step1Options"
-                        :key="index"
-                        :class="{ selected: selectCurrentStep == role.value }"
-                    >
+                    <div class="role-item" @click="selectRoleType(role)" v-for="(role, index) in step1Options"
+                        :key="index" :class="{ selected: selectCurrentStep == role.value }">
                         <div class="u-img">
                             <div class="role-name">{{ role.name }}</div>
                         </div>
@@ -26,13 +15,8 @@
                 </div>
                 <!-- 我的角色列表/亲友角色列表 -->
                 <div class="role-items" v-if="currentStep == 2 || currentStep == 4">
-                    <div
-                        class="role-item"
-                        v-for="(role, index) in roles"
-                        :key="index"
-                        @click="selectRole(role)"
-                        :class="{ selected: selectedRole && selectedRole.jx3id == role.jx3id }"
-                    >
+                    <div class="role-item" v-for="(role, index) in roles" :key="index" @click="selectRole(role)"
+                        :class="{ selected: selectedRole && selectedRole.jx3id == role.jx3id }">
                         <div class="u-img">
                             <RoleAvatar class="u-avatar-img" :mount="role.mount" :body_type="role.body_type" />
                             <div class="role-name">{{ role.name }}</div>
@@ -42,13 +26,8 @@
                 </div>
                 <!-- 亲友列表 -->
                 <div class="role-items" v-if="currentStep == 3">
-                    <div
-                        class="role-item"
-                        v-for="(friend, index) in friends"
-                        :key="index"
-                        @click="selectFriend(friend)"
-                        :class="{ selected: selectedFriend && selectedFriend.kith_id == friend.kith_id }"
-                    >
+                    <div class="role-item" v-for="(friend, index) in friends" :key="index" @click="selectFriend(friend)"
+                        :class="{ selected: selectedFriend && selectedFriend.kith_id == friend.kith_id }">
                         <div class="u-img">
                             <div class="role-name">{{ friend.kith_info?.display_name }}</div>
                         </div>
@@ -170,7 +149,7 @@ export default {
         // 组件销毁前移除事件监听
         this.removeScrollListener();
     },
-    created() {},
+    created() { },
     // 方法定义
     methods: {
         showSchoolIcon,
@@ -307,13 +286,16 @@ export default {
 
 <style lang="less">
 .c-role-list-drawer {
-    .el-drawer {
-        border-radius: 20px 20px 0 0;
-        background: #24292e;
-    }
+    border-radius: 20px 20px 0 0;
+    background: #24292e;
 
     .el-drawer__header {
         margin-bottom: 0;
+        color: #72767b;
+    }
+
+    .el-drawer__body {
+        padding: 0;
     }
 
     .role-list-wrapper {
@@ -376,10 +358,11 @@ export default {
 
     // 底部按钮样式
     .role-button-group {
-        padding: 16px 20px;
+        padding: 12px 20px 16px 20px;
         display: flex;
         justify-content: flex-end;
         gap: 20px;
+        box-sizing: border-box;
 
         .u-reset,
         .u-submit {

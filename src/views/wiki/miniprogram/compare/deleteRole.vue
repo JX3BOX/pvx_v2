@@ -85,13 +85,16 @@ export default {
 
 <style lang="less">
 .c-role-delete-drawer {
-    .el-drawer {
-        border-radius: 20px 20px 0 0;
-        background: #24292E;
-    }
+    border-radius: 20px 20px 0 0;
+    background: #24292e;
 
     .el-drawer__header {
         margin-bottom: 0;
+        color: #72767b;
+    }
+
+    .el-drawer__body {
+        padding: 0;
     }
 
     // 第一步删除提示

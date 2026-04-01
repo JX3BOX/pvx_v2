@@ -1,6 +1,7 @@
 <!-- 二级目录弹窗 -->
 <template>
-    <el-drawer :model-value="visible" direction="btt" size="auto" @close="handleClose" class="c-catalogue-pop">
+    <el-drawer :model-value="visible" direction="btt" size="auto" @close="handleClose" class="c-catalogue-pop"
+        @closed="handleClosed">
         <template #title>
             <div class="u-category-title" v-if="visible">
                 <img :src="getIconPath(category.sub)" class="u-category-icon-img" />
@@ -108,7 +109,8 @@ export default {
     data() {
         return {
             title: '',
-            list: []
+            list: [],
+            isDetailClick: false,
         };
     },
     created() { },
@@ -141,8 +143,14 @@ export default {
             }
         },
         handleDetailClick() {
-            this.$emit("handleDetailClick");
-        }
+            this.isDetailClick = true;
+            this.handleClose();
+        },
+        handleClosed() {
+            if (this.isDetailClick) {
+                this.$emit("handleDetailClick");
+            }
+        },
     },
 };
 </script>
@@ -154,13 +162,16 @@ export default {
         padding: 0 12px 24px 12px;
     }
 
-    .el-drawer {
-        border-radius: 20px 20px 0 0;
-        background: #24292E;
-    }
+    border-radius: 20px 20px 0 0;
+    background: #24292E;
 
     .el-drawer__header {
         margin-bottom: 0;
+        color: #72767b;
+    }
+
+    .el-drawer__body {
+        padding: 0;
     }
 
     .u-category-title {

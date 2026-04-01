@@ -18,17 +18,19 @@ export default {
         mobile() {
             const userAgent = navigator.userAgent.toLowerCase();
             const mobileKeywords = ["android", "iphone", "ipad", "ipod", "windows phone"];
+            console.log(mobileKeywords.some((keyword) => userAgent.includes(keyword)));
             return mobileKeywords.some((keyword) => userAgent.includes(keyword));
         },
     },
-    created() {},
-    mounted() {},
+    created() { },
+    mounted() { },
     methods: {},
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .p-compare-main {
-    height: 100%;
+    height: calc(100vh - 60px);
+    overflow: hidden;
 }
 </style>

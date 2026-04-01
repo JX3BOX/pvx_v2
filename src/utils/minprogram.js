@@ -42,3 +42,10 @@ export function wxGoLogin() {
         url: `/pages/login/index?redirect=/pages/webview/webview&query=${JSON.stringify({ path: location.pathname })}`,
     });
 }
+export function mobileOpen(target) {
+    if (isInMiniprogramWebview()) {
+        wxNewPage(target);
+    } else {
+        location.href = target;
+    }
+}

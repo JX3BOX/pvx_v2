@@ -1,14 +1,8 @@
 <template>
     <div class="m-dj-form">
         <!-- 定制方案弹出层 -->
-        <el-dialog
-            title="创建方案"
-            v-model="dialogTableVisible"
-            lock-scroll
-            width="888px"
-            :close-on-click-modal="false"
-            custom-class="m-custom-dialog"
-        >
+        <el-dialog title="创建方案" v-model="dialogTableVisible" lock-scroll width="888px" :close-on-click-modal="false"
+            class="m-custom-dialog">
             <div class="u-dialog-content">
                 <!-- 顶部 -->
                 <div class="u-dialog-header">
@@ -27,18 +21,12 @@
                     <div class="u-dialog-main_left">
                         <div class="u-dialog-main_title">方向</div>
                         <div class="u-dialog-main_category">
-                            <div
-                                class="u-dialog-main_category_item"
-                                :class="{ active: dialogQueryParams.is_official == 1 }"
-                                @click="changeCategory(1)"
-                            >
+                            <div class="u-dialog-main_category_item"
+                                :class="{ active: dialogQueryParams.is_official == 1 }" @click="changeCategory(1)">
                                 推荐
                             </div>
-                            <div
-                                class="u-dialog-main_category_item"
-                                :class="{ active: dialogQueryParams.is_official == 0 }"
-                                @click="changeCategory(0)"
-                            >
+                            <div class="u-dialog-main_category_item"
+                                :class="{ active: dialogQueryParams.is_official == 0 }" @click="changeCategory(0)">
                                 自选
                             </div>
                         </div>
@@ -52,43 +40,23 @@
                                     <!-- -{{ isSelectType == 1 ? "总览" : "地图" }} -->
                                 </div>
                                 <!-- 地图搜索框-->
-                                <div
-                                    class="u-select-input"
-                                    :class="{ noMap: isSelectSearchType == 1 }"
-                                    v-if="isSelectType == 2"
-                                >
-                                    <el-autocomplete
-                                        :placeholder="
-                                            isSelectSearchType == 1
-                                                ? '输入成就名称/成就描述/称号/奖励物品「回车」进行搜索'
-                                                : '输入地图名称「回车」进行搜索'
-                                        "
-                                        v-model="searchInput"
-                                        @keydown.enter="searchHandle"
-                                        :fetch-suggestions="querySearch"
-                                        :trigger-on-focus="false"
-                                        value-key="label"
-                                        size="small"
-                                        popper-class="m-select-input_popper"
-                                        @select="handleSelect"
-                                    >
+                                <div class="u-select-input" :class="{ noMap: isSelectSearchType == 1 }"
+                                    v-if="isSelectType == 2">
+                                    <el-autocomplete :placeholder="isSelectSearchType == 1
+                                        ? '输入成就名称/成就描述/称号/奖励物品「回车」进行搜索'
+                                        : '输入地图名称「回车」进行搜索'
+                                        " v-model="searchInput" @keydown.enter="searchHandle"
+                                        :fetch-suggestions="querySearch" :trigger-on-focus="false" value-key="label"
+                                        size="small" popper-class="m-select-input_popper" @select="handleSelect">
                                         <template #prepend>
-                                            <slot
-                                                ><el-select
-                                                    v-model="isSelectSearchType"
-                                                    placeholder="请选择"
-                                                    popper-class="m-select-input_type"
-                                                >
+                                            <slot><el-select v-model="isSelectSearchType" placeholder="请选择"
+                                                    popper-class="m-select-input_type">
                                                     <el-option label="成就" value="1"></el-option>
-                                                    <el-option label="地图" value="2"></el-option> </el-select
-                                            ></slot>
+                                                    <el-option label="地图" value="2"></el-option> </el-select></slot>
                                         </template>
                                         <template #append>
-                                            <div
-                                                @click="searchHandle"
-                                                class="u-select-input_btn"
-                                                v-if="isSelectSearchType == 1"
-                                            >
+                                            <div @click="searchHandle" class="u-select-input_btn"
+                                                v-if="isSelectSearchType == 1">
                                                 搜索成就
                                             </div>
                                         </template>
@@ -103,14 +71,9 @@
                             </div>
                             <!-- 方案列表 -->
                             <div class="u-recommend-list u-common-list" v-if="recommendList.length">
-                                <div
-                                    class="u-item"
-                                    :class="{ active: item.id == selectRecommendItem.id }"
-                                    v-for="item in recommendList"
-                                    :key="item.id"
-                                    @click="selectRecommend(item)"
-                                    :title="item.title"
-                                >
+                                <div class="u-item" :class="{ active: item.id == selectRecommendItem.id }"
+                                    v-for="item in recommendList" :key="item.id" @click="selectRecommend(item)"
+                                    :title="item.title">
                                     {{ item.title }}
                                 </div>
                             </div>
@@ -139,18 +102,12 @@
                         <div class="u-dialog-main_custom" v-else>
                             <!-- 自选再分，总览和地图 -->
                             <div class="u-dialog-main_category">
-                                <div
-                                    class="u-dialog-main_category_item"
-                                    :class="{ active: isSelectType == 1 }"
-                                    @click="changeSelfCategory(1)"
-                                >
+                                <div class="u-dialog-main_category_item" :class="{ active: isSelectType == 1 }"
+                                    @click="changeSelfCategory(1)">
                                     总览
                                 </div>
-                                <div
-                                    class="u-dialog-main_category_item"
-                                    :class="{ active: isSelectType == 2 }"
-                                    @click="changeSelfCategory(2)"
-                                >
+                                <div class="u-dialog-main_category_item" :class="{ active: isSelectType == 2 }"
+                                    @click="changeSelfCategory(2)">
                                     地图
                                 </div>
                             </div>
@@ -158,13 +115,8 @@
                             <!-- 总览 -->
                             <div v-if="isSelectType == 1" class="u-dialog-main_box">
                                 <div class="u-dialog-main_custom_list u-common-list u-first-box">
-                                    <div
-                                        class="u-item u-first"
-                                        :class="{ active: selectMenuItem.id == item.id }"
-                                        v-for="item in menuList"
-                                        :key="item.id"
-                                        @click="selectMenu(item, 1)"
-                                    >
+                                    <div class="u-item u-first" :class="{ active: selectMenuItem.id == item.id }"
+                                        v-for="item in menuList" :key="item.id" @click="selectMenu(item, 1)">
                                         <!-- <el-badge is-dot> {{ item.name }} </el-badge> -->
                                         <span v-if="selectMenuNum(item) == 0"> {{ item.name }}</span>
                                         <el-badge :value="selectMenuNum(item)" class="u-badge-item" v-else>
@@ -174,32 +126,21 @@
                                 </div>
                                 <!-- 成就分类二级区域 -->
                                 <div class="u-dialog-main_custom_list u-common-list">
-                                    <div
-                                        class="u-item"
-                                        :class="{ active: selectMenuChildrenItem.id == item.id }"
-                                        v-for="item in selectMenuItem.children"
-                                        :key="item.id"
-                                        @click="selectMenu(item)"
-                                    >
+                                    <div class="u-item" :class="{ active: selectMenuChildrenItem.id == item.id }"
+                                        v-for="item in selectMenuItem.children" :key="item.id"
+                                        @click="selectMenu(item)">
                                         <el-badge :is-dot="isSelectMenu(item)"> {{ item.name }} </el-badge>
                                     </div>
                                 </div>
                                 <!-- 成就区域 -->
                                 <div class="u-dialog-main_custom_list u-common-list" v-loading="loadingAchievement">
-                                    <img
-                                        src="../../../assets/img/wiki/leap/leap_empty.png"
-                                        width="90%"
-                                        v-if="achievements.length == 0"
-                                    />
+                                    <img src="../../../assets/img/wiki/leap/leap_empty.png" width="90%"
+                                        v-if="achievements.length == 0" />
 
                                     <div class="u-item u-select-all" @click="selectAllAchievement()" v-else>全部</div>
-                                    <div
-                                        class="u-item u-select"
+                                    <div class="u-item u-select"
                                         :class="{ 'achievement-active': isSelectAchievement(item) }"
-                                        v-for="item in achievements"
-                                        :key="item.ID"
-                                        @click="selectAchievement(item)"
-                                    >
+                                        v-for="item in achievements" :key="item.ID" @click="selectAchievement(item)">
                                         <img src="../../../assets/img/wiki/leap/tick.svg" />
 
                                         <el-tooltip effect="dark" :content="item.Name" placement="top-start">
@@ -211,13 +152,8 @@
                             <!-- 地图区域 -->
                             <div v-else class="u-dialog-main_box">
                                 <div class="u-dialog-main_custom_list u-common-list u-first-box">
-                                    <div
-                                        class="u-item u-first"
-                                        :class="{ active: selectMapItem.value == item.value }"
-                                        v-for="item in mapList"
-                                        :key="item.value"
-                                        @click="selectMap(item, 1)"
-                                    >
+                                    <div class="u-item u-first" :class="{ active: selectMapItem.value == item.value }"
+                                        v-for="item in mapList" :key="item.value" @click="selectMap(item, 1)">
                                         <!-- <el-badge is-dot> {{ item.name }} </el-badge> -->
                                         <span v-if="selectMapNum(item) == 0"> {{ item.label }}</span>
                                         <el-badge :value="selectMapNum(item)" class="u-badge-item" v-else>
@@ -227,37 +163,23 @@
                                 </div>
                                 <!-- 地图分类二级区域 -->
                                 <div class="u-dialog-main_custom_list u-common-list" ref="mapChildren">
-                                    <img
-                                        src="../../../assets/img/wiki/leap/leap_empty.png"
-                                        width="90%"
-                                        v-if="isEmpty(selectMapChildrenItem)"
-                                    />
-                                    <div
-                                        class="u-item"
-                                        :ref="'itemMap' + item.value"
+                                    <img src="../../../assets/img/wiki/leap/leap_empty.png" width="90%"
+                                        v-if="isEmpty(selectMapChildrenItem)" />
+                                    <div class="u-item" :ref="'itemMap' + item.value"
                                         :class="{ active: selectMapChildrenItem.value == item.value }"
-                                        v-for="item in selectMapItem.children"
-                                        :key="item.value"
-                                        @click="selectMap(item)"
-                                    >
+                                        v-for="item in selectMapItem.children" :key="item.value"
+                                        @click="selectMap(item)">
                                         <el-badge :is-dot="isSelectMap(item)"> {{ item.label }} </el-badge>
                                     </div>
                                 </div>
                                 <!-- 成就区域 -->
                                 <div class="u-dialog-main_custom_list u-common-list" v-loading="loadingAchievement">
-                                    <img
-                                        src="../../../assets/img/wiki/leap/leap_empty.png"
-                                        width="90%"
-                                        v-if="achievements.length == 0"
-                                    />
+                                    <img src="../../../assets/img/wiki/leap/leap_empty.png" width="90%"
+                                        v-if="achievements.length == 0" />
                                     <div class="u-item u-select-all" @click="selectAllAchievement()" v-else>全部</div>
-                                    <div
-                                        class="u-item u-select"
+                                    <div class="u-item u-select"
                                         :class="{ 'achievement-active': isSelectAchievement(item) }"
-                                        v-for="item in achievements"
-                                        :key="item.ID"
-                                        @click="selectAchievement(item)"
-                                    >
+                                        v-for="item in achievements" :key="item.ID" @click="selectAchievement(item)">
                                         <img src="../../../assets/img/wiki/leap/tick.svg" />
 
                                         <el-tooltip effect="dark" :content="item.Name" placement="top-start">
@@ -389,7 +311,7 @@ export default {
     created() {
         // this.createLeap(true);
     },
-    mounted() {},
+    mounted() { },
     methods: {
         isEmpty,
         //创建弹窗
@@ -541,8 +463,8 @@ export default {
             });
             let results = queryString
                 ? mapListData.filter((value) => {
-                      return value.label.indexOf(queryString) != -1;
-                  })
+                    return value.label.indexOf(queryString) != -1;
+                })
                 : mapListData;
             cb(results);
         },
@@ -868,9 +790,11 @@ export default {
 //搜索下拉样式
 .m-select-input_popper {
     background: linear-gradient(180deg, #000000 0%, #574938 100%);
+
     .el-autocomplete-suggestion__list {
         li {
             color: #ffeccc;
+
             &:hover {
                 color: #fff;
                 background: linear-gradient(90deg, #3d342a 0%, #806241 52.78%, #3d342a 100%) !important;
@@ -878,16 +802,20 @@ export default {
         }
     }
 }
+
 .m-select-input_type {
     background: linear-gradient(180deg, #000000 0%, #574938 100%);
+
     .el-select-dropdown__list {
         .el-select-dropdown__item {
             color: #ffeccc;
+
             &.selected {
                 color: #fff;
                 background: linear-gradient(90deg, #3d342a 0%, #806241 52.78%, #3d342a 100%) !important;
             }
         }
+
         .el-select-dropdown__item.hover,
         .el-select-dropdown__item:hover {
             color: #fff;
@@ -898,61 +826,76 @@ export default {
 
 .m-custom-dialog {
     background: rgba(0, 0, 0, 0.85);
+
     .el-dialog__title {
         color: #ffeccc;
     }
+
     .u-dialog-header {
         .flex;
         align-items: center;
         justify-content: space-between;
+
         .u-dialog-header_item {
             .flex;
             .flex(o);
+
             span {
                 flex: 0 0 auto;
                 color: #ffeccc;
                 .fz(16px);
             }
+
             .el-input {
                 input {
                     background: #544c41;
                     color: #fff;
                     height: 24px;
                 }
+
+                .el-input__wrapper {
+                    padding: 0
+                }
             }
         }
     }
+
     .u-dialog-tips {
         .fz(12px);
         .bold(700);
         color: #ffeccc;
         margin: 24px 0 12px 0;
     }
+
     .u-dialog-main {
         .flex;
         .h(324px);
         border: 1px solid #ffffff;
+
         .u-dialog-main_title {
-            .size(100%,42px);
+            .size(100%, 42px);
             background-color: #fff;
-            .fz(14px,42px);
+            .fz(14px, 42px);
             .bold(700);
             color: #000;
         }
+
         .u-dialog-main_left {
             .x;
-            .size(64px,100%);
+            .size(64px, 100%);
             flex-shrink: 0;
             background: linear-gradient(180deg, #332d24 0%, #000000 100%);
             border-right: 1px solid #ffffff;
+
             .u-dialog-main_category_item {
-                .size(100%,48px);
+                .size(100%, 48px);
                 .flex;
                 .flex(o);
                 color: #ffeccc;
                 .fz(14px);
                 .bold(700);
                 cursor: pointer;
+
                 &:hover,
                 &.active {
                     color: #fff;
@@ -960,23 +903,29 @@ export default {
                 }
             }
         }
+
         .u-dialog-main_right {
             .h(100%);
             .w(calc(100% - 64px));
             flex: 1;
             .x;
+
             .u-dialog-main_search {
                 .flex;
                 justify-content: space-between;
+
                 .u-dialog-main_search_title {
                     .w(64px);
                     flex-shrink: 0;
                 }
+
                 .u-select-input {
                     .pr(20px);
+
                     .el-input-group__prepend {
                         .el-select {
                             .w(80px);
+
                             .el-input__inner {
                                 .w(80px);
                                 color: #fff;
@@ -992,21 +941,26 @@ export default {
                             }
                         }
                     }
+
                     .el-input__inner {
                         .w(200px);
                         border: 1px solid rgba(173, 37, 16, 1);
                     }
+
                     .el-input-group__append {
                         background: linear-gradient(180deg, rgba(173, 37, 16, 1) 0%, rgba(166, 91, 61, 1) 100%);
                         cursor: pointer;
+
                         &:hover {
                             background: linear-gradient(180deg, rgba(189, 170, 136, 1) 0%, rgba(181, 148, 87, 1) 100%);
                         }
+
                         .u-select-input_btn {
                             padding: 0 16px;
                             color: #fff;
                         }
                     }
+
                     &.noMap {
                         .el-input__inner {
                             .w(340px);
@@ -1023,6 +977,7 @@ export default {
                 flex-shrink: 0;
                 .pt(4px);
                 box-sizing: border-box;
+
                 /* 针对Webkit内核的浏览器 */
                 &::-webkit-scrollbar {
                     /* 设置滚动条的宽度 */
@@ -1045,9 +1000,10 @@ export default {
                 &::-webkit-scrollbar-thumb:hover {
                     background: #e2d3b9;
                 }
+
                 .u-item {
                     // padding: 10px 0;
-                    .size(100%,24px);
+                    .size(100%, 24px);
                     .flex;
                     .flex(o);
                     cursor: pointer;
@@ -1055,6 +1011,7 @@ export default {
                     .fz(14px);
                     .bold(400);
                     box-sizing: border-box;
+
                     &:hover,
                     &.active {
                         color: #fff;
@@ -1062,33 +1019,40 @@ export default {
                         border-bottom: 0.5px solid #706456;
                     }
                 }
+
                 .u-first {
                     height: 34px;
                 }
             }
+
             //推荐模块展示
             .u-dialog-main_recommend {
                 .flex;
                 .h(calc(100% - 42px));
+
                 .u-recommend-empty {
                     .w(100%);
                     flex-shrink: 0;
                     .flex;
                     .flex(o);
                 }
+
                 .u-recommend-list {
-                    .size(120px,100%);
+                    .size(120px, 100%);
+
                     .u-item {
                         .mb(8px);
                     }
                 }
+
                 .u-recommend-desc {
-                    .w(100% );
+                    .w(100%);
                     text-align: left;
                     padding: 50px 20px 0 20px;
                     box-sizing: border-box;
                     color: rgba(255, 255, 255, 0.75);
-                    .fz(12px,20px);
+                    .fz(12px, 20px);
+
                     .u-recommend-desc_title {
                         color: #fff;
                         .fz(14px);
@@ -1098,8 +1062,10 @@ export default {
                         box-sizing: border-box;
                         .mb(12px);
                     }
+
                     .u-recommend-desc_text {
                         .flex;
+
                         span {
                             .dbi;
                             .w(auto);
@@ -1108,24 +1074,28 @@ export default {
                     }
                 }
             }
+
             //自选模块展示
             .u-dialog-main_custom {
                 .flex;
                 .h(calc(100% - 42px));
                 flex: 1;
+
                 .u-dialog-main_category {
-                    .size(64px,100%);
+                    .size(64px, 100%);
                     flex-shrink: 0;
                     background: linear-gradient(180deg, #332d24 0%, #000000 100%);
                     border-right: 1px solid #ffffff;
+
                     .u-dialog-main_category_item {
-                        .size(100%,48px);
+                        .size(100%, 48px);
                         .flex;
                         .flex(o);
                         color: #ffeccc;
                         .fz(14px);
                         .bold(700);
                         cursor: pointer;
+
                         &:hover,
                         &.active {
                             color: #fff;
@@ -1133,55 +1103,68 @@ export default {
                         }
                     }
                 }
+
                 .u-dialog-main_box {
                     .flex;
                     flex: 1;
                     .x;
                 }
+
                 .u-dialog-main_custom_list {
                     // .w(calc(calc(100% / 2) - 100px));
                     .w(calc(calc(calc(100% - 120px) / 2) - 10px));
                     .h(100%);
                     overflow-y: auto;
+
                     &.u-first-box {
                         .w(140px);
                     }
+
                     .u-badge-item {
                         .el-badge__content {
                             .h(12px);
-                            .fz(10px,12px);
+                            .fz(10px, 12px);
                         }
                     }
+
                     .u-item {
                         .mb(8px);
+
                         img {
                             display: none;
                         }
                     }
+
                     .achievement-active {
                         img {
                             .dbi;
                             .mr(4px);
                         }
+
                         background: linear-gradient(90deg, rgba(173, 37, 16, 1) 0%, rgba(255, 72, 43, 0) 100%);
                     }
                 }
             }
         }
     }
+
     .u-filter {
         text-align: right;
         .pt(10px);
+
         span {
             color: #fff;
         }
+
         .is-checked {
             span {
                 color: #ffeccc;
             }
+
             .el-checkbox__inner {
                 border-color: #ffeccc;
                 background-color: #ffeccc;
+
                 &::after {
                     border-color: #000;
                     border-right-width: 2px;
@@ -1190,6 +1173,7 @@ export default {
             }
         }
     }
+
     .u-dialog-footer {
         .u-dialog-footer_tips {
             color: rgba(245, 224, 201, 1);
@@ -1198,12 +1182,14 @@ export default {
             .flex;
             .flex(o);
             margin: 24px auto 0 auto;
+
             span {
                 .dbi;
                 padding: 0 4px;
                 color: #fff;
             }
         }
+
         .u-btn {
             background: linear-gradient(90deg, #806241 0%, #3d342a 50.69%, #806241 100%);
             border: 1px solid #ffffff;
@@ -1213,9 +1199,10 @@ export default {
             .flex;
             .flex(o);
             color: #fff;
-            .size(120px,48px);
+            .size(120px, 48px);
             margin: 10px auto;
             cursor: pointer;
+
             &:hover {
                 background: linear-gradient(0, rgba(173, 126, 16, 1) 0%, rgba(173, 126, 16, 0) 100%);
 

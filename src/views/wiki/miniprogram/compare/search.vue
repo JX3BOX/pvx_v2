@@ -2,29 +2,20 @@
 <template>
     <div class="c-search-section">
         <div class="u-search-box" @click="handleSearchClick">
-            <img
-                :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/search.svg`)"
-                class="u-search-icon"
-            />
+            <img :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/search.svg`)"
+                class="u-search-icon" />
             <span class="u-search-text">{{ placeholder || "搜索" }}</span>
         </div>
 
         <!-- 筛选 -->
         <div class="u-filter-box" v-if="showFilter" @click="handleFilterClick()">
-            <img
-                :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/shaixuan.svg`)"
-                class="u-search-icon"
-            />
+            <img :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/shaixuan.svg`)"
+                class="u-search-icon" />
             <span class="u-search-text">筛选</span>
         </div>
         <!-- 地图、关键字搜索区域 -->
-        <el-drawer
-            :model-value="drawerSearchVisible"
-            direction="btt"
-            size="420px"
-            @close="handleClose"
-            class="p-search-drawer"
-        >
+        <el-drawer :model-value="drawerSearchVisible" direction="btt" size="420px" @close="handleClose"
+            class="p-search-drawer">
             <template #title>
                 <div class="u-search-title">
                     {{ title }}<span v-if="sub_title && step != 1"> &nbsp;-&nbsp;{{ sub_title }}</span>
@@ -39,11 +30,8 @@
                             {{ selectMapName || "请选择地图" }}
                         </div>
                         <!-- 没有选择第一个时，透明度50%off的 -->
-                        <div
-                            class="search-step-content u-two-map"
-                            :style="{ opacity: selectMapId ? 1 : 0.5 }"
-                            @click="handleMapClick(null, 2)"
-                        >
+                        <div class="search-step-content u-two-map" :style="{ opacity: selectMapId ? 1 : 0.5 }"
+                            @click="handleMapClick(null, 2)">
                             {{ selectSubName || "请选择地图" }}
                         </div>
                     </div>
@@ -57,10 +45,8 @@
                             清空搜索项
                         </div>
                         <div class="u-submit" @click="handleKeywordSearch()">
-                            <img
-                                :src="require(`@/assets/img/wiki_miniprogram/search_black.svg`)"
-                                class="u-search-icon"
-                            />
+                            <img :src="require(`@/assets/img/wiki_miniprogram/search_black.svg`)"
+                                class="u-search-icon" />
                             <span>搜索</span>
                         </div>
                     </div>
@@ -68,13 +54,9 @@
                 <div class="search-step" v-else>
                     <div class="search-list-container" :class="{ crosswise: step == 2 }" ref="searchListContainer">
                         <!-- 初始地图列表 -->
-                        <div
-                            class="search-item"
-                            v-for="item in step == 2 ? mapList : childrenList"
-                            :key="item.value"
+                        <div class="search-item" v-for="item in step == 2 ? mapList : childrenList" :key="item.value"
                             :class="{ selected: item.value == (step == 2 ? selectMapId : selectSubId) }"
-                            @click="handleMapClick(item, 3)"
-                        >
+                            @click="handleMapClick(item, 3)">
                             <div class="search-name">{{ item.label }}</div>
                         </div>
                     </div>
@@ -90,13 +72,8 @@
             </div>
         </el-drawer>
         <!-- 筛选弹窗 -->
-        <el-drawer
-            :model-value="drawerFilterVisible"
-            direction="btt"
-            size="420px"
-            @close="handleCloseFilter"
-            class="p-search-drawer"
-        >
+        <el-drawer :model-value="drawerFilterVisible" direction="btt" size="430px" @close="handleCloseFilter"
+            class="p-search-drawer">
             <template #title>
                 <div class="u-search-title">筛选</div>
             </template>
@@ -105,13 +82,8 @@
                 <div class="search-step">
                     <div class="search-list-container" ref="filterListContainer">
                         <!-- 初始地图列表 -->
-                        <div
-                            class="search-item"
-                            v-for="item in filterOptions"
-                            :key="item.value"
-                            :class="{ selected: item.value == selectFilterId }"
-                            @click="handleFilterClick(item)"
-                        >
+                        <div class="search-item" v-for="item in filterOptions" :key="item.value"
+                            :class="{ selected: item.value == selectFilterId }" @click="handleFilterClick(item)">
                             <div class="search-name">
                                 {{ item.label }}
                                 <div class="search-sub">{{ item.sub }}</div>
@@ -490,9 +462,8 @@ export default {
                     });
                     //处理数据，回传父级，同时将搜索条件置于显示
                     this.$emit("submit", { data: arr, params });
-                    this.placeholder = `${this.selectMapName || ""}${
-                        this.selectSubName ? "/" + this.selectSubName : ""
-                    }${this.searchKeyword ? "/" + this.searchKeyword : ""}`;
+                    this.placeholder = `${this.selectMapName || ""}${this.selectSubName ? "/" + this.selectSubName : ""
+                        }${this.searchKeyword ? "/" + this.searchKeyword : ""}`;
                     this.drawerSearchVisible = false;
                     //备份地图综合筛选条件
                     this.savedFilterOptions = {
@@ -556,13 +527,17 @@ export default {
     }
 
     .p-search-drawer {
-        .el-drawer {
-            border-radius: 20px 20px 0 0;
-            background: #24292e;
-        }
+        border-radius: 20px 20px 0 0;
+        background: #24292e;
 
         .el-drawer__header {
             margin-bottom: 0;
+            color: #72767b;
+        }
+
+        .el-drawer__body {
+            padding: 0;
+            overflow: hidden;
         }
 
         .u-search-title {
@@ -597,7 +572,7 @@ export default {
                 gap: 10px;
 
                 .u-first-map {
-                    width: 80px;
+                    width: 100px;
                     flex-shrink: 0;
                 }
 
@@ -698,7 +673,7 @@ export default {
 
         // 底部按钮样式
         .search-button-group {
-            padding: 16px 20px;
+            padding: 12px 20px 16px 20px;
             display: flex;
             justify-content: flex-end;
             gap: 20px;

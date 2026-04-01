@@ -1,23 +1,12 @@
 <template>
-    <el-drawer
-        title="选择角色"
-        :model-value="drawerVisible"
-        direction="btt"
-        size="420px"
-        @close="handleClose"
-        class="c-role-list-drawer"
-    >
+    <el-drawer title="选择角色" :model-value="drawerVisible" direction="btt" size="420px" @close="handleClose"
+        class="c-role-list-drawer">
         <div class="role-list-wrapper">
             <div class="role-list-container" ref="roleListContainer">
                 <!-- 角色列表 -->
                 <div class="role-items">
-                    <div
-                        class="role-item"
-                        v-for="(role, index) in roles"
-                        :key="index"
-                        @click="selectRole(role)"
-                        :class="{ selected: selectedRole.jx3id == role.jx3id }"
-                    >
+                    <div class="role-item" v-for="(role, index) in roles" :key="index" @click="selectRole(role)"
+                        :class="{ selected: selectedRole.jx3id == role.jx3id }">
                         <div class="u-img">
                             <RoleAvatar class="u-avatar-img" :mount="role.mount" :body_type="role.body_type" />
                             <div class="role-name">{{ role.name }}</div>
@@ -188,13 +177,16 @@ export default {
 
 <style lang="less">
 .c-role-list-drawer {
-    .el-drawer {
-        border-radius: 20px 20px 0 0;
-        background: #24292e;
-    }
+    border-radius: 20px 20px 0 0;
+    background: #24292e;
 
     .el-drawer__header {
         margin-bottom: 0;
+        color: #72767b;
+    }
+
+    .el-drawer__body {
+        padding: 0;
     }
 
     .role-list-wrapper {

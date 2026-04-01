@@ -9,36 +9,27 @@
             </div>
 
             <!-- 用户信息展示 -->
-            <div
-                :style="{
-                    opacity: currentRole ? 1 : 0.5,
-                }"
-                class="m-info-user"
-            >
-                <span class="u-name"
-                    >{{ currentRole.name }}
+            <div :style="{
+                opacity: currentRole ? 1 : 0.5,
+            }" class="m-info-user">
+                <span class="u-name">{{ currentRole.name }}
                     {{ currentRole.server && "·" }}
-                    {{ currentRole.server }}</span
-                >
+                    {{ currentRole.server }}</span>
                 <el-dropdown trigger="click">
                     <div class="u-toggle-btn">
                         <img src="@/assets/img/wiki/overview/toggle-user-icon.svg" alt="" />
                     </div>
                     <template #dropdown>
-                    <el-dropdown-menu class="m-role-dropdown">
-                        <el-dropdown-item v-for="role in roleList" :key="role.ID">
-                            <div
-                                @click="onChangeRole(role)"
-                                class="m-role-item"
-                                :class="{
+                        <el-dropdown-menu class="m-role-dropdown">
+                            <el-dropdown-item v-for="role in roleList" :key="role.ID">
+                                <div @click="onChangeRole(role)" class="m-role-item" :class="{
                                     active: role.jx3id === currentRole.jx3id,
-                                }"
-                            >
-                                <span>{{ role.name }}</span>
-                                <span>{{ role.server }}</span>
-                            </div>
-                        </el-dropdown-item>
-                    </el-dropdown-menu>
+                                }">
+                                    <span>{{ role.name }}</span>
+                                    <span>{{ role.server }}</span>
+                                </div>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
                     </template>
                 </el-dropdown>
                 <div class="u-user-all_achievement">
@@ -55,16 +46,9 @@
                 ③在自选中，你可以通过选择总览按照分类或地图，选择相应的成就，系统将会按照难度从低到高排列生成
             </div>
             <div class="m-tables">
-                <el-table
-                    :data="list"
-                    style="width: 100%"
-                    stripe
-                    row-class-name="u-table-row"
-                    cell-class-name="u-table-cell"
-                    header-row-class-name="u-table-header_row"
-                    header-cell-class-name="u-table-header_cell"
-                    v-loading="loading"
-                >
+                <el-table :data="list" style="width: 100%" stripe row-class-name="u-table-row"
+                    cell-class-name="u-table-cell" header-row-class-name="u-table-header_row"
+                    header-cell-class-name="u-table-header_cell" v-loading="loading">
                     <el-table-column prop="title">
                         <template #header>
                             <div class="u-table-cell_left">方案名称</div>
@@ -93,8 +77,8 @@
                         <template #default="scope">
                             <div style="text-align: right">
                                 {{ scope.row.is_official == 1 ? "魔盒" : "玩家" }}
-                            </div></template
-                        >
+                            </div>
+                        </template>
                     </el-table-column>
                     <el-table-column width="180">
                         <template #header>
@@ -102,27 +86,15 @@
                         </template>
                         <template #default="scope">
                             <div style="text-align: right">
-                                <el-button
-                                    type="danger"
-                                    icon="Delete"
-                                    size="small"
-                                    round
-                                    @click="deleteItem(scope.row)"
-                                    >删除</el-button
-                                >
-                            </div></template
-                        >
+                                <el-button type="danger" icon="Delete" size="small" round
+                                    @click="deleteItem(scope.row)">删除</el-button>
+                            </div>
+                        </template>
                     </el-table-column>
                 </el-table>
                 <div class="u-page">
-                    <el-pagination
-                        background
-                        hide-on-single-page
-                        layout="prev, pager, next"
-                        :page-size="queryParams.per"
-                        :total="pageTotal"
-                        @current-change="pageChange"
-                    >
+                    <el-pagination background hide-on-single-page layout="prev, pager, next"
+                        :page-size="queryParams.per" :total="pageTotal" @current-change="pageChange">
                     </el-pagination>
                 </div>
             </div>
@@ -133,13 +105,8 @@
             </div>
         </div>
         <!-- 方案弹窗 -->
-        <createFrom
-            :show="showForm"
-            :currentRole="currentRole"
-            :pointsData="pointsData"
-            @reloadList="reloadList"
-            @cancel="showForm = false"
-        ></createFrom>
+        <createFrom :show="showForm" :currentRole="currentRole" :pointsData="pointsData" @reloadList="reloadList"
+            @cancel="showForm = false"></createFrom>
         <!-- 方案详情 -->
         <detail v-if="showDetail && !isEmpty(currentRole)" :currentRole="currentRole" />
     </div>
@@ -179,7 +146,7 @@ export default {
             this.showDetail = true;
         }
     },
-    mounted() {},
+    mounted() { },
     methods: {
         iconLink,
         getLink,
@@ -303,6 +270,7 @@ export default {
     width: 960px;
     height: 97%;
     box-sizing: border-box;
+
     .m-info-user {
         .flex;
         .h(35px);
@@ -310,11 +278,12 @@ export default {
         align-items: center;
 
         .u-name {
-            .fz(16px,25px);
-            .mr(8px );
+            .fz(16px, 25px);
+            .mr(8px);
             .bold;
             color: #fff;
         }
+
         .u-toggle-btn {
             .flex;
             .flex(o);
@@ -322,21 +291,25 @@ export default {
             color: #ffeccc;
             cursor: pointer;
         }
+
         .u-user-all_achievement {
-            .fz(16px,25px);
-            .ml(8px );
+            .fz(16px, 25px);
+            .ml(8px);
             color: #ffeccc;
+
             span {
                 color: #fff;
             }
         }
     }
+
     .m-title {
         .flex;
         align-items: center;
         justify-content: space-between;
         .pb(12px);
         border-bottom: 2px solid #fff;
+
         // .mb(8px);
         .u-label-box {
             .flex;
@@ -344,6 +317,7 @@ export default {
             .w(130px);
             flex-shrink: 0;
         }
+
         .u-label {
             .w(115px);
             flex-shrink: 0;
@@ -352,8 +326,9 @@ export default {
             .bold(900);
             color: #fff;
         }
+
         .u-btn-created {
-            .size(120px,20px);
+            .size(120px, 20px);
             flex-shrink: 0;
             border: 1px solid #ffeccc;
             .r(10px);
@@ -363,10 +338,12 @@ export default {
             color: #e2d3b9;
             cursor: pointer;
             .fz(14px);
+
             .u-add-icon {
                 .fz(16px);
             }
         }
+
         .u-tip {
             flex: 1;
             color: rgba(255, 236, 204, 1);
@@ -374,18 +351,22 @@ export default {
             .bold(400);
         }
     }
+
     .m-tables {
         .mb(8px);
+
         .el-table {
             &::before {
                 height: 0;
             }
         }
+
         .el-table,
         .u-table-header_row,
         .u-table-header_cell {
             background-color: transparent;
-            .el-table__body tr:hover > td {
+
+            .el-table__body tr:hover>td {
                 background-color: #f3f0ed;
             }
         }
@@ -393,12 +374,14 @@ export default {
         .u-table-header_cell {
             .x;
             color: rgba(245, 224, 201, 1);
+
             .u-table-cell_left {
                 padding-left: 0;
                 padding-right: 0;
                 .w(100%);
                 text-align: left;
             }
+
             .u-table-cell_right {
                 padding-left: 0;
                 padding-right: 0;
@@ -406,50 +389,62 @@ export default {
                 text-align: right;
             }
         }
+
         .u-table-cell {
             .x;
             color: rgba(112, 83, 45, 1);
+
             a {
                 color: rgba(112, 83, 45, 1);
             }
         }
+
         .u-table-row {
+
             //奇偶选择器
             &:nth-child(odd) {
                 background: #ebe5df;
             }
+
             &:nth-child(even) {
                 background: #fff;
             }
         }
+
         .u-page {
             .mt(6px);
             text-align: right;
 
             .el-pagination.is-background .el-pager li:not(.disabled):hover {
+                background-color: #ffeccc;
                 color: rgba(112, 83, 45, 1);
             }
-            .el-pagination.is-background .el-pager li:not(.disabled).active {
+
+
+            .el-pagination.is-background .el-pager li.is-active {
                 background-color: #ffeccc;
                 color: rgba(112, 83, 45, 1);
             }
         }
     }
+
     .m-main {
         .u-tips {
             .pt(10px);
             color: rgba(245, 224, 201, 1);
-            .fz(14px,24px);
+            .fz(14px, 24px);
         }
+
         .u-btn {
             border: 1px solid #ffeccc;
             .r(10px);
-            .size(960px,360px);
+            .size(960px, 360px);
             .flex;
             .flex(o);
             flex-direction: column;
             color: #e2d3b9;
             cursor: pointer;
+
             .u-add-icon {
                 .fz(42px);
             }

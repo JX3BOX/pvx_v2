@@ -27,8 +27,7 @@
                 <span class="progress-percentage">{{ totalProgress }}<span>%</span></span>
                 <span class="progress-value">
                     <!-- 总点数万字位以上 -->
-                    {{ ownPointsCountW }}<span>{{ ownPointsCountOther }}</span></span
-                >
+                    {{ ownPointsCountW }}<span>{{ ownPointsCountOther }}</span></span>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill" :style="{ width: totalProgress + '%' }"></div>
@@ -38,33 +37,21 @@
         <div class="friend-comparison">
             <div class="section-title">
                 <div class="title-content" @click="handleClickBtn('friendComparison')">
-                    <img
-                        height="24"
-                        :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/comparison.svg`)"
-                        class="u-icon-left"
-                    />
+                    <img :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/comparison.svg`)"
+                        class="u-icon-left" />
                     亲友对比
                 </div>
-                <img
-                    height="14"
-                    :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/right.svg`)"
-                    class="u-icon-right"
-                />
+                <img :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/right.svg`)"
+                    class="u-icon-right" />
             </div>
             <div class="section-title disabled">
                 <div class="title-content">
-                    <img
-                        height="24"
-                        :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/improvement.svg`)"
-                        class="u-icon-left"
-                    />
+                    <img :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/improvement.svg`)"
+                        class="u-icon-left" />
                     渡劫方案
                 </div>
-                <img
-                    height="14"
-                    :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/right.svg`)"
-                    class="u-icon-right"
-                />
+                <img :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/right.svg`)"
+                    class="u-icon-right" />
             </div>
         </div>
         <!-- 进度概览 -->
@@ -75,43 +62,29 @@
 
             <!-- 分类进度卡片 -->
             <div class="category-progress">
-                <div
-                    class="progress-card"
-                    v-for="(category, index) in list"
-                    :key="index"
-                    @click="handleClick(category)"
-                >
+                <div class="progress-card" v-for="(category, index) in list" :key="index"
+                    @click="handleClick(category)">
                     <!-- 详细模式top -->
                     <div class="u-top-detailed">
                         <div class="u-name">{{ category.name }}</div>
                         <div class="progress-bar-small">
-                            <div
-                                class="progress-fill"
-                                :style="{ width: getCurrentProgress(category.ownPoints, category.allPoints) + '%' }"
-                            ></div>
+                            <div class="progress-fill"
+                                :style="{ width: getCurrentProgress(category.ownPoints, category.allPoints) + '%' }">
+                            </div>
                         </div>
                         <div class="progress-percentage-small">
                             {{ getCurrentProgress(category.ownPoints, category.allPoints) }}%
                         </div>
                         <div class="u-info">
                             <div class="u-num">
-                                <img
-                                    width="14"
-                                    height="14"
-                                    :src="
-                                        require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/count.svg`)
-                                    "
-                                    alt="成就logo"
-                                />
+                                <img width="14" height="14" :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/count.svg`)
+                                    " alt="成就logo" />
                                 {{ category.ownAchievements.length }}/{{ category.allAchievements.length }}
                             </div>
                             <div class="u-num">
-                                <img
-                                    width="14"
-                                    height="14"
+                                <img width="14" height="14"
                                     :src="require(`@/assets/img/wiki_miniprogram/${isDark ? 'Dark' : 'Light'}/sum.svg`)"
-                                    alt="资历logo"
-                                />
+                                    alt="资历logo" />
                                 {{ category.ownPoints }}/{{ category.allPoints }}
                             </div>
                         </div>
@@ -124,12 +97,8 @@
             </div>
         </div>
         <!-- 角色列表 -->
-        <RoleListVue
-            v-model:visible="drawerVisible"
-            :roles="roleList"
-            :currentRole="currentRole"
-            @confirmSelection="handleConfirmSelection"
-        >
+        <RoleListVue v-model:visible="drawerVisible" :roles="roleList" :currentRole="currentRole"
+            @confirmSelection="handleConfirmSelection">
         </RoleListVue>
     </div>
 </template>
@@ -535,6 +504,14 @@ export default {
                 display: flex;
                 align-items: center;
                 gap: 8px;
+
+                .u-icon-left {
+                    height: 24px;
+                }
+            }
+
+            .u-icon-right {
+                height: 14px;
             }
 
             &.disabled {

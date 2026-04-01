@@ -84,7 +84,7 @@
         <DeleteRole v-model:visible="delDrawerVisible" :role="deleteRoleInfo" @deleteRole="handleDeleteRoleConfirm" />
         <!-- 分类卡片抽屉 -->
         <CataloguePop v-model:visible="drawerCatalogueVisible" :category="currentCategory" :compareRoles="compareRoles"
-             @handleDetailClick="handleDetailClick" />
+            @handleDetailClick="handleDetailClick" />
     </div>
 </template>
 
@@ -258,7 +258,7 @@ export default {
         },
         // 分类抽屉查看详情点击事件
         handleDetailClick() {
-            this.drawerCatalogueVisible = false;
+            // this.drawerCatalogueVisible = false;
             let query_role = []
             this.compareRoles.forEach((role, index) => {
                 query_role.push(`${role.jx3id}|${role.server}|${role.mount}|${role.body_type}|${role.name}`)
