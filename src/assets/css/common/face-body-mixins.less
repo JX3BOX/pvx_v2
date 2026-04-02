@@ -234,7 +234,7 @@
             .pointer;
             .bold;
             .fz(16px, 39px);
-            .size(120px, 39px);
+            .size(130px, 39px);
             .r(5px);
             background: #6b52ff;
             color: #fff;
@@ -538,11 +538,7 @@
 }
 
 .pvx-files-list-mixin() {
-    padding: 20px;
     .r(10px);
-    margin-top: 20px;
-    background: #fff;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 .pvx-single-buy-box-mixin() {
@@ -762,6 +758,11 @@
 
         span {
             margin-right: 10px;
+            color: rgb(194, 197, 199);
+
+            &.active {
+                color: #333;
+            }
         }
     }
 

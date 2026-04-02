@@ -1,136 +1,37 @@
 <template>
     <div class="p-body-single" v-loading="loading" ref="singleRef">
-        <div class="m-navigation">
-            <div class="u-goback" @click="goBack">返回列表</div>
-
-            <div class="m-body-btn-box">
-                <a :href="publish_link" target="_blank">
-                    <div class="u-body-publish">
-                        <img svg-inline src="@/assets/img/common/face-body/publish.svg" class="u-img" />
-                        <span>发布体型</span>
-                    </div>
-                </a>
-                <a href="/os/#/omp/pvx/bodydata" target="_blank">
-                    <div size="medium" class="u-manage"></div>
-                </a>
-            </div>
-        </div>
-        <!-- 基本信息 -->
-        <div class="m-header">
-            <div class="m-header-info">
-                <h2>
-                    {{ post.title || "无标题" }}
-                    <el-tag class="u-status" v-if="post.status != 1" effect="dark" type="danger">已下架</el-tag>
-                </h2>
-                <div class="u-author">
-                    <img class="u-avatar" :src="showAvatar(post.user_avatar)" :alt="post.user_avatar_frame" />
-                    <a class="u-name" :href="authorLink(post.user_id)" target="_blank" v-if="!!post.original">{{
-                        post.display_name
-                    }}</a>
-                    <a class="u-name" :href="post.author_link" target="_blank" v-else-if="post.author_link">{{
-                        post.author_name
-                    }}</a>
-                    <span class="u-name" v-else>{{ post.author_name }}</span>
-                    <time class="u-time">{{ post.updated_at }}</time>
-                    <a class="u-edit" v-if="canEdit" :href="editLink('body', post.id)" target="_blank">
-                        <el-icon class="u-edit-icon">
-                            <EditPen />
-                        </el-icon>
-                        编辑
-                    </a>
-                </div>
-                <div class="u-meta">
-                    <i class="u-mark" v-if="!!post.star">★ 编辑推荐</i>
-                    <i class="u-fr" v-if="!!post.is_fr">首发</i>
-                    <i class="u-original" v-if="!!post.original">原创</i>
-                    <i class="u-client" :class="post.client || 'std'">{{ showClientLabel(post.client) }}</i>
-                    <i class="u-bodytype" :class="'u-bodytype-' + post.body_type" v-if="post.body_type">{{
-                        showBodyTypeLabel(post.body_type)
-                    }}</i>
-                </div>
-            </div>
-            <a :href="tvLink" target="_blank" class="m-topic" v-if="topicText">{{ topicText }}</a>
-        </div>
-
+        <!-- 导航区域 - 使用公共组件 -->
+        <SingleNavigation type="body" @go-back="goBack" />
+        
+        <!-- 头部信息 - 使用公共组件 -->
+        <SingleHeader
+            :post="post"
+            type="body"
+            :canEdit="canEdit"
+            :topicText="topicText"
+        />
+        
         <div class="m-body-content">
-            <div class="m-single-pics m-single-content-box" v-if="previewSrcList">
-                <!-- 动态改为当前图片 -->
-                <div v-if="previewSrcList.length === 0" class="u-no-pic">
-                    <el-icon>
-                        <Picture />
-                    </el-icon>
-                    <span>该脸型数据暂无图片</span>
-                </div>
-                <template v-else>
-                    <div class="u-bg-wrap">
-                        <div class="u-bg" :style="{ backgroundImage: `url(${showPic(activePic)})` }"></div>
-                    </div>
-                    <el-carousel class="m-carousel" :interval="4000" type="card" arrow="always"
-                        @change="carouselChange">
-                        <el-carousel-item v-for="(item, i) in previewSrcList" :key="i">
-                            <div class="m-body-pic">
-                                <el-image ref="previewImage" fit="contain" :src="showPic(item)" class="u-pic"
-                                    :preview-src-list="resolveImageArr(previewSrcList)" :initial-index="previewIndex"
-                                    @click.capture="handlePreviewImage(i)"></el-image>
-                            </div>
-                        </el-carousel-item>
-                    </el-carousel>
-                </template>
-            </div>
-
-            <!-- 右侧 -->
-            <div class="m-body-pay">
-                <div class="m-body-buy" :class="{ 'm-dowload': (post.price_type && post.price_type === 0) || has_buy }">
-                    <div class="m-body-buy-btn" @click="bodyPay()"
-                        v-if="post.price_type && post.price_type != 0 && !has_buy">
-                        <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
-                        <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
-                        <div class="u-buy"><img :src="iconShopcart" alt="" />购买
-                        </div>
-                    </div>
-                    <div class="m-body-buy-btn" v-else @click="downloadAll">
-                        <div class="u-buy"><img :src="iconDownload" alt="" />下载数据</div>
-                    </div>
-
-                    <div class="u-update-time">更新时间： {{ post.updated_at }}</div>
-                    <img class="u-box-img" src="https://cdn.jx3box.com/design/pvx/stroke.svg" />
-                </div>
-                <div class="m-body-tips" v-if="post.game_price">
-                    <img :src="iconInfo" alt="" />
-                    <div class="u-tips-left">该数据含游戏内收费项目，总计约</div>
-                    <div class="u-tips-right">{{ post.game_price }}通宝</div>
-                </div>
-                <div class="u-body-desc-tab">
-                    <span @click="rightShow = 'desc'"
-                        :style="rightShow === 'data' ? 'color: #c2c5c7;cursor: pointer;' : ''">说明</span>
-                    <span @click="rightShow = 'data'" v-if="downFileList && downFileList.length"
-                        :style="rightShow === 'desc' ? 'color: #c2c5c7;cursor: pointer;' : ''">数据列表</span>
-                </div>
-                <div class="m-body-desc"
-                    :class="{ 'no-desc': !post.remark && rightShow === 'desc', 'is-desc': rightShow === 'desc' }">
-                    <div v-if="rightShow === 'desc'" class="u-desc">
-                        {{ post.remark }}
-                    </div>
-                    <div class="m-body-files-list" v-if="rightShow === 'data' && downFileList && downFileList.length">
-                        <div class="u-file" v-for="item in downFileList" :key="item.id">
-                            <div class="u-info">
-                                <span class="u-label"> {{ item.name }} </span>
-                                <span class="u-label">
-                                    备注 ： <em>{{ item.describe || "无" }}</em>
-                                </span>
-                            </div>
-                            <a class="u-action" href="" @click.prevent="getDownUrl(item.uuid, item.name)">下载</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="m-body-head" v-if="topic_info">
-                    <img :src="iconCup" alt="" />
-                    该体型于{{ topic_info.created_at }}荣登头条
-                </div>
-            </div>
+            <!-- 图片轮播 - 使用公共组件 -->
+            <SingleCarousel
+                :imageList="previewSrcList"
+                type="body"
+            />
+            
+            <!-- 右侧购买/下载区域 - 使用公共组件 -->
+            <SinglePaySection
+                :post="post"
+                type="body"
+                :hasBuy="has_buy"
+                :fileList="downFileList"
+                :topicInfo="topic_info"
+                @pay="bodyPay"
+                @download="downloadAll"
+                @download-file="handleDownloadFile"
+            />
         </div>
-        <!-- 数据区 -->
+        
+        <!-- 数据分析区域 -->
         <div class="m-single-data">
             <span class="m-single-data-title">独家数据分析</span>
             <Bodydat v-if="bodydata" :data="bodydata" />
@@ -139,28 +40,29 @@
                     v-if="post.price_type && post.price_type != 0 && !has_buy">
                     <div class="u-price" v-if="post.price_type == 1">售价：{{ post.price_count }} 盒币</div>
                     <div class="u-price" v-if="post.price_type == 2">售价：{{ post.price_count }} 金箔</div>
-                    <div class="u-buy"><img :src="iconShopcart" alt="" />购买
-                    </div>
+                    <div class="u-buy"><img :src="iconShopcart" alt="" />购买</div>
                 </div>
                 <div class="u-body-buy-tip">数据分析将在购买后解锁</div>
             </div>
         </div>
+        
         <div class="m-body-download" v-if="has_buy && bodydata">
             <div class="m-body-buy-btn" @click="downloadAll">
                 <div class="u-buy"><img :src="iconDownload" alt="" />下载数据</div>
             </div>
         </div>
+        
         <div class="u-about-author">关于作者</div>
         <authorItem :uid="post.user_id" />
-        <div class="m-random-list">
-            <div class="u-list m-single-content-box m-author-faces" v-if="randomList.length">
-                <bodyItem class="u-item" :item="item" :noName="true" v-for="item in randomList" :key="item.id" />
-            </div>
-        </div>
+        
+        <!-- 随机推荐列表 - 使用公共组件 -->
+        <SingleRandomList :list="randomList" type="body" />
+        
         <!-- 点赞 -->
         <Thx class="m-thx m-single-content-box" :postId="id" postType="body" :postTitle="post.title || '无标题'"
             :userId="post.user_id" :adminBoxcoinEnable="post.status == 1" :userBoxcoinEnable="post.status == 1"
             :client="post.client" />
+        
         <!-- 评论 -->
         <div class="m-comments m-single-content-box">
             <el-divider content-position="left">讨论</el-divider>
@@ -173,6 +75,13 @@
 /**
  * Single.vue - 体型数据详情页
  * 主要功能：展示体型数据详情、图片预览、购买/下载、评论等
+ * 
+ * 重构说明：
+ * - 引入 SingleNavigation 公共组件替换导航区域
+ * - 引入 SingleHeader 公共组件替换头部信息
+ * - 引入 SingleCarousel 公共组件替换图片轮播
+ * - 引入 SinglePaySection 公共组件替换购买下载区域
+ * - 引入 SingleRandomList 公共组件替换随机推荐列表
  */
 import {
     getOneBodyInfo,
@@ -181,7 +90,6 @@ import {
     getAccessoryList,
     getDownUrl as fetchDownUrl,
     getRandomBody,
-    getRandomFaceAndBody,
     setStar,
     cancelStar,
     onlineBody,
@@ -191,31 +99,38 @@ import {
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 import Comment from "@jx3box/jx3box-ui/src/single/Comment.vue";
-// import Bodydat from "./components/Bodydat.vue";
 import Bodydat from "@jx3box/jx3box-facedat/src/Bodydat.vue";
-import { editLink, showAvatar, authorLink, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
 import bodyData from "@jx3box/jx3box-data/data/role/body.json";
 import { __clients, __imgPath } from "@/utils/config";
 
-import bodyItem from "./components/item.vue";
 import authorItem from "@/components/common/face-body/author";
 import { downloadZip } from "@/utils/exportFileZip";
 import dayjs from "@/utils/day";
 
+// 引入公共组件
+import SingleNavigation from "@/components/common/face-body/SingleNavigation.vue";
+import SingleHeader from "@/components/common/face-body/SingleHeader.vue";
+import SingleCarousel from "@/components/common/face-body/SingleCarousel.vue";
+import SinglePaySection from "@/components/common/face-body/SinglePaySection.vue";
+import SingleRandomList from "@/components/common/face-body/SingleRandomList.vue";
+
 import iconShopcart from "@/assets/img/common/face-body/shopcart.svg";
 import iconDownload from "@/assets/img/common/face-body/download.svg";
-import iconInfo from "@/assets/img/common/face-body/info.svg";
-import iconCup from "@/assets/img/common/face-body/cup.svg";
 
 const { bodyMap } = bodyData;
+
 export default {
     name: "single",
     components: {
         Bodydat,
         Comment,
-        bodyItem,
         authorItem,
+        SingleNavigation,
+        SingleHeader,
+        SingleCarousel,
+        SinglePaySection,
+        SingleRandomList,
     },
     data: function () {
         return {
@@ -232,14 +147,9 @@ export default {
             },
             payBtnLoading: false,
             randomList: [],
-            carouselActive: 0,
-            previewIndex: 0,
-            rightShow: "desc",
             topic_info: null,
             iconShopcart,
             iconDownload,
-            iconInfo,
-            iconCup,
         };
     },
     computed: {
@@ -254,10 +164,6 @@ export default {
         },
         isAuthor: function () {
             return this.post?.user_id == User.getInfo().uid || false;
-        },
-        facedata: function () {
-            const data = this.post?.data || "";
-            return data.indexOf("\\") > -1 ? JSON.parse(data) : data;
         },
         bodydata: function () {
             const data = this.post?.data || "";
@@ -277,40 +183,17 @@ export default {
         canEdit: function () {
             return User.isEditor() || this.post?.user_id == User.getInfo().uid;
         },
-        activePic: function () {
-            return this.previewSrcList[this.carouselActive];
-        },
         topicText() {
             return this.topic_info ? `${dayjs.tz(this.topic_info.created_at).format("YYYY年MM月DD日")}荣登头条` : "";
-        },
-        tvLink() {
-            return __imgPath + "index/tv";
         },
     },
     created: function () {
         this.getData();
     },
     methods: {
-        showAvatar(url) {
-            return showAvatar(url, "l");
-        },
-        authorLink,
-        editLink,
         goBack() {
-            document.title = "捏脸分享 - JX3BOX";
+            document.title = "捏体分享 - JX3BOX";
             this.$router.push({ name: "list" });
-        },
-        showClientLabel: function (val) {
-            return this.client_map[val];
-        },
-        showBodyTypeLabel(val) {
-            return bodyMap[val];
-        },
-        carouselChange(val) {
-            this.carouselActive = val;
-        },
-        handlePreviewImage(index) {
-            this.previewIndex = index;
         },
         getData() {
             if (this.id) {
@@ -321,9 +204,7 @@ export default {
                         document.title = this.post.title;
 
                         this.getAccessoryList();
-                        //获取作者作品 和 系统推荐作品
                         this.getRandomBodyList();
-                        // this.getRandomList();
                         this.getSliders();
                     })
                     .catch((err) => {
@@ -336,10 +217,6 @@ export default {
                 postStat("body", this.id);
             }
         },
-        downloadPageQuery(pageIndex) {
-            this.downloadParams.pageIndex = pageIndex;
-            this.getAccessoryList();
-        },
         getAccessoryList() {
             getAccessoryList(this.id, this.downloadParams)
                 .then((res) => {
@@ -349,17 +226,15 @@ export default {
                         this.downFileList = data.list;
                         this.downloadParams.total = data.page.total;
                     }
-                    if (!this.post.remark && this.downFileList && this.downFileList.length) {
-                        this.rightShow = "data";
-                    }
                 })
                 .finally(() => {
                     this.loading = false;
                 });
         },
-        getDownUrl(uuid, filename) {
-            fetchDownUrl(this.id, uuid).then((res) => {
-                this.downloadfile(res.data.data?.url, filename);
+        // 处理下载单个文件
+        handleDownloadFile(item) {
+            fetchDownUrl(this.id, item.uuid).then((res) => {
+                this.downloadfile(res.data.data?.url, item.name);
             });
         },
         downloadfile(url, filename) {
@@ -370,7 +245,6 @@ export default {
         getBlob(url) {
             return new Promise((resolve) => {
                 const xhr = new XMLHttpRequest();
-
                 xhr.open("GET", url, true);
                 xhr.responseType = "blob";
                 xhr.onload = () => {
@@ -378,7 +252,6 @@ export default {
                         resolve(xhr.response);
                     }
                 };
-
                 xhr.send();
             });
         },
@@ -388,23 +261,19 @@ export default {
             } else {
                 const link = document.createElement("a");
                 const body = document.querySelector("body");
-
                 link.href = window.URL.createObjectURL(blob);
                 link.download = filename;
-                // fix Firefox
                 link.style.display = "none";
                 body.appendChild(link);
-
                 link.click();
                 body.removeChild(link);
-
                 window.URL.revokeObjectURL(link.href);
             }
         },
         downloadAll() {
             if (this.downFileList.length === 1) {
                 const item = this.downFileList[0];
-                this.getDownUrl(item.uuid, item.name);
+                this.handleDownloadFile(item);
                 return;
             }
             const urlArr = [];
@@ -416,8 +285,8 @@ export default {
             p.then((arr) => {
                 downloadFiles = arr.map((item, index) => {
                     return {
-                        name: this.downFileList[index].name,
-                        url: item.data.data?.url,
+                    name: this.downFileList[index].name,
+                    url: item.data.data?.url,
                     };
                 });
                 downloadZip(downloadFiles, `body_${this.id}.zip`, "url", "name");
@@ -507,127 +376,15 @@ export default {
                 }
             });
         },
-        getRandomList() {
-            const { body_type, client, user_id } = this.post;
-            getRandomFaceAndBody({ body_type, client, user_id, limit: 8 }).then((res) => {
-                const { face, pvxbodyList } = res.data.data;
-                this.face = face;
-                this.pvxbodyList = pvxbodyList || [];
-            });
-        },
-        showPic(url) {
-            return resolveImagePath(url);
-        },
-        starSet() {
-            this.$confirm("确认" + (this.isStar ? "取消精选" : "精选") + "该捏脸？", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning",
-                beforeClose: (action, instance, done) => {
-                    if (action === "confirm") {
-                        instance.confirmButtonLoading = true;
-                        if (this.isStar) {
-                            //取精
-                            cancelStar(this.id)
-                                .then(() => {
-                                    this.$store.state.faceSingle.star = 0;
-                                    done();
-                                    this.$notify({
-                                        title: "成功",
-                                        message: "取消精选成功",
-                                        type: "success",
-                                    });
-                                })
-                                .finally(() => {
-                                    instance.confirmButtonLoading = false;
-                                });
-                        } else {
-                            //精
-                            setStar(this.id)
-                                .then(() => {
-                                    this.$store.state.faceSingle.star = 1;
-                                    done();
-                                    this.$notify({
-                                        title: "成功",
-                                        message: "精选成功",
-                                        type: "success",
-                                    });
-                                })
-                                .finally(() => {
-                                    instance.confirmButtonLoading = false;
-                                });
-                        }
-                    } else {
-                        instance.confirmButtonLoading = false;
-                        done();
-                    }
-                },
-            });
-        },
-        statusSet() {
-            //上下架操作，根据是否isEditor，在接口内调用管理和作者分别的接口
-            this.$confirm("确认" + (this.status == 1 ? "下架" : "上架") + "该捏脸？", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning",
-                beforeClose: (action, instance, done) => {
-                    if (action === "confirm") {
-                        instance.confirmButtonLoading = true;
-                        if (this.status == 1) {
-                            //下架
-                            offlineBody(this.id, this.isEditor)
-                                .then(() => {
-                                    this.$store.state.faceSingle.status = 2;
-                                    done();
-                                    this.$notify({
-                                        title: "成功",
-                                        message: "下架成功",
-                                        type: "success",
-                                    });
-                                })
-                                .finally(() => {
-                                    instance.confirmButtonLoading = false;
-                                });
-                        } else {
-                            //上架
-                            onlineBody(this.id, this.isEditor)
-                                .then(() => {
-                                    this.$store.state.faceSingle.status = 1;
-                                    done();
-                                    this.$notify({
-                                        title: "成功",
-                                        message: "上架成功",
-                                        type: "success",
-                                    });
-                                })
-                                .finally(() => {
-                                    instance.confirmButtonLoading = false;
-                                });
-                        }
-                    } else {
-                        instance.confirmButtonLoading = false;
-                        done();
-                    }
-                },
-            });
-        },
-
-        // 判断是否上过头条
         getSliders() {
             getSliders("slider", this.post.client, 10, this.post.id).then((res) => {
                 if (res.data.data?.list) {
-                    // 取创建时间最新的一条
                     const list = res.data.data.list.sort((a, b) =>
-                        dayjs.tz(b.created_at).isAfter(dayjs.tz(a.created_at)) ? 1 : -1
-                    );
-                    this.topic_info = list[0];
+                    dayjs.tz(b.created_at).isAfter(dayjs.tz(a.created_at)) ? 1 : -1
+                );
+                this.topic_info = list[0];
                 }
             });
-        },
-
-        // 将图片地址替换为cdn
-        resolveImageArr(arr) {
-            return arr.map((item) => resolveImagePath(item));
         },
     },
 };

@@ -186,8 +186,8 @@ export default {
         .pointer;
         .bold;
         .pr(10px);
-        .size(120px, 38px);
-        .fz(16px,38px);
+        .size(130px, 38px);
+        .fz(16px, 38px);
         .r(5px);
         background: @faceColor;
         color: #fff;
