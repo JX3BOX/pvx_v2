@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="u-update-time">更新时间： {{ post.updated_at }}</div>
-                    <img class="u-box-img" :src="iconStroke" />
+                    <img class="u-box-img" src="https://cdn.jx3box.com/design/pvx/stroke.svg" />
                 </div>
                 <div class="m-body-tips" v-if="post.game_price">
                     <img :src="iconInfo" alt="" />
@@ -205,7 +205,6 @@ import dayjs from "@/utils/day";
 
 import iconShopcart from "@/assets/img/common/face-body/shopcart.svg";
 import iconDownload from "@/assets/img/common/face-body/download.svg";
-import iconStroke from "@/assets/img/common/face-body/stroke.svg";
 import iconInfo from "@/assets/img/common/face-body/info.svg";
 import iconCup from "@/assets/img/common/face-body/cup.svg";
 
@@ -239,7 +238,6 @@ export default {
             topic_info: null,
             iconShopcart,
             iconDownload,
-            iconStroke,
             iconInfo,
             iconCup,
         };

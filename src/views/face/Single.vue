@@ -108,7 +108,8 @@
                         {{ post.code }}
                     </div>
                     <div class="u-update-time">更新时间： {{ post.updated_at }}</div>
-                    <img class="u-box-img" :src="require('@/assets/img/common/face-body/stroke.svg')" />
+                    <!-- <img class="u-box-img" :src="require('@/assets/img/common/face-body/stroke.svg')" /> -->
+                    <img class="u-box-img" src="https://cdn.jx3box.com/design/pvx/stroke.svg" />
                 </div>
                 <div class="m-face-tips" v-if="post.game_price">
                     <img :src="require('@/assets/img/common/face-body/info.svg')" alt="" />
