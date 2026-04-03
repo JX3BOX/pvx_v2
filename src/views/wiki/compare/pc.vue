@@ -153,6 +153,7 @@ import { iconLink, getLink } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
 import { getUserRoles } from "@/service/team";
 import { cloneDeep } from "lodash";
+import * as XLSX from 'xlsx';
 export default {
     components: {},
     data() {
