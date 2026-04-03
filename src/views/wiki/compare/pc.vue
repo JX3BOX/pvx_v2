@@ -191,7 +191,7 @@ export default {
             pointsData: [],
 
             searchKeyword: "", //搜索成就关键字
-            searchMap: "",
+            searchMap: [],
             mapList: [],
         };
     },
@@ -271,7 +271,7 @@ export default {
             this.achievementsLoading = true;
             let params = {
                 keyword: this.searchKeyword,
-                scene: this.searchMap[1],
+                scene: this.searchMap?.[1] ?? "",
                 client: this.$store.state.client,
                 _no_page: 1,
                 limit: 99999,
@@ -703,6 +703,7 @@ export default {
 
         .u-tip {
             flex: 1;
+            .h(28px);
 
             // color: rgba(255, 236, 204, 1);
             // .fz(14px);
@@ -720,8 +721,26 @@ export default {
                 border: 0;
             }
 
+            .el-input-group__prepend,
+            .el-input__wrapper {
+                background-color: transparent;
+                box-shadow: none;
+                border: 1px solid rgba(217, 196, 167, 1);
+
+                .el-input__inner {
+                    color: #D9C4A7;
+                }
+            }
+
             .u-cascader {
                 .w(160px);
+                border: none;
+                // border: 1px solid rgba(217, 196, 167, 1);
+                background-color: transparent;
+
+                .el-input__wrapper {
+                    border-right: none;
+                }
             }
 
             .u-btn {
@@ -731,8 +750,15 @@ export default {
         }
 
         .u-radio {
-            min-width: 200px;
+            width: 168px;
             flex-shrink: 0;
+
+            .el-select .el-select__wrapper {
+                background-color: transparent;
+                box-shadow: none;
+                border: 1px solid rgba(217, 196, 167, 1);
+            }
+
 
             :deep(.el-select__tags) {
                 max-width: 100% !important;
@@ -757,7 +783,7 @@ export default {
         .u-left {
             flex: 0 0 106px;
             color: #ffeccc;
-            background: linear-gradient(180deg, #000000 0%, #000000 100%);
+            background: #1b1814;
             height: 100%;
             overflow-y: auto;
 
@@ -978,9 +1004,11 @@ export default {
                         background: #fff;
                         border: 1px solid #6e6e6d;
                         .r(4px);
+                        .flex;
+                        .flex(o);
 
-                        i {
-                            .fz(24px);
+                        legacyicon {
+                            .fz(17px);
                             .bold(600);
                             color: #000;
                             display: none;
@@ -989,7 +1017,7 @@ export default {
                         &.finish {
                             background: linear-gradient(180deg, rgba(181, 148, 87, 1) 0%, rgba(227, 211, 191, 1) 100%);
 
-                            i {
+                            legacyicon {
                                 display: block;
                             }
                         }
@@ -999,7 +1027,7 @@ export default {
 
             .u-zl-add_item {
                 cursor: pointer;
-                .size(200px, 100%);
+                .size(168px, 100%);
                 .fz(22px);
                 .flex;
                 .flex(o);

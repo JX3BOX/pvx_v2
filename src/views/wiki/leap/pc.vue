@@ -189,7 +189,7 @@ export default {
         getRoleGameAchievements(val) {
             getRoleGameAchievements(val?.jx3id || this.currentRole.jx3id).then((res) => {
                 val ? (this.currentRole = val) : "";
-                this.currentRole.achievements = res.data?.data?.achievements || [];
+                this.currentRole.achievements = res.data?.data?.achievements || "";
                 //计算角色总资历
                 let total = 0,
                     arr = cloneDeep(this.currentRole.achievements).split(",") || [];
