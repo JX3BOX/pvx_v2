@@ -4,6 +4,15 @@
         <div class="u-title">
             <div class="u-label">亲友对比</div>
             <div class="u-tip">
+                <div class="u-select">
+                    <el-select v-model="selectTab" placeholder="请选择" multiple collapse-tags clearable
+                        @change="selectTabChange">
+                        <el-option v-for="item in selectOptions" :key="item.type" :label="item.name" :value="item.type"
+                            :disabled="isSelectDisabled(item.type)">
+                        </el-option>
+                    </el-select>
+                </div>
+
                 <!-- *根据成就未完成人数由多到少排序。 -->
                 <el-input placeholder="输入成就名称/成就描述/称号/奖励物品「回车」进行搜索" v-model="searchKeyword" class="u-search-input"
                     @keydown.enter="searchHandle">
@@ -15,14 +24,8 @@
                             @click="searchHandle"></el-button></template>
                 </el-input>
             </div>
-            <div class="u-radio">
-                <!-- <el-radio value="1" size="large">仅显示共同未完成</el-radio> -->
-                <el-select v-model="selectTab" placeholder="请选择" multiple collapse-tags clearable
-                    @change="selectTabChange">
-                    <el-option v-for="item in selectOptions" :key="item.type" :label="item.name" :value="item.type"
-                        :disabled="isSelectDisabled(item.type)">
-                    </el-option>
-                </el-select>
+            <div class="u-export" @click="exportToExcel">
+                导出当前表格
             </div>
         </div>
         <div class="m-compare-main">
@@ -33,9 +36,9 @@
                     show: item.sub == activeIndex && !activeShow,
                 }" v-for="(item, index) in menuList" :key="index" @click="setActiveIndex(item.sub)">
                     <div class="u-zl-item_title">
-                        {{ item.name }}&nbsp;
-                        <LegacyIcon :class="item.sub == activeIndex && activeShow ? 'el-icon-caret-top' : 'el-icon-caret-bottom'
-                            " @click.stop="setActiveShow(item.sub)" />
+                        {{ item.name }}
+                        <!-- &nbsp;<LegacyIcon :class="item.sub == activeIndex && activeShow ? 'el-icon-caret-top' : 'el-icon-caret-bottom'
+                            " @click.stop="setActiveShow(item.sub)" /> -->
                     </div>
                     <li class="u-zl-item_children" :class="{ active: item2.detail == activeIndexChildren }"
                         v-for="(item2, index2) in item.children" :key="index2"
@@ -91,8 +94,8 @@
                     </div>
                 </div>
                 <div class="u-zl-add_item" @click="addRole">
-                    <LegacyIcon class="el-icon-circle-plus-outline u-add-icon" />
-                    <div>添加角色</div>
+                    <img class="u-add-icon" :src="require('@/assets/img/wiki/compare/add.svg')" alt="" />
+                    <div class="u-add-txt">添加角色</div>
                 </div>
             </div>
         </div>
@@ -596,6 +599,161 @@ export default {
             this.achievements = achievementsFilter;
             this.queryFinish(true);
         },
+        // 导出Excel功能
+        exportToExcel() {
+            try {
+                // 验证必要数据
+                if (!this.achievements || this.achievements.length === 0) {
+                    this.$message.warning('暂无成就数据可导出');
+                    return;
+                }
+                if (!this.contrastKith || this.contrastKith.length === 0) {
+                    this.$message.warning('请先添加对比角色');
+                    return;
+                }
+
+                // 获取共同完成情况描述
+                let completionStatus = '全部成就';
+                if (this.selectTab && this.selectTab.length > 0) {
+                    if (this.selectTab.includes('1,1')) {
+                        completionStatus = '共同未完成';
+                    } else {
+                        completionStatus = '自定义筛选';
+                    }
+                }
+
+                // 构建角色列表字符串
+                const roleNames = this.contrastKith.map(role => `${role.name}·${role.server}`).join('-');
+
+                // 构建文件名（使用当前选中的分类）
+                let mainCategoryName = '全部';
+                let subCategoryName = '全部';
+                console.log(this.menuList);
+                if (this.menuList) {
+                    //this.menuList 是一个对象，循环对象
+                    let mainCategory = null;
+                    for (let key in this.menuList) {
+                        if (this.menuList.hasOwnProperty(key)) {
+                            let element = this.menuList[key];
+                            if (element.sub == this.activeIndex) {
+                                mainCategoryName = element.name;
+                                mainCategory = element;
+                                break;
+                            }
+                        }
+                    }
+                    if (this.activeIndexChildren && mainCategory && mainCategory.children && Array.isArray(mainCategory.children)) {
+                        const subCategory = mainCategory.children.find(
+                            child => child.detail == this.activeIndexChildren
+                        );
+                        subCategoryName = subCategory ? subCategory.name : '全部';
+                    }
+                }
+
+                let fileName = `剑网3资历对比-${mainCategoryName}-${subCategoryName}-${completionStatus}（${roleNames}）`;
+                // 处理文件名中的特殊字符
+                fileName = fileName.replace(/[\\/:*?"<>|]/g, '_');
+
+                // 构建Excel数据
+                const excelData = [];
+
+                // 构建表头
+                const headers = ['成就大类', '成就小类', '成就名称'];
+                this.contrastKith.forEach(role => {
+                    headers.push(`${role.name}·${role.server}`);
+                });
+                excelData.push(headers);
+
+                // 辅助函数：根据成就的Sub和Detail获取分类名称
+                const getCategoryNames = (achievement) => {
+                    let mainCat = '未知';
+                    let subCat = '';
+
+                    if (this.menuList) {
+                        // 查找成就大类
+                        let mainCategory = null;
+                        for (let key in this.menuList) {
+                            if (this.menuList.hasOwnProperty(key)) {
+                                let element = this.menuList[key];
+                                if (element.sub == this.activeIndex) {
+                                    mainCategory = element;
+                                    break;
+                                }
+                            }
+                        }
+                        if (mainCategory) {
+                            mainCat = mainCategory.name;
+
+                            // 查找成就小类
+                            if (achievement.Detail && mainCategory.children && Array.isArray(mainCategory.children)) {
+                                const subCategory = mainCategory.children.find(
+                                    child => child.detail === achievement.Detail
+                                );
+                                subCat = subCategory ? subCategory.name : '未知';
+                            }
+                        }
+                    }
+
+                    return { mainCat, subCat };
+                };
+
+                // 构建数据行
+                this.achievements.forEach((achievement, achievementIndex) => {
+                    const rowData = [];
+
+                    // 获取该成就的分类信息
+                    const { mainCat, subCat } = getCategoryNames(achievement);
+
+                    // 成就大类
+                    rowData.push(mainCat);
+
+                    // 成就小类
+                    rowData.push(subCat);
+
+                    // 成就名称
+                    rowData.push(achievement.Name || '');
+
+                    // 各角色完成状态
+                    this.contrastKith.forEach(role => {
+                        const achievementStatus = role.achievements.find(a => a.key === achievementIndex);
+                        const status = achievementStatus && achievementStatus.value !== '-1' ? '已完成' : '未完成';
+                        rowData.push(status);
+                    });
+
+                    excelData.push(rowData);
+                });
+
+
+                // 创建工作簿
+                const workbook = XLSX.utils.book_new();
+
+                // 将数据转换为工作表
+                const worksheet = XLSX.utils.aoa_to_sheet(excelData);
+
+                // 设置列宽
+                const colWidths = [
+                    { wch: 15 }, // 成就大类
+                    { wch: 15 }, // 成就小类
+                    { wch: 30 }, // 成就名称
+                ];
+                this.contrastKith.forEach(() => {
+                    colWidths.push({ wch: 12 }); // 角色列
+                });
+                worksheet['!cols'] = colWidths;
+
+                // 添加工作表到工作簿
+                XLSX.utils.book_append_sheet(workbook, worksheet, '资历对比');
+
+                // 导出文件
+                XLSX.writeFile(workbook, `${fileName}.xlsx`);
+
+                // 提示成功
+                this.$message.success('导出成功');
+            } catch (error) {
+                console.error('导出Excel失败:', error);
+                this.$message.error('导出失败,请重试');
+            }
+        },
     },
 };
 </script>
@@ -635,8 +793,8 @@ export default {
     margin-top: 45px;
     // width: 960px;
 
-    min-width: 960px;
-    max-width: 1520px;
+    min-width: 1200px;
+    max-width: 1620px;
     box-sizing: border-box;
 
     .m-info-user {
@@ -705,10 +863,21 @@ export default {
         .u-tip {
             flex: 1;
             .h(28px);
+            gap: 12px;
+            .flex;
+            align-items: center;
 
-            // color: rgba(255, 236, 204, 1);
-            // .fz(14px);
-            // .bold(400);
+            .u-select {
+                width: 168px;
+            }
+
+            .el-select .el-select__wrapper {
+                background-color: transparent;
+                box-shadow: none;
+                border: 1px solid rgba(217, 196, 167, 1);
+                min-height: 28px;
+            }
+
             .u-search-input {
                 .w(600px);
             }
@@ -727,6 +896,8 @@ export default {
                 background-color: transparent;
                 box-shadow: none;
                 border: 1px solid rgba(217, 196, 167, 1);
+                min-height: 28px;
+                .h(28px);
 
                 .el-input__inner {
                     color: #D9C4A7;
@@ -745,33 +916,30 @@ export default {
             }
 
             .u-btn {
+                .h(28px);
                 background-color: rgba(255, 236, 204, 1);
                 color: #000;
             }
         }
 
-        .u-radio {
-            width: 168px;
+        .u-export {
             flex-shrink: 0;
+            .size(168px, 28px);
+            .r(4px);
+            border: 1px solid rgba(217, 196, 167, 1);
+            .flex;
+            .flex(o);
+            flex-direction: column;
+            padding: 0px 12px 0px 12px;
+            .fz(14px);
+            font-weight: 400;
+            letter-spacing: 0px;
+            color: rgba(217, 196, 167, 1);
 
-            .el-select .el-select__wrapper {
-                background-color: transparent;
-                box-shadow: none;
-                border: 1px solid rgba(217, 196, 167, 1);
-            }
-
-
-            :deep(.el-select__tags) {
-                max-width: 100% !important;
-            }
-
-            :deep(.el-input__inner) {
-                background-color: rgba(255, 255, 255, 0);
-                color: #fff;
-
-                &:focus {
-                    border-color: #fff;
-                }
+            &:hover {
+                background: rgba(217, 196, 167, 1);
+                color: rgba(82, 70, 61, 1);
+                cursor: pointer;
             }
         }
     }
@@ -853,13 +1021,13 @@ export default {
             .h(100%);
             .flex;
             max-width: 1414px;
-            min-width: 854px;
+            min-width: 1093px;
             justify-content: space-between;
 
             .u-zl-box {
                 .h(100%);
                 // max-width: 642px;
-                max-width: 1200px;
+                max-width: 912px;
                 overflow: scroll;
                 .pr;
                 .fz(16px, 24px);
@@ -1033,13 +1201,22 @@ export default {
                 .flex;
                 .flex(o);
                 flex-direction: column;
-                color: #e2d3b9;
                 border-radius: 10px;
                 border: 1px solid #e2d3b9;
                 .ml(12px);
+                box-sizing: border-box;
 
                 .u-add-icon {
-                    .fz(42px);
+                    margin-bottom: 12px;
+                }
+
+                .u-add-txt {
+                    font-size: 24px;
+                    font-weight: 400;
+                    letter-spacing: 0px;
+                    line-height: 34.75px;
+                    color: rgba(226, 211, 185, 1);
+
                 }
             }
         }

@@ -118,6 +118,17 @@ module.exports = {
         },
         allowedHosts: "all",
         port: process.env.DEV_PORT || 12028,
+        client: {
+            overlay: {
+                runtimeErrors: (error) => {
+                    const ignoreErrors = ["ResizeObserver loop completed with undelivered notifications"];
+                    if (ignoreErrors.some((e) => error.message?.includes(e))) {
+                        return false;
+                    }
+                    return true;
+                },
+            },
+        },
     },
 
     // 依赖包（element-plus/theme-chalk 等）会输出大量 Sass deprecation 警告
